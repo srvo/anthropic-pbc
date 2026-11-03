@@ -14,7 +14,7 @@ as endorsements and are never removed.
 
 ## Current paper version
 
-    v0 (2026-11-03)  blake3:627b6093ad59ccbc2ad2fb8f86a94d79d58a1fa0f85f5b6bea5e70e83a1f6c7c
+    v0 (2026-11-03)  blake3:698b6c6785961b566e27dbf6306707ec530b4ba6e9f3823b6a99b3b42504dcea
 
 ## Ledger
 

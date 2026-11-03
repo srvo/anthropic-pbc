@@ -1,8 +1,8 @@
 {
-  "title": "Contrapunctus: Taking Anthropic at Its Word",
+  "title": "Anthropic PBC",
   "upload_type": "publication",
   "publication_type": "report",
-  "description": "A public, versioned, cryptographically verifiable counterpoint to Anthropic's 2026 Public Benefit Report, read against its S-1 and judged by Anthropic's own (CC0) Constitution. Every load-bearing quote is checked byte-exact against the primary filings with the Descartes verifier; endorsements and disputes are collected as cryptographic attestations. Paper v0 BLAKE3: 627b6093ad59ccbc2ad2fb8f86a94d79d58a1fa0f85f5b6bea5e70e83a1f6c7c (provisional until the title is finalized).",
+  "description": "A public, versioned, cryptographically verifiable counterpoint to Anthropic's 2026 Public Benefit Report, read against its S-1 and judged by Anthropic's own (CC0) Constitution. Every load-bearing quote is checked byte-exact against the primary filings with the Descartes verifier; endorsements and disputes are collected as cryptographic attestations. Paper v0 BLAKE3: 698b6c6785961b566e27dbf6306707ec530b4ba6e9f3823b6a99b3b42504dcea (provisional until the title is finalized).",
   "creators": [
     { "name": "Ortel, Sloane", "orcid": "0009-0000-8491-1589", "affiliation": "Ethical Capital" }
   ],

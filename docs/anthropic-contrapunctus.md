@@ -1,16 +1,74 @@
-# Contrapunctus: Taking Anthropic at Its Word
+# Anthropic PBC
 
-### A public, cryptographically verifiable counterpoint to Anthropic's 2026 Public Benefit Report, read against its S-1
+### A cryptographically verifiable counterpoint to Anthropic's 2026 Public Benefit Report
 
-> ###  
-> 
-> 
-> — Sloane Ortel
-> _This block is reserved for the author's top-level notes. It is the one part
-> of this document deliberately **outside** the verification discipline below;
-> everything under the horizontal rule is held to it._
->
-> _(Your comments go here.)_
+> Governance exists so that systems can survive individuals.
+
+I'm publishing this in a personal capacity, to show a set of composable
+governance primitives I've built over the past year as Chief Investment Officer
+at Ethical Capital, a Utah-registered investment adviser. So this is governance
+advice, not investment advice; I hold no direct or indirect position in
+Anthropic, and our screening, our process, and our timestamped analysis of most
+large public companies — the hyperscalers included — are public at ethicic.com.
+A disclosure like that has never satisfied the duty of care I actually feel I
+owe my regulators, my clients, and my community. It leaves the one question that
+matters unanswered: **am I in control of the systems I use to make decisions,
+operate, and balance competing priorities?** You should ask it of anyone — me,
+and Anthropic.
+
+For a long-term investor it isn't optional. Returns materialize over decades, so
+we have to back systems of activity that can survive the loss of any one person;
+and because our ethical criteria are stringent, I care less about correlation
+than about intrinsic alignment — is the thing built, at its core, to do what it
+says? That is exactly what a public benefit corporation is supposed to be. Good
+governance is the kind you can recognize from the outside: you can see how a
+company organizes its operations, and the mindset and values the whole system
+springs from. That is the highest of Donella Meadows' places to intervene in a
+system, and the one almost no one moves.
+
+Here is a public benefit corporation I'm directly involved in:
+[Wood Cache](https://www.woodcache.org). You can understand what it does from the
+website in a minute. The fastest-growing carbon pool in the Mountain West is dead
+trees; they burn, and when they burn they throw off the most dangerous air
+pollution there is. Wood Cache buries that biomass and locks the carbon away
+instead — measured and verified end to end under
+[Puro.earth's terrestrial-storage methodology](https://puro.earth/methodologies/terrestrial-storage-of-biomass/),
+with the burial sites themselves permitted and regulated by the State of Colorado
+as landfills. Sit with the disparity: this is a small, directly observable,
+present public benefit, and the scrutiny on it is immense — while the worst case
+is that carbon which would have burned anyway instead sits underground and breaks
+down over a shorter horizon than the academic models predict. The inputs are
+certain, controlled, and governed; the open questions are mostly market demand
+and economics. That is what a real public benefit looks like, and it is the
+opposite of the sexy move — a convoluted machine that turns carbon into money
+through some bleeding-edge, multi-gigawatt feat of engineering, with the benefit
+arriving, supposedly, later. Accumulate power, pour in capital, trust that impact
+shows up someday: that is the model our culture has learned to call "impact," and
+I don't accept it.
+
+The public-benefit-corporation category is about to balloon when Anthropic lists,
+so it matters, now, to have a way to check whether a benefit claim is actually
+backed by the evidence offered for it. That is what I built. I call it Praxis,
+and I named its parts after philosophers so their jobs are legible: **Descartes**
+verifies the smallest facts it can, with no external input, and signs them; those
+facts accrete into entities and relationships; **Rawls** runs them through a veil
+of ignorance — would you accept this system if you didn't get to choose who you'd
+be inside it? The report below came together largely that way, deterministically,
+with light editorial shaping. It already caught one of my own errors, which is
+the method working, not failing.
+
+Anthropic fails that test in a specific way. The harm is distributed; there is no
+visible feedback loop between the people it lands on now and the people deciding;
+and the structure is a race to be first, in which you cannot help but lose control
+of your effect on others. Set that against Wood Cache: a small, observable benefit
+submits to immense scrutiny, while Anthropic proposes to expose the world to
+genuinely serious risks and — rather than cede control of that exposure, even to
+the users already paying for the compute — insists on holding it itself. It treats
+impact the way finance treats money, too: deploy the capital today, clear your
+return in a decade. But impact is not a single currency, and there is no
+reconciliation unless a governance forces one. What follows takes Anthropic at its
+own word — against its own filings and its own Constitution — and checks, byte by
+byte, where the words and the acts diverge.
 
 ---
 
@@ -853,6 +911,7 @@ distribution, and a public commons.
 
 None of this needs Anthropic's cooperation to exist. That is the point: a
 standard you can only trust if the governed implements it is not a standard.
+
 Praxis is what the check looks like in someone else's hands — and the hands are
 everyone's.
 
