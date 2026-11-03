@@ -36,7 +36,7 @@ Recompute it yourself: `b3sum docs/anthropic-contrapunctus.md`.
 
 ## License
 
-Text licensed **CC BY 4.0** (see `LICENSE`) — reuse with attribution. Quoted
+Dedicated to the public domain under **CC0 1.0** (see `LICENSE`) — reuse freely, no rights reserved. Quoted
 excerpts from Anthropic's filings and Constitution, from SEC/court records, and
 from cited third-party works remain under their own terms.
 
