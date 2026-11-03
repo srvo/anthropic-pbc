@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+message: "If you cite or build on this paper, please cite it using this metadata."
+title: "Contrapunctus: Taking Anthropic at Its Word"   # working title — set your own
+type: report
+abstract: >-
+  A public, versioned, cryptographically verifiable counterpoint to Anthropic's
+  2026 Public Benefit Report, read against its S-1 and judged by Anthropic's own
+  (CC0) Constitution. Every load-bearing quote is checked byte-exact against the
+  primary filings with the Descartes verifier; endorsements and disputes are
+  collected as cryptographic attestations. A working paper for public contest.
+authors:
+  - family-names: Ortel
+    given-names: Sloane
+    orcid: "https://orcid.org/0009-0000-8491-1589"
+    affiliation: "Ethical Capital"
+date-released: 2026-11-03
+version: "v0"
+license: CC-BY-4.0
+keywords:
+  - public benefit corporation
+  - corporate governance
+  - AI governance
+  - verifiable claims
+  - shareholder standing
+identifiers:
+  - type: other
+    value: "blake3:627b6093ad59ccbc2ad2fb8f86a94d79d58a1fa0f85f5b6bea5e70e83a1f6c7c"
+    description: "BLAKE3 content hash of the paper (v0; provisional until the title is finalized)"

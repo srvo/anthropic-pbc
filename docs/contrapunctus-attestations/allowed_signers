@@ -1,0 +1,11 @@
+# allowed_signers for Contrapunctus attestations (OpenSSH format).
+# One line per signer, added with their submission:
+#
+#   "<signer id>" namespaces="contrapunctus" <keytype> <base64 key>
+#
+# Example:
+#   "Example Foundation" namespaces="contrapunctus" ssh-ed25519 AAAAC3NzaC1lZDI1...
+#
+# The signer id must match the `signer:` field in that signer's record.
+# The same public key should be published at the URL in `signer_key_published_at`
+# so anyone can bind the key to the real organization. No signers yet.
