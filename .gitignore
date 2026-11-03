@@ -4,3 +4,4 @@
 docs/contrapunctus-compliance-review.md
 docs/_pending-*.md
 *.draft.md
+.rfcorpus/
