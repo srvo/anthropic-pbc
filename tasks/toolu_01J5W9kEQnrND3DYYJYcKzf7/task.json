@@ -1,0 +1,14 @@
+{
+  "tool_use_id": "toolu_01J5W9kEQnrND3DYYJYcKzf7",
+  "agent_id": "a43c94baa2746af74",
+  "task_description": "Restructure paper question-first",
+  "token_usage": {
+    "input_tokens": 68,
+    "cache_creation_tokens": 160305,
+    "cache_read_tokens": 4386866,
+    "output_tokens": 37302,
+    "api_call_count": 34
+  },
+  "started_at": "2026-11-04T15:29:51.854646-07:00",
+  "completed_at": "2026-11-04T15:36:44.84412-07:00"
+}
