@@ -22,18 +22,18 @@ style: |
 Built from commit `{{source_commit}}` with risk codebook **{{codebook}}**{{codebook_status}}.
 Every number on these slides is read from a committed table at build time.
 
-<span class="tag">Model labels come from two NLI witnesses; a label counts only when both score it ≥ 0.5. Labels are proposals, not hand-verified findings: there is no gold set yet.</span>
+<span class="tag">Model labels come from two NLI witnesses; a label counts only when both score it ≥ {{threshold}}. Labels are proposals, not hand-verified findings: there is no gold set yet.</span>
 
 ---
 
-## The argument (edition v0 of the paper)
+## The argument (edition {{paper_edition}} of the paper)
 
 **{{q_toothless}}**
 
 - {{q_365b}}
 - The public the charter names cannot enforce it.
 
-Edition v0 of the paper (`docs/anthropic-contrapunctus.md` at `{{paper_v0}}`) rests on Anthropic's own filings. This deck looks outward at public data.
+Edition {{paper_edition}} of the paper (`docs/anthropic-contrapunctus.md` at `{{paper_v0}}`) rests on Anthropic's own filings. This deck looks outward at public data.
 
 ---
 
@@ -49,21 +49,21 @@ Edition v0 of the paper (`docs/anthropic-contrapunctus.md` at `{{paper_v0}}`) re
 
 ![h:520](deck/risk-ranking-ttm.svg)
 
-<div class="src">{{ec_ttm_risk_firms}} firms raised AI as a risk in the 12 months to {{as_of}}. Most named: {{ec_top3}}.</div>
+<div class="src">{{ec_ttm_risk_firms}} firms raised AI as a risk in the {{ttm_months}} months to {{as_of}}. Most named: {{ec_top3}}.</div>
 
 ---
 
 <!-- _class: chart -->
 
-![h:520](proposals/earnings-calls/codebook-questions-v0.1/report/intent-ttm.svg)
+![h:520](deck/intent-ttm.svg)
 
-<div class="src">Analysts ask how AI sells ({{q_revenue_pct}}% of AI questions) far more than how its risk is controlled ({{q_controls_pct}}%). Question-intent codebook v0.1.</div>
+<div class="src">Analysts ask how AI sells ({{q_revenue_pct}}% of AI questions) far more than how its risk is controlled ({{q_controls_pct}}%). Question-intent codebook {{question_codebook}}.</div>
 
 ---
 
 <!-- _class: chart -->
 
-![h:540](proposals/cross-source/codebook-v0.2-draft/report/dialogue-space.svg)
+![h:540](deck/dialogue-space.svg)
 
 <div class="src">Safety and ethics: {{ds_exec_safety}}% of executives' AI-risk passages, {{ds_hn_safety}}% on Hacker News about Anthropic, {{ds_wp_safety}}% on Wikipedia. Cyber dominates HN's AI-security set ({{ds_sec_cyber}}%).</div>
 
@@ -73,7 +73,7 @@ Edition v0 of the paper (`docs/anthropic-contrapunctus.md` at `{{paper_v0}}`) re
 
 ![w:950](deck/cve-ai-credit.svg)
 
-<div class="src">CVE credits name Claude on {{cve_claude_total}} CVEs and any AI system on {{cve_ai_total}} ({{cve_first}} to {{cve_last}}). That cannot confirm or refute "33,000+": not every flaw becomes a CVE, and credits need not name the tool.</div>
+<div class="src">CVE credits name Claude on {{cve_claude_total}} CVEs and any AI system on {{cve_ai_total}} ({{cve_first}} to {{cve_last}}). That cannot confirm or refute "{{q_33k}}": not every flaw becomes a CVE, and credits need not name the tool.</div>
 
 ---
 
