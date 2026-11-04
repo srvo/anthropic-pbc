@@ -1,0 +1,14 @@
+{
+  "tool_use_id": "toolu_01WQwtVVQbRsfHQcNRures3G",
+  "agent_id": "a03e07568daf1d0d9",
+  "task_description": "Review S-1 and web-page claims",
+  "token_usage": {
+    "input_tokens": 84,
+    "cache_creation_tokens": 135636,
+    "cache_read_tokens": 4024548,
+    "output_tokens": 29847,
+    "api_call_count": 41
+  },
+  "started_at": "2026-11-04T16:21:58.266987-07:00",
+  "completed_at": "2026-11-04T16:30:05.014608-07:00"
+}
