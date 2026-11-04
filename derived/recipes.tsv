@@ -1,0 +1,6 @@
+# output	input	tool	args (word-split)
+# Descartes recipes (descartes/derived/recipes.tsv format): each PDF source reaches text only this way.
+# Outputs are gitignored and rebuilt from the pinned sources; the recipe is the record.
+derived/pbc-report-2026.txt	sources/pbc-report-2026.pdf	pdftotext	-enc UTF-8 -nopgbrk
+derived/rsp-v3.4.txt	sources/rsp-v3.4.pdf	pdftotext	-enc UTF-8 -nopgbrk
+derived/anthropic-gtg-1002.txt	sources/anthropic-gtg-1002.pdf	pdftotext	-enc UTF-8 -nopgbrk
