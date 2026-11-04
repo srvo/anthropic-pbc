@@ -1,7 +1,11 @@
 # The report as a build product
 
-Status, 2026-11-04: the deck is built (`scripts/build_edition.py`); the paper
-template is not.
+Status, 2026-11-04: the edition is one Praxis research report,
+`edition/REPORT.md`, built by `scripts/build_edition.py` from
+`edition/report.template.md` and rendered to PDF by the Praxis report writer.
+The Marp deck (`DECK.md`, `deck/`) is retired: Marp needed Node and a headless
+browser, and its styling was generic rather than the Praxis brand. The paper
+template (edition v1 of the argument itself) is not built yet.
 
 ## Principle
 
@@ -35,7 +39,7 @@ built.
    `dag.py status` is all `ok`, so every table it reads is locked by hash.
 2. **One codebook version** for every model-labelled chart and number in the
    edition. Mixing versions is a build error. This is the fix for the first
-   deck, which shows v0.1 charts beside a v0.2-draft chart (executives'
+   deck (now retired), which showed v0.1 charts beside a v0.2-draft chart (executives'
    cybersecurity share reads 36% on one slide and 40% on another).
 3. **Charts**: scripts that turn tables into SVG, with the codebook version
    as an argument and printed on the chart.
@@ -48,14 +52,14 @@ built.
 
 ## What comes out
 
-An edition folder holding the rendered paper, the deck, the charts it used,
-and a stamp file:
+The `edition/` folder: `REPORT.md` (the report, in the Praxis research
+format), the SVG charts it uses, and a stamp file, `edition/STAMP.json`:
 
 - source commit;
 - codebook version;
 - BLAKE3 of `dag.lock.tsv` (and of the Praxis catalog pin, once the data moves
   there);
-- tool versions (Python packages, Marp CLI);
+- tool versions (Python packages) and the render command;
 - the BLAKE3 of every output file.
 
 A human signs the stamp (the dataset attestation mechanism, applied to the
@@ -68,11 +72,68 @@ edition). Agents never sign.
 - every binding resolves; no unbound number in bound prose;
 - a rebuild at the source commit is byte-identical.
 
-## First target
+## One source, the Praxis research format
 
-`DECK.md` becomes edition output: `deck_charts.py` and the corpus report
-charts take `--codebook`, slide captions take their numbers from bindings, and
-the build writes the deck with its stamp. The paper template comes later.
+`edition/report.template.md` follows the Praxis research presentation standard
+(`praxis/design/research-presentation.md`, template
+`praxis/design/research-template.md`): Bottom line, Decision-relevant facts,
+What could change the conclusion, Analysis, Methods and limitations, Claims
+index, Sources index, Revision and review record. The build requires exactly
+these level-two sections, in this order (Praxis's `report check` requires the
+same). Author: Sloane Ortell. Publisher: `praxis` (this is a personal working
+paper; the Ethical Capital publisher is locked pending verified owner identity
+and is never selected here). Classification: Working paper. It is marked DRAFT
+in the revision line and the bottom line.
+
+Every number is a claim. `build_edition.CLAIMS` lists, in claim-id order
+(C0001, C0002, ...), the bindings each claim rests on. For each binding the
+build writes an Evidence line from the registry: the value, the binding it was
+taken from, its numerator and denominator, how it was computed, and its source
+ids. The Sources index (S001, ...) is built from the registry's source paths;
+each entry names the `dag.yml` step that writes the file, its metadata file and
+its BLAKE3 (directories of witness scores point to `dag.lock.tsv`). The claims
+index adds no assertion the registry does not hold; its prose repeats the
+retired deck's sentences or describes method.
+
+### Render the report PDF
+
+    uv run scripts/build_edition.py --codebook v0.2-draft
+    uv run scripts/render_report.py -o /absolute/path/outside/the/repo/anthropic-pbc-report.pdf
+
+`render_report.py` is `./praxis report from-md edition/REPORT.md --template
+research --publisher praxis -o OUT` run from the Praxis checkout beside this
+repository (`../praxis`), with one addition. `from-md` compiles with Typst's
+root at `praxis/report_writer`, and Typst cannot read a file outside its root,
+so the plain command fails on the charts ("file not found"). The wrapper hands
+Typst each chart's SVG bytes instead of its path and sets the image's `alt` to
+the alt text binding; everything else (the eight-section check, the publisher
+lock, fonts, design tokens) is Praxis's own code, unchanged. The fix belongs in
+Praxis: resolve local images against the report's directory. Python 3.14 or
+later and Typst are needed (Praxis's requirements); the build itself is not.
+
+`./praxis report bundle` is not better here: its PDF is the same `from-md`
+call (same image failure), its HTML shows only the caption for a local image,
+and it refuses an output directory inside a Git repository.
+
+**Determinism.** Two renders of the same `REPORT.md` with Typst 0.15.1 and the
+same Praxis checkout gave byte-identical PDFs (SHA-256 equal, 2026-11-04):
+Typst writes no clock, and the PDF date is the report's `date:` (the data's
+as-of). So the PDF can be hashed and signed, provided the Typst version and the
+Praxis commit are recorded with it. The build does not render or hash the PDF
+(it runs on Python 3.12 and needs no Praxis report writer); the stamp records
+the render command.
+
+### Slides
+
+There is no Praxis slide template for the `praxis` publisher yet
+(`report_writer/templates/presentation.typ` imports the Ethical Capital
+styling). The slides are to come from the same `REPORT.md` through Typst, on
+the Praxis brand: a proposed `report_writer/md_slides.py` and
+`report_writer/templates/praxis-slides.typ` (title slide, then one slide per
+section and per finding through Analysis, same claim tags, a closing slide
+pointing to the claims and sources indices) awaits review in Praxis. No slide
+styling is kept in this repository. Until it lands there, the edition has no
+slides.
 
 ## Open decisions
 
@@ -96,20 +157,20 @@ build (`scripts/build_edition.py`) fails on any breach:
    shown, or rounded a second time.
 2. **One rounding rule.** Half up, from the exact fraction. (Python's own
    formatting rounds binary floats half-even, so 12.5 can print as 12.)
-3. **One source per number.** The build draws every chart in the deck itself,
+3. **One source per number.** The build draws every chart in the report itself,
    from the same registered values as the captions.
 4. **Provenance.** Each value is registered with its source file, computation,
-   numerator and denominator. `deck/STAMP.json` lists them all.
+   numerator and denominator. `edition/STAMP.json` lists them all.
 5. **No unbound numerals, by identity.** The template may contain no digit
-   outside a `{{binding}}`. A numeral in a built deck line must be supplied by
+   outside a `{{binding}}`. A numeral in a built report line must be supplied by
    a binding used on that same template line; a numeral in chart text must be
    supplied by the bindings that string was built from (`Build.say`, which
    records the keys). A composite binding (`Build.compose`, e.g. `ec_top3`)
    supplies only its parts' numerals. Matching any registered value is not
    enough. Minus signs are part of a numeral, and "500" passes only inside the
    name "S&P 500". The check covers every channel that ships: body text, HTML
-   comments (Marp presenter notes), image alt text (Marp size keywords
-   aside), the front-matter `title`/`description`/`header`/`footer`, SVG
+   comments, image alt text, the front-matter `title`, `subtitle`, `author`,
+   `date`, `revision`, `classification`, `note` and `watermark`, SVG
    element and `<tspan>` text, tail text, comments and `aria-label`, and
    matplotlib tick labels set from data. Only tick labels that a formatter
    computes from the axis scale are exempt.
@@ -118,19 +179,24 @@ build (`scripts/build_edition.py`) fails on any breach:
    word is not a quote), markdown blockquotes and HTML `<blockquote>`/`<q>`.
    Each quote must occur verbatim in edition v0. A quote taken from the
    paper's claims table also binds the status that table gives it (`q_33k`
-   is bound with `UNVERIFIED/MED`), so the deck cannot quote a claim without
+   is bound with `UNVERIFIED/MED`), so the report cannot quote a claim without
    the paper's own verdict on it. A binding that copies another
    (`Registry.copy`) carries the original's source, numerator and denominator.
 7. **Nothing clipped or malformed.** Chart text must lie inside the figure;
    every SVG must parse.
 8. **One codebook** per edition.
 9. **Alt text.** Every image in the template carries exactly one `{{alt_*}}`
-   binding (Marp size keywords aside). Each alt text is composed from the
-   same registered values as its chart and caption, so the numbers a screen
-   reader hears are the numbers on the slide (Praxis Q23).
+   binding. Each alt text is composed from the same registered values as its
+   chart and caption, so the numbers a screen reader hears are the numbers on
+   the page (Praxis Q23). The Praxis writer prints it as the figure caption;
+   `render_report.py` also sets it as the image's PDF alt text.
+10. **Reading order.** The template's level-two headings are the eight Praxis
+   research sections, in order.
 
 `uv run scripts/test_edition_controls.py` feeds each control a bad input and
-confirms it fails (52 cases at the 2026-11-04 review fixes).
+confirms it fails (52 cases at the 2026-11-04 review fixes; 63 after the move
+to the Praxis research format, which dropped the two Marp alt-text cases and
+added front-matter, section-order and claims/sources cases).
 
 Moving the cross-source chart onto this path changed none of its 125 cell
 values. The corpus report scripts moved onto `display.py` at `23a4bb6`: no
