@@ -224,3 +224,9 @@ linked by locator.
 6–8. Recommendations stand (CiTO plus one local term; indexes inline unless
    the PDF passes 25 pages; risk-governance rows included, marked unsealed).
 9. **Root:** "Is Anthropic a public benefit corporation?"
+10. **Aggregate.** Every claim in every index must be addressable together,
+    across all Praxis-governed repositories (Sloane, 2026-11-04). Each row of
+    `claims.tsv` carries a global `address` (`praxis:claim/anthropic-pbc/C0001`,
+    never reused) and a `content_id` (BLAKE3 of the canonical statement), so a
+    claim made in two repositories can be matched. The aggregate itself belongs
+    to the Praxis catalog: Praxis `OPENQUESTIONS.md` Q27.
