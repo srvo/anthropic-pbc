@@ -273,9 +273,33 @@ def meta_gaps(steps) -> dict[str, list[str]]:
     return gaps
 
 
+def declared_unknowns(steps) -> dict[str, int]:
+    """Fields set to null with a `<field>_reason` (allowed, but counted and shown)."""
+    out: dict[str, int] = {}
+
+    def walk(x) -> int:
+        if isinstance(x, dict):
+            return sum(1 for k, v in x.items() if v is None and f"{k}_reason" in x) + sum(walk(v) for v in x.values())
+        if isinstance(x, list):
+            return sum(walk(v) for v in x)
+        return 0
+
+    for u, s in steps.items():
+        mp = s.get("meta")
+        if mp and (ROOT / mp).exists():
+            n = walk(yaml.safe_load((ROOT / mp).read_text()) or {})
+            if n:
+                out[u] = n
+    return out
+
+
 def cmd_meta(steps, strict: bool) -> int:
     gaps = meta_gaps(steps)
     n = sum(len(v) for v in gaps.values())
+    unk = declared_unknowns(steps)
+    for u in topo(steps):
+        if u in unk:
+            print(f"declared unknown: {unk[u]:4}  {u}")
     for u in topo(steps):
         if u in gaps:
             print(f"{u}  ({len(gaps[u])})")
@@ -283,7 +307,8 @@ def cmd_meta(steps, strict: bool) -> int:
                 print(f"    {x}")
             if len(gaps[u]) > 12:
                 print(f"    ... {len(gaps[u]) - 12} more")
-    print(f"\n{len(steps) - len(gaps)}/{len(steps)} steps complete; {n} gaps")
+    print(f"\n{len(steps) - len(gaps)}/{len(steps)} steps complete; {n} gaps; "
+          f"{sum(unk.values())} fields declared unknown")
     return 1 if strict and n else 0
 
 
