@@ -1,0 +1,303 @@
+# Metadata for data://garden/cve/2026-11-04/monthly_series (schema/metadata.schema.yml)
+title: Monthly CVE series with AI-related flags, 2020-01 to 2026-10
+description: >-
+  Monthly counts of published CVE records by severity and by reporting
+  organization (CNA), rebuilt from the CVE Program's records with Epoch AI's
+  rules, plus the CVE ids that concern AI software or credit an AI system or
+  AI lab as finder.
+processing: >-
+  Keep records with state PUBLISHED and CVE id year >= 2020; date each by
+  cveMetadata.datePublished (UTC month). Severity is the first CVSS base score
+  found (CNA container, then ADP containers in record order; v4.0, then v3.1,
+  then v3.0; v2 ignored), bucketed none 0 / low 0.1-3.9 / medium 4-6.9 /
+  high 7-8.9 / critical 9-10, else unknown. CNA short names are grouped into
+  Epoch's 21 notable CNAs or Other. AI product flags are regex matches on the
+  CNA container's affected-product fields and English descriptions; AI credit
+  flags are regex matches on credits[].value only. Drops REJECTED records,
+  pre-2020 ids, the partial month 2026-11, all description and credit text.
+  Rules in docs/cve-series.md.
+unit_of_analysis: one published CVE record
+denominator: corpus/cve/monthly.tsv (n_published, every record in the universe per month)
+coverage: >-
+  Records published 2020-01-01 to 2026-10-31 with CVE id year >= 2020;
+  6,836 records published in the window carry pre-2020 ids and are outside
+  (n_published_any_id_year shows them). Snapshot as of 2026-11-04T00:00Z.
+does_not_answer:
+  - "Whether a vulnerability was exploited, how exposed anyone was, or what harm followed: a CVE count measures reporting, not risk."
+  - "Why counts move: CNA onboarding (Linux from February 2024), backlogs, policy changes and AI-assisted discovery all raise counts, and the series cannot separate them."
+  - "How much discovery AI did: credits are optional, self-reported and incomplete, and a named lab can mean a person employed there."
+license:
+  name: CVE Program Terms of Use (records); method credit Epoch AI, CC BY 4.0
+  url: https://www.cve.org/Legal/TermsOfUse
+status: held
+tables:
+  corpus/cve/monthly.tsv:
+    title: "Published CVE records per month"
+    description: "One row per month: totals, severity buckets, notable-CNA and Linux counts."
+    primary_key: [month]
+    columns:
+      "month":
+        type: string
+        unit: YYYY-MM
+        description: "Publication month, UTC."
+      "n_published":
+        type: integer
+        unit: records
+        description: "Published records with id year >= 2020 (the universe)."
+      "critical":
+        type: integer
+        unit: records
+        description: "Records whose severity bucket is critical."
+      "high":
+        type: integer
+        unit: records
+        description: "Records whose severity bucket is high."
+      "medium":
+        type: integer
+        unit: records
+        description: "Records whose severity bucket is medium."
+      "low":
+        type: integer
+        unit: records
+        description: "Records whose severity bucket is low."
+      "none":
+        type: integer
+        unit: records
+        description: "Records with CVSS base score 0.0 (Epoch files these under low)."
+      "unknown":
+        type: integer
+        unit: records
+        description: "Records with no CVSS v4.0, v3.1 or v3.0 score in any container."
+      "n_notable_cna":
+        type: integer
+        unit: records
+        description: "Records from Epoch's 21 notable CNAs."
+      "n_linux_cna":
+        type: integer
+        unit: records
+        description: "Records published by the Linux kernel CNA."
+      "n_excl_linux":
+        type: integer
+        unit: records
+        description: "n_published minus n_linux_cna."
+      "n_published_any_id_year":
+        type: integer
+        unit: records
+        description: "Published records in the month regardless of id year (shows the id-year rule's exclusions)."
+  corpus/cve/monthly-by-cna.tsv:
+    title: "Published CVE records per month by CNA"
+    description: "Month by Epoch's notable CNAs plus Other; each row sums to n_published."
+    primary_key: [month]
+    columns:
+      "month":
+        type: string
+        unit: YYYY-MM
+        description: "Publication month, UTC."
+      "Microsoft":
+        type: integer
+        unit: records
+        description: "Records whose CNA maps to Microsoft (mapping in NOTABLE in scripts/cve_series.py)."
+      "Google":
+        type: integer
+        unit: records
+        description: "Records whose CNA maps to Google (mapping in NOTABLE in scripts/cve_series.py)."
+      "Apple":
+        type: integer
+        unit: records
+        description: "Records whose CNA maps to Apple (mapping in NOTABLE in scripts/cve_series.py)."
+      "Adobe":
+        type: integer
+        unit: records
+        description: "Records whose CNA maps to Adobe (mapping in NOTABLE in scripts/cve_series.py)."
+      "Oracle":
+        type: integer
+        unit: records
+        description: "Records whose CNA maps to Oracle (mapping in NOTABLE in scripts/cve_series.py)."
+      "Cisco":
+        type: integer
+        unit: records
+        description: "Records whose CNA maps to Cisco (mapping in NOTABLE in scripts/cve_series.py)."
+      "IBM":
+        type: integer
+        unit: records
+        description: "Records whose CNA maps to IBM (mapping in NOTABLE in scripts/cve_series.py)."
+      "Red Hat":
+        type: integer
+        unit: records
+        description: "Records whose CNA maps to Red Hat (mapping in NOTABLE in scripts/cve_series.py)."
+      "Intel":
+        type: integer
+        unit: records
+        description: "Records whose CNA maps to Intel (mapping in NOTABLE in scripts/cve_series.py)."
+      "AMD":
+        type: integer
+        unit: records
+        description: "Records whose CNA maps to AMD (mapping in NOTABLE in scripts/cve_series.py)."
+      "NVIDIA":
+        type: integer
+        unit: records
+        description: "Records whose CNA maps to NVIDIA (mapping in NOTABLE in scripts/cve_series.py)."
+      "Qualcomm":
+        type: integer
+        unit: records
+        description: "Records whose CNA maps to Qualcomm (mapping in NOTABLE in scripts/cve_series.py)."
+      "Samsung":
+        type: integer
+        unit: records
+        description: "Records whose CNA maps to Samsung (mapping in NOTABLE in scripts/cve_series.py)."
+      "SAP":
+        type: integer
+        unit: records
+        description: "Records whose CNA maps to SAP (mapping in NOTABLE in scripts/cve_series.py)."
+      "AWS":
+        type: integer
+        unit: records
+        description: "Records whose CNA maps to AWS (mapping in NOTABLE in scripts/cve_series.py)."
+      "VMware":
+        type: integer
+        unit: records
+        description: "Records whose CNA maps to VMware (mapping in NOTABLE in scripts/cve_series.py)."
+      "GitHub":
+        type: integer
+        unit: records
+        description: "Records whose CNA maps to GitHub (mapping in NOTABLE in scripts/cve_series.py)."
+      "Linux":
+        type: integer
+        unit: records
+        description: "Records whose CNA maps to Linux (mapping in NOTABLE in scripts/cve_series.py)."
+      "Mozilla":
+        type: integer
+        unit: records
+        description: "Records whose CNA maps to Mozilla (mapping in NOTABLE in scripts/cve_series.py)."
+      "Apache":
+        type: integer
+        unit: records
+        description: "Records whose CNA maps to Apache (mapping in NOTABLE in scripts/cve_series.py)."
+      "OpenSSL":
+        type: integer
+        unit: records
+        description: "Records whose CNA maps to OpenSSL (mapping in NOTABLE in scripts/cve_series.py)."
+      "Other":
+        type: integer
+        unit: records
+        description: "Records from all CNAs outside the notable list."
+  corpus/cve/ai-related.tsv:
+    title: "AI-related CVE records"
+    description: "One row per published CVE in the universe that matched an AI product rule or an AI credit rule. Ids and rule labels only."
+    primary_key: [cve_id]
+    columns:
+      "cve_id":
+        type: string
+        description: "CVE identifier."
+      "date_published":
+        type: date
+        unit: YYYY-MM-DD
+        description: "cveMetadata.datePublished, UTC date."
+      "cna":
+        type: string
+        description: "cveMetadata.assignerShortName (raw short name, not grouped)."
+      "severity":
+        type: string
+        description: "Severity bucket: critical, high, medium, low, none or unknown."
+      "ai_product_rules":
+        type: string
+        description: "Semicolon-separated field:family matches, field in {product, description}; empty if none."
+      "ai_credit_systems":
+        type: string
+        description: "Semicolon-separated credited AI systems (see monthly-ai.tsv n_credit_* columns); empty if none."
+      "ai_credit_system_types":
+        type: string
+        description: "Semicolon-separated system:credit-type pairs (finder, reporter, tool, remediation developer, ...; unspecified if missing)."
+  corpus/cve/monthly-ai.tsv:
+    title: "AI-related CVE records per month"
+    description: "Per month: AI product and AI credit counts, and records per credited system (one record can count under several)."
+    primary_key: [month]
+    columns:
+      "month":
+        type: string
+        unit: YYYY-MM
+        description: "Publication month, UTC."
+      "n_published":
+        type: integer
+        unit: records
+        description: "Published records in the universe (same as monthly.tsv)."
+      "n_ai_product":
+        type: integer
+        unit: records
+        description: "Records matching an AI product rule in product fields or descriptions."
+      "n_ai_product_affected":
+        type: integer
+        unit: records
+        description: "Records matching an AI product rule in affected-product fields only (stricter)."
+      "n_ai_credited":
+        type: integer
+        unit: records
+        description: "Records with any AI credit."
+      "n_ai_credited_discovery":
+        type: integer
+        unit: records
+        description: "Records with an AI credit other than remediation types (remediation developer, reviewer, verifier)."
+      "n_credit_claude":
+        type: integer
+        unit: records
+        description: "Records crediting Claude (Claude Code, Opus, Sonnet, Haiku, Fable, Mythos, AI, Agent, Security; not people named Claude)."
+      "n_credit_mythos":
+        type: integer
+        unit: records
+        description: "Records crediting Mythos."
+      "n_credit_anthropic":
+        type: integer
+        unit: records
+        description: "Records crediting Anthropic."
+      "n_credit_openai":
+        type: integer
+        unit: records
+        description: "Records crediting OpenAI."
+      "n_credit_gpt":
+        type: integer
+        unit: records
+        description: "Records crediting GPT or ChatGPT."
+      "n_credit_codex":
+        type: integer
+        unit: records
+        description: "Records crediting Codex."
+      "n_credit_aardvark":
+        type: integer
+        unit: records
+        description: "Records crediting Aardvark."
+      "n_credit_big_sleep":
+        type: integer
+        unit: records
+        description: "Records crediting Big Sleep or Naptime."
+      "n_credit_deepmind":
+        type: integer
+        unit: records
+        description: "Records crediting DeepMind or CodeMender."
+      "n_credit_gemini":
+        type: integer
+        unit: records
+        description: "Records crediting Gemini."
+      "n_credit_xbow":
+        type: integer
+        unit: records
+        description: "Records crediting XBOW."
+      "n_credit_copilot":
+        type: integer
+        unit: records
+        description: "Records crediting Copilot."
+      "n_credit_aixcc":
+        type: integer
+        unit: records
+        description: "Records crediting AIxCC or Team Atlanta."
+      "n_credit_zeropath":
+        type: integer
+        unit: records
+        description: "Records crediting ZeroPath."
+      "n_credit_vulnhuntr":
+        type: integer
+        unit: records
+        description: "Records crediting Vulnhuntr."
+      "n_credit_ai_term":
+        type: integer
+        unit: records
+        description: "Records crediting no named system but a generic AI term (ec_extract families ai, ai_phrase, ml, llm, agentic); loose residual."

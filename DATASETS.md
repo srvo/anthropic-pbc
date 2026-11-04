@@ -138,6 +138,8 @@ Refresh:
 |---|---|---:|
 | `proposals/hacker-news/ai_security` | deberta | 204192 |
 | `proposals/hacker-news/ai_security` | modernbert | 204192 |
+| `proposals/hacker-news/ai_security-v0.2-draft` | deberta | 382860 |
+| `proposals/hacker-news/ai_security-v0.2-draft` | modernbert | 382860 |
 | `proposals/hacker-news/anthropic` | deberta | 1688944 |
 | `proposals/hacker-news/anthropic` | modernbert | 1688944 |
 | `proposals/hacker-news/anthropic-v0.2-draft` | deberta | 3166770 |
@@ -190,7 +192,7 @@ Refresh:
 | Pinned as of | 2026-11-04 |
 | Source cadence | Baseline published daily; GitHub keeps release assets about six weeks |
 | Committed | Monthly counts and per-CVE ids/flags; no descriptions or credit text |
-| Folder | `corpus/cve` · 6 files · 0.5 MB |
+| Folder | `corpus/cve` · 8 files · 0.5 MB |
 | Manifest | 2 rows · BLAKE3 `75683ee183f5d0a8` |
 | Method | [`docs/cve-series.md`](docs/cve-series.md) |
 | Signature | unsigned (`attestations/datasets/`) |

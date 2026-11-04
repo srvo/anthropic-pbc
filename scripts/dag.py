@@ -1,7 +1,7 @@
 #!/usr/bin/env -S uv run --script
 # /// script
 # requires-python = ">=3.10"
-# dependencies = ["blake3==1.0.11", "pyyaml==6.0.2"]
+# dependencies = ["blake3==1.0.11", "pyyaml==6.0.2", "duckdb==2.0.0"]
 # ///
 """The compute graph in dag.yml: check it, lock it, and find what is stale.
 
@@ -25,6 +25,11 @@ dag.lock.tsv records both for every step at the last `lock`. `status` compares:
     uv run scripts/dag.py plan [URI ...]   # rebuild commands for not-ok steps (or URI + descendants)
     uv run scripts/dag.py lock             # record current hashes, after a verified rebuild
     uv run scripts/dag.py mermaid          # the graph as a Mermaid flowchart
+    uv run scripts/dag.py meta [--strict]  # metadata gaps against schema/metadata.schema.yml
+
+A step names its metadata file with `meta:` (YAML). Columns are read from the
+files themselves (parquet schema, TSV/CSV header), so every column must be
+documented and every documented column must exist.
 """
 
 from __future__ import annotations
@@ -189,6 +194,99 @@ def mermaid(steps) -> str:
     return "\n".join(lines) + "\n"
 
 
+SCHEMA = ROOT / "schema" / "metadata.schema.yml"
+
+
+def columns_of(p: Path) -> list[str] | None:
+    """Column names read from the file, or None for a non-tabular file."""
+    if p.suffix == ".parquet":
+        import duckdb
+        return [r[0] for r in duckdb.connect().execute(f"DESCRIBE SELECT * FROM '{p}'").fetchall()]
+    if p.suffix in (".tsv", ".csv"):
+        sep = "\t" if p.suffix == ".tsv" else ","
+        with p.open(encoding="utf-8", errors="replace") as f:
+            for line in f:
+                if not line.startswith("#"):
+                    import csv
+                    return next(csv.reader([line.rstrip("\r\n")], delimiter=sep))
+        return []
+    return None
+
+
+def _missing(d: dict, fields: list[str]) -> list[str]:
+    out = []
+    for k in fields:
+        v = d.get(k)
+        if v is None and d.get(f"{k}_reason"):
+            continue
+        if v is None or v == "" or v == [] or v == {}:
+            out.append(k)
+    return out
+
+
+def meta_gaps(steps) -> dict[str, list[str]]:
+    sch = yaml.safe_load(SCHEMA.read_text())
+    gaps: dict[str, list[str]] = {}
+    for u in topo(steps):
+        s, g = steps[u], []
+        mp = s.get("meta")
+        if not mp or not (ROOT / mp).exists():
+            g.append("no metadata file" + (f" ({mp})" if mp else " (no `meta:` in dag.yml)"))
+            gaps[u] = g
+            continue
+        m = yaml.safe_load((ROOT / mp).read_text()) or {}
+        kind = "snapshot" if u.startswith("snapshot://") else "dataset"
+        g += [f"missing {k}" for k in _missing(m, sch[kind]["required"])]
+        for k, allowed in sch[kind].get("enums", {}).items():
+            if m.get(k) is not None and m.get(k) not in allowed:
+                g.append(f"{k}={m.get(k)!r} not in {allowed}")
+        if kind == "dataset":
+            if m.get("status") == "witness":
+                g += [f"missing {k} (witness)" for k in _missing(m, sch["dataset"]["witness_required"])]
+                if m.get("proposal_only") is not True:
+                    g.append("witness without proposal_only: true")
+            if u.startswith("data://witness/") and m.get("status") != "witness":
+                g.append("witness channel but status is not witness")
+            tables = m.get("tables") or {}
+            for f in files(s["outputs"]):
+                rel = str(f.relative_to(ROOT))
+                t = tables.get(rel)
+                if t is None:
+                    g.append(f"table {rel}: undocumented")
+                    continue
+                g += [f"table {rel}: missing {k}" for k in _missing(t, sch["table"]["required"])
+                      if not (k == "columns" and columns_of(f) is None)]
+                cols = columns_of(f) if f.exists() else None
+                if cols is not None:
+                    if not t.get("primary_key"):
+                        g.append(f"table {rel}: missing primary_key")
+                    doc = t.get("columns") or {}
+                    g += [f"table {rel}: column {c!r} undocumented" for c in cols if c not in doc]
+                    g += [f"table {rel}: documented column {c!r} not in file" for c in doc if c not in cols]
+                    for c, cm in doc.items():
+                        g += [f"table {rel}: column {c!r} missing {k}" for k in _missing(cm or {}, sch["column"]["required"])]
+            for rel in tables:
+                if not (ROOT / rel).exists():
+                    g.append(f"table {rel}: documented but not an output")
+        if g:
+            gaps[u] = g
+    return gaps
+
+
+def cmd_meta(steps, strict: bool) -> int:
+    gaps = meta_gaps(steps)
+    n = sum(len(v) for v in gaps.values())
+    for u in topo(steps):
+        if u in gaps:
+            print(f"{u}  ({len(gaps[u])})")
+            for x in gaps[u][:12]:
+                print(f"    {x}")
+            if len(gaps[u]) > 12:
+                print(f"    ... {len(gaps[u]) - 12} more")
+    print(f"\n{len(steps) - len(gaps)}/{len(steps)} steps complete; {n} gaps")
+    return 1 if strict and n else 0
+
+
 def main() -> int:
     steps = load()
     cmd, args = (sys.argv[1] if len(sys.argv) > 1 else "status"), sys.argv[2:]
@@ -198,6 +296,8 @@ def main() -> int:
     fn = {"check": cmd_check, "status": cmd_status, "lock": cmd_lock}.get(cmd)
     if cmd == "plan":
         return cmd_plan(steps, args)
+    if cmd == "meta":
+        return cmd_meta(steps, "--strict" in args)
     if not fn:
         sys.exit(__doc__)
     return fn(steps)

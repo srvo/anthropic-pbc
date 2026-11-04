@@ -42,6 +42,7 @@ steps:
     outputs: [corpus/wikipedia-ai-risk/MANIFEST.tsv, corpus/wikipedia-ai-risk/seeds.tsv]
   snapshot://cvelistv5/2026-11-04/baseline:
     cmd: uv run scripts/cve_series.py pin --as-of 2026-11-04 && uv run scripts/cve_series.py fetch
+    meta: corpus/cve/snapshot.meta.yml
     outputs: [corpus/cve/MANIFEST.tsv]
   snapshot://epoch/2026-11-04/all_datasets:
     cmd: uv run scripts/epoch_data.py pin --as-of 2026-11-04
@@ -149,6 +150,7 @@ steps:
     cmd: uv run scripts/cve_series.py build
     deps: [snapshot://cvelistv5/2026-11-04/baseline]
     inputs: [scripts/ec_extract.py]   # reuses its AI term regex
+    meta: corpus/cve/monthly_series.meta.yml
     outputs: [corpus/cve/monthly.tsv, corpus/cve/monthly-by-cna.tsv, corpus/cve/ai-related.tsv, corpus/cve/monthly-ai.tsv]
 
   # ---------------------------------------------------------------- epoch

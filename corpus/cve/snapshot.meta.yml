@@ -1,0 +1,34 @@
+# Metadata for snapshot://cvelistv5/2026-11-04/baseline (schema/metadata.schema.yml)
+producer: CVE Program (CVEProject/cvelistV5 on GitHub)
+title: cvelistV5 daily baseline, all CVE records at 2026-11-04T00:00Z
+description: >-
+  Every CVE record in CVE JSON 5 format, as published by the CVE Program's
+  official repository, in the daily baseline release asset. Holds 418,964
+  records (400,091 PUBLISHED, 18,873 REJECTED).
+citation_full: >-
+  CVE Program, cvelistV5, release cve_2026-11-04_0100Z, asset
+  2026-11-04_all_CVEs_at_midnight.zip.zip (tag commit dc7ec785f05ef024090048b6468bc7eddf06bc95).
+  https://github.com/CVEProject/cvelistV5. Accessed 2026-11-04.
+attribution_short: CVE Program
+url_main: https://github.com/CVEProject/cvelistV5
+url_download: https://github.com/CVEProject/cvelistV5/releases/download/cve_2026-11-04_0100Z/2026-11-04_all_CVEs_at_midnight.zip.zip
+date_published: 2026-11-04
+date_accessed: 2026-11-04
+version_producer: cve_2026-11-04_0100Z
+license:
+  name: CVE Program Terms of Use
+  url: https://www.cve.org/Legal/TermsOfUse
+terms_notes: >-
+  CVE is a registered trademark of The MITRE Corporation. The method (universe,
+  dating, severity rule, notable CNAs) follows Epoch AI's CVE explorer, CC BY 4.0,
+  credited in corpus/cve/README.md.
+refetch: exact
+refetch_reason: >-
+  A release asset is immutable while it exists. GitHub lists hourly releases for
+  about six weeks; after that the tag commit identifies the tree, but a zip built
+  from it is not byte-identical, so re-pin.
+personal_data: verbatim_public_text
+personal_data_note: >-
+  Upstream credit fields name individual researchers. Nothing committed carries
+  credit text, descriptions or names (see the dataset metadata).
+files: corpus/cve/MANIFEST.tsv
