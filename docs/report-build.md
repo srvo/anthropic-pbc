@@ -11,8 +11,19 @@ of one source commit and a few recorded parameters:
     edition = build(source commit, codebook version)
 
 Rerunning the build at the same commit with the same parameters gives the same
-bytes. Building produces a **new commit** whose parent is the source commit, so
-every edition names exactly the code, data, codebook and prose it came from.
+bytes. The edition is then committed on top, so every edition names exactly the
+code, data, codebook and prose it came from.
+
+The **source commit** is the last commit that touched any build input (the
+template, the build scripts, the codebook, `dag.lock.tsv` and every table the
+build reads; `Build.inputs()` lists them), not HEAD. Committing the edition's
+own outputs moves HEAD but changes no input, so the stamp and the generated
+notice stay the same and `build_edition.py --check` passes on the edition
+commit, in CI or anywhere else. The build already refuses to run when an input
+is uncommitted or modified, so the source commit always describes the bytes the
+build read. Any commit that changes an input (including a relock of unrelated
+data, since `dag.lock.tsv` is an input) makes a new source commit, and
+`--check` then fails until the edition is rebuilt.
 
 `docs/anthropic-contrapunctus.md` at `1afb042` ("v0, finalized") is **edition
 v0**. It was written by hand and stays frozen as it is. Editions from v1 on are

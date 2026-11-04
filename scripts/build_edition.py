@@ -106,8 +106,15 @@ def tokens(s: str) -> set[str]:
     return {m.group(0).rstrip(",") for m in NUM.finditer(s)}
 
 
-def git(*a: str) -> str:
-    return subprocess.run(["git", *a], cwd=ROOT, capture_output=True, text=True, check=True).stdout
+def git(*a: str, cwd: Path = ROOT) -> str:
+    return subprocess.run(["git", *a], cwd=cwd, capture_output=True, text=True, check=True).stdout
+
+
+def source_commit(paths: list[str], cwd: Path = ROOT) -> str:
+    """The last commit that touched any build input. Not HEAD: committing the edition's own
+    outputs moves HEAD but changes no input, so the edition stays an edition of the same
+    source commit and `--check` still passes after the edition is committed."""
+    return git("log", "-1", "--format=%H", "--", *paths, cwd=cwd).strip()
 
 
 def b3(p: Path) -> str:
@@ -201,7 +208,7 @@ class Build:
         R.put("codebook", self.codebook, source=self.cb["file"], how="--codebook")
         R.put("codebook_status", self.cb["status"], source="build_edition.CODEBOOKS", how="status of the codebook")
         R.put("question_codebook", QUESTIONS["codebook"], source=QUESTIONS["file"], how="question-intent codebook")
-        R.put("source_commit", head[:12], source="git", how="HEAD at build time")
+        R.put("source_commit", head[:12], source="git", how="last commit touching any build input")
         R.put("paper_v0", PAPER_V0, source="git", how="edition v0 commit of the paper")
         R.put("paper_edition", "v0", source=f"{PAPER}@{PAPER_V0}", how="edition name of the hand-written paper")
         R.put("threshold", display.round_half_up(THRESHOLD, 1), source="build_edition.THRESHOLD", how="both witnesses >= this")
@@ -510,7 +517,7 @@ class Build:
         display.selftest()
         if not self.preflight():
             return {}, self.errs
-        head = git("rev-parse", "HEAD").strip()
+        head = source_commit(self.inputs())
         OUT_DIR.mkdir(exist_ok=True)
         self.register_static(head)
         self.earnings()

@@ -101,5 +101,20 @@ with tempfile.TemporaryDirectory() as d:
     expect("text past the figure edge fails", any("clipped" in e for e in b.errs))
     expect("malformed SVG fails", raises(lambda: b.save_svg("<svg><text>a & b</text></svg>", "bad.svg"), Exception))
 
+# M1. the source commit is the last commit touching an input, so committing the outputs keeps --check passing
+with tempfile.TemporaryDirectory() as d:
+    g = Path(d)
+    def commit(name: str, body: str) -> str:
+        (g / name).write_text(body)
+        be.git("add", name, cwd=g)
+        be.git("-c", "user.name=t", "-c", "user.email=t@t", "commit", "-q", "-m", name, cwd=g)
+        return be.git("rev-parse", "HEAD", cwd=g).strip()
+    be.git("init", "-q", cwd=g)
+    src = commit("input.txt", "a")
+    out = commit("output.txt", "b")
+    expect("committing an output does not move the source commit", be.source_commit(["input.txt"], cwd=g) == src != out)
+    src2 = commit("input.txt", "c")
+    expect("committing an input moves the source commit", be.source_commit(["input.txt"], cwd=g) == src2)
+
 print(f"\n{len(FAILS)} failure(s)")
 sys.exit(1 if FAILS else 0)
