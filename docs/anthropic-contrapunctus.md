@@ -77,6 +77,8 @@ invoke.
 
 ## 1. Why we are asking
 
+> **On the web:** what we think about governance, the premise paper (link pending).
+
 > Governance exists so that systems can survive individuals.
 
 I'm publishing this in a personal capacity, to show a set of composable
@@ -91,6 +93,10 @@ matters unanswered: **am I in control of the systems I use to make decisions,
 operate, and balance competing priorities?** You should ask it of anyone — me,
 and Anthropic.
 
+Ethical Capital identifies companies that create unambiguous positive impact
+and aligns capital with them. A public benefit corporation is the legal form of
+that promise, so the category is ours to care about.
+
 For a long-term investor it isn't optional. Returns materialize over decades, so
 we have to back systems of activity that can survive the loss of any one person;
 and because our ethical criteria are stringent, I care less about correlation
@@ -101,8 +107,10 @@ company organizes its operations, and the mindset and values the whole system
 springs from. That is the highest of Donella Meadows' places to intervene in a
 system, and the one almost no one moves.
 
-Here is a public benefit corporation I'm directly involved in:
-[Wood Cache](https://www.woodcache.org). You can understand what it does from the
+Here is a public benefit corporation:
+[Wood Cache](https://www.woodcache.org). Sloane Ortel is a co-founder of
+Woodcache PBC. She is no longer active in the company and retains equity in
+it. You can understand what it does from the
 website in a minute. The fastest-growing carbon pool in the Mountain West is dead
 trees; they burn, and when they burn they throw off the most dangerous air
 pollution there is. Wood Cache buries that biomass and locks the carbon away
@@ -120,6 +128,13 @@ through some bleeding-edge, multi-gigawatt feat of engineering, with the benefit
 arriving, supposedly, later. Accumulate power, pour in capital, trust that impact
 shows up someday: that is the model our culture has learned to call "impact," and
 I don't accept it.
+
+Serge Bushman, co-founder and CEO of Woodcache PBC, in conversation with Sloane
+Ortel on 2026-11-04, put its worst case in one line (paraphrased; personal
+communication): the only thing that can go wrong is that the good things do not
+happen.
+
+![F0001 · Who gets checked: Woodcache PBC: worst case, the good things do not happen; checked by Puro.earth verification end to end and by Colorado landfill regulation. Anthropic PBC: worst case, the serious risks it discloses itself in its S-1 risk factors; checked by its own Public Benefit Report, which its own trust says largely describes inputs.](../edition/figures/F0001-who-gets-checked.svg)
 
 The public-benefit-corporation category is about to balloon when Anthropic lists,
 so it matters, now, to have a way to check whether a benefit claim is actually
@@ -144,6 +159,20 @@ return in a decade. But impact is not a single currency, and there is no
 reconciliation unless a governance forces one. What follows takes Anthropic at its
 own word — against its own filings and its own Constitution — and checks, byte by
 byte, where the words and the acts diverge.
+
+The missed risk is that scrutiny runs backwards. The small, observable benefit
+whose worst case is that nothing good happens is checked hard. The company whose
+worst case is the serious risks it discloses is checked by its own report. That
+gap is the risk the market misses, and Anthropic's listing will make the
+category much larger.
+
+Governance, in its slimmest version, is effective control over your
+surroundings: whether the people affected by a system can steer it, and whether
+it survives the loss of any one person ("Governance exists so that systems can
+survive individuals"). The full premise is a separate Praxis paper; this one
+needs only that much of it.
+
+*Therefore* the promise is worth checking.
 
 ---
 
