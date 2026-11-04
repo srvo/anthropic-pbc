@@ -1,0 +1,4 @@
+role	windows_ai	windows_risk	windows_opportunity	share_risk	share_opportunity
+analyst_heuristic	6241	191	2918	0.0306	0.4676
+issuer_heuristic	12188	148	7938	0.0121	0.6513
+operator	15	1	3	0.0667	0.2

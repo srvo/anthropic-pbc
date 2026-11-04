@@ -406,7 +406,34 @@ are the pre-registration and do not change to fit them.*
 
 ## 10. Results log
 
-*Empty. No corpus ingested, no annotation run, no model run as of v0.1
-(2026-11-03).*
+*v0.1 (2026-11-03): empty. No corpus ingested, no annotation run, no model run.*
+
+### 2026-11-04 · Earnings-call AI windows, codebook v0.1, two NLI witnesses
+
+**Status: witness proposals only.** No human gold set exists for this
+codebook, so precision and recall are unknown and go criterion (a) in §7 is
+not met. No count below is citable as a rate of anything except witness
+agreement. Method: [`earnings-call-ai-corpus.md`](earnings-call-ai-corpus.md).
+
+- **Input.** 38,600 windows from 33,622 unique, non-stub S&P 500 calls
+  (fiscal 2005–2027), scored against 16 hypotheses: 617,600 pairs per witness.
+- **Witnesses.** DeBERTa-v3-large and ModernBERT-large zero-shot NLI at pinned
+  revisions, bfloat16 on Modal L40S. Outputs:
+  `proposals/earnings-calls/codebook-v0.1/deberta.parquet` (BLAKE3 `e3f0601b…`)
+  and `modernbert.parquet` (`740db8fd…`). The full pins are in `run-*.json`.
+- **Agreement** (`report/agreement.tsv`). Cohen's κ is 0.70 for `about_ai`,
+  0.61 for `ai_risk`, 0.53 for `ai_opportunity`, and 0.41 for `governance`.
+  Across the 12 risk types κ ranges from 0.26 (`disruption`) to 0.69
+  (`energy`). The witnesses differ most on `capex` (231 vs 639 positives),
+  `disruption` (357 vs 87) and `safety_ethics` (429 vs 875). Those are the
+  first hypotheses to put in front of a human coder.
+- **Proposed positives** (both witnesses ≥ 0.5). 6,427 calls have at least
+  one window about AI, 251 have a proposed `ai_risk` window, and 68 have a
+  proposed `governance` window. 125 of the 251 `ai_risk` calls fall in fiscal 2026.
+  Analyst-heuristic windows are proposed as risk at 3.1% of their AI windows,
+  against 1.2% for issuer-heuristic windows (`report/by-role.tsv`).
+- **Next gate.** Draw a stratified hand-coded sample, oversampling the
+  disagreement cells above, and report precision and recall per hypothesis
+  before any rate leaves `proposals/`.
 
 

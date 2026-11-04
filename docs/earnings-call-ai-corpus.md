@@ -94,8 +94,8 @@ Each window is scored against all 16 hypotheses in `codebook-v0.1.tsv`:
 
 score = P(entailment). Nothing is trained, and no label comes from an LLM.
 
-- **Precision and hardware.** bfloat16 on Apple-silicon MPS. On a 200-window
-  check against float32, the mean absolute difference was 0.0013, the maximum
+- **Precision and hardware.** bfloat16 on Modal L40S GPUs (§9). On a
+  200-window check against float32 (on MPS), the mean absolute difference was 0.0013, the maximum
   0.036, and 5 of 3,200 scores (0.16%) crossed 0.5.
 - **What is recorded.** `run-<model>.json` pins every input hash, model
   revision and library version.
@@ -134,7 +134,25 @@ topic lists window ids that resolve to verbatim text.
 
     uv run scripts/ec_extract.py fetch && uv run scripts/ec_extract.py constituents
     uv run scripts/ec_extract.py build            # verifies on completion
-    uv run scripts/ec_classify.py --model deberta    --dtype bfloat16 --batch 64
-    uv run scripts/ec_classify.py --model modernbert --dtype bfloat16 --batch 64
+    # witnesses: Modal GPUs (default), or locally with scripts/ec_classify.py
+    uvx --with duckdb==2.0.0 --with blake3 modal run scripts/ec_classify_modal.py --model deberta
+    uvx --with duckdb==2.0.0 --with blake3 modal run scripts/ec_classify_modal.py --model modernbert
     uv run scripts/ec_report.py
     uv run scripts/ec_topics.py
+
+## 9. Compute
+
+The witnesses are GPU-bound, at 617,600 window×hypothesis pairs per model.
+These are the measured options (bfloat16, DeBERTa-v3-large):
+
+| Where | Throughput | Notes |
+|---|---|---|
+| Modal L40S | 1,443 pairs/s per GPU | **Default.** `scripts/ec_classify_modal.py`, up to 8 GPUs in parallel. List price $0.000542/s, about $0.23 of GPU time per model on one GPU, plus container start-up. The Starter plan includes $30/month and up to 10 concurrent GPUs. Auth comes from the local `modal` profile via `uvx`. |
+| Apple M5 (MPS) | 134–152 pairs/s | `scripts/ec_classify.py`, about 1.2+ h per model. Shards resume after interruption. |
+| RunPod | not yet measured | API key in BWS as `RUNPOD_API_KEY`. Not wired up; Modal covered the need. |
+| k3s on the Proxmox cluster | not yet measured | The hosts are CPU-only (Hetzner EX44, 20 threads; no GPU), and a VM is bounded by one node. To use them, run `ec_classify.py --workers N --worker i` on each node, with float32 and `--threads`, then `--merge-only`. Best use is a full-corpus float32 cross-check, not speed. |
+
+Shards are tagged by model, dtype and backend (`modal-L40S`, or none for a
+local run), so scores from different hardware or precision never merge into
+one output. `run-<model>.json` records the device, the GPU name and every
+library version.

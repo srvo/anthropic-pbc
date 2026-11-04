@@ -21,16 +21,21 @@ Each window is scored against every hypothesis in the codebook by an NLI
 cross-encoder: score = P(entailment) for (premise = window text, hypothesis).
 Two independent encoder families are run so agreement can be reported:
 
-    uv run scripts/ec_classify.py --model deberta      # DeBERTa-v3-large (MIT)
-    uv run scripts/ec_classify.py --model modernbert   # ModernBERT-large (Apache-2.0)
-    uv run scripts/ec_classify.py --model deberta --limit 200   # timing smoke test
+    uv run scripts/ec_classify.py --model deberta    --dtype bfloat16 --batch 64
+    uv run scripts/ec_classify.py --model modernbert --dtype bfloat16 --batch 64
+    uv run scripts/ec_classify.py --model deberta --limit 200     # timing smoke test
+
+Remote GPUs run the same functions: scripts/ec_classify_modal.py (Modal).
+Several machines can split one run: --workers N --worker i on each, gather
+the shard files, then --merge-only.
 
 Inputs and model weights are pinned (window file BLAKE3, codebook BLAKE3, HF
 model revision). Output: proposals/earnings-calls/<codebook>/<model>.parquet,
 long format (window_id, hypothesis_id, p_entail), plus run-<model>.json with
 every pin and the software/device used. No clock enters either file.
-Scores from different devices or library versions may differ in low-order
-digits; derivation determinism across hardware is NOT claimed (spec §5, Route B).
+Shards are tagged by model, dtype and backend, so runs on different precision
+or hardware never merge into one output. Derivation determinism across
+hardware is NOT claimed (spec §5, Route B).
 """
 
 from __future__ import annotations
@@ -40,13 +45,11 @@ import csv
 import json
 import platform
 import sys
+import time
 from pathlib import Path
 
 import blake3
 import duckdb
-import torch
-import transformers
-from transformers import AutoModelForSequenceClassification, AutoTokenizer
 
 ROOT = Path(__file__).resolve().parent.parent
 CORPUS = ROOT / "corpus" / "earnings-calls"
@@ -63,86 +66,53 @@ MAX_LEN = 512
 SHARD = 2048  # windows per checkpoint shard
 
 
+# ------------------------------------------------------------ inputs (no torch)
 def fhash(p: Path) -> str:
     return blake3.blake3(p.read_bytes()).hexdigest()
 
 
-def device() -> str:
-    if torch.backends.mps.is_available():
-        return "mps"
-    return "cuda" if torch.cuda.is_available() else "cpu"
-
-
-def main() -> int:
-    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--model", choices=sorted(MODELS), required=True)
-    ap.add_argument("--batch", type=int, default=32)
-    ap.add_argument("--dtype", choices=["float32", "bfloat16"], default="float32")
-    ap.add_argument("--limit", type=int, default=0, help="score only the first N windows (smoke test; writes nothing)")
-    a = ap.parse_args()
-
-    name, rev, lic = MODELS[a.model]
+def load_inputs(limit: int = 0) -> tuple[list[tuple[str, str]], list[tuple[str, str]]]:
+    """(hypotheses, windows); windows sorted by length so batches pad little."""
     with CODEBOOK.open(newline="") as f:
         hyps = [(r["id"], r["hypothesis"]) for r in csv.DictReader(f, delimiter="\t")]
     wins = duckdb.connect().execute(
         f"SELECT window_id, text FROM '{WINDOWS}' ORDER BY length(text), window_id").fetchall()
-    if a.limit:
-        wins = wins[: a.limit]
+    return hyps, (wins[:limit] if limit else wins)
 
-    dev = device()
-    torch.manual_seed(0)
-    tok = AutoTokenizer.from_pretrained(name, revision=rev)
-    model = AutoModelForSequenceClassification.from_pretrained(name, revision=rev, dtype=getattr(torch, a.dtype))
-    model.eval().to(dev)
-    label2id = {k.lower(): v for k, v in model.config.label2id.items()}
-    ent = label2id.get("entailment")
-    if ent is None:
-        sys.exit(f"{name}: no 'entailment' label in {model.config.label2id}")
 
-    SHARDS.mkdir(parents=True, exist_ok=True)
-    tag = f"{a.model}.{a.dtype}.{fhash(WINDOWS)[:12]}.{fhash(CODEBOOK)[:12]}"
-    pairs = [(wid, text, hid, h) for wid, text in wins for hid, h in hyps]
-    per_shard = SHARD * len(hyps)
-    n_shards = (len(pairs) + per_shard - 1) // per_shard
-    import time
-    t0 = time.monotonic()  # progress display only; never written to any output
-    for si in range(n_shards):
-        shard_path = SHARDS / f"{tag}.{si:04d}.tsv"
-        if shard_path.exists() and not a.limit:
-            continue
-        chunk = pairs[si * per_shard:(si + 1) * per_shard]
-        rows = []
-        with torch.inference_mode():
-            for i in range(0, len(chunk), a.batch):
-                b = chunk[i:i + a.batch]
-                enc = tok([x[1] for x in b], [x[3] for x in b], truncation="only_first",
-                          max_length=MAX_LEN, padding=True, return_tensors="pt").to(dev)
-                probs = torch.softmax(model(**enc).logits.float(), dim=-1)[:, ent].cpu().tolist()
-                rows.extend((x[0], x[2], f"{p:.6f}") for x, p in zip(b, probs))
-        if a.limit:
-            dt = time.monotonic() - t0
-            with (SHARDS / f"smoke.{tag}.tsv").open("w", newline="") as f:
-                csv.writer(f, delimiter="\t", lineterminator="\n").writerows(rows)
-            print(f"smoke: {len(rows)} pairs in {dt:.1f}s = {len(rows)/dt:.1f} pairs/s on {dev}")
-            full = len(duckdb.connect().execute(f"SELECT 1 FROM '{WINDOWS}'").fetchall()) * len(hyps)
-            print(f"projected full run: {full} pairs ~ {full/(len(rows)/dt)/3600:.2f} h (short windows first; real run is slower)")
-            return 0
-        tmp = shard_path.with_suffix(".part")
-        with tmp.open("w", newline="") as f:
-            csv.writer(f, delimiter="\t", lineterminator="\n").writerows(rows)
-        tmp.rename(shard_path)
-        done = si + 1
-        el = time.monotonic() - t0
-        print(f"[{a.model}] shard {done}/{n_shards}  {el/60:.1f} min elapsed", flush=True)
+def make_tag(model_key: str, dtype: str, backend: str = "") -> str:
+    b = f".{backend}" if backend else ""
+    return f"{model_key}.{dtype}{b}.{fhash(WINDOWS)[:12]}.{fhash(CODEBOOK)[:12]}"
 
-    OUT.mkdir(parents=True, exist_ok=True)
+
+def shard_chunks(wins: list) -> list[list]:
+    return [wins[i:i + SHARD] for i in range(0, len(wins), SHARD)]
+
+
+def shard_path(tag: str, si: int) -> Path:
+    return SHARDS / f"{tag}.{si:04d}.tsv"
+
+
+def write_shard(path: Path, rows: list) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_suffix(".part")
+    with tmp.open("w", newline="") as f:
+        csv.writer(f, delimiter="\t", lineterminator="\n").writerows(rows)
+    tmp.rename(path)
+
+
+def merge(model_key: str, tag: str, n_windows: int, hyps: list, runtime: dict) -> Path:
+    """Gather all shards for `tag` into the committed parquet + run record."""
+    name, rev, lic = MODELS[model_key]
+    n_pairs = n_windows * len(hyps)
     con = duckdb.connect()
     con.execute(f"""CREATE TABLE s AS SELECT * FROM read_csv('{SHARDS}/{tag}.*.tsv', delim='\t', header=false,
                     columns={{'window_id':'VARCHAR','hypothesis_id':'VARCHAR','p_entail':'DOUBLE'}})""")
     n = con.execute("SELECT count(*), count(DISTINCT (window_id, hypothesis_id)) FROM s").fetchone()
-    if n[0] != len(pairs) or n[1] != len(pairs):
-        sys.exit(f"shard merge mismatch: {n} vs {len(pairs)} pairs")
-    out = OUT / f"{a.model}.parquet"
+    if n[0] != n_pairs or n[1] != n_pairs:
+        sys.exit(f"shard merge mismatch: {n} vs {n_pairs} pairs")
+    OUT.mkdir(parents=True, exist_ok=True)
+    out = OUT / f"{model_key}.parquet"
     con.execute(f"""COPY (SELECT window_id, hypothesis_id, p_entail::FLOAT AS p_entail FROM s
                     ORDER BY window_id, hypothesis_id)
                     TO '{out}' (FORMAT parquet, COMPRESSION zstd, ROW_GROUP_SIZE 65536)""")
@@ -152,14 +122,109 @@ def main() -> int:
         "task": "zero-shot NLI; score = P(entailment | premise=window text, hypothesis)",
         "codebook": str(CODEBOOK.relative_to(ROOT)), "codebook_blake3": fhash(CODEBOOK),
         "windows": str(WINDOWS.relative_to(ROOT)), "windows_blake3": fhash(WINDOWS),
-        "n_windows": len(wins), "n_hypotheses": len(hyps), "n_scores": len(pairs),
-        "max_length": MAX_LEN, "truncation": "only_first", "dtype": a.dtype, "batch": a.batch,
-        "device": dev, "machine": platform.machine(), "python": platform.python_version(),
-        "torch": torch.__version__, "transformers": transformers.__version__,
+        "n_windows": n_windows, "n_hypotheses": len(hyps), "n_scores": n_pairs,
+        "max_length": MAX_LEN, "truncation": "only_first", "shard_tag": tag,
+        **runtime,
         "output": str(out.relative_to(ROOT)), "output_blake3": fhash(out),
     }
-    (OUT / f"run-{a.model}.json").write_text(json.dumps(run, indent=2, sort_keys=True) + "\n")
-    print(f"ok: {len(pairs)} scores -> {out.relative_to(ROOT)}")
+    (OUT / f"run-{model_key}.json").write_text(json.dumps(run, indent=2, sort_keys=True) + "\n")
+    print(f"ok: {n_pairs} scores -> {out.relative_to(ROOT)}")
+    return out
+
+
+# ------------------------------------------------------------ scoring (torch)
+def pick_device() -> str:
+    import torch
+    if torch.backends.mps.is_available():
+        return "mps"
+    return "cuda" if torch.cuda.is_available() else "cpu"
+
+
+def load_model(model_key: str, dtype: str, dev: str):
+    import torch
+    from transformers import AutoModelForSequenceClassification, AutoTokenizer
+    name, rev, _ = MODELS[model_key]
+    torch.manual_seed(0)
+    tok = AutoTokenizer.from_pretrained(name, revision=rev)
+    model = AutoModelForSequenceClassification.from_pretrained(name, revision=rev, dtype=getattr(torch, dtype))
+    model.eval().to(dev)
+    label2id = {k.lower(): v for k, v in model.config.label2id.items()}
+    if "entailment" not in label2id:
+        sys.exit(f"{name}: no 'entailment' label in {model.config.label2id}")
+    return tok, model, label2id["entailment"]
+
+
+def score_windows(tok, model, ent: int, dev: str, wins: list, hyps: list, batch: int) -> list:
+    """Rows (window_id, hypothesis_id, 'p') for every window x hypothesis, in input order."""
+    import torch
+    pairs = [(wid, text, hid, h) for wid, text in wins for hid, h in hyps]
+    rows = []
+    with torch.inference_mode():
+        for i in range(0, len(pairs), batch):
+            b = pairs[i:i + batch]
+            enc = tok([x[1] for x in b], [x[3] for x in b], truncation="only_first",
+                      max_length=MAX_LEN, padding=True, return_tensors="pt").to(dev)
+            probs = torch.softmax(model(**enc).logits.float(), dim=-1)[:, ent].cpu().tolist()
+            rows.extend((x[0], x[2], f"{p:.6f}") for x, p in zip(b, probs))
+    return rows
+
+
+def runtime_info(dev: str, dtype: str, batch: int) -> dict:
+    import torch
+    import transformers
+    info = {"device": dev, "dtype": dtype, "batch": batch, "machine": platform.machine(),
+            "python": platform.python_version(), "torch": str(torch.__version__),  # TorchVersion -> plain str
+            "transformers": str(transformers.__version__)}
+    if dev == "cuda":
+        info["gpu"] = torch.cuda.get_device_name(0)
+    return info
+
+
+# ------------------------------------------------------------ local CLI
+def main() -> int:
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("--model", choices=sorted(MODELS), required=True)
+    ap.add_argument("--batch", type=int, default=32)
+    ap.add_argument("--dtype", choices=["float32", "bfloat16"], default="float32")
+    ap.add_argument("--backend", default="", help="tag suffix naming where shards were scored")
+    ap.add_argument("--workers", type=int, default=1, help="split shards across N machines (shard i -> worker i %% N)")
+    ap.add_argument("--worker", type=int, default=0, help="this machine's index, 0..workers-1")
+    ap.add_argument("--merge-only", action="store_true", help="skip scoring; merge shards gathered from all workers")
+    ap.add_argument("--threads", type=int, default=0, help="torch CPU threads (0 = torch default)")
+    ap.add_argument("--limit", type=int, default=0, help="score only the first N windows (smoke test; writes nothing)")
+    a = ap.parse_args()
+    if not 0 <= a.worker < a.workers:
+        sys.exit("--worker must be in 0..workers-1")
+
+    hyps, wins = load_inputs(a.limit)
+    tag = make_tag(a.model, a.dtype, a.backend)
+    chunks = shard_chunks(wins)
+    todo = [si for si in range(len(chunks))
+            if si % a.workers == a.worker and (a.limit or not shard_path(tag, si).exists())]
+
+    import torch
+    if a.threads:
+        torch.set_num_threads(a.threads)
+    dev = pick_device()
+    if todo and not a.merge_only:
+        tok, model, ent = load_model(a.model, a.dtype, dev)
+        t0 = time.monotonic()  # progress display only; never written to any output
+        for k, si in enumerate(todo, 1):
+            rows = score_windows(tok, model, ent, dev, chunks[si], hyps, a.batch)
+            if a.limit:
+                dt = time.monotonic() - t0
+                write_shard(SHARDS / f"smoke.{tag}.tsv", rows)
+                print(f"smoke: {len(rows)} pairs in {dt:.1f}s = {len(rows)/dt:.1f} pairs/s on {dev}")
+                return 0
+            write_shard(shard_path(tag, si), rows)
+            print(f"[{a.model}] shard {k}/{len(todo)}  {(time.monotonic()-t0)/60:.1f} min elapsed", flush=True)
+
+    missing = [si for si in range(len(chunks)) if not shard_path(tag, si).exists()]
+    if missing:
+        print(f"worker {a.worker}/{a.workers} done; {len(missing)} shard(s) still missing. "
+              f"Copy {SHARDS.relative_to(ROOT)}/{tag}.*.tsv here and rerun with --merge-only.")
+        return 0
+    merge(a.model, tag, len(wins), hyps, runtime_info(dev, a.dtype, a.batch))
     return 0
 
 
