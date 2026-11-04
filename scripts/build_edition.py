@@ -73,6 +73,9 @@ DAG_TOOL = ROOT.parent / "praxis" / "datasets" / "dag.py"
 FIRST_YEAR, CUTOFF_YEAR, TTM_MONTHS = 2013, 2023, 12
 RISK_WORD = r"(?i)\brisk(s|y|ier|iest)?\b"
 THRESHOLD = Fraction(1, 2)
+# Who speaks for the firm: the corpus's speaker-role heuristic (docs/earnings-call-ai-corpus.md section 4).
+# Analysts' questions and the operator are not the firm's words.
+COMPANY_SPEAKERS = "role = 'issuer_heuristic'"
 
 CODEBOOKS = {
     "v0.2-draft": {
@@ -311,7 +314,7 @@ class Build:
             FROM read_csv('{EC / "calls.tsv"}')
             WHERE (duplicate_of IS NULL OR duplicate_of = '') AND n_paragraphs > 2 AND report_date <= DATE '{as_of}'""")
         con.execute(f"""CREATE TABLE w AS SELECT window_id, symbol, fiscal_year, fiscal_quarter,
-                report_date::DATE AS report_date, regexp_matches(text, '{RISK_WORD}') AS lex,
+                report_date::DATE AS report_date, role, regexp_matches(text, '{RISK_WORD}') AS lex,
                 window_id IN ({flags('ai_risk')}) AS ai_risk
             FROM '{EC / "ai-windows.parquet"}'""")
         con.execute("""CREATE TABLE cw AS SELECT c.*, bool_or(w.lex) AS lex, bool_or(w.ai_risk) AS nli
@@ -330,17 +333,39 @@ class Build:
         pre = max((r for r in series if r[0] < CUTOFF_YEAR), key=lambda r: Fraction(r[3], r[1]))
         R.copy("ec_pre2023_max", f"ec_nli_{pre[0]}", how=f"max over years < {CUTOFF_YEAR} of ec_nli_<year>")
 
+        # The call rate counts a call once any AI window is flagged, so it rises with the number of AI windows
+        # alone. The per-window rate, same codebook and rule, separates framing from volume.
+        per_window = {y: (n, k) for y, n, k in con.execute(f"""SELECT year(c.report_date)::INT, count(*)::INT,
+                (count(*) FILTER (WHERE w.ai_risk))::INT FROM w JOIN calls c USING (symbol, fiscal_year, fiscal_quarter)
+            WHERE year(c.report_date) >= {FIRST_YEAR} GROUP BY 1""").fetchall()}
+        calls_n = {y: n for y, n, *_ in series}
+        for y, (n, k) in sorted(per_window.items()):
+            R.pct(f"ec_win_{y}", k, n, 1, source=src, how=f"{y}: AI windows flagged ai_risk (both witnesses) / AI windows")
+            R.put(f"ec_wpc_{y}", display.ratio(n, calls_n[y], 1), source=src, how=f"{y}: AI windows / calls",
+                  n=n, d=calls_n[y])
+        base = CUTOFF_YEAR - 1
+        if base not in per_window or last[0] not in per_window:
+            self.errs.append(f"per-window rate undefined in {base} or {last[0]}: no AI windows")
+        else:
+            R.put("ec_win_base_year", str(base), source="build_edition.CUTOFF_YEAR", how="last year before the cutoff")
+            for tag, y in (("base", base), ("last", last[0])):
+                R.copy(f"ec_win_{tag}", f"ec_win_{y}", how=f"{tag} year")
+                R.copy(f"ec_wpc_{tag}", f"ec_wpc_{y}", how=f"{tag} year")
+        self.per_window = per_window
+
         since = f"DATE '{as_of}' - INTERVAL {TTM_MONTHS} MONTH"
-        con.execute(f"CREATE TABLE ttm AS SELECT * FROM w WHERE report_date > {since} AND report_date <= DATE '{as_of}' AND ai_risk")
+        con.execute(f"""CREATE TABLE ttm AS SELECT * FROM w WHERE report_date > {since} AND report_date <= DATE '{as_of}'
+            AND ai_risk AND {COMPANY_SPEAKERS}""")
         ranking = []
         for t in types:
             firms = con.execute(f"SELECT count(DISTINCT symbol)::INT FROM ttm WHERE window_id IN ({flags(t)})").fetchone()[0]
             lab = LABELS.get(t, t) + (" *" if t in new else "")
             ranking.append((t, lab, firms))
-            R.count(f"ec_rank_{t}", firms, source=src, how=f"firms with a window both ai_risk and {t}, trailing window")
+            R.count(f"ec_rank_{t}", firms, source=src,
+                    how=f"firms with a company-speaker window both ai_risk and {t}, trailing window")
         ranking.sort(key=lambda r: (-r[2], r[0]))
         R.count("ec_ttm_risk_firms", con.execute("SELECT count(DISTINCT symbol)::INT FROM ttm").fetchone()[0],
-                source=src, how="firms with >= 1 ai_risk window, trailing window")
+                source=src, how="firms with >= 1 company-speaker ai_risk window, trailing window")
         self.compose("ec_top3", ", ".join(f"{LABELS.get(r[0], r[0])} ({{ec_rank_{r[0]}}})" for r in ranking[:3]),
                      source=src, how="top three of the ranking")
         self.plot_series(series)
@@ -375,6 +400,12 @@ class Build:
             ax.plot(years, ys, color=color, lw=2, marker="o", ms=4.5, mec=SURFACE, mew=1.5, label=name)
             ax.annotate(self.say("{" + f"ec_{key}_{years[-1]}" + "}%"), (years[-1], ys[-1]), xytext=(8, 0),
                         textcoords="offset points", va="center", color=INK, fontsize=10, fontweight="bold")
+        wy = [y for y in years if y in self.per_window]
+        ws = [float(Fraction(100 * self.per_window[y][1], self.per_window[y][0])) for y in wy]
+        ax.plot(wy, ws, color=S2, lw=1.6, ls="--", marker="o", ms=3.5, mec=SURFACE, mew=1,
+                label="Per AI passage, same rule: share of AI passages framed as a risk")
+        ax.annotate(self.say("{" + f"ec_win_{wy[-1]}" + "}%"), (wy[-1], ws[-1]), xytext=(8, -4),
+                    textcoords="offset points", va="center", color=INK, fontsize=9)
         ax.set_xticks(years, [self.say("{" + f"year_{y}" + "}" + ("\n(to {as_of_md})" if y == years[-1] else ""))
                               for y in years], fontsize=9)
         ax.yaxis.set_major_formatter(matplotlib.ticker.FuncFormatter(lambda v, _: f"{v:.0f}%"))
@@ -385,9 +416,10 @@ class Build:
         ax.text(0, 1.02, "Calls per calendar year; denominator: every unique, non-stub S&P 500 call in the corpus",
                 transform=ax.transAxes, color=INK2, fontsize=9)
         ax.legend(loc="upper left", frameon=False, fontsize=9, labelcolor=INK)
-        fig.text(0.01, 0.01, self.say("Source: defeatbeta/yahoo-finance-data transcripts (ODC-BY). Model line: risk codebook "
-                 "{codebook}; witness proposal, not hand-verified."), color=INK2, fontsize=7.5)
-        fig.tight_layout(rect=(0, 0.03, 1, 1))
+        fig.text(0.01, 0.01, self.say("Source: defeatbeta/yahoo-finance-data transcripts (ODC-BY). Model lines: risk codebook "
+                 "{codebook}; witness proposals, not hand-verified.\nEarly per-passage points rest on few passages."),
+                 color=INK2, fontsize=7.5)
+        fig.tight_layout(rect=(0, 0.05, 1, 1))
         self.save_fig(fig, "ai-risk-by-year.svg")
 
     def plot_ranking(self, ranking) -> None:
@@ -403,9 +435,10 @@ class Build:
             ax.spines[s].set_visible(False)
         ax.set_xticks([])
         ax.tick_params(length=0, labelsize=9.5, labelcolor=INK)
-        ax.set_title(self.say("AI risks raised on S&P 500 calls, {ttm_months} months to {as_of}"),
+        ax.set_title(self.say("AI risks raised by company speakers on S&P 500 calls,\n{ttm_months} months to {as_of}"),
                      loc="left", color=INK, fontsize=12, fontweight="bold", pad=30)
-        ax.text(0, 1.01, self.say("Number of companies; both models must propose the window.\nRisk codebook {codebook}; "
+        ax.text(0, 1.01, self.say("Number of companies whose own speakers raised it (analysts excluded; role is a name "
+                "heuristic);\nboth models must propose the window. Risk codebook {codebook}; "
                 "* = new in {new_tag_0}."), transform=ax.transAxes, color=INK2, fontsize=8.5)
         fig.tight_layout()
         self.save_fig(fig, "risk-ranking-ttm.svg")

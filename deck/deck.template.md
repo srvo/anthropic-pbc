@@ -41,7 +41,7 @@ Edition {{paper_edition}} of the paper (`docs/anthropic-contrapunctus.md` at `{{
 
 ![w:900](deck/ai-risk-by-year.svg)
 
-<div class="src">AI framed as a risk: {{ec_pct_witness_last}}% of {{ec_year_last}} S&P 500 calls (to {{as_of}}), against at most {{ec_pre2023_max}}% in any year before {{ec_cutoff_year}}.</div>
+<div class="src">AI framed as a risk: {{ec_pct_witness_last}}% of {{ec_year_last}} S&P 500 calls (to {{as_of}}), against at most {{ec_pre2023_max}}% in any year before {{ec_cutoff_year}}. The call rate rises with AI talk itself: AI passages per call went from {{ec_wpc_base}} in {{ec_win_base_year}} to {{ec_wpc_last}} in {{ec_year_last}}, while the share of AI passages framed as a risk went from {{ec_win_base}}% to {{ec_win_last}}%.</div>
 
 ---
 
@@ -49,7 +49,7 @@ Edition {{paper_edition}} of the paper (`docs/anthropic-contrapunctus.md` at `{{
 
 ![h:520](deck/risk-ranking-ttm.svg)
 
-<div class="src">{{ec_ttm_risk_firms}} firms raised AI as a risk in the {{ttm_months}} months to {{as_of}}. Most named: {{ec_top3}}.</div>
+<div class="src">Company executives and other company speakers at {{ec_ttm_risk_firms}} firms raised AI as a risk in the {{ttm_months}} months to {{as_of}}; analysts' questions are excluded (speaker role is a name heuristic). Most named: {{ec_top3}}.</div>
 
 ---
 

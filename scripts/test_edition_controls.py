@@ -196,6 +196,12 @@ with tempfile.TemporaryDirectory() as d:
     expect("text past the figure edge fails", any("clipped" in e for e in b.errs))
     expect("malformed SVG fails", raises(lambda: b.save_svg("<svg><text>a & b</text></svg>", "bad.svg"), Exception))
 
+# H1. firm counts use company speakers only: analysts and the operator are excluded
+import duckdb  # noqa: E402
+kept = duckdb.connect().execute(f"SELECT count(*) FROM (VALUES ('issuer_heuristic'), ('analyst_heuristic'), ('operator'), (NULL)) "
+                  f"t(role) WHERE {be.COMPANY_SPEAKERS}").fetchone()[0]
+expect("company-speaker filter drops analysts, the operator and unknown roles", kept == 1)
+
 # M1. the source commit is the last commit touching an input, so committing the outputs keeps --check passing
 with tempfile.TemporaryDirectory() as d:
     g = Path(d)
