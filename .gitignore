@@ -17,3 +17,6 @@ docs/_pending-*.md
 
 # CVE bulk snapshot -- re-fetchable from corpus/cve/MANIFEST.tsv
 .cvecorpus/
+
+# Epoch AI snapshot bytes (large tables) -- pinned in corpus/epoch/MANIFEST.tsv
+.epochcorpus/
