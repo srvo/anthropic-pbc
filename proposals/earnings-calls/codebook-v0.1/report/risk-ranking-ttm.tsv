@@ -1,0 +1,14 @@
+# trailing 12 months to 2026-11-04: 496 S&P 500 firms held calls; 137 had >= 1 window proposed as ai_risk by both witnesses (379 windows). Witness proposals, no gold set.
+rank	risk_type	label	firms	windows
+1	cyber	Cybersecurity	39	136
+2	safety_ethics	Safety / ethics / misuse	31	47
+3	capex	Overspending / capex return	27	31
+4	disruption	Disruption of the business	18	21
+5	privacy	Data privacy	9	13
+6	regulation	Regulation	7	8
+7	labor	Jobs / labor	6	6
+8	supply	Chip & supply constraints	5	5
+9	ip	Intellectual property	4	5
+10	energy	Energy / power	2	2
+11	bias	Bias / fairness	1	1
+12	accuracy	Accuracy / hallucination	0	0

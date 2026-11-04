@@ -138,6 +138,7 @@ topic lists window ids that resolve to verbatim text.
     uvx --with duckdb==2.0.0 --with blake3 modal run scripts/ec_classify_modal.py --model deberta
     uvx --with duckdb==2.0.0 --with blake3 modal run scripts/ec_classify_modal.py --model modernbert
     uv run scripts/ec_report.py
+    uv run scripts/ec_risk_series.py              # AI-as-risk time series, 12-month ranking, verbatim quotes
     uv run scripts/ec_topics.py
 
 ## 9. Compute
