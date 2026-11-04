@@ -1,0 +1,17 @@
+id	group	hypothesis
+about_ai	topic	This text is about artificial intelligence or machine learning.
+ai_risk	stance	This text describes a risk, threat, cost, or downside of artificial intelligence.
+ai_opportunity	stance	This text describes a benefit, opportunity, or growth driver from artificial intelligence.
+regulation	risk_type	This text discusses legal or regulatory risk from artificial intelligence, such as AI laws, compliance, or government action.
+cyber	risk_type	This text discusses cybersecurity threats, fraud, or attacks that use or target artificial intelligence.
+privacy	risk_type	This text discusses data privacy or data protection concerns related to artificial intelligence.
+accuracy	risk_type	This text discusses artificial intelligence making errors, hallucinating, or producing unreliable outputs.
+bias	risk_type	This text discusses bias, fairness, or discrimination in artificial intelligence systems.
+labor	risk_type	This text discusses job losses, workforce reductions, or lower headcount because of artificial intelligence.
+disruption	risk_type	This text discusses artificial intelligence disrupting or threatening the company's own business or competitive position.
+capex	risk_type	This text discusses the cost of artificial intelligence investment or uncertain returns on AI spending.
+energy	risk_type	This text discusses the electricity, power, or energy demands of artificial intelligence and data centers.
+supply	risk_type	This text discusses shortages or supply constraints for AI chips, GPUs, or data-center capacity.
+ip	risk_type	This text discusses intellectual property, copyright, or content licensing issues related to artificial intelligence.
+safety_ethics	risk_type	This text discusses ethical, reputational, safety, or misuse concerns about artificial intelligence.
+governance	mechanism	This text describes how the company governs, oversees, or controls its use of artificial intelligence.

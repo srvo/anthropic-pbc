@@ -5,3 +5,6 @@ docs/contrapunctus-compliance-review.md
 docs/_pending-*.md
 *.draft.md
 .rfcorpus/
+
+# Earnings-call bulk source -- re-fetchable from corpus/earnings-calls/MANIFEST.tsv
+.eccorpus/

@@ -121,6 +121,7 @@ signed. Disputes re-enter the graph as new signed records; nothing is overwritte
 - **Read the paper:** [`docs/anthropic-contrapunctus.md`](docs/anthropic-contrapunctus.md) — §0 rubric through §9 open questions, with appendices.
 - **Risk–Governance Index:** [`docs/risk-governance-index.md`](docs/risk-governance-index.md) — every disclosed risk joined to the mechanism that would control it.
 - **Sign on or dispute:** [`docs/contrapunctus-attest.md`](docs/contrapunctus-attest.md) — cryptographic endorsement or dispute, bound to this exact version.
+- **Earnings-call AI corpus:** [`docs/earnings-call-ai-corpus.md`](docs/earnings-call-ai-corpus.md) — every AI passage on S&P 500 earnings calls, verbatim and byte-anchored, with two BERT-family NLI witnesses and an exploratory BERTopic map. Data in [`corpus/earnings-calls/`](corpus/earnings-calls/) (ODC-BY, not CC0).
 - **The method it argues from:** `praxis-white-paper.md`, `praxis-standard.md`, `descartes-spec.md`, and the primitives (`circles`, `epistemics`, `primitives`, `strictness`).
 
 ## Verify
@@ -144,6 +145,8 @@ Cite: https://doi.org/10.5281/zenodo.23928296
 Dedicated to the public domain under **CC0 1.0** (see `LICENSE`) — reuse freely, no
 rights reserved. Quoted excerpts from Anthropic's filings and Constitution, from
 SEC/court records, and from cited third-party works remain under their own terms.
+`corpus/earnings-calls/` is derived from an ODC-BY 1.0 dataset and a CC BY-SA 4.0
+list; its README carries the attribution.
 
 ## Author
 
