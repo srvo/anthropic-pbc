@@ -119,3 +119,76 @@ filings for the same CIK — 8-K Item 2.06 (material impairments), 8-K Item 1.05
 (cyber incidents), Item 7 MD&A, litigation disclosures. That join is a separate
 extractor and is not built here. Any claim that a named risk caused a dollar loss
 must cite the filing where the loss is booked, never an Item 1A sentence.
+
+---
+
+# Part II — loss evidence
+
+### Why this is a separate corpus, not a query over Part I
+
+Part I answers "what did companies say could harm them." It cannot answer "what
+did it cost," and no amount of searching Item 1A changes that. Item 1A is
+forward-looking boilerplate by mandate; a company that suffered a loss writes the
+loss into an 8-K, into MD&A, or into litigation disclosures — not into the section
+asking what might go wrong.
+
+So Part II reads a different source, selected by EDGAR's **structured `items[]`
+array** rather than by text search. Five codes describe a materialized event:
+
+| Code | Event |
+|---|---|
+| 1.05 | Material cybersecurity incident |
+| 2.04 | Triggering events / covenant acceleration |
+| 2.05 | Costs of exit or disposal |
+| 2.06 | Material impairment |
+| 4.02 | Non-reliance on prior financials (restatement) |
+
+Extractor: `scripts/rf_loss.py`. Store: `.rfcorpus/loss.duckdb`.
+
+### Result
+
+13,570 events across 6,187 companies, 2010-01-04 → 2026-11-03, from 1,275,249
+8-K filings scanned over 204 month-slices with **zero unreadable slices**.
+
+| Item | Events |
+|---|---|
+| 2.05 exit/disposal costs | 4,900 |
+| 4.02 restatement | 4,709 |
+| 2.04 covenant acceleration | 2,906 |
+| 2.06 impairment | 1,703 |
+| 1.05 cyber incident | 85 |
+
+Spot-checked against known events: the 1.05 set correctly contains VF Corp's
+December 2023 breach and First American Financial's cyber incident.
+
+### Two API traps, both found by testing
+
+**The `items=` filter is accepted and ignored.** Querying `items=2.06` returns
+2.01 filings. EDGAR does not error; it silently returns unfiltered results.
+Filtering must happen client-side on the returned array, which this extractor does.
+
+**Results cap at 10,000 per query** regardless of ordering, so enumeration slices
+by month. A month above the cap is recorded as `capped` in the output rather than
+silently truncated. No month in the delivered run exceeded it, but the guard stays.
+
+### The bug: reported success while losing four months
+
+The first implementation reported 2010 complete while silently dropping May,
+August, September and November. A 9,000-hit month is ~90 sequential requests,
+which trips EDGAR's rate limiter partway through paging; the failure was caught by
+a bare `except Exception` and counted as a completed slice. With retry and
+backoff, 2010 went from 493 to 1,190 events. Unreadable slices are now recorded as
+named gaps, and the run prints them — a missing month must never look like a month
+with no events.
+
+### What an event is not
+
+**An event is not an attribution.** A 2.06 impairment says a write-down was
+booked. It does not say which risk caused it. The 1,703 impairment filings and the
+52,000+ Item 1A spans share a key — CIK — and that is all they share until a human
+reads both and states the link.
+
+Any claim of the form "risk X named in filing A caused loss L in filing B" must
+cite both filings and both BLAKE3 hashes. A join on CIK alone produces candidates
+for reading, never conclusions. The count of shared CIKs between the two corpora
+is a *work queue*, not a finding.
