@@ -100,9 +100,19 @@ build (`scripts/build_edition.py`) fails on any breach:
    from the same registered values as the captions.
 4. **Provenance.** Each value is registered with its source file, computation,
    numerator and denominator. `deck/STAMP.json` lists them all.
-5. **No unbound numerals.** The template may contain no digit outside a
-   `{{binding}}`. Every numeral in the built deck, and in chart text (axis tick
-   labels aside), must be a registered value.
+5. **No unbound numerals, by identity.** The template may contain no digit
+   outside a `{{binding}}`. A numeral in a built deck line must be supplied by
+   a binding used on that same template line; a numeral in chart text must be
+   supplied by the bindings that string was built from (`Build.say`, which
+   records the keys). A composite binding (`Build.compose`, e.g. `ec_top3`)
+   supplies only its parts' numerals. Matching any registered value is not
+   enough. Minus signs are part of a numeral, and "500" passes only inside the
+   name "S&P 500". The check covers every channel that ships: body text, HTML
+   comments (Marp presenter notes), image alt text (Marp size keywords
+   aside), the front-matter `title`/`description`/`header`/`footer`, SVG
+   element and `<tspan>` text, tail text, comments and `aria-label`, and
+   matplotlib tick labels set from data. Only tick labels that a formatter
+   computes from the axis scale are exempt.
 6. **Quotes.** Quoted text in the template must be a single quote binding, and
    each quote must occur verbatim in edition v0.
 7. **Nothing clipped or malformed.** Chart text must lie inside the figure;

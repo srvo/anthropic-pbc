@@ -27,9 +27,13 @@ Display controls (docs/report-build.md; every one fails the build):
      same registered values as the captions, so chart and caption cannot disagree.
   4. Provenance. Every displayed value is registered with its source file,
      computation, numerator and denominator, and written to the stamp.
-  5. No unbound numerals. The template may contain no digits outside {{...}}
-     (front matter excepted). Every numeral in the built DECK.md, and in every
-     chart's text (axis tick labels excepted), must be a registered value.
+  5. No unbound numerals, checked by identity. The template may contain no
+     digits outside {{...}}. Every numeral in a built DECK.md line must come
+     from a binding used on that template line; every numeral in a chart
+     string must come from the bindings that string was built from (say()).
+     Checked channels: body, HTML comments (presenter notes), image alt text,
+     front-matter title/description/header/footer, SVG text/tspan/tail/
+     comments/aria-label, and fixed tick labels (scale ticks excepted).
   6. Quotes. Text in double quotes in the template must be a single quote
      binding, and every quote binding must occur verbatim in edition v0.
   7. Nothing clipped. Every text element of a matplotlib chart lies inside the
@@ -83,7 +87,9 @@ QUOTES = {  # binding -> exact text in edition v0 (markdown emphasis and line br
     "q_365b": "§365(b) gives directors no duty to any person on account of a public-benefit interest",
     "q_33k": "33,000+",
 }
-STATIC_TOKENS = {"500"}   # "S&P 500" is a name, not a quantity
+STATIC_NAMES = re.compile(r"S&P 500|CVEProject/cvelistV5")   # names, not quantities: removed before numerals are read
+FM_CHECKED = re.compile(r"^(title|description|header|footer|author|keywords|lang)\s*:")   # front-matter text that ships
+MARP_SIZE = re.compile(r"(?<!\S)(?:w|h|width|height):\d+(?:px|%)?(?!\S)")   # image-size keywords in alt text: layout
 DIALOGUE_SOURCES = [("executives", "Executives (calls)"), ("analysts", "Analyst questions"),
                     ("hn_anthropic", "HN: Anthropic"), ("hn_security", "HN: AI security"), ("wikipedia", "Wikipedia")]
 LABELS = {"regulation": "Regulation", "cyber": "Cybersecurity", "privacy": "Data privacy",
@@ -99,11 +105,15 @@ NUM = re.compile(r"\b(?=[0-9a-f]*[a-f])(?=[0-9a-f]*\d)[0-9a-f]{7,40}\b"   # comm
                  r"|\d{4}-\d{2}-\d{2}|\d{4}-\d{2}"                         # dates, months
                  r"|v\d+(?:\.\d+)+(?:-draft)?"                             # versions
                  r"|§\d+\([a-z]\)"                                         # statute sections
-                 r"|\d[\d,]*(?:\.\d+)?\+?")                                # numbers
+                 r"|[-\u2212]?\d[\d,]*(?:\.\d+)?\+?")                       # numbers, minus sign kept
 
 
 def tokens(s: str) -> set[str]:
-    return {m.group(0).rstrip(",") for m in NUM.finditer(s)}
+    return {m.group(0).rstrip(",") for m in NUM.finditer(STATIC_NAMES.sub("", s))}
+
+
+def keys_in(s: str) -> list[str]:
+    return re.findall(r"\{\{(\w+)\}\}", s)
 
 
 def git(*a: str, cwd: Path = ROOT) -> str:
@@ -134,6 +144,7 @@ class Build:
         self.reg = display.Registry()
         self.errs: list[str] = []
         self.outs: dict[str, bytes] = {}
+        self.bound: dict[str, set[str]] = {}   # chart string -> the binding keys it was built from
 
     # ------------------------------------------------------------ preconditions
     def inputs(self) -> list[str]:
@@ -156,16 +167,40 @@ class Build:
         return not self.errs
 
     # ------------------------------------------------------------ checks
-    def allowed(self) -> set[str]:
-        out = set(STATIC_TOKENS)
-        for t in self.reg.texts():
-            out |= tokens(t)
+    def allowed(self, keys) -> set[str]:
+        """Numerals the given bindings supply. A composite binding supplies only its parts'."""
+        out: set[str] = set()
+        for k in keys:
+            v = self.reg.values.get(k)
+            if v is None:
+                self.errs.append(f"unknown binding {k}")
+            else:
+                out |= self.allowed(v["parts"]) if "parts" in v else tokens(v["text"])
         return out
 
-    def check_text(self, where: str, s: str) -> None:
-        bad = sorted(tokens(s) - self.allowed())
+    def say(self, fmt: str) -> str:
+        """Chart text from bindings: '{key}' placeholders are filled with registered text, and
+        every numeral in the result is later checked against those keys only."""
+        keys = re.findall(r"\{(\w+)\}", fmt)
+        s = fmt.format(**{k: self.reg.values[k]["text"] for k in keys})
+        self.bound.setdefault(s, set()).update(keys)
+        return s
+
+    def compose(self, key: str, fmt: str, *, source: str, how: str) -> str:
+        """Register a value built from other bindings; its numerals must all come from them."""
+        s = self.say(fmt)
+        parts = sorted(self.bound[s])
+        self.reg.put(key, s, source=source, how=how)
+        self.reg.values[key]["parts"] = parts
+        self.check_text(f"binding {key}", s, parts)
+        return s
+
+    def check_text(self, where: str, s: str, keys=None) -> None:
+        """Every numeral in s must come from the bindings s was built from, not from any binding."""
+        keys = self.bound.get(s, set()) if keys is None else keys
+        bad = sorted(tokens(s) - self.allowed(keys))
         if bad:
-            self.errs.append(f"{where}: unregistered numerals {bad} in {s[:90]!r}")
+            self.errs.append(f"{where}: numerals {bad} not supplied by its bindings {sorted(keys)} in {s[:90]!r}")
 
     def save_fig(self, fig, name: str) -> None:
         import matplotlib
@@ -175,9 +210,11 @@ class Build:
         canvas.draw()
         r = canvas.get_renderer()
         box = fig.bbox
-        ticks = set()
+        scale = set()   # tick labels a formatter computes from the axis scale are layout, not data
         for ax in fig.axes:
-            ticks |= set(ax.get_xticklabels()) | set(ax.get_yticklabels())
+            for axis, labels in ((ax.xaxis, ax.get_xticklabels()), (ax.yaxis, ax.get_yticklabels())):
+                if isinstance(axis.get_major_formatter(), (matplotlib.ticker.FuncFormatter, matplotlib.ticker.ScalarFormatter)):
+                    scale |= set(labels)
         for t in fig.findobj(matplotlib.text.Text):
             s = t.get_text()
             if not t.get_visible() or not s.strip():
@@ -185,7 +222,7 @@ class Build:
             bb = t.get_window_extent(r)
             if bb.x0 < box.x0 - 0.5 or bb.y0 < box.y0 - 0.5 or bb.x1 > box.x1 + 0.5 or bb.y1 > box.y1 + 0.5:
                 self.errs.append(f"{name}: text clipped at the figure edge: {s[:60]!r}")
-            if t not in ticks:
+            if t not in scale:
                 self.check_text(name, s)
         path = OUT_DIR / name
         fig.savefig(path, facecolor=SURFACE, metadata=META)
@@ -194,10 +231,17 @@ class Build:
         self.outs[f"deck/{name}"] = path.read_bytes()
 
     def save_svg(self, svg: str, name: str) -> None:
-        root = ET.fromstring(svg)
+        """Every text channel of a hand-built SVG: element text (text, tspan, title, desc, ...),
+        tail text, comments, and the aria-label, aria-description and title attributes."""
+        root = ET.fromstring(svg, parser=ET.XMLParser(target=ET.TreeBuilder(insert_comments=True)))
         for el in root.iter():
-            if el.tag.split("}")[-1] in ("text", "title", "desc") and el.text:
-                self.check_text(name, el.text)
+            if el.tag == "style" or str(el.tag).endswith("}style"):   # CSS is layout; its tail is still text
+                texts = (el.tail,)
+            else:
+                texts = (el.text, el.tail, el.get("aria-label"), el.get("aria-description"), el.get("title"))
+            for s in texts:
+                if s and s.strip():
+                    self.check_text(name, s.strip() if s.strip() in self.bound else s)
         path = OUT_DIR / name
         path.write_text(svg)
         self.outs[f"deck/{name}"] = path.read_bytes()
@@ -230,6 +274,7 @@ class Build:
         con = duckdb.connect()
         as_of = str(con.execute(f"SELECT max(report_date) FROM read_csv('{EC / 'calls.tsv'}')").fetchone()[0])
         R.put("as_of", as_of, source="corpus/earnings-calls/calls.tsv", how="max(report_date)")
+        R.put("as_of_md", as_of[5:], source="corpus/earnings-calls/calls.tsv", how="month and day of as_of (chart tick)")
 
         def flags(h: str) -> str:
             return (f"SELECT d.window_id FROM '{scores / 'deberta.parquet'}' d JOIN '{scores / 'modernbert.parquet'}' m "
@@ -252,6 +297,7 @@ class Build:
             FROM cw WHERE year(report_date) >= {FIRST_YEAR} GROUP BY 1 ORDER BY 1""").fetchall()
         src = f"corpus/earnings-calls/{{calls.tsv,ai-windows.parquet}} + {cb['ec_scores']}"
         for y, n, lex, nli in series:
+            R.put(f"year_{y}", str(y), source=src, how="calendar year in the series (chart tick)")
             R.pct(f"ec_lex_{y}", lex, n, 1, source=src, how=f"{y}: calls with a 'risk' word in an AI window / calls")
             R.pct(f"ec_nli_{y}", nli, n, 1, source=src, how=f"{y}: calls with an ai_risk window (both witnesses) / calls")
         last = series[-1]
@@ -272,8 +318,8 @@ class Build:
         ranking.sort(key=lambda r: (-r[2], r[0]))
         R.count("ec_ttm_risk_firms", con.execute("SELECT count(DISTINCT symbol)::INT FROM ttm").fetchone()[0],
                 source=src, how="firms with >= 1 ai_risk window, trailing window")
-        R.put("ec_top3", ", ".join(f"{LABELS.get(r[0], r[0])} ({R.values[f'ec_rank_{r[0]}']['text']})" for r in ranking[:3]),
-              source=src, how="top three of the ranking")
+        self.compose("ec_top3", ", ".join(f"{LABELS.get(r[0], r[0])} ({{ec_rank_{r[0]}}})" for r in ranking[:3]),
+                     source=src, how="top three of the ranking")
         self.plot_series(series)
         self.plot_ranking(ranking)
 
@@ -301,13 +347,13 @@ class Build:
         self.style(ax)
         years = [r[0] for r in series]
         for key, col, color, name in (("lex", 2, S1, 'Mentions "risk" next to AI (no model)'),
-                                      ("nli", 3, S2, f"Both models: AI framed as a risk ({self.codebook})")):
+                                      ("nli", 3, S2, self.say("Both models: AI framed as a risk ({codebook})"))):
             ys = [float(Fraction(100 * r[col], r[1])) for r in series]   # positions only; labels are registered text
             ax.plot(years, ys, color=color, lw=2, marker="o", ms=4.5, mec=SURFACE, mew=1.5, label=name)
-            ax.annotate(R.values[f"ec_{key}_{years[-1]}"]["text"] + "%", (years[-1], ys[-1]), xytext=(8, 0),
+            ax.annotate(self.say("{" + f"ec_{key}_{years[-1]}" + "}%"), (years[-1], ys[-1]), xytext=(8, 0),
                         textcoords="offset points", va="center", color=INK, fontsize=10, fontweight="bold")
-        ax.set_xticks(years, [str(y) if y != years[-1] else f"{y}\n(to {R.values['as_of']['text'][5:]})" for y in years],
-                      fontsize=9)
+        ax.set_xticks(years, [self.say("{" + f"year_{y}" + "}" + ("\n(to {as_of_md})" if y == years[-1] else ""))
+                              for y in years], fontsize=9)
         ax.yaxis.set_major_formatter(matplotlib.ticker.FuncFormatter(lambda v, _: f"{v:.0f}%"))
         ax.set_ylim(0, None)
         ax.set_xlim(years[0] - 0.5, years[-1] + 1.2)
@@ -316,8 +362,8 @@ class Build:
         ax.text(0, 1.02, "Calls per calendar year; denominator: every unique, non-stub S&P 500 call in the corpus",
                 transform=ax.transAxes, color=INK2, fontsize=9)
         ax.legend(loc="upper left", frameon=False, fontsize=9, labelcolor=INK)
-        fig.text(0.01, 0.01, f"Source: defeatbeta/yahoo-finance-data transcripts (ODC-BY). Model line: risk codebook "
-                 f"{self.codebook}; witness proposal, not hand-verified.", color=INK2, fontsize=7.5)
+        fig.text(0.01, 0.01, self.say("Source: defeatbeta/yahoo-finance-data transcripts (ODC-BY). Model line: risk codebook "
+                 "{codebook}; witness proposal, not hand-verified."), color=INK2, fontsize=7.5)
         fig.tight_layout(rect=(0, 0.03, 1, 1))
         self.save_fig(fig, "ai-risk-by-year.svg")
 
@@ -329,15 +375,15 @@ class Build:
         ax.set_facecolor(SURFACE)
         ax.barh([r[1] for r in shown], [r[2] for r in shown], color=S1, height=0.62)
         for i, r in enumerate(shown):
-            ax.text(r[2] + 0.4, i, R.values[f"ec_rank_{r[0]}"]["text"], va="center", color=INK, fontsize=9)
+            ax.text(r[2] + 0.4, i, self.say("{" + f"ec_rank_{r[0]}" + "}"), va="center", color=INK, fontsize=9)
         for s in ("top", "right", "bottom"):
             ax.spines[s].set_visible(False)
         ax.set_xticks([])
         ax.tick_params(length=0, labelsize=9.5, labelcolor=INK)
-        ax.set_title(f"AI risks raised on S&P 500 calls, {TTM_MONTHS} months to {R.values['as_of']['text']}",
+        ax.set_title(self.say("AI risks raised on S&P 500 calls, {ttm_months} months to {as_of}"),
                      loc="left", color=INK, fontsize=12, fontweight="bold", pad=30)
-        ax.text(0, 1.01, f"Number of companies; both models must propose the window.\nRisk codebook {self.codebook}; "
-                f"* = new in {R.values['new_tag_0']['text']}.", transform=ax.transAxes, color=INK2, fontsize=8.5)
+        ax.text(0, 1.01, self.say("Number of companies; both models must propose the window.\nRisk codebook {codebook}; "
+                "* = new in {new_tag_0}."), transform=ax.transAxes, color=INK2, fontsize=8.5)
         fig.tight_layout()
         self.save_fig(fig, "risk-ranking-ttm.svg")
 
@@ -368,7 +414,8 @@ class Build:
         ax.barh([qr.LABELS[h] for h, *_ in shown], [float(p) for _, _, p, _ in shown],
                 color=[color[group[h]] for h, *_ in shown], height=0.62)
         for i, (h, k, p, txt) in enumerate(shown):
-            ax.text(float(p) + 0.3, i, f"{txt}%  ({display.count(k)})", va="center", color=INK, fontsize=9)
+            ax.text(float(p) + 0.3, i, self.say("{" + f"q_{h[2:]}_pct" + "}%  ({" + f"q_{h[2:]}_n" + "})"),
+                    va="center", color=INK, fontsize=9)
         for s in ("top", "right", "bottom"):
             ax.spines[s].set_visible(False)
         ax.spines["left"].set_color(INK2)
@@ -379,10 +426,10 @@ class Build:
                            Patch(color=MUTED, label="Other")], loc="lower right", frameon=False, fontsize=9, labelcolor=INK)
         ax.set_title("What analysts ask S&P 500 companies about AI", loc="left", color=INK, fontsize=12,
                      fontweight="bold", pad=20)
-        ax.text(0, 1.01, f"Share of {R.values['q_n']['text']} analyst questions on AI, {TTM_MONTHS} months to "
-                f"{R.values['as_of']['text']}", transform=ax.transAxes, color=INK2, fontsize=9)
-        fig.text(0.01, 0.01, f"A question can count under several topics. Both NLI models must agree; not hand-verified.\n"
-                 f"Question codebook {QUESTIONS['codebook']}. Source: defeatbeta/yahoo-finance-data (ODC-BY).",
+        ax.text(0, 1.01, self.say("Share of {q_n} analyst questions on AI, {ttm_months} months to {as_of}"),
+                transform=ax.transAxes, color=INK2, fontsize=9)
+        fig.text(0.01, 0.01, self.say("A question can count under several topics. Both NLI models must agree; not hand-verified.\n"
+                 "Question codebook {question_codebook}. Source: defeatbeta/yahoo-finance-data (ODC-BY)."),
                  color=INK2, fontsize=7)
         fig.tight_layout(rect=(0, 0.04, 1, 1))
         self.save_fig(fig, "intent-ttm.svg")
@@ -418,12 +465,14 @@ class Build:
         o = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" font-family="system-ui,-apple-system,sans-serif" role="img">',
              '<style>text{fill:#1b1b1b}.m{fill:#5f6368}</style>', f'<rect width="{W}" height="{H}" fill="{SURFACE}"/>',
              '<text x="16" y="30" font-size="18" font-weight="600">Who talks about which AI risks</text>',
-             f'<text x="16" y="52" font-size="12" class="m">Share of each source\'s AI-risk passages naming each type. '
-             f'Risk codebook {escape(self.codebook)}; * = new in {R.values["new_tag_0"]["text"]}.</text>']
+             '<text x="16" y="52" font-size="12" class="m">' + escape(quote=False, s=self.say(
+                 "Share of each source's AI-risk passages naming each type. Risk codebook {codebook}; * = new in {new_tag_0}."))
+             + '</text>']
         for j, (k, label) in enumerate(DIALOGUE_SOURCES):
             x = left + j * cw + cw / 2
             o.append(f'<text x="{x}" y="{top - 24}" font-size="12" font-weight="600" text-anchor="middle">{escape(label)}</text>')
-            o.append(f'<text x="{x}" y="{top - 9}" font-size="11" class="m" text-anchor="middle">n = {R.values[f"ds_base_{k}"]["text"]}</text>')
+            o.append(f'<text x="{x}" y="{top - 9}" font-size="11" class="m" text-anchor="middle">'
+                     + escape(self.say("n = {" + f"ds_base_{k}" + "}"), quote=False) + '</text>')
         for i, r in enumerate(rows_sorted):
             t = r["risk_type"]
             y = top + i * rh
@@ -431,15 +480,17 @@ class Build:
             for j, (k, label) in enumerate(DIALOGUE_SOURCES):
                 n, d = int(r[f"{k}_n"]), bases[k]
                 ink = "#ffffff" if Fraction(100 * n, d) >= 25 else "#1b1b1b"
-                o.append(f'<g><title>{escape(label)}: {escape(t)} {R.values[f"ds1_{k}_{t}"]["text"]}% '
-                         f'({R.values[f"dsn_{k}_{t}"]["text"]} of {R.values[f"ds_base_{k}"]["text"]})</title>'
+                tip = self.say(f"{label}: {t} " + "{" + f"ds1_{k}_{t}" + "}% ({" + f"dsn_{k}_{t}" + "} of {" + f"ds_base_{k}" + "})")
+                o.append(f'<g><title>{escape(tip, quote=False)}</title>'
                          f'<rect x="{left + j * cw + 1}" y="{y + 1}" width="{cw - 2}" height="{rh - 2}" rx="2" fill="{fill(n, d)}"/>'
                          f'<text x="{left + j * cw + cw / 2}" y="{y + rh / 2 + 4}" font-size="11" text-anchor="middle" '
-                         f'style="fill:{ink}">{R.values[f"ds_{k}_{t}"]["text"]}</text></g>')
-        o.append(f'<text x="16" y="{H - 30}" font-size="11" class="m">n = passages both NLI witnesses score ≥ '
-                 f'{R.values["threshold"]["text"]} on ai_risk; a cell needs both on the type too. A passage can name several types.</text>')
-        o.append(f'<text x="16" y="{H - 14}" font-size="11" class="m">Windows as in {escape(cb["dialogue"])}. '
-                 'Witness proposals, no gold set.</text>')
+                         f'style="fill:{ink}">' + escape(self.say("{" + f"ds_{k}_{t}" + "}"), quote=False) + '</text></g>')
+        R.put("dialogue_table", cb["dialogue"], source=cb["dialogue"], how="path of the table")
+        o.append(f'<text x="16" y="{H - 30}" font-size="11" class="m">' + escape(quote=False, s=self.say(
+            "n = passages both NLI witnesses score ≥ {threshold} on ai_risk; a cell needs both on the type too. "
+            "A passage can name several types.")) + '</text>')
+        o.append(f'<text x="16" y="{H - 14}" font-size="11" class="m">'
+                 + escape(self.say("Windows as in {dialogue_table}. Witness proposals, no gold set."), quote=False) + '</text>')
         o.append("</svg>")
         self.save_svg("\n".join(o) + "\n", "dialogue-space.svg")
 
@@ -466,7 +517,7 @@ class Build:
         fig, (a1, a2) = plt.subplots(2, 1, figsize=(9, 6.2), facecolor=SURFACE, sharex=True, gridspec_kw={"hspace": 0.45})
         self.style(a1)
         a1.bar(xs, pub, color=S1, width=0.78)
-        a1.annotate(R.values["cve_last_pub"]["text"], (xs[-1], pub[-1]), xytext=(-2, 4), textcoords="offset points",
+        a1.annotate(self.say("{cve_last_pub}"), (xs[-1], pub[-1]), xytext=(-2, 4), textcoords="offset points",
                     ha="right", color=INK, fontsize=9, fontweight="bold")
         a1.yaxis.set_major_formatter(matplotlib.ticker.FuncFormatter(lambda v, _: f"{v:,.0f}"))
         a1.set_title("CVEs published per month", loc="left", color=INK, fontsize=11, fontweight="bold")
@@ -474,44 +525,55 @@ class Build:
         a2.bar(xs, claude, color=S2, width=0.78, label="Credit names Claude")
         a2.bar(xs, [a - c for a, c in zip(ai, claude)], bottom=claude, color=MUTED, width=0.78,
                label="Credit names another AI system or term")
-        a2.annotate(f"{R.values['cve_last_ai']['text']} ({R.values['cve_last_claude']['text']} Claude)", (xs[-1], ai[-1]),
+        a2.annotate(self.say("{cve_last_ai} ({cve_last_claude} Claude)"), (xs[-1], ai[-1]),
                     xytext=(-4, 4), textcoords="offset points", ha="right", color=INK, fontsize=9, fontweight="bold")
         a2.set_title("CVEs whose credits name an AI system, per month", loc="left", color=INK, fontsize=11, fontweight="bold")
         a2.legend(loc="upper left", frameon=False, fontsize=9, labelcolor=INK)
-        a2.set_xticks(ticks, [months[i][:4] for i in ticks])
+        for i in ticks:
+            R.put(f"cve_year_{months[i][:4]}", months[i][:4], source=CVE, how="year of a charted month (chart tick)")
+        a2.set_xticks(ticks, [self.say("{" + f"cve_year_{months[i][:4]}" + "}") for i in ticks])
         fig.suptitle("Vulnerability disclosures, and the share credited to AI", x=0.01, ha="left",
                      color=INK, fontsize=13, fontweight="bold")
-        fig.text(0.01, 0.01, f"Source: CVEProject/cvelistV5 baseline {R.values['as_of']['text']} (corpus/cve), "
-                 f"{R.values['cve_chart_first']['text']} to {R.values['cve_last']['text']}.\n"
-                 "Credit = the CNA credits field only, matched to named AI systems. Method credit: Epoch AI (CC BY).",
+        fig.text(0.01, 0.01, self.say("Source: CVEProject/cvelistV5 baseline {as_of} (corpus/cve), "
+                 "{cve_chart_first} to {cve_last}.\n"
+                 "Credit = the CNA credits field only, matched to named AI systems. Method credit: Epoch AI (CC BY)."),
                  color=INK2, fontsize=7)
         fig.subplots_adjust(left=0.08, right=0.98, top=0.88, bottom=0.12)
         self.save_fig(fig, "cve-ai-credit.svg")
 
     # ------------------------------------------------------------ deck
     def render(self, head: str) -> None:
+        """Every line that ships is checked: body text, HTML comments (Marp presenter notes), image
+        alt text, and the front-matter fields that render (title, ...). A numeral in a built line
+        must come from a binding used on that template line."""
         tpl = TEMPLATE.read_text()
-        fm_end = tpl.index("\n---\n", 4) + 5
-        first = tpl[:fm_end].count("\n") + 1
-        for i, line in enumerate(tpl[fm_end:].splitlines(), first):
-            bare = re.sub(r"\{\{\w+\}\}", "", re.sub(r"<!--.*?-->", "", line))
-            bare = re.sub(r"!\[[^\]]*\]\([^)]*\)", "", bare)   # image directives (w:900) are layout, not data
-            bad = sorted(tokens(bare) - STATIC_TOKENS)
-            if bad:
-                self.errs.append(f"deck.template.md:{i}: hand-typed numerals {bad}")
-            for q in re.findall(r'"([^"]*)"', re.sub(r"<[^>]+>", "", line)):
-                if not re.fullmatch(r"\{\{q_\w+\}\}", q):
-                    self.errs.append(f"deck.template.md:{i}: quoted text must be one quote binding: \"{q}\"")
+        fm_lines = tpl[:tpl.index("\n---\n", 4) + 5].count("\n")
         self.reg.put("generated_notice", f"<!-- GENERATED by scripts/build_edition.py --codebook {self.codebook} from {head}. "
                      "Edit deck/deck.template.md, not this file. -->", source="build", how="notice")
         vals = {k: v["text"] for k, v in self.reg.values.items()}
-        missing = sorted(set(re.findall(r"\{\{(\w+)\}\}", tpl)) - set(vals))
+        missing = sorted(set(keys_in(tpl)) - set(vals))
         self.errs += [f"unresolved binding {{{{{m}}}}}" for m in missing]
-        md = re.sub(r"\{\{(\w+)\}\}", lambda m: vals.get(m.group(1), m.group(0)), tpl)
-        out_body = re.sub(r"<!--.*?-->", "", md[md.index("\n---\n", 4) + 5:], flags=re.S)
-        out_body = re.sub(r"!\[[^\]]*\]\([^)]*\)", "", out_body)
-        self.check_text("DECK.md", out_body)
-        self.outs["DECK.md"] = md.encode()
+
+        def fill(x: str) -> str:
+            return re.sub(r"\{\{(\w+)\}\}", lambda m: vals.get(m.group(1), m.group(0)), x)
+
+        def shown(x: str) -> str:   # image targets are paths; size keywords in alt text are layout
+            return re.sub(r"!\[([^\]]*)\]\([^)]*\)", lambda m: "![" + MARP_SIZE.sub("", m.group(1)) + "]", x)
+        for i, line in enumerate(tpl.splitlines(), 1):
+            in_fm = i <= fm_lines
+            if in_fm and not FM_CHECKED.match(line):
+                continue
+            bad = sorted(tokens(shown(re.sub(r"\{\{\w+\}\}", "", line))))
+            if bad:
+                self.errs.append(f"deck.template.md:{i}: hand-typed numerals {bad}")
+            if not missing:
+                self.check_text(f"DECK.md:{i}", shown(fill(line)), keys_in(line))
+            if in_fm:
+                continue
+            for q in re.findall(r'"([^"]*)"', re.sub(r"<[^>]+>", "", line)):
+                if not re.fullmatch(r"\{\{q_\w+\}\}", q):
+                    self.errs.append(f"deck.template.md:{i}: quoted text must be one quote binding: \"{q}\"")
+        self.outs["DECK.md"] = fill(tpl).encode()
 
     def run(self) -> tuple[dict[str, bytes], list[str]]:
         display.selftest()
