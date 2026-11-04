@@ -105,9 +105,10 @@ says? That is exactly what a public benefit corporation is supposed to be. Good
 governance is the kind you can recognize from the outside: you can see how a
 company organizes its operations, and the mindset and values the whole system
 springs from. That is the highest of Donella Meadows' places to intervene in a
-system, and the one almost no one moves.
+system (her ranking of where a change moves a system, weakest to strongest,
+set out in §6.1), and the one almost no one moves.
 
-Here is a public benefit corporation:
+Here is a public benefit corporation (PBC):
 [Wood Cache](https://www.woodcache.org). Sloane Ortel is a co-founder of
 Woodcache PBC. She is no longer active in the company and retains equity in
 it. You can understand what it does from the
@@ -133,6 +134,9 @@ Serge Bushman, co-founder and CEO of Woodcache PBC, in conversation with Sloane
 Ortel on 2026-11-04, put its worst case in one line (paraphrased; personal
 communication): the only thing that can go wrong is that the good things do not
 happen.
+
+Figure F0001 sets the two companies side by side. The S-1 it cites is the
+filing Anthropic made to sell its shares to the public (§2).
 
 ![F0001 · Who gets checked: Woodcache PBC: worst case, the good things do not happen; checked by Puro.earth verification end to end and by Colorado landfill regulation. Anthropic PBC: worst case, the serious risks it discloses itself in its S-1 risk factors; checked by its own Public Benefit Report, which its own trust says largely describes inputs.](../edition/figures/F0001-who-gets-checked.svg)
 
@@ -178,7 +182,7 @@ needs only that much of it.
 
 ## 2. What Anthropic says it is
 
-Anthropic is a public benefit corporation (PBC): a company incorporated under
+Anthropic is a public benefit corporation: a company incorporated under
 Delaware's corporate statute, the Delaware General Corporation Law (DGCL),
 whose charter names a public purpose and whose directors must balance that
 purpose against stockholders' interests and those materially affected (§4.1).
@@ -491,7 +495,8 @@ Finding our own error is the method working, not failing.
    increasingly look for Anthropic to produce outcomes" (p.17). Flagship
    benefit counts (33,000+ critical flaws; a 129,000 program-total that is
    **not in the PBC Report** — partner-reported, caught by the loop audit) have no public
-   CVE-level audit. The 80% productivity figure is *Claude estimating
+   CVE-level audit (CVE, Common Vulnerabilities and Exposures: the public
+   catalogue of named software flaws). The 80% productivity figure is *Claude estimating
    Claude*. **[UNVERIFIED counts; MISLEADING if read as verified]**
 3. **Present, Anthropic-attributable harm is documented and priced; present,
    Anthropic-attributable benefit is mostly anecdote.** Priced: the $1.5B
@@ -540,7 +545,7 @@ Sort Anthropic's commitments onto that scale and a pattern appears:
   is left unenforceable. *Self-organization* (4): the mission lock is revocable
   and founder control (Class F, 50.1%) retained — the power to change the
   structure stays with the governed. *Goals* (3): when "long-term benefit of
-  humanity" meets "pace the frontier" and a priced IPO, the filings show which
+  humanity" meets "pace the frontier" and a priced IPO (initial public offering), the filings show which
   goal governs.
 - **Where it borrows the language without moving the lever.** Anthropic speaks
   at the level of *paradigm* (2) and *goals* (3) — humanity's future, the
@@ -844,7 +849,8 @@ timed incident disclosure under bond.
 
 #### 6.7.2 Pillar 2 — "AI safety is a universal practice backstopped by law"
 
-**Cantus firmus.** Responsible Scaling Policy (2023; 11 followers claimed);
+**Cantus firmus.** Responsible Scaling Policy (RSP: Anthropic's own policy
+for scaling its models; 2023; 11 followers claimed);
 Petri donated, Bloom/AuditBench open-sourced; cross-lab work with OpenAI;
 Frontier Model Forum; SB 53 (CA), RAISE (NY), SB 315 (IL) support; June 2026
 Advanced AI Framework advocating independent evaluation and government
