@@ -106,6 +106,10 @@ codebook, pass `--units`, `--codebook`, `--id-col` and `--out`.
 
 ## Conventions
 
+- **Small.** Permacomputing: keep everything as small as possible. Point to
+  bulk data with ids, offsets and hashes and rebuild it from a pinned source;
+  commit quotes, never whole transcripts, documents or corpora. Praxis
+  `PRINCIPLES.md` P1.
 - **Deterministic.** No clock, host or random id enters any output; time is a
   recorded argument. A rebuild must be byte-identical, so check that by
   re-hashing.
