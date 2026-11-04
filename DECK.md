@@ -16,7 +16,7 @@ style: |
 
 <!-- Built from committed files only. Charts: docs/figures/build.py (the paper's own),
      the corpus report scripts under scripts/, and scripts/deck_charts.py.
-     Render: npx @marp-team/marp-cli@3.4.0 DECK.md --pptx  (or --pdf, --html) -->
+     Render: npx @marp-team/marp-cli@4.1.2 DECK.md --pptx --allow-local-files  (or --pdf, --html) -->
 
 # Anthropic PBC
 ## A counterpoint to the 2026 Public Benefit Report, in charts
