@@ -9,6 +9,13 @@
     edition/excerpts.tsv   key, commit, path, start, end, blake3, highlight_start, highlight_end, highlight_blake3
 
     uv run scripts/edition_claims.py locate COMMIT PATH "quoted text" "highlighted part"   # print an excerpt row
+    uv run scripts/edition_claims.py paper COMMIT   # append the paper's claims at COMMIT (new ones only)
+
+`paper` parses the committed paper (git show COMMIT:docs/anthropic-contrapunctus.md, never the working
+tree): Appendix C (kind inference, status = its Verdict cell), the section 7 GOV table (recommendation)
+and the falsifiers of sections 6 and 8 (falsifier). The GOV table and the falsifier lists carry no status,
+so their status is NO_STATUS. The highlight is mechanical: the Report's quoted words in an Appendix C
+claim, the mechanism's bold name in a GOV row, the whole falsifier.
 
 Ids are assigned once, in file order (C0001, C0002, ...), and never reused or renumbered: a claim that
 is dropped keeps its row. The build checks the file and every committed version of it, so an id that
@@ -157,6 +164,8 @@ def verify_excerpt(r: dict, raw: str) -> tuple[str, str, list[str]]:
     pre, hl, post = norm(raw[a:ha]), norm(raw[ha:hb]), norm(raw[hb:b])
     if pre + hl + post != norm(whole) or hl != hl.strip() or not hl:
         errs.append(f"excerpt {k}: highlight must start and end on text, not inside emphasis or whitespace")
+    if (ha, hb) == (a, b):   # nothing singled out yet: shown plain
+        return norm(whole), norm(whole), errs
     return pre + "**" + hl + "**" + post, norm(whole), errs
 
 
@@ -187,6 +196,102 @@ def excerpt_row(key: str, commit: str, path: str, raw: str, start: int, end: int
     return "\t".join([key, commit, path, str(start), str(end), b3(raw[start:end]), str(hs), str(he), b3(raw[hs:he])])
 
 
+# ------------------------------------------------------------ the paper's own claims
+PAPER = "docs/anthropic-contrapunctus.md"
+NO_STATUS = "none stated"   # the paper gives this kind of row no status
+
+
+def _section(raw: str, heading: str) -> tuple[int, int]:
+    m = re.search(r"^" + re.escape(heading), raw, re.M)
+    if not m:
+        raise ValueError(f"paper has no section {heading!r}")
+    n = re.search(r"^## ", raw[m.end():], re.M)
+    return m.start(), m.end() + n.start() if n else len(raw)
+
+
+def _rows(raw: str, a: int, b: int):
+    """(cells, header?) per markdown table row in raw[a:b]; each cell is (start, end) of its stripped text."""
+    pos, first = a, True
+    for line in raw[a:b].splitlines(keepends=True):
+        at, pos = pos, pos + len(line)
+        if not line.startswith("|"):
+            first = True
+            continue
+        if re.fullmatch(r"\|[-| :]+\|\s*", line):
+            continue
+        pipes = [i for i, c in enumerate(line) if c == "|"]
+        cells = []
+        for x, y in zip(pipes, pipes[1:]):
+            t = line[x + 1:y]
+            lead = len(t) - len(t.lstrip())
+            cells.append((at + x + 1 + lead, at + x + 1 + len(t.rstrip())))
+        yield cells, first
+        first = False
+
+
+def parse_paper(raw: str) -> list[dict]:
+    """The paper's claims: alias, key, kind, status and the excerpt span (start, end, highlight)."""
+    out = []
+    def add(alias, key, kind, status, a, b, ha=None, hb=None):
+        out.append({"alias": alias, "key": key, "kind": kind, "status": status, "start": a, "end": b,
+                    "hs": a if ha is None else ha, "he": b if hb is None else hb})
+    a, b = _section(raw, "## Appendix C.")
+    n = 0
+    for cells, header in _rows(raw, a, b):
+        if header:
+            continue
+        n += 1
+        (x, y), (sx, sy) = cells[0], cells[1]
+        q = re.search(r'"([^"]+)"', raw[x:y])
+        add(f"v0:AppC-{n}", f"appc_{n}", "inference", raw[sx:sy], x, y,
+            *((x + q.start(1), x + q.end(1)) if q else ()))
+    a, b = _section(raw, "## 7. ")
+    for cells, header in _rows(raw, a, b):
+        g = re.fullmatch(r"GOV-(\d+)", raw[cells[0][0]:cells[0][1]])
+        if header or not g:
+            continue
+        x, y = cells[1]
+        bold = re.match(r"\*\*(.+?)\*\*", raw[x:y])
+        add(f"GOV-{g.group(1)}", f"gov_{g.group(1)}", "recommendation", NO_STATUS, x, y,
+            *((x + bold.start(1), x + bold.end(1)) if bold else ()))
+    for m in re.finditer(r"^### 6\.(\d) .*$", raw, re.M):
+        f = re.compile(r"\*\*What would falsify our critique\.\*\* ").search(raw, m.end())
+        end = raw.index("\n\n", f.end())
+        add(f"v0:Pillar-{m.group(1)}-falsifier", f"pillar_{m.group(1)}", "falsifier", NO_STATUS, f.end(), end)
+    a, b = _section(raw, "## 8. ")
+    f = re.compile(r"\*\*Falsifiers\.\*\*").search(raw, a, b)
+    para = raw.index("\n\n", f.end())
+    for m in re.finditer(r"\((\d)\)\s+", raw[f.end():para]):
+        x = f.end() + m.end()
+        y = x + re.search(r"[;.](\s|$)", raw[x:para + 1]).start()
+        add(f"v0:Falsifier-{m.group(1)}", f"falsifier_{m.group(1)}", "falsifier", NO_STATUS, x, y)
+    return out
+
+
+def append_paper(root: Path, commit: str) -> int:
+    """Append claims.tsv and excerpts.tsv rows for paper claims not yet registered (by alias)."""
+    raw = git_show(commit, PAPER, str(root))
+    claims_text = (root / CLAIMS_TSV).read_text()
+    ex_text = (root / EXCERPTS_TSV).read_text()
+    rows, errs = load_claims(claims_text)
+    if errs:
+        raise SystemExit("\n".join(errs))
+    have = {a for r in rows for a in r["aliases"].split(",")}
+    new_c, new_x = [], []
+    for c in parse_paper(raw):
+        if c["alias"] in have:
+            continue
+        cid = f"C{len(rows) + len(new_c) + 1:04d}"
+        xkey = f"x_{c['key']}"
+        new_c.append("\t".join([cid, f"paper_{c['key']}", c["kind"], f"excerpt:{xkey}", c["status"], c["alias"], "-",
+                                "pending", address(cid), content_id(norm(raw[c["start"]:c["end"]]))]))
+        new_x.append(excerpt_row(xkey, commit, PAPER, raw, c["start"], c["end"], c["hs"], c["he"]))
+    (root / CLAIMS_TSV).write_text(claims_text + "".join(l + "\n" for l in new_c))
+    (root / EXCERPTS_TSV).write_text(ex_text + "".join(l + "\n" for l in new_x))
+    print(f"appended {len(new_c)} paper claims from {commit[:12]}")
+    return 0
+
+
 def main(argv: list[str]) -> int:
     if len(argv) == 6 and argv[1] == "locate":
         _, _, commit, path, text, hl = argv
@@ -197,6 +302,10 @@ def main(argv: list[str]) -> int:
         ha, hb = locate(raw[a:b], hl)
         print(excerpt_row("KEY", commit, path, raw, a, b, a + ha, a + hb))
         return 0
+    if len(argv) == 3 and argv[1] == "paper":
+        root = Path(__file__).resolve().parent.parent
+        commit = subprocess.run(["git", "rev-parse", argv[2]], cwd=root, capture_output=True, text=True, check=True).stdout.strip()
+        return append_paper(root, commit)
     print(__doc__, file=sys.stderr)
     return 2
 

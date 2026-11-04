@@ -346,6 +346,52 @@ class Build:
                 R.put(f"{k}_status", status, source=f"{PAPER}@{PAPER_V0}",
                       how=f"status column of the claims-table row quoting {k}")
 
+    def paper_claims(self) -> None:
+        """Claims whose statement is an excerpt of the paper (Appendix C, the GOV table, the falsifiers).
+        Each excerpt verifies at its commit, each status equals the one the paper gives at that commit,
+        and every claim the parser finds there is registered. Shown verbatim, never recomputed."""
+        R = self.reg
+        if self.claim_rows is None:
+            self.load_claims()
+        pins = sorted({r["commit"] for r in self.excerpts.values() if r["path"] == PAPER})
+        if len(pins) != 1:
+            return
+        raw = ecl.git_show(pins[0], PAPER, str(ROOT))
+        found = {c["alias"]: c for c in ecl.parse_paper(raw)}
+        seen, lines = set(), []
+        for r in self.claim_rows:
+            if not r["statement_ref"].startswith("excerpt:"):
+                continue
+            xk, k, alias = r["statement_ref"][8:], r["key"], r["aliases"].split(",")[0]
+            x = self.excerpts.get(xk)
+            c = found.get(alias)
+            if x is None or c is None:
+                self.errs.append(f"{ecl.CLAIMS_TSV}: {r['id']}: no excerpt {xk} or no paper claim {alias} at {pins[0][:12]}")
+                continue
+            seen.add(alias)
+            shown, plain, errs = ecl.verify_excerpt(x, raw if x["commit"] == pins[0] else "")
+            self.errs += errs
+            if (int(x["start"]), int(x["end"])) != (c["start"], c["end"]) or x["path"] != PAPER:
+                self.errs.append(f"{ecl.CLAIMS_TSV}: {r['id']} excerpt {xk} is not the span of {alias} in the paper")
+            if r["status"] != c["status"] or r["kind"] != c["kind"]:
+                self.errs.append(f"{ecl.CLAIMS_TSV}: {r['id']} ({alias}) has {r['kind']}, status {r['status']!r}; "
+                                 f"the paper gives {c['kind']}, status {c['status']!r}")
+            if ecl.content_id(plain) != r["content_id"]:
+                self.errs.append(f"{ecl.CLAIMS_TSV}: {r['id']} content_id does not match its excerpt")
+            src = f"{PAPER}@{PAPER_V0}"
+            R.put(f"pc_{k}", r["id"], source=ecl.CLAIMS_TSV, how="claim id (append-only registry)")
+            R.put(f"pa_{k}", alias, source=ecl.CLAIMS_TSV, how="the paper's own id, or its place in the paper")
+            R.put(f"px_{k}", shown, source=src, how=f"verbatim excerpt {xk} (emphasis and line breaks removed; highlight bold)")
+            R.put(f"ps_{k}", r["status"], source=src, how=f"status the paper gives {alias}")
+            R.put(f"pl_{k}", f"#char={x['start']},{x['end']}", source=ecl.EXCERPTS_TSV, how=f"character offsets of {xk}")
+            q = ("", "") if '"' in plain else ("“", "”")   # an excerpt that quotes the Report keeps its own marks
+            lines.append(f"- **{{pc_{k}}}** ({r['kind']}; `{{pa_{k}}}`): {q[0]}{{px_{k}}}{q[1]} Paper status: {{ps_{k}}}. "
+                         f"Excerpt `{{pl_{k}}}`.")
+        for alias in sorted(set(found) - seen):
+            self.errs.append(f"paper claim {alias} at {pins[0][:12]} has no row in {ecl.CLAIMS_TSV}: "
+                             "run `uv run scripts/edition_claims.py paper <commit>`")
+        self.compose("paper_claims_index", "\n".join(lines), source=ecl.CLAIMS_TSV, how="paper claims, in id order")
+
     # ------------------------------------------------------------ earnings calls
     def earnings(self) -> None:
         R, cb = self.reg, self.cb
@@ -856,6 +902,7 @@ class Build:
         head = source_commit(self.inputs())
         OUT_DIR.mkdir(exist_ok=True)
         self.register_static(head)
+        self.paper_claims()
         self.earnings()
         self.questions()
         self.dialogue()

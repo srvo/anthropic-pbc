@@ -94,7 +94,19 @@ claim's address across all Praxis-governed repositories; `content_id` is the
 BLAKE3 of its canonical statement (for a data claim, its claims-index heading
 in the template with bindings unfilled), so the same claim in two
 repositories can be matched. `build_edition.CLAIMS` lists the bindings each
-data claim rests on; its order sets no id. For each binding the
+data claim rests on; its order sets no id.
+
+The paper's own claims are rows too: Appendix C (inference, status = its
+Verdict cell), the §7 GOV table (recommendation) and the falsifiers of §6 and
+§8 (falsifier), each with an excerpt of the pinned committed paper.
+`uv run scripts/edition_claims.py paper <commit>` appends new ones; the build
+re-parses the paper at the pin and fails if a claim is missing, its excerpt is
+not that claim's span, or its status is not the paper's. The GOV table and the
+falsifier lists give no status, recorded as `none stated`. The highlight is
+mechanical until a person chooses one (the Report's quoted words in Appendix
+C, the mechanism's name in a GOV row); a falsifier is shown unhighlighted.
+
+For each binding the
 build writes an Evidence line from the registry: the value, the binding it was
 taken from, its numerator and denominator, how it was computed, and its source
 ids. The Sources index (S001, ...) is built from the registry's source paths;

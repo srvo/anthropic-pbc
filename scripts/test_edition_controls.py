@@ -382,5 +382,31 @@ b.claim_rows = [dict(rows[0], content_id="blake3:" + "0" * 64)]
 b.check_claim_statements(be.TEMPLATE.read_text())
 expect("a data claim whose content_id is not its template statement fails", any("content_id" in e for e in b.errs))
 
+# Paper claims: excerpts of the pinned paper, each with the paper's own status
+def paper_build(edit=None):
+    b = be.Build("v0.2-draft")
+    b.register_static("0" * 40)
+    b.errs = []
+    rows, _ = ecl.load_claims((be.ROOT / ecl.CLAIMS_TSV).read_text())
+    b.claim_rows = edit(rows) if edit else rows
+    b.paper_claims()
+    return b
+b = paper_build()
+paper_rows = [r for r in b.claim_rows if r["statement_ref"].startswith("excerpt:")]
+expect("every paper claim's excerpt verifies and its status equals the paper's", not b.errs and len(paper_rows) > 0)
+expect("a figure from an excerpt is the paper's own text", "$895.4B" in b.reg.values["px_paper_appc_11"]["text"])
+def restatus(rows):
+    return [dict(r, status="CONFIRMED/HIGH") if r["key"] == "paper_appc_2" else r for r in rows]
+expect("a paper claim whose status differs from the paper's fails",
+       any("the paper gives" in e for e in paper_build(restatus).errs))
+expect("a paper claim the parser finds but claims.tsv lacks fails",
+       any("has no row" in e for e in paper_build(lambda rows: [r for r in rows if r["key"] != "paper_gov_8"]).errs))
+def recontent(rows):
+    return [dict(r, content_id="blake3:" + "0" * 64) if r["key"] == "paper_gov_8" else r for r in rows]
+expect("a paper claim whose content_id is not its excerpt fails", any("content_id" in e for e in paper_build(recontent).errs))
+def rewire(rows):
+    return [dict(r, statement_ref="excerpt:x_gov_9") if r["key"] == "paper_gov_8" else r for r in rows]
+expect("a paper claim pointing at another claim's excerpt fails", any("not the span" in e for e in paper_build(rewire).errs))
+
 print(f"\n{len(FAILS)} failure(s)")
 sys.exit(1 if FAILS else 0)
