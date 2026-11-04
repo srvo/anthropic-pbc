@@ -23,6 +23,7 @@ and anyone materially affected by Anthropic's conduct — the exact constituency
 Delaware law names but does not let sue.
 **Sources:** [Anthropic 2026 Public Benefit Report (20 pp.)](https://www-cdn.anthropic.com/a9ceec76a54d28d27affffcdab6faf7c142cd587.pdf);
 [Anthropic, PBC, Amendment No. 1 to Form S-1, filed 2026-11-02 (Reg. No. 333-299633)](https://www.sec.gov/Archives/edgar/data/2130357/000162828026068676/anthropicpbc-sx1ax1.htm);
+[Anthropic Responsible Scaling Policy v3.4](https://cdn.sanity.io/files/4zrzovbb/website/0bacdc8440ea96e62a8766d99ebe1d4eea6d5f3a.pdf);
 public evidence cited inline. Verdicts use CONFIRMED / REFUTED / MISLEADING /
 NUANCED / UNVERIFIED. We take Anthropic at its word throughout: the question
 is not whether its people mean well. The question is what its own words,
@@ -324,14 +325,28 @@ timelines, which continue to be informed by our risk assessments." Meanwhile
 ability to remain competitive and to stay at the frontier of AI." (S-1.)
 **[CONFIRMED that the S-1 says this; quotes to be run through Descartes.]**
 
-**[OPINION]** Read together: hold back if everyone holds back, keep the lead
-otherwise. If it is true that only a few people can steer this technology
-safely, the governance has to be far stronger, not weaker, because it must
-survive those people. Here it depends on them: seven co-founders control 50.1%
-of the vote, and the trust that elects the board can be amended away by the
-classes it checks (§4.1). *[NEEDS SOURCE: whether the Responsible Scaling
-Policy itself conditions a pause on Anthropic being in the lead; the S-1 does
-not say so in those words.]*
+The Responsible Scaling Policy (RSP), the document in which Anthropic commits
+to safety measures as its models grow more capable, makes the condition
+explicit. Its Appendix A, "Commitments Related to Competitors" (RSP v3.4,
+p.17), sets the scenario "Anthropic in the lead" (it has, or will imminently
+have, a highly capable model, with "clear evidence that no other competitor
+will soon develop such a model") against the commitment: "We will delay AI
+development and deployment as needed to achieve this, until and unless we no
+longer believe we have a significant lead." Where a competitor has merely
+implemented a better risk mitigation: "we will not necessarily delay AI
+development and deployment in this scenario." In fairness, the same appendix
+says these commitments "do not preclude us from taking cautionary action" and
+that Anthropic "would strongly consider pausing development and/or deployment
+to improve the safety profiles of our models even in cases not covered below."
+**[CONFIRMED/HIGH: the binding delay commitment is conditioned on Anthropic
+holding the lead, or on competitors already meeting a strong safety bar.]**
+
+**[OPINION]** Read together: hold back while in the lead, and otherwise keep
+pace. That is "only we can save us" written as policy. If it is true that only
+a few people can steer this technology safely, the governance has to be far
+stronger, not weaker, because it must survive those people. Here it depends on
+them: seven co-founders control 50.1% of the vote, and the trust that elects
+the board can be amended away by the classes it checks (§4.1).
 
 *Therefore* the promise rests on Anthropic's word.
 

@@ -6,6 +6,11 @@ docs/_pending-*.md
 *.draft.md
 .rfcorpus/
 
+# Enrichment bulk bytes — re-fetchable from sources/MANIFEST.tsv pins.
+sources/*
+!sources/MANIFEST.tsv
+enrich-out/
+
 # Earnings-call bulk source -- re-fetchable from corpus/earnings-calls/MANIFEST.tsv
 .eccorpus/
 
