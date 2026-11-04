@@ -43,14 +43,44 @@ any `sources/` filing copies (uncommitted).
    paper falsifier, the data that tests it, and the result (e.g. §8 (1)
    CVE-level counts → C0007: not met, not refuted). Then data caveats (no gold
    set, draft codebook, survivorship).
-4. **Analysis**, one subsection per verdict: paper claims (excerpts with
-   status), then the data findings linked to them, then H connecting prose.
-   Charts stay where today's are.
+4. **Analysis**, in chain order (§2a): from the root, each link in turn,
+   with the paper's claim (excerpt with status), the mechanism ("because"),
+   and the evidence attached to that link. Charts sit with the link they
+   support.
 5. **Methods and limitations.** Descartes quote audit; witnesses; one line
    per corpus limit, linking its method doc.
 6. **Claims index.** Every claim, paper and data, in one id space.
 7. **Sources index.** Paper at pin, filings as the paper cites them, dag steps.
 8. **Revision and review record.** Review state counts, signatures, review doc.
+
+## 2a. The argument is a causal chain
+
+The report's argument is written the way South Park's writers break a story:
+never "this happened, and then this happened", always "this happened, *therefore*
+this happened, *but* then this happened". It is the buzz-saw logical chain made
+structural.
+
+- **Root.** One inciting fact the chain starts from (Sloane chooses it; see
+  decision 9).
+- **Links.** Every step from one claim to the next is a `therefore` (it follows
+  because of the one before) or a `but` (it complicates or reverses the one
+  before). There is no third kind: a step that is only "and then" is not an
+  argument, and the build rejects it. Each link carries its *because*: one
+  sentence naming the mechanism, a reviewed prose block.
+- **Evidence attaches to links, not to the report.** A data finding, filing or
+  excerpt is attached to the claim or link it bears on, as `supports`,
+  `contradicts`, `qualifies` or `falsifier-for`. A link with no evidence
+  renders as *asserted*.
+- **The causality matrix.** The build renders the chain as a table, one row
+  per link in order (from, therefore/but, to, because, evidence for, evidence
+  against, status), plus a small chain diagram (SVG). The Bottom line reads the
+  chain from root to conclusion in one paragraph.
+- **Pulling things in.** Reworking the argument or adding evidence is one row
+  in `edition/relations.tsv` (or `edition/chain.tsv`); the build places it in the
+  matrix, the Analysis and the claims index. Nothing is moved by hand.
+- **Checks.** Every argument claim is reachable from the root; every link is
+  `therefore` or `but` and has a *because*; no cycles; every data claim attaches
+  to some link or claim, or is listed as unattached.
 
 ## 3. Linking model
 
@@ -70,8 +100,12 @@ file and BLAKE3 (from `dag.lock.tsv`); `git:<commit>:<path>#char=<a>,<b>` plus
 the slice's BLAKE3 for paper and repo text (RFC 5147 fragment); an external URL
 as the paper cites it, with "no captured digest" until a copy is pinned.
 
-**Claim → claim** (`edition/relations.tsv`): `subject, predicate, object,
-review`, predicates `supports | contradicts | qualifies | falsifier-for`. Example
+**Claim → claim, the chain** (`edition/chain.tsv`): `from, link, to, because,
+review`, with `link` either `therefore` or `but` (§2a).
+
+**Evidence → claim or link** (`edition/relations.tsv`): `subject, predicate,
+object, review`, predicates `supports | contradicts | qualifies | falsifier-for`;
+the object may be a claim id or a chain link id. Example
 rows: C0007 `qualifies` Appendix C ">33,000 flaws"; Verdict 2 is the object of
 §8 (1) via `falsifier-for`. Every edge is an inference: it ships with a review
 state, and an unreviewed edge renders as such. The build fails on a cycle, a
@@ -126,8 +160,12 @@ linked by locator.
 3. **Paper claims.** Parse Appendix C, GOV table and falsifiers at the pin into
    about 50 rows with statuses. Done when every row's excerpt verifies and its
    status equals the paper's.
-4. **Relations.** `relations.tsv`, edge rendering, the falsifier section. Done
-   when no data claim is unlinked and every edge shows review state.
+4. **Chain and evidence.** `chain.tsv` (root, `therefore`/`but` links with
+   their *because*), `relations.tsv` (evidence onto claims and links), the
+   causality matrix and chain diagram, the falsifier section. Done when every
+   argument claim is reachable from the root, every link is `therefore` or
+   `but` with a *because*, no data claim is unattached, and every link and edge
+   shows its review state.
 5. **Template.** Restructure to §2's outline; Sloane writes prose blocks.
    Done when the section check passes and the unreviewed count is shown.
 6. **Exports.** `claims.csv`, `claims.jsonld`, both hashed in `STAMP.json`.
@@ -160,3 +198,7 @@ linked by locator.
 8. **Risk-governance index.** (a) its 8 rows as inference claims; (b) leave
    it out (its content hash is unsealed). Recommendation: (a), status as
    written there, marked unsealed.
+
+9. **The root.** What kicked it off: the one fact the chain starts from (for
+   example Anthropic's choice to be a public benefit corporation, or a specific
+   charter or filing event). Sloane's call; the plan does not presume it.
