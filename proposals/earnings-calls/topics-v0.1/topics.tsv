@@ -1,0 +1,95 @@
+topic	size	terms	representative_window_ids
+-1	18546	ai, think, just, data, growth, really, going, customers, business, thats	d6dfb983974e2935,2bedc3132ea6be31,662677fd17324e2d
+0	1280	care, clinical, health, patients, patient, drug, improve, pharma, digital, healthcare	120c6e685488ec4a,e70b174b30d36d8b,bcc31c5191d16e94
+1	1036	nvidia, gpus, gpu, computing, deep learning, deep, inference, ai, performance, learning	62f0f79face0b373,b695b000f1e8cc77,a64d035e62fd57c0
+2	662	investments, cost, savings, continue, efficiency, invest, investing, efficiencies, productivity, capital	5a2dd739ee1a1b45,767432e2172524ba,ebbaa2265a3e2595
+3	635	margin, margins, operating, gross, expenses, gross margin, basis, basis points, points, operating expenses	2e8fa6979b4170c0,f6f715683293e445,2ecb0c3d02a0f21c
+4	563	experience, shopping, listing, supply, sellers, inventory, lean, stores, supply chain, chain	3889a5a015f4fc5b,ff65a540522e999c,0e6b49188a5d8d52
+5	505	security, falcon, crowdstrike, cybersecurity, threat, cloud, platform, endpoint, protection, secure	68db6fa1117e7ccc,3b34b6ffc7d3019b,b0776dfca7e0e824
+6	490	packaging, semiconductor, advanced packaging, advanced, test, memory, materials, demand, applied, logic	05c0b575c6812b98,da74116c9ea02efc,9fb7b61ad1df4852
+7	477	quarter, results, growth, strong, progress, momentum, strategy, innovation, thank, year	66bf881df1b556cd,5cdd257967dcd89e,2608410de0e7cbac
+8	405	energy, power, gas, demand, grid, natural gas, data centers, electricity, centers, generation	4813673ee0c7cdc3,ff42d61ec455421d,d9c9ab8ed0f2e12b
+9	389	car, tesla, autonomous, vehicle, selfdriving, vehicles, computer, neural, cars, automotive	cf959061dde92b4d,a62a38c5f439ff00,847f7f8fc67354ed
+10	354	travel, travelers, trip, booking, airbnb, connected trip, experience, partners, traveler, search	18b3b28cc704896a,79a98353a0b68d81,c43150f8e5f3b063
+11	344	design, ip, cadence, verification, synopsys, eda, chip, automotive, designs, solutions	5a4cd8eee6c62fcc,c84e3813e911f95d,f358f20202a103fc
+12	335	clients, financial, client, msci, investment, nasdaq, trading, wealth, technology, asset	fec3137fa845d296,2f16458302e581ee,4d820b1812260f40
+13	333	clients, cognizant, ai, accenture, services, enterprise, technology, operations, work, expertise	115a5b9f68ec93e7,c477da4d4f461a6d,adfc45970ab60797
+14	325	capex, investments, investment, billion, capital, aws, expect, support, spend, invest	8ad59162daeb6712,9ae1a3f9b7d8414c,2126aef286a360f6
+15	324	revenue, billion, yearoveryear, quarter, growth, sequentially, driven, operating, server, expect	51013613f2d9cd74,6cc9fb429264c142,b54177b7e0d8817d
+16	324	dram, memory, nand, hbm, micron, demand, memory storage, calendar, storage, data center	80fae25e32d8f48d,46bb2e3b45e64d22,8560de0bc9ce5005
+17	323	maybe, talk, just, youre, kind, wanted, youve, question, ask, little	8189353e2184e649,31e67a0ed0416b37,ffd10746c492df86
+18	321	adobe, creative, firefly, express, ai assistant, content, assistant, professionals, experience, marketing	2c886ca9ce6d669d,1f46dcd91ecc17c0,f9726fb59bb5e30a
+19	319	optical, optics, data center, fiber, center, photonics, bandwidth, data, data centers, interconnect	d36cb31656ff76d1,71dbb685f2c7bced,f4667d20b251bdfc
+20	318	agentic, agents, agent, agentforce, agentic ai, agentic enterprise, salesforce, know, think, just	277fe13d1173a07c,14e81caa1e78db31,c561257f36bfbafb
+21	307	network, 5g, wireless, rf, 6g, networks, connectivity, traffic, edge, verizon	ad1648a2d2bcf144,41b0c2c2fd135212,3ba14fdf0bf5439f
+22	299	genai, clients, thats, really, just, maybe, think, bookings, consulting, growth	31d7712bfca6dd90,edbb39ebd1b6466d,52591993ec4e1eae
+23	298	capital, financing, markets, private, issuance, infrastructure, credit, investment, equity, debt	d04a1c24734fa542,b993b962c02cb41e,774fb77ff719739c
+24	287	data center, center, data, data centers, centers, ai data, demand, just, think, thats	5f83e1bdb0efd421,b2f3755d14913800,20e56e61f17bf339
+25	270	ai, think, use, using, tools, thats, weve, going, lot, really	5d24149a41a20472,af664d2d65fa016e,1c9111e00edf4033
+26	268	storage, flash, data, demand, capacity, drives, workloads, allflash, mass, applications	7dd8c5e031769d32,8e419c4296f4c100,b52e9ada1430c31a
+27	263	generative ai, generative, ai, think, creative, just, really, question, make, going	e4c47e5229d4583e,20f886edd8d930c4,53a174c01c7b7896
+28	257	fraud, banks, banking, bank, payments, risk, clients, payment, financial, fis	a8eaecfd585777f8,f5059becce381ad9,b78b96d95c20cb5a
+29	251	revenue, just, year, ai revenue, billion, sort, revenues, question, youre, thanks	7bd85974f10ff6c1,237f2c0ae7f8c7df,0117f136fe0b0b94
+30	246	ads, advertisers, ad, creative, campaigns, advertising, max, campaign, search, performance	338c830ccc79b995,a7dd6e4f69539c2f,5cc5583f17fdbfec
+31	241	meta ai, meta, reddit, content, people, facebook, llama, reels, recommendations, instagram	dfde0954bb7a7fe2,f7069c45347ec39f,e7b53f12cee03cc4
+32	239	underwriting, claims, insurance, risk, clients, aig, client, data, claim, process	ddeb8af49321cc4c,ae9f203cbd4e69e0,9226f5acf0eae430
+33	231	servicenow, servicenows, enterprise, platform, control tower, tower, workflow, servicenow platform, control, ai	3944b508666d2855,97129aeb2e9fb186,97994778b4b6b959
+34	229	ibm, hybrid, hybrid cloud, clients, red, hat, red hat, watsonx, cloud, consulting	8d0a1151a43e0423,0cabac8a6335e24c,4e3719d2ace17dca
+35	204	copilot, 365, github, microsoft, microsoft 365, m365, github copilot, dynamics, seats, organizations	a2335c8b4194b930,e2306652020b06c5,7d8849742bfa2f99
+36	201	llms, llm, ontology, aip, think, enterprise, models, need, use, way	74b5da83a994631e,fabb69044b65a01b,10b797ab52df111f
+37	200	production, drilling, digital, wells, operations, gas, manufacturing, data, platform, oil	52cb547891bebe0d,d26f77c8743e831c,e756b28584d67351
+38	184	palantir, leidos, defense, mission, aircraft, intelligence, air, autonomy, capabilities, systems	4aba7d536b001dfe,de00333c8313426f,397ca179b5296eac
+39	181	azure, cloud, data, db, hybrid, customers, openai, microsoft, data cloud, services	9c2c19983218dd88,4747f1b71f56c1d8,9758d8d9e2c7b62a
+40	180	things, really, weve, areas, think, productivity, doing, company, lot, work	74a8b89199f32a64,1108f7f332cbf8e7,07e788af88f37b06
+41	168	question, ask, yeah, ai, im, yes, going, think, just, question ai	37baf708439fe214,19f5b5d3bd15dcde,6256fff9c828cd9a
+42	159	autodesk, trimble, construction, design, 3d, claude, design make, project, workflows, convergence	fc047db5290f93a2,75056f226066d89e,ab56dadd9d2ac97d
+43	159	san, san francisco, francisco, leasing, tenants, bay, office, space, companies, square	edb0b1ef91aa1e6d,889aacb7d2e2cd2a,cd76835c2298e62a
+44	154	language, large language, language models, models, large, language model, model, going, lot, think	d798ed8cef4d209f,95963c548e43c117,18c3eba001611481
+45	146	hpe, hp, greenlake, hpe greenlake, print, hybrid, cloud, portfolio, networking, edge	31914d22aa98b03c,79923d9739b76b73,81302db19453572c
+46	145	intuit, tax, expert, expert platform, platform, quickbooks, live, customers, aidriven expert, experts	8c7f32c81d0e0596,85d02cd6ff3c21eb,f15f9520f2fd62d2
+47	143	pcs, ai pcs, pc, ai pc, refresh, windows, going, asp, think, ai	6a5b886a8390c9d2,006ec4f1b4b3e07e,90fcca1794c03ef6
+48	141	workday, sana, extend, hr, platform, customers, hr finance, finance, talent, ai	2bdf2c4a45d48ea6,6b74f7248a9084c0,e60a88b810870ce4
+49	138	equifax, ignite, scores, new, data, cloud, leveraging, proprietary, credit, capabilities	88f070115d1daa5f,091dfe73e945d8b8,3091b0d8789707ee
+50	134	airo, domain, website, websites, agentic, domains, builder, customers, ai builder, dns	fe765146620f36cb,f4f2c1b158bdd493,fc5033b8339122e9
+51	133	ethernet, arista, networking, infiniband, network, ai networking, spine, eos, networks, clusters	0b7ff1550c077901,6b4463d3c1694950,6b66b74f3360b783
+52	132	security, attacks, attack, vulnerabilities, ai, protect, threat, cyber, need, cybersecurity	8861b94709e25779,b4e8ca5dce4b185f,b37bf6b2dc95cf0d
+53	130	commerce, agentic commerce, visa, agentic, paypal, merchants, mastercard, payments, pay, transactions	e26820abd25ac680,d209a82900379d37,1b6c3e072be06543
+54	122	agentic, agentic commerce, commerce, shopping, think, question, know, just, agents, experiences	016b3a57000bf016,0ab88a15204d3bf7,627417f77942f2f8
+55	117	restaurant, restaurants, byte, bell, ordering, digital, voice ai, pizza, voice, technology	bde576a18227f7bd,3c9d75a69faee5b4,8bdd5be6054bf0da
+56	112	monetization, monetize, ai monetization, monetizing, think, question, think monetization, pricing, thank, ai	20e073545a5bc99a,66687487651704cb,6770fcd558709920
+57	110	twilio, voice, communications, customer, customers, signal, conversational, messaging, conversation, contextual data	705503de2e65cea2,d7295fc70c430235,6fe006122a187990
+58	110	hr, paychex, hcm, adp, payroll, clients, workforce, recruiting, employees, flex	4ca7fd509e1bfc3a,1d00a388724e0c07,6af09479a3ce9777
+59	109	video, axon, safety, public safety, body, camera, cameras, public, police, officers	43a6bd0dff9fde8c,fb90b61e45072496,ac0e160fa67fa98e
+60	108	openai, partnership, anthropic, relationship, openai partnership, think, satya, maybe, just, know	2f2f62280b612bcc,847b72eb35638ef8,239bace1229edffa
+61	104	datadog, observability, bits, bits ai, customers, llm, usage, llm observability, incident, chronosphere	da185a246dd80dc5,cbbc1997aa47e2b3,f6fdac0921aa8b14
+62	102	oracle, database, oci, saas, data, ai models, cloud, oracle cloud, oracle ai, applications	303c4b7b2ce6410b,092a56a268ff4e25,4d3eb9d228a6d40c
+63	98	cooling, liquid, liquid cooling, dlc, thermal, dcbbs, datacenter, heat, data center, power	0a5bc01dc1e9fe06,7274f61661f655e3,60ee4d39855bc38a
+64	97	f5, security, multicloud, hybrid multicloud, api, hybrid, delivery, traffic, data delivery, application	86749d5e2b801d98,5c2ef400456e3b8d,1b0c0ae11eadb564
+65	97	cloud, think, theres, ai, onprem, going, providers, really, cloud ai, thats	b92115394fdc7835,a29659e50ea981fb,c6e1459f41447428
+66	97	pricing, price, value, just, pricing model, charge, charging, think, thats, based	222e7e850f661bcf,2eb1d07204324cfb,fbf92ccf3f4f6340
+67	92	eda, design, cerebrus, chip design, chip, verification, like, optimization, physical, ai	066e406e1b2b0bc5,8d6749e6b39fafb3,e487080528f0fbc1
+68	90	philanthropic, communities, efforts, community, charitable, covid19, million, fund, philanthropic efforts, program	db3c393337ab5c77,dbddeade138183e6,2a477f5f1a14ba0e
+69	86	google, gemini, search, youtube, machine, machine learning, gemini enterprise, learning, users, cloud	2fd973ce2ae4ba6f,9867c440af60b445,56a738b0ff3f17d7
+70	86	gemini, gemini app, app, revenue management, separation, futures, exchange, users, sundar, management	084278da3c9e84f2,356f0c979332d3b2,188f1722cfdcb670
+71	85	search, overviews, ai mode, ai overviews, mode, gemini, queries, users, people, google	21b237c2fb26ab06,f671cda451dd76ea,21f2341a0a834de4
+72	80	voice, voice ai, messaging, business messaging, think, lot, ai natives, use cases, business, natives	a533dc52a7cafa24,1138cf32ccac6f5a,763015127f49719a
+73	79	congrats, quarter, arr, wins, kind, just, win rate, win, maybe, youre	bec9f931ac85da8d,309147acf90b172c,eb8cb0550f2c3f8d
+74	79	netapp, storage, data, cloud, hybrid, data infrastructure, data management, workloads, onpremises, environments	d1c2b27b79be5bd6,4bacb8f3ec141fd8,2d41f0d0b9b5e543
+75	78	apple, mac, siri, macbook, users, iphone, ipad, pro, features, intelligence	5a1bd5f2c4b9e510,1d553c0bcee5d8e1,78dd75ea31eefc19
+76	75	snapdragon, qualcomm, ondevice, elite, devices, gen, pcs, ondevice ai, galaxy, edge	834be65e0a0c1a2b,bd15c9a2cf021e5f,71428c64c2ccac2c
+77	75	credit, karma, credit karma, lending, loan, lenders, origination, underwriting, data, encompass	3f7eca9100d93c60,132b961c6321376b,3e16867d9d800845
+78	74	cyber safety, genie, cyber, safety, protection, scams, consumers, threat, 360, identity	e3b2dbe34faa5c4f,e78702191075310c,7827d4f4339c07da
+79	74	china, chinese, export, asia, europe, market, ai, war, think, opensource	3c3267929a67541c,a048401c886eec73,bd725b988c9c1483
+80	69	inference, deep learning, deep, models, learning, going, really, recommendation, think, training	a2ff55be3a0329c9,3b618fc87385d221,095ba4e33020b7a4
+81	68	einstein, salesforce, incredible, amazing, gpt, data cloud, intelligence, cloud, artificial intelligence, artificial	759583ca32432abf,30546977e4958b4f,eb079d9fcccc07f5
+82	68	orders, backlog, ai orders, order, billion, just, question, shipments, servers, lead times	b62b806e66316f14,e6fe931bdd119dba,73f54a309e9a42b2
+83	67	cash, billion, cash flow, flow, days, free cash, free, inventory, capital, million	04e2d895b73a50ca,04630c5e9139090a,77f79779476f92bd
+84	65	equinix, workloads, fabric, multicloud, interconnection, distributed, cloud, infrastructure, connectivity, customers	582d9276daddf2e7,3bd8828df7cbaa96,d5a86b8b436cebe3
+85	65	factset, clients, asv, workflows, client, solutions, banking, wealth, asv growth, strategy	bb579cfb4e862482,8d2f2b9266c5a062,a2240557228eeca5
+86	65	cisco, network, networking, aruba, secure, infrastructure, security, edge, networks, orders	3e59721614773040,cf5f04ecbb3a86b4,2f56c378ae9e2bb0
+87	64	veeva, veeva ai, vertiv, industry, applications, agentic labor, crm, life sciences, vault, sciences	b8af402705d1eb8a,a0ed787a841dcb80,0fdd31aec90e52f9
+88	63	rtx, tracing, ray, ray tracing, nvidia, gaming, gpus, games, geforce, rendering	2a35128382ccd191,dce3f01f5155ff26,6c2e7d6baeb9e6ef
+89	62	power, power density, ai data, density, sic, silicon carbide, carbide, data center, voltage, center	214f7ae909618301,2a7f51679752097c,8b5ab3176a8b4a56
+90	61	sase, security, secure, firewall, ot, sdwan, protection, integrated, solution, operation	b01c6484abae6557,4e76a57e4c588552,d3f64e1339dfb31e
+91	61	hyperscalers, hyperscale, hyperscaler, cloud, just, maybe, question, think, view, large	9169a827ccc48560,4d16db27266ccb51,3d64b9c20958b80b
+92	60	water, energy, building, net zero, solutions, centers, data centers, emissions, infrastructure, carbon	75b6ef51ea2ea272,b495135e7100e4b1,2ba9d3550cf39fde
