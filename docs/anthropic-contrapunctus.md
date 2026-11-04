@@ -218,26 +218,30 @@ revocable trustees → discharged public duty*. That arrow is unearned.
 
 1. **Anthropic's charter is legally real and legally toothless.** The public
    benefit purpose sits in its certificate and DGCL §362 requires balancing
-   stockholders, "those materially affected," and that purpose. But §365(b)
+   stockholders' interests, "the best interests of those materially affected
+   by the corporation’s conduct, and the public benefit or public benefits
+   identified in its certificate of incorporation". But §365(b)
    gives directors **no duty to any person on account of a public-benefit
    interest**, and §367 limits enforcement to derivative suits by holders of
    ≥2% (or $2M, lesser, once listed). The public the charter names cannot
    enforce it. **[CONFIRMED/HIGH]**
 
-### 4.1 What "legally binding" actually binds
+### 4.1 What the PBC structure actually binds
 
-Daniela Amodei: "I wouldn't expect anyone to take that on faith." Correct.
-Here is what there is instead of faith.
+Daniela Amodei, of the significant progress she says Anthropic has made
+against its charter: "I wouldn’t expect anyone to take that on faith." She
+offers the Report as the proof. Here is what the law and the share
+structure offer besides.
 
 | Element | What it is | Who can enforce | Verdict |
 |---|---|---|---|
-| PBC purpose in certificate ("responsible development… for long-term benefit of humanity") | DGCL §362 tripartite balancing duty | Stockholders derivatively only (§367, ≥2%/$2M lesser); §365(b): **no duty owed to beneficiaries/public** | Binding as permission; near-unenforceable as obligation **[CONFIRMED]** ([§365 text](https://law.justia.com/codes/delaware/title-8/chapter-1/subchapter-xv/section-365/)) |
+| PBC purpose in certificate ("the responsible development and maintenance of advanced AI for the long-term benefit of humanity", as quoted in the S-1) | DGCL §362 tripartite balancing duty | Stockholders derivatively only (§367, ≥2%/$2M lesser); §365(b): **no duty owed to beneficiaries/public** | Binding as permission; near-unenforceable as obligation **[CONFIRMED]** ([§365 text](https://law.justia.com/codes/delaware/title-8/chapter-1/subchapter-xv/section-365/)) |
 | Five pillars + standards | Board-adopted §366 objectives; board can revise | The board that adopted them; reported biennially **to stockholders**, not the public, by statute | Aspirational conditions ("where AI has gone well"), not metrics **[NUANCED]** |
 | LTBT via Class T | Elects/removes 4 of 7 directors; no economics, no general vote, **no day-to-day authority** (advice only) | Trustees select directors; but Class T is amendable/redeemable (sunset) by specified A/E/F majorities; secondary analyses report trustee removal at 85% voting power — confirm against Trust Agreement exhibit before relying | Real board control, shareholder-revocable. Middle tier **[NUANCED/MED]** |
-| Founder Class F (single share, Founder LLC) | **50.1% of general voting power**, no economics; transition when <3 continuing founders (450 days) | Seven co-founders, personally | The opposite of "survives the individuals" — for now, by design **[CONFIRMED]** |
+| Founder Class F (single share, Founder LLC) | **50.1% of general voting power**, no economics; a 450-day transition begins after fewer than three Continuing Founders (co-founders or their successors in the Founder LLC) for 90 consecutive days | Seven co-founders, personally | The opposite of "survives the individuals" — for now, by design **[CONFIRMED]** |
 | Class E (employees) / Class N (strategic partners) | Limited/no votes, no economics | — | Voice without residual claim; E majorities can help terminate T **[CONFIRMED/MED]** |
 | Case law | *Drakes Landing v. Tilden Park* (2026, first PBC fiduciary opinion, via counsel summaries): Revlon maximization does not apply to PBCs | Expands director *permission* to balance; compels no benefit outcome | Permission-expanding, not benefit-compelling **[CONFIRMED/MED]** ([summary](https://www.legal500.com/intelligence/united-states/corporate-commercial-law/delaware-court-confirms-pbc-directors-need-not-maximize-shareholder-value)) |
-| S-1's own risk note | "Absence of judicial precedent interpreting this structure increases risk/unpredictability of governance-related litigation" | — | Anthropic tells investors the lock is untested **[CONFIRMED]** |
+| S-1's own risk note | "the absence of judicial precedent interpreting this structure increases the risk and unpredictability of governance-related litigation" | — | Anthropic tells investors the lock is untested **[CONFIRMED]** |
 
 **The enforceability test this paper uses** (from steward-ownership
 precedents): governance is enforceable iff someone other than the governed
@@ -320,12 +324,14 @@ candidates, not a cap table.
 lab at the frontier, and its S-1 says so in its own words: Anthropic "was
 founded by a team of researchers who believe that the most consequential
 technology in history demands an organization structurally committed to both
-capability and safety"; "sustained, focused research at the frontier of
-intelligence is required to build the most capable and safest AI systems"; and
-its team is "united by the conviction that the most consequential technology in
-history requires the most talented team building it." Its restraint is
-industry-wide and conditional. Anthropic has called for "pacing the frontier",
-industry-wide standards so that capabilities do not outrun safety, but "This
+capability and safety"; "We believe that sustained, focused research at the
+frontier of intelligence is required to build the most capable and safest AI
+systems"; and its team is "united by the conviction that the most
+consequential technology in history requires the most talented team building
+it." Its restraint is industry-wide, narrow and conditional. The S-1 says "we
+have publicly called for “pacing the frontier,” by which we mean establishing
+industry-wide standards primarily related to the use of AI to accelerate AI
+development", so that capabilities do not outrun safety practices, but "This
 call to pace the frontier contemplates frontier AI developers collaborating
 with governments and does not describe our own model development or release
 timelines, which continue to be informed by our risk assessments." Meanwhile
@@ -335,19 +341,25 @@ ability to remain competitive and to stay at the frontier of AI." (S-1.)
 
 The Responsible Scaling Policy (RSP), the document in which Anthropic commits
 to safety measures as its models grow more capable, makes the condition
-explicit. Its Appendix A, "Commitments Related to Competitors" (RSP v3.4,
-p.17), sets the scenario "Anthropic in the lead" (it has, or will imminently
-have, a highly capable model, with "clear evidence that no other competitor
-will soon develop such a model") against the commitment: "We will delay AI
-development and deployment as needed to achieve this, until and unless we no
-longer believe we have a significant lead." Where a competitor has merely
-implemented a better risk mitigation: "we will not necessarily delay AI
-development and deployment in this scenario." In fairness, the same appendix
-says these commitments "do not preclude us from taking cautionary action" and
-that Anthropic "would strongly consider pausing development and/or deployment
-to improve the safety profiles of our models even in cases not covered below."
+explicit. Its Appendix A, titled Commitments Related to Competitors (RSP
+v3.4, p.17), sets the scenario "Anthropic in the lead" (it has, or will
+imminently have, a highly capable model, with "clear evidence that no other
+competitor will" soon develop such a model) against the commitment: Anthropic
+will require a strong argument that catastrophic risk is contained, and will
+delay AI development and deployment as needed to obtain it, until and
+"unless we no longer believe we have a significant" lead. Where a competitor
+has implemented a risk mitigation that is a significant improvement on
+Anthropic's own against its prioritized risks, and that Anthropic could
+implement at comparable or lower cost, Anthropic commits to "make a
+significant effort to meet or exceed that performance standard". "However,
+we will not" necessarily delay development and deployment in that scenario.
+In fairness, the same appendix says "the commitments below do not preclude
+us from taking" cautionary action, and that "we would strongly consider
+pausing development and/or" deployment to improve the safety profiles of its
+models even in cases the appendix does not cover.
 **[CONFIRMED/HIGH: the binding delay commitment is conditioned on Anthropic
-holding the lead, or on competitors already meeting a strong safety bar.
+holding the lead, or on a competitor already holding a significantly better
+mitigation that Anthropic commits to try to match.
 Read on RSP p.17; Descartes check pending.]**
 
 **[OPINION]** Read together: hold back while in the lead, and otherwise keep
