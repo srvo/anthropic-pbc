@@ -185,7 +185,14 @@ build (`scripts/build_edition.py`) fails on any breach:
 6. **Quotes.** Quoted text in the template must be a single quote binding:
    straight and curly double quotes, single quotes (an apostrophe inside a
    word is not a quote), markdown blockquotes and HTML `<blockquote>`/`<q>`.
-   Each quote must occur verbatim in edition v0. A quote taken from the
+   Each quote is an excerpt in `edition/excerpts.tsv` (`key, commit, path,
+   start, end, blake3, highlight_start, highlight_end, highlight_blake3`):
+   the build re-slices it from `git show <commit>:<path>`, never the working
+   tree, and fails on any hash mismatch (a moved or edited slice) or a
+   highlight outside its excerpt. The highlight, the most relevant part of
+   the quote, is shown in bold. All paper excerpts share one commit, the
+   latest committed paper; the build warns (does not fail) when a newer
+   committed revision of the paper exists. A quote taken from the
    paper's claims table also binds the status that table gives it (`q_33k`
    is bound with `UNVERIFIED/MED`), so the report cannot quote a claim without
    the paper's own verdict on it. A binding that copies another

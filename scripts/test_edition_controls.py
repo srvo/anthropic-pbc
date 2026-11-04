@@ -184,15 +184,49 @@ for line, what in (("They said \u201ca paraphrase\u201d.", "curly double quotes"
     expect(f"quoted text in {what} that is not a quote binding fails", any("quote binding" in e for e in b.errs))
 b = build_with(FM + "Anthropic's charter and the executives' passages, in \u2018{{q_ok}}\u2019.\n> {{q_ok}}\n")
 expect("apostrophes, a bound single quote and a bound blockquote pass", not b.errs)
-b = be.Build("v0.2-draft")
-old_quotes = be.QUOTES
-be.QUOTES = {**old_quotes, "q_fake": "words edition v0 never printed"}
+# 6. quotes are excerpts (edition/excerpts.tsv): re-sliced from `git show` at their commit and re-hashed
+ecl = be.ecl
+ex_text = be.EXCERPTS.read_text()
+ex, _ = ecl.load_excerpts(ex_text)
+with tempfile.NamedTemporaryFile("w", suffix=".tsv", delete=False) as f:
+    f.write(ex_text.replace(ex["q_toothless"]["blake3"], ecl.b3("words edition v0 never printed")))
+old_x, be.EXCERPTS = be.EXCERPTS, Path(f.name)
 try:
+    b = be.Build("v0.2-draft")
     b.register_static("0" * 40)
 finally:
-    be.QUOTES = old_quotes
-expect("a quote not verbatim in edition v0 fails", any("q_fake" in e for e in b.errs))
+    be.EXCERPTS = old_x
+expect("a quote whose excerpt is not in the pinned paper fails", any("excerpt q_toothless" in e for e in b.errs))
+b = be.Build("v0.2-draft")
+b.register_static("0" * 40)
+expect("the committed excerpts verify against the pinned paper", not b.errs)
 expect("q_33k carries the status the paper gives it", b.reg.values["q_33k_status"]["text"].startswith("UNVERIFIED"))
+expect("a quote shows its highlighted sub-span in bold", "**legally toothless**" in b.reg.values["q_toothless"]["text"])
+x = ex["q_toothless"]
+raw = ecl.git_show(x["commit"], x["path"], str(be.ROOT))
+a, z = int(x["start"]), int(x["end"])
+moved = dict(x, start=str(a + 1), end=str(z + 1), highlight_start=str(int(x["highlight_start"]) + 1),
+             highlight_end=str(int(x["highlight_end"]) + 1))
+expect("a moved excerpt slice fails", any("does not hash" in e for e in ecl.verify_excerpt(moved, raw)[2]))
+edited = raw[:a] + raw[a:z].replace("legally real", "legally unreal") + raw[z:]
+expect("an edited excerpt slice fails", any("does not hash" in e for e in ecl.verify_excerpt(x, edited)[2]))
+outside = dict(x, highlight_start=str(a - 5))
+expect("a highlight outside its excerpt fails", any("outside its excerpt" in e for e in ecl.verify_excerpt(outside, raw)[2]))
+hb = int(x["highlight_end"])
+inside = dict(x, highlight_end=str(hb - 1), highlight_blake3=ecl.b3(raw[int(x["highlight_start"]):hb - 1]))
+expect("a re-hashed highlight inside its excerpt passes", not ecl.verify_excerpt(inside, raw)[2])
+expect("an excerpt pinned to a short commit id fails",
+       any("40-hex" in e for e in ecl.load_excerpts(ex_text.replace(x["commit"], x["commit"][:7], 1))[1]))
+with tempfile.TemporaryDirectory() as d:
+    g = Path(d)
+    be.git("init", "-q", cwd=g)
+    for body in ("one", "two"):
+        (g / "paper.md").write_text(body)
+        be.git("add", "paper.md", cwd=g)
+        be.git("-c", "user.name=t", "-c", "user.email=t@t", "commit", "-q", "-m", body, cwd=g)
+    first, last = be.git("rev-list", "--reverse", "HEAD", cwd=g).split()
+    expect("a pin older than the latest committed paper is reported",
+           ecl.newer_revisions(first, "paper.md", str(g)) == [last] and not ecl.newer_revisions(last, "paper.md", str(g)))
 
 # 4 (M4). a binding that copies another carries its n and d
 reg = display.Registry()

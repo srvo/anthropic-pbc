@@ -43,7 +43,10 @@ Display controls (docs/report-build.md; every one fails the build):
      comments/aria-label, and fixed tick labels (scale ticks excepted).
   6. Quotes. Quoted text in the template (straight or curly, double or single
      quotes, markdown or HTML blockquotes) must be a single quote binding, and
-     every quote binding must occur verbatim in edition v0. A quote from the
+     every quote binding is an excerpt (edition/excerpts.tsv) re-sliced from
+     `git show <commit>:<path>` and re-hashed, with its highlighted sub-span
+     (also hashed) shown in bold. A warning, not a failure, when a newer
+     committed paper exists than the pinned one. A quote from the
      paper's claims table also binds the status the paper gives it. A binding
      that copies another (Registry.copy) carries its n and d.
   7. Nothing clipped. Every text element of a matplotlib chart lies inside the
@@ -121,11 +124,10 @@ QUESTIONS = {"codebook": "v0.1", "file": "corpus/earnings-calls/codebook-questio
              "scores": "proposals/earnings-calls/codebook-questions-v0.1",
              "units": "corpus/earnings-calls/ai-questions.parquet"}
 CVE, CVE_MANIFEST = "corpus/cve/monthly-ai.tsv", "corpus/cve/MANIFEST.tsv"
-QUOTES = {  # binding -> exact text in edition v0 (markdown emphasis and line breaks removed before matching)
-    "q_toothless": "Anthropic's charter is legally real and legally toothless.",
-    "q_365b": "§365(b) gives directors no duty to any person on account of a public-benefit interest",
-    "q_33k": ">33,000 critical- and high-severity flaws",
-}
+# Quote bindings: each is an excerpt row of edition/excerpts.tsv (commit, character offsets, BLAKE3, and a
+# highlighted sub-span), re-sliced from `git show` and re-hashed by the build. Never the working tree.
+QUOTES = ("q_toothless", "q_365b", "q_33k")
+EXCERPTS = ROOT / ecl.EXCERPTS_TSV
 QUOTE_STATUS = {"q_33k"}   # quotes from the paper's claims table: also bind the status the paper gives them
 QUOTED = re.compile(r'"([^"\n]*)"|\u201c([^\u201d\n]*)\u201d'           # straight and curly double quotes
                     r"|(?<!\w)['\u2018]([^'\u2019\n]+?)['\u2019](?!\w)")    # single quotes; apostrophes sit inside words
@@ -195,6 +197,7 @@ class Build:
         self.codebook, self.cb = codebook, CODEBOOKS[codebook]
         self.reg = display.Registry()
         self.errs: list[str] = []
+        self.warns: list[str] = []
         self.outs: dict[str, bytes] = {}
         self.bound: dict[str, set[str]] = {}   # chart string -> the binding keys it was built from
         self.claim_rows: list[dict] | None = None   # edition/claims.tsv; tests may set their own
@@ -206,7 +209,7 @@ class Build:
                 "corpus/earnings-calls/calls.tsv", "corpus/earnings-calls/ai-windows.parquet",
                 "edition/report.template.md", "scripts/build_edition.py", "scripts/display.py",
                 "scripts/ec_question_report.py", "dag.lock.tsv", "dag.yml", CVE_MANIFEST,
-                ecl.CLAIMS_TSV, "scripts/edition_claims.py"]
+                ecl.CLAIMS_TSV, ecl.EXCERPTS_TSV, "scripts/edition_claims.py"]
 
     def preflight(self) -> bool:
         r = subprocess.run(["uv", "run", "--quiet", str(DAG_TOOL), "status"], cwd=ROOT, capture_output=True, text=True)
@@ -316,15 +319,28 @@ class Build:
         new = {r["status"].split()[0] for r in table(self.cb["file"])[1] if r["status"].startswith("v0.2")}
         for i, v in enumerate(sorted(new)):
             R.put(f"new_tag_{i}", v, source=self.cb["file"], how="status column of hypotheses new in this codebook")
-        raw = git("show", f"{PAPER_V0}:{PAPER}")
-        text = re.sub(r"\s+", " ", raw.replace("**", "").replace("*", ""))
-        for k, q in QUOTES.items():
-            if q not in text:
-                self.errs.append(f"quote {k} not found verbatim in {PAPER}@{PAPER_V0}: {q!r}")
+        self.excerpts, errs = ecl.load_excerpts(EXCERPTS.read_text())
+        self.errs += errs
+        pins = sorted({r["commit"] for r in self.excerpts.values() if r["path"] == PAPER})
+        if len(pins) != 1 or not pins[0].startswith(PAPER_V0):
+            # One paper commit per edition (the latest committed paper); the template still names it edition v0.
+            self.errs.append(f"{ecl.EXCERPTS_TSV}: paper excerpts must share one commit, {PAPER_V0}; found {pins}")
+        for pin in pins:
+            newer = ecl.newer_revisions(pin, PAPER, str(ROOT))
+            if newer:
+                self.warns.append(f"{PAPER} has {len(newer)} committed revision(s) newer than the pinned {pin[:12]} "
+                                  f"(latest {newer[0][:12]}): re-pin the excerpts")
+        for k in QUOTES:
+            if k not in self.excerpts:
+                self.errs.append(f"quote {k}: no row in {ecl.EXCERPTS_TSV}")
+                continue
+            x = self.excerpts[k]
+            raw = ecl.git_show(x["commit"], x["path"], str(ROOT))
+            q, _, errs = ecl.verify_excerpt(x, raw)
+            self.errs += errs
             R.put(k, q, source=f"{PAPER}@{PAPER_V0}", how="verbatim quote (emphasis and line breaks removed)")
             if k in QUOTE_STATUS:
-                row = [l for l in raw.splitlines() if l.startswith("|") and q in l.replace("**", "")]
-                status = row[0].split("|")[2].strip() if len(row) == 1 else ""
+                status = ecl.table_cell(raw, int(x["start"]), 2)
                 if not status:
                     self.errs.append(f"quote {k}: no single claims-table row with a status in {PAPER}@{PAPER_V0}")
                 R.put(f"{k}_status", status, source=f"{PAPER}@{PAPER_V0}",
@@ -929,7 +945,10 @@ def main() -> int:
                 (ROOT / p).write_bytes(before[p])
             elif (ROOT / p).exists():
                 (ROOT / p).unlink()
-    outs, errs = Build(a.codebook).run()
+    b = Build(a.codebook)
+    outs, errs = b.run()
+    for w in b.warns:
+        print("warning: " + w, file=sys.stderr)
     if errs:
         restore()
         print("build failed:\n  " + "\n  ".join(errs), file=sys.stderr)
