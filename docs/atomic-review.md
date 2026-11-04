@@ -9,6 +9,11 @@ not an expert must be able to follow any claim back to the exact words in a
 pinned source, with the surrounding passage, and see why it says what the
 paper says it says.
 
+**Why (Sloane, 2026-11-04).** Two goals. First, reduce the need for future
+inference: a fact verified once, with its trail, is reused by anyone without
+being re-derived, re-read or re-argued. Second, be extremely rigorous about the
+fact pattern, so others can verify it easily and build on it.
+
 ## The four questions, asked of every claim
 
 1. **Pinned?** The source is in `sources/MANIFEST.tsv` (URL, bytes, BLAKE3) and
