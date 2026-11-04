@@ -77,3 +77,36 @@ the build writes the deck with its stamp. The paper template comes later.
    Descartes claim, or only quotes from outside documents do.
 5. **Where the data lives** when this runs: here, or the Praxis catalog
    (paused, pending the other session's registry work).
+
+## Display controls (built, 2026-11-04)
+
+Every number that reaches a reader passes through `scripts/display.py`, and the
+build (`scripts/build_edition.py`) fails on any breach:
+
+1. **Exact inputs.** Values are computed from integer counts or exact
+   fractions. A float raises an error, so a rounded table column can never be
+   shown, or rounded a second time.
+2. **One rounding rule.** Half up, from the exact fraction. (Python's own
+   formatting rounds binary floats half-even, so 12.5 can print as 12.)
+3. **One source per number.** The build draws every chart in the deck itself,
+   from the same registered values as the captions.
+4. **Provenance.** Each value is registered with its source file, computation,
+   numerator and denominator. `deck/STAMP.json` lists them all.
+5. **No unbound numerals.** The template may contain no digit outside a
+   `{{binding}}`. Every numeral in the built deck, and in chart text (axis tick
+   labels aside), must be a registered value.
+6. **Quotes.** Quoted text in the template must be a single quote binding, and
+   each quote must occur verbatim in edition v0.
+7. **Nothing clipped or malformed.** Chart text must lie inside the figure;
+   every SVG must parse.
+8. **One codebook** per edition.
+
+`uv run scripts/test_edition_controls.py` feeds each control a bad input and
+confirms it fails (14 cases).
+
+Moving the cross-source chart onto this path changed none of its 125 cell
+values. The corpus report scripts outside the deck (`ec_risk_series.py`,
+`ec_question_report.py`, `hn_report.py`, `v02_map.py`) still format numbers
+themselves. `ec_question_report.py` rounds a column that was already rounded
+to two places before printing it to one. Those outputs are not shown in any
+edition until they move onto `display.py`.
