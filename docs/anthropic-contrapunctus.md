@@ -146,8 +146,8 @@ Anthropic is a public benefit corporation: a company incorporated under
 Delaware's corporate statute, the Delaware General Corporation Law (DGCL),
 whose charter names a public purpose and whose directors must balance that
 purpose against stockholders' interests and those materially affected (§4.1).
-Anthropic's charter states its purpose as governance for *"the long-term benefit
-of humanity"*. Its board has adopted five pillars, each describing a world
+In the Report's words, Anthropic's charter *"is to responsibly develop and
+maintain advanced AI for the long-term benefit of humanity."* Its board has adopted five pillars, each describing a world
 "where AI has gone well": the technical problems of AI safety are solved; AI
 safety is a universal practice backstopped by law; AI strengthens democracy and
 global stability; AI expands prosperity and human flourishing; AI's benefits are
@@ -166,14 +166,19 @@ S-1, the registration statement a company files with the Securities and
 Exchange Commission to sell shares to the public. The S-1 and the Report
 describe that Fund differently.
 
-Where Anthropic's filing contradicts Anthropic's Report, we say so. Example:
-the Report (pp.3, 17) describes the 5% set-aside as "subject to stockholder
-approval" / "if stockholders agree" in a "separate entity"; the S-1 records
-846,840,960 Class N shares (5% fully diluted at 2026-06-30) already
-contributed to the Anthropic Public Benefit Fund LLC — a **wholly-owned
-subsidiary**, with up to +2% more per 50% price milestone at board
-discretion. "Separate" and "wholly-owned subsidiary" are different control
-facts. Investors should price the S-1 version.
+Where Anthropic's filing and Anthropic's Report differ, we say so. Example:
+Daniela Amodei's foreword (p.3) describes the 5% set-aside as "subject to
+stockholder approval", and the LTBT's commentary (p.17) says that "If
+stockholders agree" Anthropic plans to place at least 5% of its shares in a
+"separate entity" dedicated to the charter. The S-1 records 846,840,960
+Class N shares (5% fully diluted at 2026-06-30) already contributed to the
+Anthropic Public Benefit Fund, LLC (S-1: "Benefit Fund”), our wholly owned
+subsidiary"), with up to +2% more per 50% price milestone at board
+discretion. The Report describes a plan; the S-1 records a contribution
+already made. A wholly owned subsidiary is itself a separate entity, so the
+words do not contradict each other, but separateness says nothing about
+control, and the S-1 shows that Anthropic keeps it. Investors should price
+the S-1 version.
 
 ---
 
