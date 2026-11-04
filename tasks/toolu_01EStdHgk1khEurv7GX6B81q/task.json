@@ -1,0 +1,20 @@
+{
+  "tool_use_id": "toolu_01EStdHgk1khEurv7GX6B81q",
+  "agent_id": "a53f660e8e83d59ce",
+  "task_description": "Metadata backfill: democracy",
+  "files": [
+    "corpus/democracy/proxies.meta.yml",
+    "corpus/democracy/responses_and_reports.meta.yml",
+    "corpus/democracy/rooney_transcription.meta.yml",
+    "dag.yml"
+  ],
+  "token_usage": {
+    "input_tokens": 72,
+    "cache_creation_tokens": 155589,
+    "cache_read_tokens": 3996747,
+    "output_tokens": 33550,
+    "api_call_count": 36
+  },
+  "started_at": "2026-11-04T10:26:50.282706-07:00",
+  "completed_at": "2026-11-04T10:32:23.84565-07:00"
+}
