@@ -1,0 +1,15 @@
+{
+  "tool_use_id": "toolu_01HWAuF6B9o7azWk2sjEStWF",
+  "agent_id": "a7227e546a5385100",
+  "subagent_type": "general-purpose",
+  "task_description": "Earnings corpus to pointers",
+  "token_usage": {
+    "input_tokens": 134,
+    "cache_creation_tokens": 223274,
+    "cache_read_tokens": 10982034,
+    "output_tokens": 51548,
+    "api_call_count": 67
+  },
+  "started_at": "2026-11-04T14:01:59.821323-07:00",
+  "completed_at": "2026-11-04T14:12:18.178043-07:00"
+}
