@@ -1,0 +1,14 @@
+{
+  "tool_use_id": "toolu_01Ttj18R3oTzJpjYikk1V7mz",
+  "agent_id": "a88ab174c20e8cf19",
+  "task_description": "Pin the unpinned sources",
+  "token_usage": {
+    "input_tokens": 44,
+    "cache_creation_tokens": 89993,
+    "cache_read_tokens": 1793735,
+    "output_tokens": 12547,
+    "api_call_count": 21
+  },
+  "started_at": "2026-11-04T16:13:08.574907-07:00",
+  "completed_at": "2026-11-04T16:15:43.076129-07:00"
+}
