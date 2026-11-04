@@ -203,7 +203,7 @@ election safeguards and disrupted influence operations (§6.7.3); the Economic
 Index, research funds and fellowships (§6.7.4); health, education and science
 deployments, including protein binders whose binding independent labs confirmed
 (§6.7.5). And outcomes take time: its own trust reads this first report as
-describing inputs and says it will look for outcomes in later ones (§6).
+largely describing inputs and says it will look for outcomes in later ones (§6).
 
 What survives the buzz saw is real: the five pillar *conditions* are well
 chosen; the incident disclosures are genuinely ahead of peers, and the
