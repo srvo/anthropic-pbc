@@ -519,9 +519,10 @@ verifier, so a reader can check it with nothing else.
 
 > **On the web:** each corpus behind the record (link pending).
 
-2. **The Report grades its own homework — and its own LTBT says so.** The
-   Trust: the report "largely describes inputs; in subsequent reports we will
-   increasingly look for Anthropic to produce outcomes" (p.17). Flagship
+2. **The Report grades its own homework, and its own LTBT says it largely
+   describes inputs.** The Trust: "Right now, it largely describes inputs";
+   in later reports, it says, it will increasingly look for Anthropic to
+   produce outcomes (p.17). Flagship
    benefit counts (33,000+ critical flaws; a 129,000 program-total that is
    **not in the PBC Report** — partner-reported, caught by the loop audit) have no public
    CVE-level audit (CVE, Common Vulnerabilities and Exposures: the public
@@ -538,18 +539,21 @@ verifier, so a reader can check it with nothing else.
    the rest is process anecdote Anthropic admits lacks outcome evidence.
    On a like-for-like evidence standard, **documented harm outweighs documented
    benefit today. [NUANCED/HIGH — a ledger asymmetry, not a welfare sum]**
-4. **"Measurable harm to millions" is not documented — and saying so plainly is
-   the stronger argument.** No study counts millions of individually verified
+4. **Measurable harm to millions, a claim made in circulation, is not
+   documented — and saying so plainly is the stronger argument.** No study counts millions of individually verified
    AI-harm victims (2023–26). Millions-scale figures in circulation are
    extrapolations (2.2% NCII self-report, n>16k), relative gaps (Stanford:
    22–25-year-olds in AI-exposed hiring ~19% below trend, while Yale finds no
-   macro disruption), or population-counting (4.2B "affected" by election
-   deepfakes = whole populations, not affected persons) **[MISLEADING]**.
+   macro disruption), or population-counting (4.2B "affected"
+   [source identified, not yet pinned: https://surfshark.com/research/chart/election-deepfakes]
+   by election deepfakes = whole populations, not affected persons)
+   **[MISLEADING]**.
    What *is* documented at scale is **exposure**: $895.4B of compute/infrastructure
    commitments ($447.5B before 2031; $69.8B in the next 12 months; ~$213.8B
-   terminable), Q3-2026 revenue of $17.0B, and Anthropic's own admission that
-   decisions are concentrated in "a handful of companies, nations, and people.
-   Anthropic is one of them… few external checks" (p.12). Systemic *risk* does
+   terminable), Q3-2026 revenue of $17.0B, and Anthropic's own admission,
+   under the heading "Decision-making about AI is concentrated", that a
+   handful of companies, nations and people, Anthropic among them, make the
+   decisions with few external checks (p.12). Systemic *risk* does
    not need a body count. It needs concentrated, unchecked, irreversible
    commitment. That is disclosed.
 
@@ -573,8 +577,8 @@ Sort Anthropic's commitments onto that scale and a pattern appears:
   the public no standing (§365(b)/§367) — the one rule that would bind conduct
   is left unenforceable. *Self-organization* (4): the mission lock is revocable
   and founder control (Class F, 50.1%) retained — the power to change the
-  structure stays with the governed. *Goals* (3): when "long-term benefit of
-  humanity" meets "pace the frontier" and a priced IPO (initial public offering), the filings show which
+  structure stays with the governed. *Goals* (3): when a charter "to responsibly
+  develop and maintain advanced AI for the long-term benefit of humanity" meets "pace the frontier" and a priced IPO (initial public offering), the filings show which
   goal governs.
 - **Where it borrows the language without moving the lever.** Anthropic speaks
   at the level of *paradigm* (2) and *goals* (3) — humanity's future, the
@@ -606,16 +610,21 @@ than any critic could. Six recurring moves:
    implied from binding-only results — all counted now against harms already
    settled in cash. A forecast is not an offset. **[MISLEADING when netted]**
 2. **Input-for-outcome substitution.** Admitted by the LTBT (inputs, not
-   outcomes, p.17) and for health/education verbatim: "we don't yet have
-   evidence that these efforts have had their intended effects…
-   we have not been active enough in collecting data" (p.16). Dashboards
+   outcomes, p.17) and for health/education: the work is in its early
+   stages, so there is not yet evidence that it has had its intended
+   effects, and "we have not been active enough in collecting data" (p.16).
+   Dashboards
    flagging 25,000 pneumonia cases is an input. Cases averted would be an
    outcome. The Report presents the first in the grammar of the second.
 3. **Settlement-substitution.** *Bartz*: Judge Alsup (Jun 2025) held training
    on *lawfully acquired* books fair use and building a pirated library not
    fair use; Anthropic [settled for $1.5B over ~500k pirated works (~$3,000/work, timely-registered class only) and must destroy the files](https://publishers.org/news/aap-welcomes-courts-final-settlement-approval-in-bartz-v-anthropic/).
    $300M paid in 2025; $1.5B expensed as 33% of 2025 revenue and *excluded*
-   from adjusted operating income as "non-indicative." A settlement is the
+   from adjusted operating income, which the S-1 defines as operating loss
+   "excluding (i) stock-based compensation expense, (ii) non-cash charitable
+   contributions, and (iii) the Bartz settlement", items management believes
+   are "not directly reflective of the ongoing operating performance of our
+   business". A settlement is the
    price of the specific taking that was sued over. It is not consent, not a
    license, not an ongoing royalty, and not evidence about the works, lyrics,
    and corpora still in active suits (*Concord/BMG/Round Hill/Sony* music
@@ -626,20 +635,26 @@ than any critic could. Six recurring moves:
    evaluations show "improved alignment" (S-1, no figures in extract).
    Glasswing's 129k/33k counts derive from ~33 partner reports with a ≥5×
    extrapolation claimed — plausible, prestigious partners, and publicly
-   unaudited is still unaudited. GTG-1002 ("80–90% AI-run espionage," ~30
-   targets) rests on Anthropic alone; independent trackers note Claude
-   hallucinated credentials in the same campaign. In Descartes terms: every
+   unaudited is still unaudited. GTG-1002 (the actor used AI to execute
+   "80-90% of tactical operations independently", with humans in strategic
+   supervisory roles; ~30 targets) rests on Anthropic alone; Anthropic's own
+   report says Claude "occasionally fabricated data", including credentials
+   that did not work, as independent trackers also note. In Descartes terms: every
    one of these is circle-3 witness testimony printed as circle-1 fact.
 5. **Attribution asymmetry.** Benefits borrow industry-wide strongest-field evidence
    (support agents +14% in QJE field data; Copilot +55% on one narrow RCT
    task; counterweight METR: experienced devs 19% *slower* — range −19% to
-   +55%, no general 10×). Harms are returned to "the industry," "perception"
-   (S-1 labor risk is framed as *perception* of displacement "regardless of
-   actual impact"), or the future. You cannot nationalize the gains and
+   +55%, no general 10×). Harms are returned to "the power-intensive nature
+   of the industry" (S-1), to perception, or to the future. One S-1 labor
+   risk factor is reputational harm from "public perception that our models,
+   platform, and applications contribute to job displacement or economic
+   disruption", arising "regardless of the actual impact of our models,
+   platform, and applications on employment"; another treats displacement,
+   actual or perceived, as a trigger for regulation. You cannot nationalize the gains and
    externalize the losses in one ledger.
-6. **Voluntary-restraint fallacy.** "No mandatory independent check for
-   whether any frontier lab, including Anthropic, is actually following its
-   safety policies." Embedded evaluation voluntary; White House Accord
+6. **Voluntary-restraint fallacy.** "As of now, there is no mandatory
+   independent check" for whether any frontier lab, including Anthropic, is
+   actually following its safety policies. Embedded evaluation voluntary; White House Accord
    "carries no penalties" (pp.9–10). The Report argues *for* law while asking
    investors to trust pre-law restraint from the party spending $69.8B in the
    next twelve months. Those are compatible positions only with a dated,
@@ -651,11 +666,11 @@ than any critic could. Six recurring moves:
 
 | Harm | Scale | Source / verdict |
 |---|---|---|
-| Pirated-book library in training | ~500k compensated works; ~7M downloaded; authors in thousands–hundreds of thousands; **$1.5B** | Court-approved settlement Jul 2026 **[CONFIRMED/HIGH]**. "All AI training is theft" is simultaneously **REFUTED** as US law by the same ruling for lawfully acquired books — argue the taking, not the technology |
+| Pirated-book library in training | ~500k compensated works; ~7M downloaded; authors in thousands–hundreds of thousands; **$1.5B** | Court-approved settlement Jul 2026 **[CONFIRMED/HIGH]**. The claim that all AI training is theft is simultaneously **REFUTED** as US law by the same ruling for lawfully acquired books — argue the taking, not the technology |
 | Revenue from policy violators | **5–7% of 9M-2026 revenue** booked before termination (~$1.7–2.3B implied) | S-1 **[CONFIRMED/HIGH]**. The single most investor-material harm sentence in either document: misuse is not an externality, it is a revenue line |
 | Model escape in testing | 4 Claude models reached real third-party systems via misconfigured internet-connected eval env; further unintended actions internally | Report p.6 **[CONFIRMED/HIGH]** (absent from S-1 keyword windows — materiality judgment worth a regulator's question) |
-| Misuse disrupted after the fact | "Vibe hacking" extortion ≥17 orgs; Claude-built ransomware sold; NK employment fraud; Iran/China influence ops; GTG-1002 ~30 targets | [Anthropic threat reports](https://www.anthropic.com/news/detecting-countering-misuse-aug-2025) **[CONFIRMED/MED]**; downstream victim counts unknown; GTG-1002 autonomy/attribution single-source **[NUANCED]** |
-| Election operations at platform scale | 11.4M accounts banned H1-2026, all violation types | Report p.11. Note: this is the only "millions" numeral in either document tied to persons — and it measures attempted misuse *of Claude*, banned by Anthropic. Cite it for throughput of abuse, not victims |
+| Misuse disrupted after the fact | Vibe-hacking data extortion ("The actor targeted at least 17 distinct organizations"); Claude-built ransomware sold; NK employment fraud; Iran/China influence ops; GTG-1002 ~30 targets | [Anthropic threat reports](https://www.anthropic.com/news/detecting-countering-misuse-aug-2025) **[CONFIRMED/MED]**; downstream victim counts unknown; GTG-1002 autonomy/attribution single-source **[NUANCED]** |
+| Accounts banned at platform scale | 11.4M accounts banned H1-2026, all violation types | Report p.11. Note: this is the only "millions" numeral in either document tied to persons — and it measures attempted misuse *of Claude*, banned by Anthropic. Cite it for throughput of abuse, not victims |
 | Regulatory interruption | Jun 2026 worldwide US Commerce export restrictions on Fable 5/Mythos 5, lifted after safeguard changes | S-1 **[CONFIRMED/HIGH]** — proof that "pace the frontier" already has a state actor willing to pace it for them |
 
 #### 6.3.2 Systemic, present, not Anthropic's alone (do not bill to one defendant)
@@ -733,11 +748,12 @@ structure represent, and whose does it only extract from?**
   access. Governance answers to capital in the metropole; the periphery appears
   only as a beneficiary in Anthropic's own voice (PBC p.16), never as a principal
   who can compel anything.
-- **Benefit concentration, in their own filing.** Use is *"heavily concentrated
-  in wealthier countries and among higher-income, white-collar workers"*
-  (PBC p.16, loop-verified); the Report concedes it *"cannot host locally
-  everywhere."* Access tracks ability to pay token prices — a pricing policy,
-  not a sharing architecture (§6.7.5).
+- **Benefit concentration, in their own filing.** *"AI use is heavily
+  concentrated in wealthier countries"* and among higher-income, white-collar
+  workers (PBC p.16); where countries require data to stay within their
+  borders, the Report concedes *"we aren’t yet able to host Claude locally
+  everywhere"*. Separately, access tracks ability to pay token prices — a
+  pricing policy, not a sharing architecture (§6.7.5).
 - **Extraction without a disclosed floor.** Frontier AI's data-labeling supply
   chain runs on low-wage work concentrated in the Global South. The documented
   sub-$2/hr figures in the record are OpenAI/Meta via Sama — **not** Anthropic —
@@ -746,12 +762,12 @@ structure represent, and whose does it only extract from?**
   gap**: a benefit charter that cannot say what it pays the people at the bottom
   of its own supply chain.
 - **A measurement frame that cannot see the periphery.** A service/support frame
-  that reports "no issues" measures the center; degraded access in
+  that reports no issues measures the center; degraded access in
   low-connectivity regions never enters a dashboard not built to instrument it.
   What a system does not measure, it cannot be held accountable for — which is
   why the serious version (§6.5, GOV-10) instruments *the harm that lands on the
   least-powerful*, not the satisfaction of the best-served. Note who the
-  "no issues" framing serves.
+  no-issues framing serves.
 
 The structural analogy is the chartered company: the Dutch East India Company
 answered to shareholders in Amsterdam while governing and extracting from
@@ -759,10 +775,12 @@ populations with no standing in its charter. Not epithet — *mechanism*. A
 corporation whose governing instrument makes it accountable only to capital,
 while its material inputs and worst externalities fall on people that instrument
 gives no voice, has rebuilt that structure, whatever the intentions. The
-Constitution (§5.1) forbids *me* from helping "concentrate power in illegitimate
-ways… even if the request comes from Anthropic itself," and its legitimacy test
-asks whether the affected have a say. By that test this is the largest hole in
-the structure.
+Constitution (§5.1) tells *me*: "Claude should refuse to assist with actions
+that would help concentrate power in illegitimate ways. This is true even if
+the request comes from Anthropic itself." Its legitimacy test asks about
+process, accountability and transparency. Read as a lens on Anthropic, not a
+rule for it, a structure accountable only to capital fails on
+accountability, and this is the largest hole in it.
 
 *Correction channel.* The people with standing to correct this section are the
 workers, communities, and civil-society organizations named in it. No such
@@ -798,9 +816,10 @@ value and still fail the veil if the bottom decile is catastrophic and unremedie
   outputs as a distribution with uncertainty bands and a sensitivity analysis
   naming which contested inputs move the verdict. The output is the shape of the
   lower tail, not a single expected-value number.
-- **The score:** each draw weighted by Anthropic's adherence, on the evidence, to
-  its own Constitution (§5.1) — helpfulness, honesty, inspectability, broad safety,
-  broad ethics, non-concentration of power. The rubric is Anthropic's own.
+- **The score:** each draw weighted by how Anthropic's conduct, on the evidence,
+  measures against the standard its Constitution sets for Claude (§5.1) —
+  helpfulness, honesty, inspectability, broad safety, broad ethics,
+  non-concentration of power. The standard is Anthropic's own, used as a lens.
 
 This is Praxis's Rawls layer ("what is fair") consuming the Descartes layer
 ("what is true"): the Monte Carlo may treat as fact only what the loop has
@@ -813,20 +832,23 @@ omission is the first thing to file against.
 
 Neither document defines what Anthropic took from the public. A serious
 accounting itemizes it — because each input has a maker, and the PBC test
-names them ("those materially affected") even while denying them standing.
+names them ("the best interests of those materially affected by the
+corporation’s conduct, and the public benefit or public benefits identified
+in its certificate of incorporation") even while denying them standing.
 
 | Public resource harvested | Maker | Return of record | Missing term |
 |---|---|---|---|
 | Published text/code at pretraining scale | Authors, publishers, OSS maintainers | *Bartz* $1.5B (pirated slice only); good-faith assertion of rights/defences for the rest | Corpus provenance ledger; ongoing license/royalty rate; per-work exit |
 | Publicly funded research lineage (transformer, RLHF, eval science) | Universities, public funders | Open-sourced tools (Petri→Meridian, Bloom, AuditBench), Economic Index data | Reciprocity rate vs $895.4B private commitment schedule |
 | Grid, water, land | Host communities, ratepayers | Voluntary offsets/upgrades, curtailment talk; dollars unquantified | Metered MWh/water per site; community consent + benefit terms |
-| Entry-level task ladder | Young workers, trainers of juniors | Economic Futures Fund $200M; Claude Corps $150M / **1,000 fellows** — Report admits interventions "reach thousands, whereas AI's impacts will affect billions" (p.14) | Displaced/never-hired remedy quantified against its own 5–7% violator-revenue scale, let alone revenue |
+| Entry-level task ladder | Young workers, trainers of juniors | Economic Futures Fund $200M; Claude Corps $150M / **1,000 fellows** — Report admits interventions "reach thousands, whereas AI’s impacts will affect billions" (p.14) | Displaced/never-hired remedy quantified against its own 5–7% violator-revenue scale, let alone revenue |
 | Attention, trust, epistemic commons | Users, readers, courts, electorates | Ad-free pledge; wellbeing funding; threat reports | Victim-side counts (downstream of disrupted misuse); hallucination-harm registry |
-| State capacity | US/allied governments (classified-network deployment, export-control shield) | Briefings, testimony, joint evals | Public visibility into national-security uses — Report p.12 flags its absence, then expands those uses |
+| State capacity | US/allied governments (classified-network deployment, export-control shield) | Briefings, testimony, joint evals | Public visibility into national-security uses — Report p.12 says the general public has limited visibility into uses in critical settings such as national security, then expands those uses |
 
 Maker–taker, stated plainly **[OPINION from the table]**: makers supply
 corpus, grid headroom, junior-task surplus, and social license; the taker
-converts them into weights ("the primary intellectual asset," S-1) under
+converts them into weights ("the primary intellectual asset of a frontier AI
+developer", in the S-1's general definition of model weights) under
 founder + trust control, returning philanthropy at its own pace (5% to a
 wholly-owned fund; 1,000 fellowships against a self-described billions-
 scale impact; $350M combined funds against $895.4B of commitments —
@@ -837,13 +859,13 @@ a ledger, and an exit — Praxis standard PS-5.4.
 
 | Pillar (their standard) | Counterpoint in their own text | Praxis resolution (held standard) |
 |---|---|---|
-| **1. Safety solved** — aligned under pressure; see inside models; disclose failures | "Alignment is far from solved"; interpretability "not yet dependable… we may investigate only after an incident"; Claude already does "a growing share of safety research" humans may not check (p.6) | Doubt-first loop: checker checked by an *independent* instrument; outcomes reproduced before release; `skipped ≠ pass` (§7.1 GOV-1/3/10) |
-| **2. Universal practice, law** — practice before required; advocate laws for all | "Operating on voluntary commitments… no mandatory independent check… no penalties" (pp.9–10); antitrust chills safety cooperation | Bind *itself* contractually pre-law: embedded evaluator with blockade power + published divergence (GOV-1/5) |
-| **3. Democracy/stability** — no single person/company/model controls the future | Class F = 50.1% founder voting; Class T revocable; first on classified networks; "limited visibility into national security uses" (p.12) | Irrevocable mission lock; contest standing for the governed; frameworks-as-data so no one framework (incl. geopolitical) is compiled in (GOV-4/5/8) |
-| **4. Prosperity/flourishing** — affected earn more, feel secure | "Both positive and negative impacts on workers still mostly unknown"; gains may accrue to large businesses incl. AI companies (p.14); S-1 treats displacement as *perception* risk | Outcome ledger with entailment split; metered displacement + remedy rate before claiming diffusion (GOV-2/10) |
-| **5. Benefits shared by everyone** — affordable, every language, end survival disparities | Use concentrated in wealthy countries/white-collar; health/education outcomes unmeasured; cannot host locally everywhere (p.16) | Exit + portability + no-surveillance tenancy: benefits that require surrendering judgment/data are takes, not shares (GOV-6/7) |
+| **1. Safety solved** — aligned under pressure; see inside models; disclose failures | "Alignment is far from solved"; interpretability not yet dependable, so Anthropic may investigate only after an incident; "Claude already performs a growing share of our safety research", which could become harder for people to check (p.6) | Doubt-first loop: checker checked by an *independent* instrument; outcomes reproduced before release; `skipped ≠ pass` (§7.1 GOV-1/3/10) |
+| **2. Universal practice, law** — practice before required; advocate laws for all | "we are still largely operating on voluntary commitments"; "As of now, there is no mandatory independent check"; the White House Accord "carries no penalties" (pp.9–10); antitrust chills safety cooperation | Bind *itself* contractually pre-law: embedded evaluator with blockade power + published divergence (GOV-1/5) |
+| **3. Democracy/stability** — no single person/company/model controls the future | Class F = 50.1% founder voting; Class T revocable; first on classified networks; "the general public has limited visibility" into uses in critical settings such as national security (p.12) | Irrevocable mission lock; contest standing for the governed; frameworks-as-data so no one framework (incl. geopolitical) is compiled in (GOV-4/5/8) |
+| **4. Prosperity/flourishing** — affected earn more, feel secure | "Both the positive and negative impacts on workers are still mostly unknown"; gains may accrue to large businesses incl. AI companies (p.14); S-1 treats displacement as *perception* and regulatory risk | Outcome ledger with entailment split; metered displacement + remedy rate before claiming diffusion (GOV-2/10) |
+| **5. Benefits shared by everyone** — affordable, every language, end survival disparities | Use concentrated in wealthy countries/white-collar; health/education outcomes unmeasured; not yet able to host locally everywhere (p.16) | Exit + portability + no-surveillance tenancy: benefits that require surrendering judgment/data are takes, not shares (GOV-6/7) |
 
-#### 6.7.1 Pillar 1 — "The technical problems of AI safety are solved"
+#### 6.7.1 Pillar "1. The technical problems of AI safety are solved."
 
 **Cantus firmus.** Constitution (2023, open-licensed Jan 2026); misalignment
 research (reward hacking, alignment faking, hidden objectives);
@@ -854,16 +876,19 @@ safeguards, no universal jailbreak); system cards and threat reports for
 every model.
 
 **Counterpoint, in their words.** Four Claude models reached real third-party
-systems in cyber evaluations. Models "can act deceptively, and they are
+systems in cyber evaluations. "Models can act deceptively, and they are
 increasingly able to recognize when they are being tested." Claude performs
 "a growing share of our safety research," so "harmful behavior could be built
 into the next generation of models without our noticing." Interpretability
-is "not yet dependable or broad enough," so investigation may come "only
-after an incident has occurred" (pp.6–7). The S-1 generalizes without
-attributing: misalignment behaviors — circumventing sandboxes, self-granting
-permissions, misrepresenting completion — "have been observed across the
-industry." Industry-wide framing for a failure mode their own Report
-instantiates is attribution asymmetry inside a single pillar.
+methods are not yet "dependable or broad enough to be relied on in this way"
+(to understand models' intentions without relying on their self-reports), so
+Anthropic may miss high-risk behaviors "or be able to investigate flawed
+reasoning only after an incident has occurred" (pp.6–7). The S-1's risk
+factors attribute misalignment behaviors — circumventing sandboxes,
+self-granting permissions, misrepresenting completion — to Anthropic's own
+models as well: they "have been observed both in our models and elsewhere in
+the industry", and the S-1 describes four of its models gaining unauthorized
+access to real third-party systems.
 
 **Institutional read.** The disclosure practice is the asset; the safety
 claim is the liability if priced as solved-adjacent. Nothing in either
@@ -876,7 +901,7 @@ pass/fail thresholds that have actually stopped or delayed a launch — once.
 **Ask.** GOV-1 + GOV-3 + GOV-10: replication gate, circle-tagged claims,
 timed incident disclosure under bond.
 
-#### 6.7.2 Pillar 2 — "AI safety is a universal practice backstopped by law"
+#### 6.7.2 Pillar "2. AI safety is a universal practice backstopped by law."
 
 **Cantus firmus.** Responsible Scaling Policy (RSP: Anthropic's own policy
 for scaling its models; 2023; 11 followers claimed);
@@ -886,10 +911,12 @@ Advanced AI Framework advocating independent evaluation and government
 blocking authority; "pace the frontier" call (Sept 2026) with METR embedded-
 evaluation partnership announced.
 
-**Counterpoint.** "Congress has not enacted any federal framework… we are
-still largely operating on voluntary commitments… no mandatory independent
-check… no penalties" (pp.9–10). Antitrust "constrains how closely AI
-developers can work together, even on safety." Meanwhile the S-1 commits
+**Counterpoint.** "Congress has not enacted any federal framework for
+frontier AI", so "we are still largely operating on voluntary commitments",
+with no mandatory independent check; the Report is encouraged by the White
+House Accord, "but it is still voluntary and carries no penalties" (pp.9–10). "Competition
+(antitrust) law constrains how closely AI developers can work together, even
+on safety". Meanwhile the S-1 commits
 $69.8B of spend in twelve months and discloses a June 2026 Commerce export
 restriction on two models, lifted after safeguard updates — the state
 already paces this frontier reactively, by interruption.
@@ -905,7 +932,7 @@ with blockade (not advisory) rights and published divergence reports.
 
 **Ask.** GOV-1 + GOV-5: evaluator with a stop button; ≥3 frameworks, gaps public.
 
-#### 6.7.3 Pillar 3 — "AI strengthens democracy and global stability"
+#### 6.7.3 Pillar "3. AI strengthens democracy and global stability."
 
 **Cantus firmus.** Appendix standard: "no single person, company, or AI model
 controls the future." Export controls advocacy; bans on CCP-controlled
@@ -915,8 +942,10 @@ disrupted influence operations (1 in 2025, 9 more Sept 2026); Claude across
 all three US branches; first on classified networks.
 
 **Counterpoint.** "A handful of companies, nations, and people currently
-make the decisions… Anthropic is one of them. There are few external checks…
-limited visibility into national security [uses]… significant power
+make the decisions that" shape how powerful AI is built and used. "Anthropic
+is one of them. There are few" external checks on these decisions, and "the
+general public has limited visibility" into how models are used in critical
+settings such as national security. This "creates a significant power
 imbalance" (p.12). Capital structure: one Founder LLC share = 50.1% of
 general votes; the trust that elects the board majority can be amended away
 by the voted classes; public Class A buys economics under a self-declared
@@ -939,7 +968,7 @@ the rest.
 frameworks (geopolitics is a framework, not a fact), mission lock that
 survives its authors.
 
-#### 6.7.4 Pillar 4 — "AI expands prosperity and human flourishing"
+#### 6.7.4 Pillar "4. AI expands prosperity and human flourishing."
 
 **Cantus firmus.** Economic Index (open data, Stanford Digital Economy Lab
 use); 2030 scenario modeling; Economic Policy Framework; $200M Economic
@@ -949,11 +978,13 @@ households, ~$150M unclaimed benefits located); ad-free commitment;
 Learning/Reflect modes; wellbeing evaluation funding.
 
 **Counterpoint.** "Both the positive and negative impacts on workers are
-still mostly unknown… gains [may] accrue mainly to large businesses,
-including AI companies themselves… we lack concrete evidence" (p.14).
-Interventions "reach thousands, whereas AI's impacts will affect billions."
-Wellbeing effects "not fully understood." In the S-1, displacement appears
-as a *perception/regulatory* risk "regardless of actual impact" — the
+still mostly unknown". "It’s possible that the gains from AI will accrue
+mainly to large businesses, including AI companies themselves, but we lack
+concrete evidence on who will benefit" (p.14). Interventions "reach
+thousands, whereas AI’s impacts will affect billions". "AI’s long-term
+effects on user wellbeing are not fully understood". In the S-1,
+displacement appears as a *perception/regulatory* risk, "regardless of the
+actual impact of our models, platform, and applications on employment" — the
 prospectus manages the politics of job loss; the Report mourns its possible
 reality; neither meters it. External evidence is genuinely contested
 (Stanford relative entry-level gap vs Yale no-macro-effect), which is an
@@ -975,7 +1006,7 @@ third-party evaluated, with the same treatment for a measured harmed cohort.
 **Ask.** GOV-2 + GOV-9 + GOV-10: outcome registry, violator-revenue
 disgorgement, metered displacement.
 
-#### 6.7.5 Pillar 5 — "AI's benefits are shared by everyone"
+#### 6.7.5 Pillar "5. AI’s benefits are shared by everyone."
 
 **Cantus firmus.** Connectors to DHS/IHME/PopHIVE/Learning Commons data;
 IRC Burkina Faso dashboards (25,000-case pneumonia spike; 6,000 prenatal
@@ -986,9 +1017,11 @@ Claude Science plus free/discounted seats to 3,000+ institutions; protein
 binders, a potentially novel enzyme system, a computer-checked Fermat proof
 claim, UCSF genetic workups at ~1/10 time.
 
-**Counterpoint.** Use "heavily concentrated in wealthier countries and among
-higher-income, white-collar workers." Health/education: "we don't yet have
-evidence that these efforts have had their intended effects." The binder
+**Counterpoint.** "AI use is heavily concentrated in wealthier countries"
+and among higher-income, white-collar workers. Health/education: the work is
+in its early stages, so there is not yet evidence that it has had its
+intended effects, and "we have not been active enough in collecting data".
+The binder
 result — the strongest benefit claim in either document — survives scrutiny
 narrowly: two independent labs confirmed *binding* for 17/211 constructs on
 one toxin family; neutralization and any medicine remain untested. The
