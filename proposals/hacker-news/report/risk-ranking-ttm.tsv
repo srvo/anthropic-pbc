@@ -1,7 +1,7 @@
-# 2025-09-01..2026-08-31. Share of AI-risk units naming each type (a unit can name several). Earnings calls: 379 risk windows, trailing 12 months to 2026-11-04. HN: comments proposed ai_risk by both witnesses (anthropic 6188, ai_security 3034). Witness proposals, no gold set.
+# 2025-09-01..2026-08-31. Share of AI-risk units naming each type (a unit can name several). Earnings calls: 379 risk windows, trailing 12 months to 2026-11-04. HN: comments proposed ai_risk by both witnesses (anthropic 6189, ai_security 3035). Witness proposals, no gold set.
 risk_type	label	calls_windows	calls_pct	anthropic_comments	anthropic_pct	ai_security_comments	ai_security_pct
 safety_ethics	Safety / ethics / misuse	47	12.4	2479	40.1	740	24.4
-cyber	Cybersecurity	136	35.9	1441	23.3	2591	85.4
+cyber	Cybersecurity	136	35.9	1441	23.3	2592	85.4
 regulation	Regulation	8	2.1	748	12.1	138	4.5
 capex	Overspending / capex return	31	8.2	598	9.7	19	0.6
 privacy	Data privacy	13	3.4	405	6.5	387	12.8

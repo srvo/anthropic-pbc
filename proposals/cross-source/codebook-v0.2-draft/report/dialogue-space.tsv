@@ -1,9 +1,9 @@
 # Share (%) of each source's AI-risk units naming each risk type; both witnesses >= 0.5. codebook-v0.2-draft (DRAFT wording), witness proposals, no gold set.
 risk_type	new_in_v0.2	executives_pct	executives_n	analysts_pct	analysts_n	hn_anthropic_pct	hn_anthropic_n	hn_security_pct	hn_security_n	wikipedia_pct	wikipedia_n
-ai_risk_units			179		64		6281		3096		833
-cyber		40.2	72	20.3	13	23.0	1444	85.2	2639	19.2	160
+ai_risk_units			179		64		6282		3097		833
+cyber		40.2	72	20.3	13	23.0	1444	85.2	2640	19.2	160
 safety_ethics		10.1	18	4.7	3	39.3	2466	23.8	738	60.5	504
-transparency	yes	3.4	6	0.0	0	19.8	1246	12.3	380	7.2	60
+transparency	yes	3.4	6	0.0	0	19.8	1246	12.3	381	7.2	60
 loss_of_control	yes	5.0	9	4.7	3	11.9	745	14.2	441	17.2	143
 regulation		2.8	5	1.6	1	11.7	735	4.4	137	16.8	140
 privacy		3.4	6	1.6	1	6.4	399	12.4	385	4.1	34

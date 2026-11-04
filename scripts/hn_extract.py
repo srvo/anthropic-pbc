@@ -79,6 +79,14 @@ PRE_FILTER = (r"(?i)anthropic|claude|cve|rce|0-?day|breach|exfiltrat|vulnerab|ex
               r"|supply.chain|zero.day|backdoor|security|leak|prompt.injection|jailbr")
 
 
+def connect() -> duckdb.DuckDBPyConnection:
+    """DuckDB pinned to UTC: the source `time` column carries a zone, and strftime
+    otherwise formats in the build host's zone, which would make output host-dependent."""
+    con = duckdb.connect()
+    con.execute("SET TimeZone = 'UTC'")
+    return con
+
+
 def b3(s: str) -> str:
     return blake3.blake3(s.encode("utf-8")).hexdigest()
 
@@ -208,7 +216,7 @@ def scan(con: duckdb.DuckDBPyConnection, path: Path):
 
 
 def cmd_build() -> int:
-    con = duckdb.connect()
+    con = connect()
     mrows, wrows, trows = [], [], []
     for r in months():
         path = BULK / r["path"]
@@ -253,7 +261,7 @@ def cmd_build() -> int:
 
 
 def cmd_verify() -> int:
-    con = duckdb.connect()
+    con = connect()
     text = dict(con.execute(f"SELECT item_id, text FROM '{BULK / 'comments-text.parquet'}'").fetchall())
     raw = {}
     for r in months():

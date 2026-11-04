@@ -14,8 +14,8 @@ output in proposals/.
 files (BLAKE3, path):
 215282c8393466921f5c4f6a47bde8a1ee9b5d5b716dd6c07feb46ebf07b463f  corpus/hacker-news/MANIFEST.tsv
 f00d2f2be24bff9d1af5ebbe9d08f65224284d7f5c50fd8502ac442bc649ef49  corpus/hacker-news/README.md
-3bc5a50aab64e124b8ff4de77e31ece3a195e5a6d2999ebd249ef5766155c5b6  corpus/hacker-news/months.tsv
-ee162681ad4c78226b187a7fe2046ab765e4d12aa991030a1e0e972f70911393  corpus/hacker-news/windows.parquet
+220076a5315f37bb6f970e849b86f3e2a485bd81c7946285ee18c1f68873fd68  corpus/hacker-news/months.tsv
+3a907a70dbe032a0907c4f457c194186408f293b7a2928439b9da92698b26885  corpus/hacker-news/windows.parquet
 
 scripts (BLAKE3, path):
-c032e65328cd3e202903e5e89bbd16815f5392bfcf09cc6f94da38e9ba5531b3  scripts/hn_extract.py
+76e81a59128f79c7913334a53fd33c18adcc52a26af38d50bb7bf50c1cabc167  scripts/hn_extract.py

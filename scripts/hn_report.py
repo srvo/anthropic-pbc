@@ -130,7 +130,7 @@ def examples(con) -> None:
           WHERE s.h IN ({", ".join(f"'{t}'" for t in TYPES)}) AND s.pd >= .5 AND s.pm >= .5
             AND w.day BETWEEN '{TTM[0]}' AND '{TTM[1]}'
             AND (s."set", s.window_id) IN (SELECT "set", window_id FROM f WHERE h = 'ai_risk' AND b))
-        SELECT "set", h, item_id, round(max(p), 4) p FROM x GROUP BY 1, 2, 3
+        SELECT "set", h, item_id, round(max(p)::DOUBLE, 4) p FROM x GROUP BY 1, 2, 3
         QUALIFY row_number() OVER (PARTITION BY "set", h ORDER BY max(p) DESC, item_id) <= 10
         ORDER BY 1, 2, 4 DESC, 3""").fetchall()
     tsv(REPORT / "examples-ttm.tsv", "set\trisk_type\titem_id\tmin_witness_p\turl",
