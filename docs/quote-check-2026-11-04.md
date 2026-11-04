@@ -117,3 +117,23 @@ Spot checks against the derived text: the failing PDF quotations are the source'
 by the printed layout (e.g. Constitution line 19, Report lines 199–200, RSP lines 1027–1028).
 They are not fixed by editing the paper or the sources (AGENTS.md, "Checks are not beaten");
 they wait on the recipe fix in the bug report.
+
+## Re-run after routing the S-1 through Descartes's HTML recipe
+
+Descartes added a general recipe for static HTML (`html-to-text static-v1`,
+descartes c8c8fa7, `docs/html-text.md`). The S-1 and the certificate of
+incorporation (Exhibit 3.1, now pinned) reach text only through it
+(`derived/recipes.tsv`); the S-1 claims cite `derived/s1a1.txt`, whose BLAKE3
+(`e9678f37…`) equals the derivation in Descartes's own probe.
+
+`descartes check claims/anthropic-contrapunctus.tsv`: exit 1, no seal.
+Summary line: `72 claims ok	44 problems` (22 failing claims).
+
+| Cause | Claims |
+|---|---|
+| Printed line breaks in PDF-derived text (Constitution 11, Report 7, RSP 1) | Q001 Q022a Q025 Q026a Q026b Q027 Q028 Q029 Q030 Q031 Q032a Q032b Q050 Q052 Q062 Q064 Q066 Q070 |
+| The S-1 itself states the passage twice | Q010 Q013 |
+| Web page refused by the recipe (external stylesheet: needs a rendered capture) and still checked against raw bytes, where its text occurs twice | Q048 Q084 |
+
+The recipe also refuses the DGCL page, the Public Benefit Fund announcement and
+the two SEC web pages pinned today, for the same reason.
