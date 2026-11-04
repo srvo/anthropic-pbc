@@ -47,8 +47,8 @@ Model output is a witness proposal in `proposals/`, never a finding
 | License | ODC-BY 1.0 (transcripts); CC BY-SA 4.0 (constituents) |
 | Pinned as of | 2026-11-04 |
 | Source cadence | Source dataset updates as new calls post; universe is today's index (survivorship bias) |
-| Committed | AI windows and analyst questions verbatim with BLAKE3; witness scores in proposals/ |
-| Folder | `corpus/earnings-calls` · 16 files · 35.4 MB |
+| Committed | AI windows and analyst questions as ids, offsets and BLAKE3, no text (rebuilt into .eccorpus/); short quotes in reports; witness scores in proposals/ |
+| Folder | `corpus/earnings-calls` · 16 files · 6.5 MB |
 | Manifest | 2 rows · BLAKE3 `d2ac999e14259ffa` |
 | Method | [`docs/earnings-call-ai-corpus.md`](docs/earnings-call-ai-corpus.md) |
 | Signature | unsigned (`attestations/datasets/`) |
