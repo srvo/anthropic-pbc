@@ -13,15 +13,20 @@ pinned to one revision id. Both pins live in corpus/earnings-calls/MANIFEST.tsv.
 Design constraints, per docs/descartes-spec.md and docs/risk-factor-corpus.md:
   - P3 determinism: no clock, host, user or random id in any output. Rows are
     sorted; parquet is written by a pinned DuckDB.
-  - Verbatim only: every window is a [start, end) character slice of a stored
-    paragraph, re-sliced and re-hashed by `verify`. Nothing is summarised.
+  - Verbatim only: every window is a [start, end) character slice of a source
+    paragraph, re-sliced from the pinned source and re-hashed by `verify`. Nothing is summarised.
   - No model, no scoring. Matching is a published regex; classification is a
     separate, labelled step (scripts/ec_classify.py).
 
     uv run scripts/ec_extract.py fetch         # download the pinned parquet, check BLAKE3
     uv run scripts/ec_extract.py constituents  # pinned Wikipedia revision -> sp500-constituents.tsv
     uv run scripts/ec_extract.py build         # calls.tsv, ai-paragraphs.parquet, ai-windows.parquet
-    uv run scripts/ec_extract.py verify        # re-slice and re-hash every window
+    uv run scripts/ec_extract.py verify        # re-slice every window from the source and re-hash it
+
+The committed tables hold ids, metadata, [start, end) offsets and BLAKE3 hashes,
+never text: quotes from the calls may be published, whole transcripts and the
+whole corpus may not (maintainer decision, 2026-11-04). `build` also writes the
+full tables, text included, into the gitignored .eccorpus/ (scripts/ec_text.py).
 """
 
 from __future__ import annotations
@@ -36,6 +41,9 @@ from pathlib import Path
 
 import blake3
 import duckdb
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import ec_text as ect  # noqa: E402  (where committed tables and local text live)
 
 ROOT = Path(__file__).resolve().parent.parent
 CORPUS = ROOT / "corpus" / "earnings-calls"
@@ -246,10 +254,16 @@ def cmd_build() -> int:
     if con.execute("SELECT count(*) - count(DISTINCT window_id) FROM w").fetchone()[0]:
         sys.exit("window_id collision")
     opts = "(FORMAT parquet, COMPRESSION zstd, ROW_GROUP_SIZE 8192)"
-    con.execute(f"COPY (SELECT * FROM p ORDER BY symbol, fiscal_year, fiscal_quarter, paragraph_number) "
-                f"TO '{CORPUS / 'ai-paragraphs.parquet'}' {opts}")
-    con.execute(f"COPY (SELECT * FROM w ORDER BY symbol, fiscal_year, fiscal_quarter, paragraph_number, start_char) "
-                f"TO '{CORPUS / 'ai-windows.parquet'}' {opts}")
+    p_order = "ORDER BY symbol, fiscal_year, fiscal_quarter, paragraph_number"
+    w_order = "ORDER BY symbol, fiscal_year, fiscal_quarter, paragraph_number, start_char"
+    # Full tables, text included, into the gitignored bulk dir (byte-identical to the tables
+    # committed before 2026-11-04, whose BLAKE3 the witness run records cite).
+    BULK.mkdir(exist_ok=True)
+    con.execute(f"COPY (SELECT * FROM p {p_order}) TO '{ect.PARAGRAPHS_TEXT}' {opts}")
+    con.execute(f"COPY (SELECT * FROM w {w_order}) TO '{ect.WINDOWS_TEXT}' {opts}")
+    # Committed tables: ids, metadata, offsets and hashes; no text.
+    con.execute(f"COPY (SELECT * EXCLUDE (content) FROM p {p_order}) TO '{ect.PARAGRAPHS}' {opts}")
+    con.execute(f"COPY (SELECT * EXCLUDE (text) FROM w {w_order}) TO '{ect.WINDOWS}' {opts}")
 
     # Denominators: every S&P call, AI or not.
     con.execute("""
@@ -270,26 +284,72 @@ def cmd_build() -> int:
 
 
 # ---------------------------------------------------------------- verify
+def source_paragraphs(con: duckdb.DuckDBPyConnection, keys: str) -> dict[tuple, str]:
+    """{(symbol, fiscal_year, fiscal_quarter, paragraph_number): content} from the pinned source,
+    for the keys in table `keys` (columns symbol, fiscal_year, fiscal_quarter, paragraph_number)."""
+    src = source_path()
+    if not src.exists():
+        sys.exit("source parquet missing: run `uv run scripts/ec_extract.py fetch` first")
+    rows = con.execute(f"""
+        SELECT x.* FROM (
+          SELECT s.symbol, s.fiscal_year, s.fiscal_quarter, t.paragraph_number, t.content
+          FROM '{src}' s SEMI JOIN (SELECT DISTINCT symbol, fiscal_year, fiscal_quarter FROM {keys}) c
+               USING (symbol, fiscal_year, fiscal_quarter),
+               LATERAL (SELECT unnest(s.transcripts, recursive := true)) t) x
+        SEMI JOIN {keys} k USING (symbol, fiscal_year, fiscal_quarter, paragraph_number)""").fetchall()
+    out = {(r[0], r[1], r[2], r[3]): r[4] for r in rows}
+    if len(out) != len(rows):
+        sys.exit("source has duplicate paragraph keys")
+    return out
+
+
 def cmd_verify() -> int:
+    """Re-slice every window from the pinned source and re-hash it: the committed tables carry
+    no text, so this is the only check that they still point at the words they name. Then check
+    the local bulk text tables, if built, against the committed hashes."""
     con = duckdb.connect()
-    paras = {(r[0], r[1], r[2], r[3]): (r[4], r[5]) for r in con.execute(
-        f"SELECT symbol, fiscal_year, fiscal_quarter, paragraph_number, paragraph_blake3, content "
-        f"FROM '{CORPUS / 'ai-paragraphs.parquet'}'").fetchall()}
+    con.execute("SET threads=8")
+    con.execute(f"CREATE TABLE p AS SELECT * FROM '{ect.PARAGRAPHS}'")
+    con.execute(f"CREATE TABLE w AS SELECT * FROM '{ect.WINDOWS}'")
+    text = source_paragraphs(con, "p")
     bad = 0
-    for k, (ph, content) in paras.items():
-        if b3(content) != ph:
+    paras = {}
+    for sym, fy, fq, pn, ph in con.execute(
+            "SELECT symbol, fiscal_year, fiscal_quarter, paragraph_number, paragraph_blake3 FROM p").fetchall():
+        k = (sym, fy, fq, pn)
+        c = text.get(k)
+        if c is None or b3(c) != ph:
             bad += 1
-            print(f"FAIL paragraph {k}")
+            print(f"FAIL paragraph {k}: missing from source or hash differs")
+        paras[k] = (ph, c)
     n = 0
-    for wid, sym, fy, fq, pn, ph, s, e, wh, text in con.execute(
-            f"SELECT window_id, symbol, fiscal_year, fiscal_quarter, paragraph_number, paragraph_blake3, "
-            f"start_char, end_char, window_blake3, text FROM '{CORPUS / 'ai-windows.parquet'}'").fetchall():
+    for wid, sym, fy, fq, pn, ph, s, e, wh in con.execute(
+            "SELECT window_id, symbol, fiscal_year, fiscal_quarter, paragraph_number, paragraph_blake3, "
+            "start_char, end_char, window_blake3 FROM w").fetchall():
         n += 1
         p = paras.get((sym, fy, fq, pn))
-        if p is None or p[0] != ph or p[1][s:e] != text or b3(text) != wh:
+        if (p is None or p[1] is None or p[0] != ph or b3(p[1][s:e]) != wh
+                or b3(f"{sym}|{fy}|{fq}|{pn}|{s}|{e}|{ph}")[:16] != wid):
             bad += 1
             print(f"FAIL window {wid}")
-    print(f"{'ok' if not bad else 'FAIL'}: {len(paras)} paragraphs, {n} windows re-sliced and re-hashed, {bad} bad")
+    print(f"{'ok' if not bad else 'FAIL'}: {len(paras)} paragraphs, {n} windows re-sliced from the pinned source "
+          f"and re-hashed, {bad} bad")
+    # Local text tables (gitignored): same rows as the committed tables, text matching each hash.
+    if ect.PARAGRAPHS_TEXT.exists() and ect.WINDOWS_TEXT.exists():
+        local_bad = con.execute(f"""
+          SELECT (SELECT count(*) FROM p FULL JOIN '{ect.PARAGRAPHS_TEXT}' x
+                    USING (symbol, fiscal_year, fiscal_quarter, paragraph_number)
+                  WHERE x.paragraph_blake3 IS DISTINCT FROM p.paragraph_blake3)
+               + (SELECT count(*) FROM w FULL JOIN '{ect.WINDOWS_TEXT}' x USING (window_id)
+                  WHERE x.window_blake3 IS DISTINCT FROM w.window_blake3)""").fetchone()[0]
+        for ph, c in con.execute(f"SELECT paragraph_blake3, content FROM '{ect.PARAGRAPHS_TEXT}'").fetchall():
+            local_bad += b3(c) != ph
+        for wh, t in con.execute(f"SELECT window_blake3, text FROM '{ect.WINDOWS_TEXT}'").fetchall():
+            local_bad += b3(t) != wh
+        print(f"{'ok' if not local_bad else 'FAIL'}: local text tables in {BULK.name}/, {local_bad} bad")
+        bad += local_bad
+    else:
+        print(f"note: no local text tables in {BULK.name}/ (run `build` to write them)")
     return 1 if bad else 0
 
 

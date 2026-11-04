@@ -9,7 +9,7 @@ the committed parquet and run record. Shards are tagged with the backend
     uvx --with duckdb==2.0.0 --with blake3 modal run scripts/ec_classify_modal.py --model deberta
     uvx --with duckdb==2.0.0 --with blake3 modal run scripts/ec_classify_modal.py --model modernbert
     # another unit file / codebook (output: proposals/earnings-calls/<codebook stem>/):
-    ... --model deberta --units corpus/earnings-calls/ai-questions.parquet \
+    ... --model deberta --units .eccorpus/ai-questions.parquet \
         --codebook corpus/earnings-calls/codebook-questions-v0.1.tsv --id-col question_id
     # Hacker News focused sets (units are local-only text; --out keeps proposals apart):
     ... --model deberta --units .hncorpus/units-anthropic.parquet --out proposals/hacker-news/anthropic

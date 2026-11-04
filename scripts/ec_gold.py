@@ -108,6 +108,7 @@ import duckdb
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
 import display  # noqa: E402  (the one number-to-text path)
+import ec_text as ect  # noqa: E402  (window and question text is local: .eccorpus/, joined on id)
 from fractions import Fraction  # noqa: E402
 CORPUS = ROOT / "corpus" / "earnings-calls"
 PROP = ROOT / "proposals" / "earnings-calls" / "codebook-v0.1"
@@ -216,7 +217,7 @@ def strata(con: duckdb.DuckDBPyConnection) -> None:
                     ELSE 'ai_risk:' || CASE WHEN r.d AND r.m THEN 'both' WHEN r.d THEN 'deberta_only'
                                              WHEN r.m THEN 'modernbert_only' ELSE 'neither' END
                          || ':' || {period} END AS stratum
-        FROM '{CORPUS / 'ai-windows.parquet'}' w JOIN r USING (window_id)""")
+        FROM {ect.windows_sql()} w JOIN r USING (window_id)""")
 
 
 def cmd_sample(a: argparse.Namespace) -> int:
@@ -377,7 +378,7 @@ def cmd_score(a: argparse.Namespace) -> int:
     lex = {}
     if ids:
         lex = dict(con.execute(f"""SELECT window_id, regexp_matches(text, '{RISK_WORD}')
-            FROM '{CORPUS / 'ai-windows.parquet'}' JOIN ids USING (window_id)""").fetchall())
+            FROM {ect.windows_sql()} JOIN ids USING (window_id)""").fetchall())
 
     TYPE_IDS = {t["id"] for t in risk_types()}
 
@@ -464,7 +465,7 @@ def q_cmd_sample(a: argparse.Namespace) -> int:
         SELECT q.question_id, q.symbol, q.report_date, q.speaker, q.text,
                CASE WHEN f.ov_both THEN 'oversight_both' WHEN f.ov_any THEN 'oversight_one'
                     WHEN f.cm_both THEN 'commercial_only' ELSE 'neither' END AS stratum
-        FROM '{QUESTIONS}' q JOIN f USING (question_id)""")
+        FROM {ect.questions_sql()} q JOIN f USING (question_id)""")
     n_q = con.execute(f"SELECT count(*) FROM '{QUESTIONS}'").fetchone()[0]
     n_st = con.execute("SELECT count(*) FROM qst").fetchone()[0]
     if n_st != n_q:

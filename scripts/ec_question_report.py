@@ -44,6 +44,7 @@ import duckdb
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
 import display  # noqa: E402  (the one number-to-text path)
+import ec_text as ect  # noqa: E402  (question text is local: .eccorpus/, joined on question_id)
 from fractions import Fraction  # noqa: E402
 CORPUS = ROOT / "corpus" / "earnings-calls"
 PROP = ROOT / "proposals" / "earnings-calls" / "codebook-questions-v0.1"
@@ -104,7 +105,7 @@ def main() -> int:
             regexp_matches(x.text, '{OVERSIGHT_WORDS}') AS w_oversight,
             regexp_matches(x.text, '{COMMERCIAL_WORDS}') AS w_commercial,
             year(x.report_date::DATE) AS year
-        FROM '{QUESTIONS}' x JOIN (SELECT question_id, {agg} FROM s GROUP BY 1) f USING (question_id)""")
+        FROM {ect.questions_sql()} x JOIN (SELECT question_id, {agg} FROM s GROUP BY 1) f USING (question_id)""")
     con.execute(f"ALTER TABLE q ADD COLUMN oversight BOOLEAN; UPDATE q SET oversight = {' OR '.join(OVERSIGHT)}")
     con.execute(f"ALTER TABLE q ADD COLUMN commercial BOOLEAN; UPDATE q SET commercial = {' OR '.join(COMMERCIAL)}")
 

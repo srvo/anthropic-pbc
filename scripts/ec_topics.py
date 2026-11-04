@@ -48,8 +48,12 @@ import duckdb
 import numpy as np
 
 ROOT = Path(__file__).resolve().parent.parent
-CORPUS = ROOT / "corpus" / "earnings-calls"
-WINDOWS = CORPUS / "ai-windows.parquet"
+sys.path.insert(0, str(ROOT / "scripts"))
+import ec_text as ect  # noqa: E402
+# The full window table with text, local only (.eccorpus/; scripts/ec_text.py). Byte-identical
+# to the table committed before 2026-11-04, so windows_blake3 in run.json and the embedding
+# cache key are unchanged.
+WINDOWS = ect.WINDOWS_TEXT
 OUT = ROOT / "proposals" / "earnings-calls" / "topics-v0.1"
 CACHE = ROOT / ".eccorpus"
 
@@ -81,7 +85,7 @@ def main() -> int:
     from umap import UMAP
 
     con = duckdb.connect()
-    rows = con.execute(f"SELECT window_id, fiscal_year, text FROM '{WINDOWS}' ORDER BY window_id").fetchall()
+    rows = con.execute(f"SELECT window_id, fiscal_year, text FROM '{ect.need(WINDOWS)}' ORDER BY window_id").fetchall()
     ids = [r[0] for r in rows]
     years = [r[1] for r in rows]
     docs = [r[2] for r in rows]

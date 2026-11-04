@@ -39,6 +39,7 @@ import duckdb
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
 import display  # noqa: E402  (the one number-to-text path)
+import ec_text as ect  # noqa: E402  (window text is local: .eccorpus/, joined on window_id)
 from fractions import Fraction  # noqa: E402
 CORPUS = ROOT / "corpus" / "earnings-calls"
 REPORT = ROOT / "proposals" / "earnings-calls" / "codebook-v0.1" / "report"
@@ -65,7 +66,7 @@ def build(con: duckdb.DuckDBPyConnection, as_of: str) -> None:
             w.report_date::DATE AS report_date,
             w.speaker, w.role, w.text, regexp_matches(w.text, '{RISK_WORD}') AS lex, f.* EXCLUDE (window_id, symbol,
             fiscal_year, fiscal_quarter, paragraph_number, role)
-        FROM '{CORPUS / "ai-windows.parquet"}' w
+        FROM {ect.windows_sql()} w
         JOIN read_csv('{REPORT / "window-flags.tsv"}') f USING (window_id)""")
     con.execute("""CREATE TABLE cw AS SELECT c.*, bool_or(w.lex) AS lex, bool_or(w.ai_risk) AS nli
         FROM calls c LEFT JOIN w USING (symbol, fiscal_year, fiscal_quarter) GROUP BY ALL""")
