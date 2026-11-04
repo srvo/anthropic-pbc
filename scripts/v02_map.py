@@ -28,6 +28,9 @@ from pathlib import Path
 import duckdb
 
 ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT / "scripts"))
+import display  # noqa: E402  (the one number-to-text path)
+from fractions import Fraction  # noqa: E402
 CB = ROOT / "corpus" / "codebooks" / "codebook-v0.2-draft.tsv"
 OUT = ROOT / "proposals" / "cross-source" / "codebook-v0.2-draft" / "report"
 EC, HN, WP = ROOT / "corpus" / "earnings-calls", ROOT / "corpus" / "hacker-news", ROOT / "corpus" / "wikipedia-ai-risk"
@@ -59,14 +62,15 @@ def main() -> int:
             SELECT x.{idc} AS id, x.hypothesis_id AS h, x.p_entail >= .5 AND y.p_entail >= .5 AS b
             FROM '{d / 'deberta.parquet'}' x JOIN '{d / 'modernbert.parquet'}' y USING ({idc}, hypothesis_id)
             WHERE x.{idc} IN ({units})""")
-        risk = con.execute("SELECT count(*) FROM f WHERE h = 'ai_risk' AND b").fetchone()[0]
+        risk = int(con.execute("SELECT count(*) FROM f WHERE h = 'ai_risk' AND b").fetchone()[0])
         shares[key] = {}
         for t in types:
             n = con.execute(f"""SELECT count(*) FROM f a JOIN f r USING (id)
                 WHERE a.h = '{t['id']}' AND a.b AND r.h = 'ai_risk' AND r.b""").fetchone()[0]
+            n = int(n)
             shares[key][t["id"]] = (n, risk)
     new = {r["id"] for r in cb if r["status"].startswith("v0.2")}
-    rows = sorted(types, key=lambda t: -max(shares[k][t["id"]][0] / max(shares[k][t["id"]][1], 1) for k, *_ in SOURCES))
+    rows = sorted(types, key=lambda t: -max(Fraction(shares[k][t["id"]][0], max(shares[k][t["id"]][1], 1)) for k, *_ in SOURCES))
     with (OUT / "dialogue-space.tsv").open("w") as f:
         f.write("# Share (%) of each source's AI-risk units naming each risk type; both witnesses >= 0.5. "
                 "codebook-v0.2-draft (DRAFT wording), witness proposals, no gold set.\n")
@@ -76,7 +80,7 @@ def main() -> int:
             cells = []
             for k, *_ in SOURCES:
                 n, base = shares[k][t["id"]]
-                cells += [f"{100 * n / base:.1f}" if base else "", str(n)]
+                cells += [display.pct(n, base, 1) if base else "", str(n)]
             f.write(f"{t['id']}\t{'yes' if t['id'] in new else ''}\t" + "\t".join(cells) + "\n")
     plot(rows, shares, new)
     print(f"wrote {OUT.relative_to(ROOT)}/dialogue-space.tsv and .svg")
@@ -99,17 +103,17 @@ def plot(rows, shares, new) -> None:
     for j, (k, label, *_r) in enumerate(SOURCES):
         base = shares[k][rows[0]["id"]][1]
         o.append(f'<text x="{left + j * cw + cw / 2}" y="{top - 24}" font-size="12" font-weight="600" text-anchor="middle">{escape(label)}</text>')
-        o.append(f'<text x="{left + j * cw + cw / 2}" y="{top - 9}" font-size="11" class="m" text-anchor="middle">n = {base:,}</text>')
+        o.append(f'<text x="{left + j * cw + cw / 2}" y="{top - 9}" font-size="11" class="m" text-anchor="middle">n = {display.count(base)}</text>')
     for i, t in enumerate(rows):
         y = top + i * rh
         o.append(f'<text x="{left - 8}" y="{y + rh / 2 + 4}" font-size="12" text-anchor="end">{escape(t["id"])}{" *" if t["id"] in new else ""}</text>')
         for j, (k, label, *_r) in enumerate(SOURCES):
             n, base = shares[k][t["id"]]
-            v = 100 * n / base if base else 0.0
+            v = 100 * n / base if base else 0.0   # colour only; every printed value comes from display.pct
             ink = "#ffffff" if v >= 25 else "#1b1b1b"
-            o.append(f'<g><title>{escape(label)}: {escape(t["id"])} {v:.1f}% ({n} of {base})</title>'
+            o.append(f'<g><title>{escape(label)}: {escape(t["id"])} {display.pct(n, base, 1) if base else "0.0"}% ({n} of {base})</title>'
                      f'<rect x="{left + j * cw + 1}" y="{y + 1}" width="{cw - 2}" height="{rh - 2}" rx="2" fill="{fill(v)}"/>'
-                     f'<text x="{left + j * cw + cw / 2}" y="{y + rh / 2 + 4}" font-size="11" text-anchor="middle" style="fill:{ink}">{v:.0f}</text></g>')
+                     f'<text x="{left + j * cw + cw / 2}" y="{y + rh / 2 + 4}" font-size="11" text-anchor="middle" style="fill:{ink}">{display.pct(n, base, 0) if base else "0"}</text></g>')
     o.append(f'<text x="16" y="{H - 30}" font-size="11" class="m">n = passages both NLI witnesses score ≥ 0.5 on ai_risk; a cell needs both ≥ 0.5 on the type too. A passage can name several types.</text>')
     o.append(f'<text x="16" y="{H - 14}" font-size="11" class="m">Calls and questions: 12 months to 2026-11-04. HN: 2025-09 to 2026-08. Wikipedia: revisions as of 2026-11-04. Witness proposals, no gold set.</text>')
     o.append("</svg>")

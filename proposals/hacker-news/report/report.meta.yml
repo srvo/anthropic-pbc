@@ -87,7 +87,7 @@ tables:
       "kappa":
         type: float
         unit: Cohen's kappa
-        description: "Cohen's kappa between the two witnesses' >= 0.5 calls, 3 decimals; empty when expected agreement is 1."
+        description: "Cohen's kappa between the two witnesses' >= 0.5 calls, 3 decimals, half up from exact counts (scripts/display.py); empty when expected agreement is 1."
   proposals/hacker-news/report/by-month.tsv:
     title: "Comments in each set, and those proposed AI risk, by month"
     description: "One row per months.tsv month. A comment is proposed AI risk if any of its windows has both witnesses >= 0.5 on ai_risk."
@@ -112,11 +112,11 @@ tables:
       "pct_comments_anthropic":
         type: float
         unit: percent
-        description: "100 x n_anthropic / n_comments, 3 decimals."
+        description: "100 x n_anthropic / n_comments, 3 decimals, half up from exact counts (scripts/display.py)."
       "pct_anthropic_ai_risk":
         type: float
         unit: percent
-        description: "100 x n_anthropic_ai_risk / n_anthropic, 1 decimal; empty when n_anthropic is 0."
+        description: "100 x n_anthropic_ai_risk / n_anthropic, 1 decimal, half up from exact counts (scripts/display.py); empty when n_anthropic is 0."
       "n_ai_security":
         type: integer
         unit: comments
@@ -128,7 +128,7 @@ tables:
       "pct_comments_ai_security":
         type: float
         unit: percent
-        description: "100 x n_ai_security / n_comments, 3 decimals."
+        description: "100 x n_ai_security / n_comments, 3 decimals, half up from exact counts (scripts/display.py)."
   proposals/hacker-news/report/examples-ttm.tsv:
     title: "Most confidently risk-typed comments, trailing 12 months (ids only)"
     description: "Per set and risk type, up to 10 comments, 2025-09-01 to 2026-08-31, among windows also proposed ai_risk."
@@ -149,7 +149,7 @@ tables:
       "min_witness_p":
         type: float
         unit: probability (0-1)
-        description: "Highest, over the comment's qualifying windows, of the lower of the two witnesses' scores; rounded to 4 decimals on a FLOAT, so the file shows float noise."
+        description: "Highest, over the comment's qualifying windows, of the lower of the two witnesses' scores; shown at 4 decimals, half up from the score's shortest decimal form (display.score)."
       "url":
         type: string
         description: "https://news.ycombinator.com/item?id=<item_id>."
@@ -171,7 +171,7 @@ tables:
       "calls_pct":
         type: float
         unit: percent
-        description: "100 x calls_windows / earnings-call windows proposed ai_risk (379), 1 decimal."
+        description: "100 x calls_windows / earnings-call windows proposed ai_risk (379), 1 decimal, half up from exact counts (scripts/display.py)."
       "anthropic_comments":
         type: integer
         unit: comments
@@ -179,7 +179,7 @@ tables:
       "anthropic_pct":
         type: float
         unit: percent
-        description: "100 x anthropic_comments / anthropic-set comments proposed ai_risk in the window (6,188), 1 decimal."
+        description: "100 x anthropic_comments / anthropic-set comments proposed ai_risk in the window (6,188), 1 decimal, half up from exact counts (scripts/display.py)."
       "ai_security_comments":
         type: integer
         unit: comments
@@ -187,7 +187,7 @@ tables:
       "ai_security_pct":
         type: float
         unit: percent
-        description: "100 x ai_security_comments / ai_security-set comments proposed ai_risk in the window (3,034), 1 decimal."
+        description: "100 x ai_security_comments / ai_security-set comments proposed ai_risk in the window (3,034), 1 decimal, half up from exact counts (scripts/display.py)."
   proposals/hacker-news/report/risk-ranking-ttm.svg:
     title: "Chart: what kind of AI risk, executives vs Hacker News"
     description: "Three panels (earnings calls, HN anthropic, HN ai_security), one bar per risk type, from risk-ranking-ttm.tsv, ordered by HN anthropic."

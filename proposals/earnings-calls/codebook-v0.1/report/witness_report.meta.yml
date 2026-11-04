@@ -73,7 +73,7 @@ tables:
       "cohen_kappa":
         type: float
         unit: kappa (-1 to 1)
-        description: "Cohen's kappa between the two witnesses' >= 0.5 decisions, rounded to 3 decimals; empty if expected agreement is 1."
+        description: "Cohen's kappa between the two witnesses' >= 0.5 decisions, 3 decimals, half up from exact counts (scripts/display.py); empty if expected agreement is 1."
   proposals/earnings-calls/codebook-v0.1/report/by-year.tsv:
     title: "AI, AI-risk and AI-governance calls and windows by fiscal year"
     description: "One row per fiscal year with at least one unique, non-stub call."
@@ -97,7 +97,7 @@ tables:
       "share_calls_ai_risk":
         type: float
         unit: fraction (0-1)
-        description: "calls_with_ai_risk / calls, rounded to 4 decimals."
+        description: "calls_with_ai_risk / calls, 4 decimals, half up from exact counts (scripts/display.py)."
       "calls_with_ai_governance":
         type: integer
         unit: calls
@@ -161,11 +161,11 @@ tables:
       "share_risk":
         type: float
         unit: fraction (0-1)
-        description: "windows_risk / windows_ai, rounded to 4 decimals."
+        description: "windows_risk / windows_ai, 4 decimals, half up from exact counts (scripts/display.py)."
       "share_opportunity":
         type: float
         unit: fraction (0-1)
-        description: "windows_opportunity / windows_ai, rounded to 4 decimals."
+        description: "windows_opportunity / windows_ai, 4 decimals, half up from exact counts (scripts/display.py)."
   proposals/earnings-calls/codebook-v0.1/report/by-firm.tsv:
     title: "AI, risk, opportunity and governance windows by firm"
     description: "One row per symbol with at least one unique, non-stub call; for the join to the Risk-Governance Index (Appendix E)."

@@ -16,8 +16,8 @@ processing: >-
   scripts/ec_question_report.py), noisy in both directions (e.g. "regulatory
   capital" on a bank call). Years are calendar years of report_date; years
   with no AI question have no row. The 12-month window is report_date in
-  (as_of - 1 year, as_of]. Floats are written to at most 4 decimals with
-  trailing zeros stripped.
+  (as_of - 1 year, as_of]. Shares and kappas are computed exactly from counts
+  and written at fixed places, half up (scripts/display.py); no SQL rounding.
 unit_of_analysis: one AI question (ai-questions.parquet), with its both-agree intents
 denominator: >-
   corpus/earnings-calls/question-calls.tsv (questioner_turns per year in by-year.tsv);
@@ -73,7 +73,7 @@ tables:
       "cohen_kappa":
         type: float
         unit: kappa (-1 to 1)
-        description: "Cohen's kappa between the witnesses' >= 0.5 decisions, rounded to 3 decimals; empty if expected agreement is 1."
+        description: "Cohen's kappa between the witnesses' >= 0.5 decisions, 3 decimals, half up from exact counts (scripts/display.py); empty if expected agreement is 1."
   proposals/earnings-calls/codebook-questions-v0.1/report/by-year.tsv:
     title: "AI question intents by calendar year"
     description: "One row per calendar year with at least one AI question, up to as_of; a leading # line states the definitions."
@@ -93,7 +93,7 @@ tables:
       "pct_commercial":
         type: float
         unit: percent
-        description: "Share of AI questions with q_revenue or q_efficiency (both witnesses), x100, 2 decimals."
+        description: "Share of AI questions with q_revenue or q_efficiency (both witnesses), x100, 2 decimals, half up from exact counts (scripts/display.py)."
       "pct_capital":
         type: float
         unit: percent
@@ -145,7 +145,7 @@ tables:
       "pct_of_ai_questions":
         type: float
         unit: percent
-        description: "100 * questions / AI questions in the 12 months, rounded to 2 decimals."
+        description: "100 * questions / AI questions in the 12 months, 2 decimals, half up from exact counts (scripts/display.py)."
   proposals/earnings-calls/codebook-questions-v0.1/report/oversight-questions.tsv:
     title: "Every AI question flagged for oversight, quoted"
     description: "One row per AI question with any oversight hypothesis (both witnesses), all years, sorted by report_date descending, symbol, question_id."

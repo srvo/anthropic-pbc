@@ -21,6 +21,15 @@ from pathlib import Path
 import duckdb
 
 ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT / "scripts"))
+import display  # noqa: E402  (the one number-to-text path)
+
+
+def csv_field(v: str) -> str:
+    """Quote a text field the way DuckDB's COPY (DELIMITER '\\t') does, so the table bytes do not change."""
+    return '"' + v.replace('"', '""') + '"' if any(c in v for c in '\t"\n\r') else v
+
+
 P = ROOT / "proposals" / "wikipedia-ai-risk" / "codebook-v0.1"
 W = ROOT / "corpus" / "wikipedia-ai-risk" / "windows.parquet"
 SPECIFIC = ["regulation", "cyber", "privacy", "accuracy", "bias", "labor", "disruption",
@@ -43,17 +52,19 @@ def main() -> int:
           count(*) FILTER (WHERE bd) AS n_deberta, count(*) FILTER (WHERE bm) AS n_modernbert,
           count(*) FILTER (WHERE b) AS n_both FROM f GROUP BY 1 ORDER BY n_both DESC, 1)
         TO '{rep / 'hypotheses.tsv'}' (HEADER, DELIMITER '\t')""")
-    con.execute(f"""COPY (SELECT title, count(*) AS n_ai_risk_windows,
-          count(*) FILTER (WHERE untyped) AS n_no_specific_type,
-          round(100.0 * count(*) FILTER (WHERE untyped) / count(*), 1) AS pct_no_specific_type
-        FROM r JOIN w USING (window_id) GROUP BY 1 ORDER BY n_no_specific_type DESC, title)
-        TO '{rep / 'untyped-by-article.tsv'}' (HEADER, DELIMITER '\t')""")
+    art = con.execute("""SELECT title, count(*)::INT AS n_ai_risk_windows,
+          (count(*) FILTER (WHERE untyped))::INT AS n_no_specific_type
+        FROM r JOIN w USING (window_id) GROUP BY 1 ORDER BY n_no_specific_type DESC, title""").fetchall()
+    with (rep / "untyped-by-article.tsv").open("w") as fh:   # no SQL rounding: display.py formats from counts
+        fh.write("title\tn_ai_risk_windows\tn_no_specific_type\tpct_no_specific_type\n")
+        for title, n_w, n_u in art:
+            fh.write("\t".join(display.cell(v) for v in (csv_field(title), n_w, n_u, display.pct(n_u, n_w, 1))) + "\n")
     n, u = con.execute("SELECT count(*), count(*) FILTER (WHERE untyped) FROM r").fetchone()
     tot = con.execute("SELECT count(*) FROM w").fetchone()[0]
     (rep / "summary.tsv").write_text(
         "windows\tai_risk_windows\tno_specific_type\tpct_no_specific_type\n"
-        f"{tot}\t{n}\t{u}\t{100 * u / n:.1f}\n")
-    print(f"{tot} windows; {n} proposed ai_risk; {u} ({100 * u / n:.1f}%) with no specific risk type")
+        f"{tot}\t{n}\t{u}\t{display.pct(u, n, 1)}\n")
+    print(f"{tot} windows; {n} proposed ai_risk; {u} ({display.pct(u, n, 1)}%) with no specific risk type")
     return 0
 
 

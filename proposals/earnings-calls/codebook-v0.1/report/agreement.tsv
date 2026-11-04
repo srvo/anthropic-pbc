@@ -5,13 +5,13 @@ stance	ai_opportunity	38600	19800	25756	18298	0.532
 risk_type	regulation	38600	195	246	107	0.482
 risk_type	cyber	38600	1511	888	698	0.569
 risk_type	privacy	38600	373	172	105	0.382
-risk_type	accuracy	38600	21	18	8	0.41
-risk_type	bias	38600	18	9	5	0.37
+risk_type	accuracy	38600	21	18	8	0.410
+risk_type	bias	38600	18	9	5	0.370
 risk_type	labor	38600	59	80	38	0.546
 risk_type	disruption	38600	357	87	58	0.259
 risk_type	capex	38600	231	639	131	0.295
 risk_type	energy	38600	1034	709	604	0.686
 risk_type	supply	38600	215	149	102	0.558
-risk_type	ip	38600	331	569	232	0.51
+risk_type	ip	38600	331	569	232	0.510
 risk_type	safety_ethics	38600	429	875	269	0.404
 mechanism	governance	38600	390	210	125	0.413

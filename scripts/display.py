@@ -48,6 +48,52 @@ def pct(n: int, d: int, places: int = 1) -> str:
     return round_half_up(Fraction(100 * n, d), places)
 
 
+def ratio(n, d, places: int) -> str:
+    """n/d as a proportion (0-1 or any exact ratio), half up. n and d are ints or Fractions."""
+    n, d = _exact(n), _exact(d)
+    if d == 0:
+        raise ValueError("ratio denominator is zero")
+    return round_half_up(n / d, places)
+
+
+def kappa(n: int, pos_a: int, pos_b: int, agree: int) -> Fraction | None:
+    """Cohen's kappa for two binary raters, exactly, from counts: n units, pos_a and pos_b
+    positives per rater, agree = units where they agree. None when chance agreement is 1."""
+    for v in (n, pos_a, pos_b, agree):
+        if not isinstance(v, int) or isinstance(v, bool):
+            raise TypeError("kappa takes integer counts")
+    if n <= 0:
+        raise ValueError("kappa needs n > 0")
+    po = Fraction(agree, n)
+    pa, pb = Fraction(pos_a, n), Fraction(pos_b, n)
+    pe = pa * pb + (1 - pa) * (1 - pb)
+    return None if pe == 1 else (po - pe) / (1 - pe)
+
+
+def score(x: float, places: int) -> str:
+    """A model probability, the one float display accepts. Model scores are measurements,
+    not counts; they are shown half up from their shortest decimal repr."""
+    if not isinstance(x, float):
+        raise TypeError("score takes the model's float probability")
+    if not 0.0 <= x <= 1.0:
+        raise ValueError(f"score {x} outside 0..1")
+    return format(Decimal(repr(x)).quantize(Decimal(1).scaleb(-places), rounding=ROUND_HALF_UP), "f")
+
+
+def cell(v) -> str:
+    """A table cell. Only ints, strings (already formatted here) and None pass: a float or
+    Fraction reaching a table means a number skipped the formatting rules."""
+    if v is None:
+        return ""
+    if isinstance(v, bool):
+        return str(v).lower()
+    if isinstance(v, int):
+        return str(v)
+    if isinstance(v, str):
+        return v
+    raise TypeError(f"table cell must be int, str or None, not {type(v).__name__}: {v!r}")
+
+
 def count(n: int) -> str:
     if not isinstance(n, int) or isinstance(n, bool):
         raise TypeError("count takes an int")
@@ -95,3 +141,14 @@ def selftest() -> None:
             raise AssertionError(f"accepted {bad!r}")
     assert round_half_up(Fraction(-1, 1000), 1) == "0.0"
     assert count(17013) == "17,013"
+    assert ratio(1, 8, 2) == "0.13" and ratio(Fraction(3, 2), 3, 1) == "0.5"
+    assert kappa(10, 5, 5, 10) == 1 and kappa(4, 4, 4, 4) is None
+    assert round_half_up(kappa(10, 5, 5, 0), 3) == "-1.000"
+    assert score(0.12345, 4) == "0.1235" and score(1.0, 2) == "1.00"
+    for bad in (0.1, Fraction(1, 2)):
+        try:
+            cell(bad)
+        except TypeError:
+            pass
+        else:
+            raise AssertionError(f"cell accepted {bad!r}")

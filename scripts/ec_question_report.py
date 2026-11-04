@@ -42,6 +42,9 @@ from pathlib import Path
 import duckdb
 
 ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT / "scripts"))
+import display  # noqa: E402  (the one number-to-text path)
+from fractions import Fraction  # noqa: E402
 CORPUS = ROOT / "corpus" / "earnings-calls"
 PROP = ROOT / "proposals" / "earnings-calls" / "codebook-questions-v0.1"
 REPORT = PROP / "report"
@@ -65,13 +68,24 @@ SURFACE, INK, INK2, GRID = "#fcfcfb", "#0b0b0b", "#52514e", "#e4e3df"
 S1, S2, MUTED = "#2a78d6", "#eb6834", "#a8a69f"
 
 
-def tsv(con, sql: str, path: Path, note: str = "") -> None:
+def tsv(con, sql: str, path: Path, note: str = "", derived: dict | None = None) -> None:
+    """Write a table. Columns starting with `_` are counts for `derived` (column -> function
+    of the row) and are not written. No SQL rounding: display.py formats from exact counts."""
     rel = con.execute(sql)
     cols = [d[0] for d in rel.description]
-    rows = rel.fetchall()
-    fmt = lambda v: "" if v is None else (f"{v:.4f}".rstrip("0").rstrip(".") if isinstance(v, float) else str(v))
-    path.write_text((f"# {note}\n" if note else "") + "\t".join(cols) + "\n"
-                    + "".join("\t".join(fmt(v) for v in r) + "\n" for r in rows))
+    keep = [c for c in cols if not c.startswith("_")]
+    out = []
+    for r in rel.fetchall():
+        row = dict(zip(cols, r))
+        for c, fn in (derived or {}).items():
+            row[c] = fn(row)
+        out.append("\t".join(display.cell(row[c]) for c in keep) + "\n")
+    path.write_text((f"# {note}\n" if note else "") + "\t".join(keep) + "\n" + "".join(out))
+
+
+def kappa(r: dict) -> str | None:
+    k = display.kappa(r["_n"], r["_pos_a"], r["_pos_b"], r["_agree"])
+    return None if k is None else display.round_half_up(k, 3)
 
 
 def main() -> int:
@@ -96,16 +110,20 @@ def main() -> int:
 
     tsv(con, """SELECT hypothesis_id, count(*) AS n_questions, count(*) FILTER (WHERE d) AS pos_deberta,
             count(*) FILTER (WHERE m) AS pos_modernbert, count(*) FILTER (WHERE d AND m) AS pos_both,
-            round(((avg((d = m)::INT)) - (avg(d::INT) * avg(m::INT) + (1 - avg(d::INT)) * (1 - avg(m::INT))))
-                  / nullif(1 - (avg(d::INT) * avg(m::INT) + (1 - avg(d::INT)) * (1 - avg(m::INT))), 0), 3) AS cohen_kappa
-        FROM s GROUP BY 1 ORDER BY pos_both DESC, 1""", REPORT / "agreement.tsv")
+            NULL AS cohen_kappa, count(*)::INT AS _n, (count(*) FILTER (WHERE d))::INT AS _pos_a,
+            (count(*) FILTER (WHERE m))::INT AS _pos_b, (count(*) FILTER (WHERE d = m))::INT AS _agree
+        FROM s GROUP BY 1 ORDER BY pos_both DESC, 1""", REPORT / "agreement.tsv", derived={"cohen_kappa": kappa})
 
-    share = lambda col: f"round(100.0 * avg({col}::INT), 2)"
-    cols = (f"count(*) AS ai_questions, {share('commercial')} AS pct_commercial, {share('q_spend')} AS pct_capital, "
-            f"{share('q_competition')} AS pct_threat, {share('q_workforce')} AS pct_workforce, "
-            f"{share('oversight')} AS pct_oversight, {share('q_controls')} AS pct_controls, "
-            f"count(*) FILTER (WHERE oversight) AS n_oversight, count(*) FILTER (WHERE q_controls) AS n_controls, "
-            f"{share('w_commercial')} AS pct_words_commercial, {share('w_oversight')} AS pct_words_oversight")
+    pcts = ["commercial", "q_spend", "q_competition", "q_workforce", "oversight", "q_controls", "w_commercial", "w_oversight"]
+    share_counts = ", ".join(f"(count(*) FILTER (WHERE {c}))::INT AS _n_{c}" for c in pcts) + ", count(*)::INT AS _n_all"
+    names = {"pct_commercial": "commercial", "pct_capital": "q_spend", "pct_threat": "q_competition",
+             "pct_workforce": "q_workforce", "pct_oversight": "oversight", "pct_controls": "q_controls",
+             "pct_words_commercial": "w_commercial", "pct_words_oversight": "w_oversight"}
+    year_derived = {k: (lambda c: lambda r: display.pct(r[f"_n_{c}"], r["_n_all"], 2))(c) for k, c in names.items()}
+    cols = ("count(*) AS ai_questions, NULL AS pct_commercial, NULL AS pct_capital, NULL AS pct_threat, "
+            "NULL AS pct_workforce, NULL AS pct_oversight, NULL AS pct_controls, "
+            "count(*) FILTER (WHERE oversight) AS n_oversight, count(*) FILTER (WHERE q_controls) AS n_controls, "
+            f"NULL AS pct_words_commercial, NULL AS pct_words_oversight, {share_counts}")
     tsv(con, f"""SELECT q.year, c.questioner_turns, {cols} FROM q
             JOIN (SELECT year(report_date) AS year, sum(n_questioner_turns) AS questioner_turns
                   FROM read_csv('{CORPUS / 'calls.tsv'}') JOIN read_csv('{CORPUS / 'question-calls.tsv'}')
@@ -113,16 +131,17 @@ def main() -> int:
             WHERE q.report_date <= '{as_of}' GROUP BY ALL ORDER BY 1""",
         REPORT / "by-year.tsv",
         f"calendar year of call date, to {as_of}. pct_* = share of AI questions; both witnesses >= 0.5 "
-        "(witness proposals, no gold set); pct_words_* = deterministic word match.")
+        "(witness proposals, no gold set); pct_words_* = deterministic word match.", derived=year_derived)
 
     ttm = f"report_date > CAST(DATE '{as_of}' - INTERVAL 1 YEAR AS VARCHAR) AND report_date <= '{as_of}'"
     n_ttm, n_firms, n_analysts = con.execute(
         f"SELECT count(*), count(DISTINCT symbol), count(DISTINCT speaker) FROM q WHERE {ttm}").fetchone()
     union = " UNION ALL ".join(f"SELECT '{h}' AS intent, count(*) FILTER (WHERE {h}) AS n FROM q WHERE {ttm}" for h in hyps)
-    tsv(con, f"""SELECT intent, n AS questions, round(100.0 * n / {n_ttm}, 2) AS pct_of_ai_questions FROM ({union})
+    tsv(con, f"""SELECT intent, n::INT AS questions, NULL AS pct_of_ai_questions FROM ({union})
             ORDER BY n DESC, intent""", REPORT / "ttm.tsv",
         f"12 months to {as_of}: {n_ttm} AI questions from {n_analysts} questioners on {n_firms} S&P 500 firms. "
-        "A question can carry several intents. Witness proposals, no gold set.")
+        "A question can carry several intents. Witness proposals, no gold set.",
+        derived={"pct_of_ai_questions": lambda r: display.pct(r["questions"], n_ttm, 2)})
 
     flags = " || ".join(f"CASE WHEN {h} THEN '{h};' ELSE '' END" for h in OVERSIGHT)
     con.execute(f"""COPY (SELECT report_date, symbol, speaker, rtrim({flags}, ';') AS oversight_intents,
@@ -130,8 +149,8 @@ def main() -> int:
         FROM q WHERE oversight ORDER BY report_date DESC, symbol, question_id)
         TO '{REPORT / 'oversight-questions.tsv'}' (HEADER, DELIMITER '\t')""")
 
-    rows = con.execute(f"SELECT intent, questions, pct_of_ai_questions FROM read_csv('{REPORT / 'ttm.tsv'}', "
-                       "comment='#', delim='\t', header=true)").fetchall()
+    rows = [(h, int(k)) for h, k in con.execute(f"SELECT intent, questions FROM read_csv('{REPORT / 'ttm.tsv'}', "
+                                                 "comment='#', delim='\t', header=true)").fetchall()]
     plot(rows, n_ttm, as_of)
     print(open(REPORT / "ttm.tsv").read())
     return 0
@@ -143,15 +162,15 @@ def plot(rows: list[tuple], n: int, as_of: str) -> None:
     import matplotlib.pyplot as plt
     plt.rcParams.update({"svg.hashsalt": "ec-questions", "font.family": "DejaVu Sans", "font.size": 10})
     group = {h: ("oversight" if h in OVERSIGHT else "commercial" if h in COMMERCIAL + ["q_spend"] else "other")
-             for h, _, _ in rows}
+             for h, _ in rows}
     color = {"commercial": S1, "oversight": S2, "other": MUTED}
     shown = rows[::-1]
     fig, ax = plt.subplots(figsize=(8, 0.42 * len(shown) + 1.6), facecolor=SURFACE)
     ax.set_facecolor(SURFACE)
-    ax.barh([LABELS[h] for h, _, _ in shown], [p for _, _, p in shown], color=[color[group[h]] for h, _, _ in shown],
-            height=0.62)
-    for i, (h, k, p) in enumerate(shown):
-        ax.text(p + 0.3, i, f"{p:.1f}%  ({k})", va="center", color=INK, fontsize=9)
+    pos = [float(Fraction(100 * k, n)) for _, k in shown]   # bar lengths; labels come from display.pct
+    ax.barh([LABELS[h] for h, _ in shown], pos, color=[color[group[h]] for h, _ in shown], height=0.62)
+    for i, ((h, k), x) in enumerate(zip(shown, pos)):
+        ax.text(x + 0.3, i, f"{display.pct(k, n, 1)}%  ({display.count(k)})", va="center", color=INK, fontsize=9)
     for s in ("top", "right", "bottom"):
         ax.spines[s].set_visible(False)
     ax.spines["left"].set_color(INK2)
@@ -162,7 +181,7 @@ def plot(rows: list[tuple], n: int, as_of: str) -> None:
                        Patch(color=MUTED, label="Other")], loc="lower right", frameon=False, fontsize=9, labelcolor=INK)
     ax.set_title("What analysts ask S&P 500 companies about AI", loc="left", color=INK, fontsize=12,
                  fontweight="bold", pad=20)
-    ax.text(0, 1.01, f"Share of {n:,} analyst questions on AI, 12 months to {as_of}",
+    ax.text(0, 1.01, f"Share of {display.count(n)} analyst questions on AI, 12 months to {as_of}",
             transform=ax.transAxes, color=INK2, fontsize=9)
     fig.text(0.01, 0.01, "A question can count under several topics. Both NLI models must agree; not hand-verified. "
              "Source: defeatbeta/yahoo-finance-data (ODC-BY).", color=INK2, fontsize=7.5)

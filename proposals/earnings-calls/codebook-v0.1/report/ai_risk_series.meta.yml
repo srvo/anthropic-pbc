@@ -71,11 +71,11 @@ tables:
       "pct_lexical":
         type: float
         unit: percent
-        description: "100 * calls_lexical / calls, rounded to 2 decimals."
+        description: "100 * calls_lexical / calls, 2 decimals, half up from exact counts (scripts/display.py)."
       "pct_witnesses":
         type: float
         unit: percent
-        description: "100 * calls_witnesses / calls, rounded to 2 decimals."
+        description: "100 * calls_witnesses / calls, 2 decimals, half up from exact counts (scripts/display.py)."
   proposals/earnings-calls/codebook-v0.1/report/ai-risk-by-year.svg:
     title: "Chart: share of S&P 500 calls where AI is discussed as a risk"
     description: "Line chart of pct_lexical and pct_witnesses by year from ai-risk-by-year.tsv, last values labelled."

@@ -37,6 +37,9 @@ from pathlib import Path
 import duckdb
 
 ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT / "scripts"))
+import display  # noqa: E402  (the one number-to-text path)
+from fractions import Fraction  # noqa: E402
 CORPUS = ROOT / "corpus" / "earnings-calls"
 REPORT = ROOT / "proposals" / "earnings-calls" / "codebook-v0.1" / "report"
 RISK_WORD = r"(?i)\brisk(s|y|ier|iest)?\b"
@@ -69,13 +72,12 @@ def build(con: duckdb.DuckDBPyConnection, as_of: str) -> None:
 
 
 def write_series(con, as_of: str) -> list[tuple]:
-    rows = con.execute(f"""SELECT year(report_date) AS year, count(*) AS calls,
-            count(*) FILTER (WHERE lex) AS calls_lexical, count(*) FILTER (WHERE nli) AS calls_witnesses,
-            round(100.0 * count(*) FILTER (WHERE lex) / count(*), 2) AS pct_lexical,
-            round(100.0 * count(*) FILTER (WHERE nli) / count(*), 2) AS pct_witnesses
+    counts = con.execute(f"""SELECT year(report_date)::INT AS year, count(*)::INT AS calls,
+            (count(*) FILTER (WHERE lex))::INT AS calls_lexical, (count(*) FILTER (WHERE nli))::INT AS calls_witnesses
         FROM cw WHERE year(report_date) >= {FIRST_YEAR} GROUP BY 1 ORDER BY 1""").fetchall()
+    rows = [(y, n, lx, nl, display.pct(lx, n, 2), display.pct(nl, n, 2)) for y, n, lx, nl in counts]
     head = "year\tcalls\tcalls_lexical\tcalls_witnesses\tpct_lexical\tpct_witnesses\n"
-    body = "".join("\t".join(str(x) for x in r) + "\n" for r in rows)
+    body = "".join("\t".join(display.cell(x) for x in r) + "\n" for r in rows)
     note = f"# calendar year of call date; {as_of[:4]} runs to {as_of}. Denominator: unique, non-stub S&P 500 calls.\n"
     (REPORT / "ai-risk-by-year.tsv").write_text(note + head + body)
     return rows
@@ -116,9 +118,9 @@ def plot(series: list[tuple], ranking: list[tuple], as_of: str) -> None:
     fig, ax = plt.subplots(figsize=(8, 4.2), facecolor=SURFACE)
     ax.set_facecolor(SURFACE)
     for col, color, label in ((4, S1, 'Mentions "risk" next to AI'), (5, S2, "Both models: AI framed as a risk")):
-        ys = [float(r[col]) for r in series]
+        ys = [float(Fraction(100 * r[col - 2], r[1])) for r in series]   # positions; the label is exact
         ax.plot(years, ys, color=color, lw=2, marker="o", ms=4.5, mec=SURFACE, mew=1.5, label=label)
-        ax.annotate(f"{ys[-1]:.1f}%", (years[-1], ys[-1]), xytext=(8, 0), textcoords="offset points",
+        ax.annotate(f"{display.pct(series[-1][col - 2], series[-1][1], 1)}%", (years[-1], ys[-1]), xytext=(8, 0), textcoords="offset points",
                     va="center", color=INK, fontsize=10, fontweight="bold")
     ax.set_xticks(years, [str(y) if y != years[-1] else f"{y}\n(to {as_of[5:]})" for y in years], fontsize=9)
     ax.yaxis.set_major_formatter(matplotlib.ticker.FuncFormatter(lambda v, _: f"{v:.0f}%"))

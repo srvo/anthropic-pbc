@@ -106,6 +106,9 @@ import blake3
 import duckdb
 
 ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT / "scripts"))
+import display  # noqa: E402  (the one number-to-text path)
+from fractions import Fraction  # noqa: E402
 CORPUS = ROOT / "corpus" / "earnings-calls"
 PROP = ROOT / "proposals" / "earnings-calls" / "codebook-v0.1"
 GOLD = ROOT / "gold" / "earnings-calls" / "codebook-v0.1"
@@ -348,8 +351,9 @@ def cmd_code(a: argparse.Namespace) -> int:
 
 # ---------------------------------------------------------------- score
 
-def rate(num: float, den: float) -> str:
-    return f"{num / den:.3f}" if den > 0 else ""
+def rate(num, den) -> str:
+    """Weighted precision/recall from exact Fractions, half up (scripts/display.py)."""
+    return display.ratio(num, den, 3) if den > 0 else ""
 
 
 def cmd_score(a: argparse.Namespace) -> int:
@@ -360,7 +364,7 @@ def cmd_score(a: argparse.Namespace) -> int:
     n_coded = {}
     for r in coded:
         n_coded[r["stratum"]] = n_coded.get(r["stratum"], 0) + 1
-    weight = {s: int(next(r["stratum_population"] for r in rows if r["stratum"] == s)) / c for s, c in n_coded.items()}
+    weight = {s: Fraction(int(next(r["stratum_population"] for r in rows if r["stratum"] == s)), c) for s, c in n_coded.items()}
     con = duckdb.connect()
     scores_view(con)
     ids = [r["window_id"] for r in coded]
@@ -396,7 +400,8 @@ def cmd_score(a: argparse.Namespace) -> int:
     for h in hyps:
         witnesses = ["deberta", "modernbert", "both"] + (["lexical"] if h == "ai_risk" else [])
         for wt in witnesses:
-            tp = fp = fn = wtp = wpp = wgp = 0.0
+            tp = fp = fn = 0
+            wtp = wpp = wgp = Fraction(0)
             for r in coded:
                 g, q, w = gold(r, h), pred(r["window_id"], h, wt), weight[r["stratum"]]
                 tp += g and q
@@ -533,7 +538,7 @@ def q_cmd_score(a: argparse.Namespace) -> int:
     n_coded: dict[str, int] = {}
     for r in coded:
         n_coded[r["stratum"]] = n_coded.get(r["stratum"], 0) + 1
-    weight = {s: int(next(r["stratum_population"] for r in rows if r["stratum"] == s)) / c for s, c in n_coded.items()}
+    weight = {s: Fraction(int(next(r["stratum_population"] for r in rows if r["stratum"] == s)), c) for s, c in n_coded.items()}
     p: dict[tuple[str, str], tuple[float, float]] = {}
     if coded:
         con = duckdb.connect()
@@ -552,7 +557,8 @@ def q_cmd_score(a: argparse.Namespace) -> int:
     out = []
     for name, ids in targets:
         for wt in ("deberta", "modernbert", "both"):
-            tp = fp = fn = wtp = wpp = wgp = 0.0
+            tp = fp = fn = 0
+            wtp = wpp = wgp = Fraction(0)
             for r in coded:
                 g = any(r[h] == "y" for h in ids)
                 q = any(pred1(r["question_id"], h, wt) for h in ids)

@@ -25,6 +25,8 @@ from pathlib import Path
 import duckdb
 
 ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT / "scripts"))
+import display  # noqa: E402  (the one number-to-text path)
 CORPUS = ROOT / "corpus" / "earnings-calls"
 PROP = ROOT / "proposals" / "earnings-calls" / "codebook-v0.1"
 REPORT = PROP / "report"
@@ -53,18 +55,35 @@ def main() -> int:
     con.execute(f"""CREATE TABLE f AS SELECT w.*, x.* EXCLUDE (window_id)
                     FROM w JOIN (SELECT window_id, {flags} FROM s GROUP BY 1) x USING (window_id)""")
 
-    def out(name: str, sql: str) -> None:
-        con.execute(f"COPY ({sql}) TO '{REPORT / name}' (HEADER, DELIMITER '\t')")
+    def out(name: str, sql: str, derived: dict | None = None) -> None:
+        """Write a table. Columns starting with `_` are counts used by `derived`
+        (column -> function of the row) and are not written. No SQL rounding:
+        every ratio and kappa is formatted by display.py from exact counts."""
+        rel = con.execute(sql)
+        cols = [d[0] for d in rel.description]
+        keep = [c for c in cols if not c.startswith("_")]
+        with (REPORT / name).open("w") as fh:
+            fh.write("\t".join(keep) + "\n")
+            for r in rel.fetchall():
+                row = dict(zip(cols, r))
+                for c, fn in (derived or {}).items():
+                    row[c] = fn(row)
+                fh.write("\t".join(display.cell(row[c]) for c in keep) + "\n")
+
+    def kappa(r: dict) -> str | None:
+        k = display.kappa(r["_n"], r["_pos_a"], r["_pos_b"], r["_agree"])
+        return None if k is None else display.round_half_up(k, 3)
+
+    def share(n: str, d: str):
+        return lambda r: None if not r[d] else display.ratio(r[n], r[d], 4)
 
     # 1. Witness agreement per hypothesis.
     out("agreement.tsv", """
       SELECT cb."group", hypothesis_id, count(*) AS n_windows,
              sum(pos_deb::INT) AS pos_deberta, sum(pos_mod::INT) AS pos_modernbert, sum(pos::INT) AS pos_both,
-             round(( avg((pos_deb = pos_mod)::INT)
-                     - (avg(pos_deb::INT) * avg(pos_mod::INT) + (1 - avg(pos_deb::INT)) * (1 - avg(pos_mod::INT))) )
-                   / nullif(1 - (avg(pos_deb::INT) * avg(pos_mod::INT) + (1 - avg(pos_deb::INT)) * (1 - avg(pos_mod::INT))), 0), 3)
-               AS cohen_kappa
-      FROM s JOIN cb ON cb.id = s.hypothesis_id GROUP BY ALL ORDER BY min(cb.ord)""")
+             NULL AS cohen_kappa, count(*)::INT AS _n, sum(pos_deb::INT)::INT AS _pos_a,
+             sum(pos_mod::INT)::INT AS _pos_b, sum((pos_deb = pos_mod)::INT)::INT AS _agree
+      FROM s JOIN cb ON cb.id = s.hypothesis_id GROUP BY ALL ORDER BY min(cb.ord)""", {"cohen_kappa": kappa})
 
     # 2. By fiscal year, with the all-calls denominator.
     out("by-year.tsv", """
@@ -78,11 +97,11 @@ def main() -> int:
             FROM f GROUP BY 1)
       SELECT c.fiscal_year, c.calls, coalesce(calls_ai, 0) AS calls_mentioning_ai,
              coalesce(calls_ai_risk, 0) AS calls_with_ai_risk,
-             round(coalesce(calls_ai_risk, 0) / c.calls, 4) AS share_calls_ai_risk,
+             NULL AS share_calls_ai_risk, coalesce(calls_ai_risk, 0)::INT AS _risk, c.calls::INT AS _calls,
              coalesce(calls_ai_governance, 0) AS calls_with_ai_governance,
              coalesce(windows_ai, 0) AS windows_ai, coalesce(windows_risk, 0) AS windows_risk,
              coalesce(windows_opportunity, 0) AS windows_opportunity
-      FROM c LEFT JOIN k USING (fiscal_year) ORDER BY 1""")
+      FROM c LEFT JOIN k USING (fiscal_year) ORDER BY 1""", {"share_calls_ai_risk": share("_risk", "_calls")})
 
     # 3. Risk types by year (window counts; type and ai_risk both both-agree).
     types = [r[0] for r in con.execute("SELECT id FROM cb WHERE \"group\" = 'risk_type' ORDER BY ord").fetchall()]
@@ -95,9 +114,10 @@ def main() -> int:
       SELECT role, count(*) FILTER (WHERE about_ai) AS windows_ai,
              count(*) FILTER (WHERE about_ai AND ai_risk) AS windows_risk,
              count(*) FILTER (WHERE about_ai AND ai_opportunity) AS windows_opportunity,
-             round(count(*) FILTER (WHERE about_ai AND ai_risk) / nullif(count(*) FILTER (WHERE about_ai), 0), 4) AS share_risk,
-             round(count(*) FILTER (WHERE about_ai AND ai_opportunity) / nullif(count(*) FILTER (WHERE about_ai), 0), 4) AS share_opportunity
-      FROM f GROUP BY 1 ORDER BY 1""")
+             NULL AS share_risk, NULL AS share_opportunity,
+             (count(*) FILTER (WHERE about_ai AND ai_risk))::INT AS _r, (count(*) FILTER (WHERE about_ai AND ai_opportunity))::INT AS _o,
+             (count(*) FILTER (WHERE about_ai))::INT AS _a
+      FROM f GROUP BY 1 ORDER BY 1""", {"share_risk": share("_r", "_a"), "share_opportunity": share("_o", "_a")})
 
     # 5. Per firm, for the join to the Risk-Governance Index (Appendix E).
     tcols = ", ".join(f"count(*) FILTER (WHERE about_ai AND ai_risk AND {t}) AS {t}" for t in types)

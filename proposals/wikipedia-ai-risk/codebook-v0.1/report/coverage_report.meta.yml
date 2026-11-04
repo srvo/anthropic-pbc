@@ -88,7 +88,7 @@ tables:
       "pct_no_specific_type":
         type: float
         unit: percent
-        description: "100 x no_specific_type / ai_risk_windows, 1 decimal."
+        description: "100 x no_specific_type / ai_risk_windows, 1 decimal, half up from exact counts (scripts/display.py)."
   proposals/wikipedia-ai-risk/codebook-v0.1/report/untyped-by-article.tsv:
     title: "AI-risk windows with no specific risk type, by article"
     description: "One row per article with at least one window proposed ai_risk, ordered by n_no_specific_type."
@@ -108,4 +108,4 @@ tables:
       "pct_no_specific_type":
         type: float
         unit: percent
-        description: "100 x n_no_specific_type / n_ai_risk_windows, rounded to 1 decimal."
+        description: "100 x n_no_specific_type / n_ai_risk_windows, 1 decimal, half up from exact counts (scripts/display.py)."
