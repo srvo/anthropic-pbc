@@ -58,7 +58,7 @@ own failures. But the law gives directors no duty to any person on account
 of that purpose, and lets only holders of 2% (or, once listed, the lesser
 of 2% and $2 million) sue to enforce it. The public the charter names
 cannot. The trust can be amended away by the shareholders it is meant to
-check, and seven founders hold 50.1% of the vote. If only a few people can
+check, and seven co-founders control 50.1% of the vote. If only a few people can
 steer this technology safely, the governance must survive them; this one
 depends on them. So the promise rests on
 Anthropic's word, and we take Anthropic at the deepest word it has given:
@@ -109,12 +109,11 @@ system (her ranking of where a change moves a system, weakest to strongest,
 set out in §6.1), and the one almost no one moves.
 
 Here is a public benefit corporation (PBC):
-[Wood Cache](https://www.woodcache.org). Sloane Ortel is a co-founder of
-Woodcache PBC. She is no longer active in the company and retains equity in
-it. You can understand what it does from the
-website in a minute. The fastest-growing carbon pool in the Mountain West is dead
+[Woodcache](https://www.woodcache.org). **Disclosure: I co-founded Woodcache
+PBC. I am no longer active in the company, and I retain equity in it.** You can
+understand what it does from the website in a minute. The fastest-growing carbon pool in the Mountain West is dead
 trees; they burn, and when they burn they throw off the most dangerous air
-pollution there is. Wood Cache buries that biomass and locks the carbon away
+pollution there is. Woodcache buries that biomass and locks the carbon away
 instead — measured and verified end to end under
 [Puro.earth's terrestrial-storage methodology](https://puro.earth/methodologies/terrestrial-storage-of-biomass/),
 with the burial sites themselves permitted and regulated by the State of Colorado
@@ -154,7 +153,7 @@ the method working, not failing.
 Anthropic fails that test in a specific way. The harm is distributed; there is no
 visible feedback loop between the people it lands on now and the people deciding;
 and the structure is a race to be first, in which you cannot help but lose control
-of your effect on others. Set that against Wood Cache: a small, observable benefit
+of your effect on others. Set that against Woodcache: a small, observable benefit
 submits to immense scrutiny, while Anthropic proposes to expose the world to
 genuinely serious risks and — rather than cede control of that exposure, even to
 the users already paying for the compute — insists on holding it itself. It treats
@@ -164,17 +163,15 @@ reconciliation unless a governance forces one. What follows takes Anthropic at i
 own word — against its own filings and its own Constitution — and checks, byte by
 byte, where the words and the acts diverge.
 
-The missed risk is that scrutiny runs backwards. The small, observable benefit
-whose worst case is that nothing good happens is checked hard. The company whose
-worst case is the serious risks it discloses is checked by its own report. That
-gap is the risk the market misses, and Anthropic's listing will make the
-category much larger.
+That is the missed risk: scrutiny runs backwards. The benefit whose worst case
+is that nothing good happens is checked hard; the company whose worst case is
+the serious risks it discloses is checked by its own report. Anthropic's listing
+will make the category much larger.
 
 Governance, in its slimmest version, is effective control over your
-surroundings: whether the people affected by a system can steer it, and whether
-it survives the loss of any one person ("Governance exists so that systems can
-survive individuals"). The full premise is a separate Praxis paper; this one
-needs only that much of it.
+surroundings: whether the people a system affects can steer it, and whether it
+survives the loss of any one person. The full premise is a separate Praxis
+paper; this one needs only that much of it.
 
 *Therefore* the promise is worth checking.
 
@@ -240,12 +237,10 @@ deployments, including protein binders whose binding independent labs confirmed
 (§6.7.5). And outcomes take time: its own trust reads this first report as
 describing inputs and says it will look for outcomes in later ones (§6).
 
-What holds in that case is real, and the paper says so where it finds it. The
-disclosure practice is the asset (§6.7.1). Anthropic has built the story, some
-of the trustees and, to its credit, several of the admissions.
-
-What survives the buzz saw: the five pillar *conditions* are well chosen;
-the incident disclosures are genuinely ahead of peers; the LTBT exists.
+What survives the buzz saw is real: the five pillar *conditions* are well
+chosen; the incident disclosures are genuinely ahead of peers, and the
+disclosure practice is the asset (§6.7.1); the LTBT exists. Anthropic has built
+the story, some of the trustees and, to its credit, several of the admissions.
 The argument fails not on aims but on the inference *inputs + intentions +
 revocable trustees → discharged public duty*. That arrow is unearned.
 
