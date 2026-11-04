@@ -32,7 +32,22 @@ H = human prose (Sloane writes or reviews).
 Not rebuildable, so excluded: the risk-factor corpus (no `dag.yml` step), and
 any `sources/` filing copies (uncommitted).
 
-## 2. Outline (Praxis research order)
+## 2. Outline
+
+**Superseded order (Sloane, 2026-11-04):** the open question organises the
+report, not the Praxis research template. Sections run in the order they
+answer *is Anthropic a public benefit corporation?*:
+
+1. **Why we are asking.** What makes the question worth asking.
+2. **What Anthropic says it is.** Its own specifications: the PBC charter and
+   stated public benefit, and its governance as Anthropic describes it.
+3. **So what …** *(Sloane's dictation broke off here; the rest of the order
+   is hers to give.)*
+
+The template sections that do not answer the question (methods, claims and
+sources indexes, review record) follow the answer as back matter. The list
+below is the earlier template-order draft, kept until the new order is
+complete.
 
 1. **Bottom line.** Paper Verdict 1 excerpt (charter real, toothless) +
    H synthesis: what the outward data adds and does not.
