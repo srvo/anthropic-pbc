@@ -202,10 +202,11 @@ def other_bindings(cb: dict, b: dict) -> None:
     b.update(q_revenue_pct=f"{float(qi['q_revenue']['pct_of_ai_questions']):.1f}",
              q_controls_pct=f"{float(qi['q_controls']['pct_of_ai_questions']):.1f}")
     ds = {r["risk_type"]: r for r in table(cb["dialogue"])}
-    b.update(ds_exec_safety=f"{float(ds['safety_ethics']['executives_pct']):.0f}",
-             ds_hn_safety=f"{float(ds['safety_ethics']['hn_anthropic_pct']):.0f}",
-             ds_wp_safety=f"{float(ds['safety_ethics']['wikipedia_pct']):.0f}",
-             ds_sec_cyber=f"{float(ds['cyber']['hn_security_pct']):.0f}")
+
+    def share(t: str, src: str) -> str:  # from counts, rounded as the chart rounds them
+        return f"{100 * int(ds[t][src + '_n']) / int(ds['ai_risk_units'][src + '_n']):.0f}"
+    b.update(ds_exec_safety=share("safety_ethics", "executives"), ds_hn_safety=share("safety_ethics", "hn_anthropic"),
+             ds_wp_safety=share("safety_ethics", "wikipedia"), ds_sec_cyber=share("cyber", "hn_security"))
     cve = table(FIXED["cve_monthly_ai"])
     b.update(cve_claude_total=f"{sum(int(r['n_credit_claude']) for r in cve):,}",
              cve_ai_total=f"{sum(int(r['n_ai_credited']) for r in cve):,}",
