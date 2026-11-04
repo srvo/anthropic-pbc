@@ -71,8 +71,8 @@ the build writes the deck with its stamp. The paper template comes later.
    approved, OPENQUESTIONS Q2).
 2. **Where editions live**: a folder per edition in this repository, git tags
    with release assets, or both.
-3. **Whether the build commits by itself** or leaves a tree for a person to
-   review and commit.
+3. ~~Whether the build commits by itself~~ Decided 2026-11-04: the build is the
+   review step. It writes the working tree; a person reviews the diff and commits.
 4. **How bindings and Descartes claims meet**: whether every binding becomes a
    Descartes claim, or only quotes from outside documents do.
 5. **Where the data lives** when this runs: here, or the Praxis catalog
