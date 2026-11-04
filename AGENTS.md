@@ -16,8 +16,11 @@ its own attribution README.
   how often the source changes, refresh commands, and witness runs. It is a
   Marp deck generated from `corpus/datasets.tsv` and each corpus's
   `MANIFEST.tsv` by `uv run scripts/datasets_md.py`. Never edit it by hand.
-- **`docs/corpus-roadmap.md`** lists what is planned and what is open. Pick up
-  work there.
+- **`docs/corpus-roadmap.md`** lists what is planned. Pick up work there.
+- **`OPENQUESTIONS.md`** holds decisions waiting on someone, with owner and
+  context. Add one whenever your work hits a choice that isn't yours to make.
+- **`PASTEBIN.md`** is a dump for anyone. Ingest it by routing each item to its
+  place and logging where it went (instructions are in the file).
 
 ## Collaborating
 
