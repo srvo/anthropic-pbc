@@ -1156,8 +1156,9 @@ where this paper is most exposed, published as explicit invitations to contest.
 File against any of them — a contest is a record, answered in the open, never
 overwritten.
 
-1. **The mechanism for the future.** The charter governs for "the long-term
-   benefit of humanity," yet the only enforcers are ≥2%/$2M stockholders suing
+1. **The mechanism for the future.** In the Report's words, the charter "is
+   to responsibly develop and maintain advanced AI for the long-term benefit
+   of humanity." Yet the only enforcers are ≥2%/$2M stockholders suing
    derivatively (§367). What lever can the public — or an affected community —
    actually pull? We claim: none. Refute by naming one.
 2. **Partner-reported counts.** We found "129,000" is not in the filing. Which
