@@ -81,97 +81,56 @@ invoke.
 
 > Governance exists so that systems can survive individuals.
 
-I'm publishing this in a personal capacity, to show a set of composable
-governance primitives I've built over the past year as Chief Investment Officer
-at Ethical Capital, a Utah-registered investment adviser. So this is governance
-advice, not investment advice; I hold no direct or indirect position in
-Anthropic, and our screening, our process, and our timestamped analysis of most
-large public companies — the hyperscalers included — are public at ethicic.com.
-A disclosure like that has never satisfied the duty of care I actually feel I
-owe my regulators, my clients, and my community. It leaves the one question that
-matters unanswered: **am I in control of the systems I use to make decisions,
-operate, and balance competing priorities?** You should ask it of anyone — me,
-and Anthropic.
+I'm Chief Investment Officer of Ethical Capital, a Utah-registered investment
+adviser that looks for companies creating unambiguous positive impact and
+aligns capital with them. I can't separate myself from that work, but this is
+not a firm opinion. It is my working paper, put here because it is unfinished
+and open to disagreement. It is governance advice, not investment advice. I hold
+no direct or indirect position in Anthropic; our screening and our timestamped
+analysis of most large public companies, the hyperscalers included, are public
+at ethicic.com.
 
-Ethical Capital identifies companies that create unambiguous positive impact
-and aligns capital with them. A public benefit corporation is the legal form of
-that promise, so the category is ours to care about.
-
-For a long-term investor it isn't optional. Returns materialize over decades, so
-we have to back systems of activity that can survive the loss of any one person;
-and because our ethical criteria are stringent, I care less about correlation
-than about intrinsic alignment — is the thing built, at its core, to do what it
-says? That is exactly what a public benefit corporation is supposed to be. Good
-governance is the kind you can recognize from the outside: you can see how a
-company organizes its operations, and the mindset and values the whole system
-springs from. That is the highest of Donella Meadows' places to intervene in a
-system (her ranking of where a change moves a system, weakest to strongest,
-set out in §6.1), and the one almost no one moves.
-
-Here is a public benefit corporation (PBC):
-[Woodcache](https://www.woodcache.org). **Disclosure: I co-founded Woodcache
-PBC. I am no longer active in the company, and I retain equity in it.** You can
-understand what it does from the website in a minute. The fastest-growing carbon pool in the Mountain West is dead
-trees; they burn, and when they burn they throw off the most dangerous air
-pollution there is. Woodcache buries that biomass and locks the carbon away
-instead — measured and verified end to end under
+A public benefit corporation (PBC) is the legal form of what we look for: a
+company built, at its core, to do what it says. Here is one:
+[Woodcache PBC](https://www.woodcache.org). **Disclosure: I co-founded Woodcache
+PBC. I am no longer active in the company, and I retain equity in it.** Its
+website tells you in a minute what it does. Dead trees are the fastest-growing
+carbon pool in the Mountain West, and when they burn they throw off the most
+dangerous air pollution there is. Woodcache PBC buries them instead. The stored
+carbon is measured and verified end to end under
 [Puro.earth's terrestrial-storage methodology](https://puro.earth/methodologies/terrestrial-storage-of-biomass/),
-with the burial sites themselves permitted and regulated by the State of Colorado
-as landfills. Sit with the disparity: this is a small, directly observable,
-present public benefit, and the scrutiny on it is immense — while the worst case
-is that carbon which would have burned anyway instead sits underground and breaks
-down over a shorter horizon than the academic models predict. The inputs are
-certain, controlled, and governed; the open questions are mostly market demand
-and economics. That is what a real public benefit looks like, and it is the
-opposite of the sexy move — a convoluted machine that turns carbon into money
-through some bleeding-edge, multi-gigawatt feat of engineering, with the benefit
-arriving, supposedly, later. Accumulate power, pour in capital, trust that impact
-shows up someday: that is the model our culture has learned to call "impact," and
-I don't accept it.
+at burial sites the State of Colorado permits and regulates as landfills. Its
+worst case is that carbon which would have burned anyway breaks down
+underground sooner than the academic models predict. Serge Bushman, its
+co-founder and CEO, put it in one line (in conversation with me, 2026-11-04;
+paraphrased): the only thing that can go wrong is that the good things do not
+happen. The scrutiny on it is immense all the same.
 
-Serge Bushman, co-founder and CEO of Woodcache PBC, in conversation with Sloane
-Ortel on 2026-11-04, put its worst case in one line (paraphrased; personal
-communication): the only thing that can go wrong is that the good things do not
-happen.
-
-Figure F0001 sets the two companies side by side. The S-1 it cites is the
-filing Anthropic made to sell its shares to the public (§2).
+Figure F0001 sets Woodcache PBC beside Anthropic. The S-1 is the filing
+Anthropic made to sell its shares to the public (§2).
 
 ![F0001 · Who gets checked: Woodcache PBC: worst case, the good things do not happen; checked by Puro.earth verification end to end and by Colorado landfill regulation. Anthropic PBC: worst case, the serious risks it discloses itself in its S-1 risk factors; checked by its own Public Benefit Report, which its own trust says largely describes inputs.](../edition/figures/F0001-who-gets-checked.svg)
 
-The public-benefit-corporation category is about to balloon when Anthropic lists,
-so it matters, now, to have a way to check whether a benefit claim is actually
-backed by the evidence offered for it. That is what I built. I call it Praxis,
-and I named its parts after philosophers so their jobs are legible: **Descartes**
-verifies the smallest facts it can, with no external input, and signs them; those
-facts accrete into entities and relationships; **Rawls** runs them through a veil
-of ignorance — would you accept this system if you didn't get to choose who you'd
-be inside it? The report below came together largely that way, deterministically,
-with light editorial shaping. It already caught one of my own errors, which is
-the method working, not failing.
-
-Anthropic fails that test in a specific way. The harm is distributed; there is no
-visible feedback loop between the people it lands on now and the people deciding;
-and the structure is a race to be first, in which you cannot help but lose control
-of your effect on others. Set that against Woodcache: a small, observable benefit
-submits to immense scrutiny, while Anthropic proposes to expose the world to
-genuinely serious risks and — rather than cede control of that exposure, even to
-the users already paying for the compute — insists on holding it itself. It treats
-impact the way finance treats money, too: deploy the capital today, clear your
-return in a decade. But impact is not a single currency, and there is no
-reconciliation unless a governance forces one. What follows takes Anthropic at its
-own word — against its own filings and its own Constitution — and checks, byte by
-byte, where the words and the acts diverge.
-
-That is the missed risk: scrutiny runs backwards. The benefit whose worst case
-is that nothing good happens is checked hard; the company whose worst case is
-the serious risks it discloses is checked by its own report. Anthropic's listing
-will make the category much larger.
+That is the missed risk: scrutiny runs backwards. A small, observable benefit
+whose worst case is that nothing good happens is checked hard. Anthropic
+proposes to expose the world to genuinely serious risks, insists on holding
+control of that exposure itself, and is checked by its own report. Accumulate
+power, pour in capital, trust that impact shows up someday: that is the model
+our culture has learned to call "impact," and I don't accept it. Anthropic's
+listing will make the PBC category much larger, so it matters now to be able
+to check whether a benefit claim is backed by the evidence offered for it.
 
 Governance, in its slimmest version, is effective control over your
 surroundings: whether the people a system affects can steer it, and whether it
-survives the loss of any one person. The full premise is a separate Praxis
-paper; this one needs only that much of it.
+survives the loss of any one person. (The full premise is a separate Praxis
+paper.) A disclosure like mine above leaves that question unanswered, so ask it
+of anyone, me and Anthropic included: **am I in control of the systems I use to
+make decisions, operate, and balance competing priorities?**
+
+To check, I built Praxis. **Descartes** verifies the smallest facts it can and
+signs them; **Rawls** runs them through a veil of ignorance: would you accept
+this system if you didn't get to choose who you'd be inside it? It has already
+caught one of my own errors, which is the method working, not failing.
 
 *Therefore* the promise is worth checking.
 
