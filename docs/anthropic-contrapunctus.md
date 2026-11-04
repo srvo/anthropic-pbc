@@ -2,6 +2,16 @@
 
 ### A cryptographically verifiable counterpoint to Anthropic's 2026 Public Benefit Report
 
+<div class="gallery">
+<a href="figures/fig1-verification.svg"><img src="figures/fig1-verification.svg" width="640" alt="51 of 60 quotes verified byte-exact against the PBC Report and S-1; 9 not, including one unsupported number and five compressions."></a>
+<a href="figures/fig2-risk-governance-index.svg"><img src="figures/fig2-risk-governance-index.svg" width="640" alt="Risk–Governance Index v1: 0 of 8 disclosed risks controlled; 5 Uncontrolled, 3 Externalized."></a>
+<a href="figures/fig3-scorecard.svg"><img src="figures/fig3-scorecard.svg" width="640" alt="Governance scorecard, Appendix A: 0 of 10 dimensions held as filed; 4 partial or revocable, 6 absent."></a>
+<a href="figures/fig4-leverage.svg"><img src="figures/fig4-leverage.svg" width="640" alt="Meadows leverage points: Anthropic acts at 12 and 6, declines at 5, 4 and 3, speaks at 2 and 3."></a>
+</div>
+
+*Figures are generated deterministically from the numbers in this paper by
+[`figures/build.py`](figures/build.py); re-run it and you get the same bytes.*
+
 > Governance exists so that systems can survive individuals.
 
 I'm publishing this in a personal capacity, to show a set of composable
@@ -1123,6 +1133,76 @@ Any number above without a link is traceable to the Report or S-1 page/file
 cited at first use; ingestion of each external source into the Descartes
 graph (`claims/`, quote-checked) is the tracked follow-on, and this paper
 should be re-issued with claim ids when that lands.
+
+## Appendix E. Data corpus: the index, run on the S&P 500 *(design; nothing below is ingested yet)*
+
+The [Risk–Governance Index](risk-governance-index.md) joins each risk a company
+discloses to the mechanism that would control it. Nothing in that join is
+specific to Anthropic. Run it on every S&P 500 filer and it answers one
+question: of the risks companies tell investors about, how many have a
+mechanism someone outside management can pull?
+
+Scaling the index from one filer to five hundred forces two changes:
+
+- **A generic mechanism test.** GOV-1…10 are written for an AI lab. Across
+  industries, a mechanism scores one point for each of the five properties §7
+  demands: an **owner** who can pull it, a **metric**, a **trigger**, a
+  **penalty**, and **independence** from management. A 0–5 score splits one
+  broad judgment into five narrow ones, each checkable against a quote.
+- **A fifth status, `Undisclosed`.** A mechanism absent from the filings may
+  exist and simply not be written down. At scale, conflating "no mechanism" with
+  "no disclosed mechanism" would overstate `Uncontrolled` for every filer.
+
+**The three sides of the join.** Sources were confirmed live on 2026-11-03.
+Caveats are the publishers' own.
+
+| Side | Dataset | Publisher | Coverage / access | Caveat |
+|---|---|---|---|---|
+| Risk | [EDGAR full-text search](https://www.sec.gov/edgar/search/) | SEC | Full text of electronic filings since 2001; free | — |
+| Risk | [EDGAR APIs](https://www.sec.gov/search-filings/edgar-application-programming-interfaces) (submissions, XBRL companyfacts / companyconcept / frames) | SEC | Free, no key; nightly bulk ZIPs; 10 requests/second with a declared User-Agent ([fair access](https://www.sec.gov/search-filings/edgar-search-assistance/accessing-edgar-data)) | XBRL carries the dollar exposure that weights each risk |
+| Risk | [EDGAR-CORPUS](https://huggingface.co/datasets/eloukas/edgar-corpus) (Loukas et al., [ECONLP 2021](https://aclanthology.org/2021.econlp-1.2)) | Academic | Annual reports 1993–2020, pre-split by item (incl. 1A) | No formal license; ends 2020, so recent years come from EDGAR directly |
+| Mechanism | Cybersecurity governance, Reg. S-K Item 106 ([Release 33-11216](https://www.sec.gov/rules-regulations/2023/07/s7-09-22)) | SEC | Annual reports for fiscal years ending on or after 2023-12-15 | Mandated governance disclosure for the same risk the filer lists in Item 1A |
+| Mechanism | Clawback policies, Rule 10D-1 ([Release 33-11126](https://www.sec.gov/rules-regulations/2022/10/listing-standards-recovery-erroneously-awarded-compensation)) | SEC | Policy filed as an exhibit to the annual report | A penalty mechanism in standard form: who pulls it, and on what trigger |
+| Mechanism | Proxy statements (DEF 14A): committee charters, compensation metrics | SEC / EDGAR | Free | Owner and independence for most board-level mechanisms |
+| Enforcement | [SEC litigation releases](https://www.sec.gov/enforcement-litigation/litigation-releases) and [AAERs](https://www.sec.gov/enforcement-litigation/accounting-auditing-enforcement-releases) | SEC | Free | The SEC states the AAER list "is not meant to be a complete and exhaustive compilation" |
+| Enforcement | Form 8-K Item 1.05 incident filings | SEC / EDGAR | Since 2023-12-18 | Many incidents are filed under Item 8.01 instead ([Debevoise tracker](https://www.debevoisedatablog.com/2026/05/21/cybersecurity-incident-disclosure-form-8-k-tracker-two-year-update/): 29 under 1.05 vs 50 under 8.01 as of 2026-05-21); filter on both |
+| Enforcement | [Violation Tracker](https://violationtracker.goodjobsfirst.org/) | Good Jobs First | Federal cases since 2000 plus state and local; 700,000+ cases | Downloads are subscriber-only; redistribution terms unconfirmed; excludes penalties under $5,000 |
+| Enforcement | [EPA ECHO](https://echo.epa.gov/tools/data-downloads) | EPA | Free bulk CSV; 1.5M+ facilities | No parent-company key; facility→parent mapping is ours to build |
+| Enforcement | [DOL enforcement data](https://data.dol.gov/) (OSHA, WHD) | DOL | Free; API key | Successor to enforcedata.dol.gov |
+| Enforcement | [CFPB enforcement actions](https://www.consumerfinance.gov/enforcement/actions/) | CFPB | Free | No actions listed after 2025-08-21 |
+| Enforcement | [FTC cases and proceedings](https://www.ftc.gov/legal-library/browse/cases-proceedings) | FTC | Free | — |
+| Enforcement | [CourtListener / RECAP](https://www.courtlistener.com/help/api/bulk-data/) | Free Law Project | Free quarterly bulk snapshots; rate-limited API | — |
+| Enforcement | [Stanford Securities Class Action Clearinghouse](https://securities.stanford.edu/) | Stanford Law / Cornerstone | — | Offline as of 2026-11-03; access terms unconfirmed |
+| Universe | [S&P 500 constituents](https://en.wikipedia.org/wiki/List_of_S%26P_500_companies) and [historical changes](https://en.wikipedia.org/wiki/Historical_components_of_the_S%26P_500) | Wikipedia (CC BY-SA); index owned by S&P DJI | Free | Not authoritative; S&P DJI publishes no free point-in-time list. Pin a revision id: the as-of date is a recorded input, never a sample of the clock |
+
+**The measures.** Each one is computed per risk factor, per filing, so every
+row diffs against the prior year.
+
+- *Coverage ratio.* The share of disclosed risks rated `Controlled`, weighted
+  by materiality (XBRL exposure where one exists).
+- *Externalization.* How often a factor places control outside the company: the
+  industry, the state, third parties, "factors beyond our control."
+- *Hypothetical vs realized.* Risks written as "could" after they have
+  happened. The SEC charged Facebook $100M for presenting data misuse as
+  hypothetical when it "had in fact been misused"
+  ([2019-140](https://www.sec.gov/newsroom/press-releases/2019-140)).
+- *Boilerplate and specificity.* Similarity to the industry centroid and to the
+  firm's prior year ([Cohen, Malloy & Nguyen 2020](https://onlinelibrary.wiley.com/doi/abs/10.1111/jofi.12885)),
+  plus entities, numbers and dates per factor
+  ([Hope, Hu & Lu 2016](https://ideas.repec.org/a/spr/reaccs/v21y2016i4d10.1007_s11142-016-9371-1.html)).
+- *Disclosure lag.* When an enforcement record lands, whether the prior filing
+  disclosed that risk, and how specifically.
+
+**What would falsify it.** If a low coverage ratio does not predict later
+enforcement, incidents or restatements, the index is decoration, and we will
+say so. Every model-assigned rating enters at circle 3, carries a byte-exact
+quote that Descartes checks, and is rated by three independent labelers whose
+disagreement is published (GOV-5, applied to ourselves).
+
+**Pilot.** Cybersecurity first. The risk (Item 1A), the governing mechanism
+(Item 106) and the incident record (8-K Items 1.05 and 8.01) all sit in SEC
+filings, so the join can be tested end to end before it touches messier
+ground.
 
 
 ---
