@@ -2,8 +2,10 @@
 title: AI questions asked by outside questioners on S&P 500 earnings calls
 description: >-
   Every AI question an outside questioner (the method doc's analysts) asked in the Q&A of a unique, non-stub S&P 500 call: the full turn,
-  verbatim, with BLAKE3. Beside it, per call, whether a Q&A was found and how
-  many questioner turns it held, AI or not, as the denominator.
+  identified by id and BLAKE3. Beside it, per call, whether a Q&A was found and how
+  many questioner turns it held, AI or not, as the denominator. The committed
+  table carries no text; `build` writes the same table with each verbatim turn
+  to the gitignored .eccorpus/ai-questions.parquet (scripts/ec_text.py).
 processing: >-
   Takes the unique, non-stub calls of calls.tsv (duplicate_of empty,
   n_paragraphs > 2) and their paragraphs from the pinned source. A speaker key
@@ -16,8 +18,12 @@ processing: >-
   with at least one Q&A turn directly after an Operator turn and at least one
   Q&A turn containing '?'. Every Q&A paragraph by a questioner is a questioner
   turn. The unit keeps turns that match the AI term regex of
-  scripts/ec_extract.py, contain '?', and are at most 3,000 characters. `verify`
-  re-hashes every turn and compares it with the source. Drops non-AI turns,
+  scripts/ec_extract.py, contain '?', and are at most 3,000 characters. Writes
+  the table with text to .eccorpus/ai-questions.parquet (byte-identical to the
+  table committed before 2026-11-04, whose BLAKE3 the witness run records cite)
+  and without text to this folder. `verify` reads every turn again from the
+  pinned source and checks its BLAKE3, length and question_id, and checks the
+  local text table, when built. Drops non-AI turns,
   AI turns without '?', and turns over 3,000 characters (the code notes these
   are mostly mis-attributed remarks); all are still counted in
   question-calls.tsv.
@@ -44,8 +50,8 @@ license:
 status: held
 tables:
   corpus/earnings-calls/ai-questions.parquet:
-    title: "AI questions, verbatim"
-    description: "One row per AI question, sorted by symbol, fiscal_year, fiscal_quarter, paragraph_number."
+    title: "AI questions, by id and hash"
+    description: "One row per AI question, sorted by symbol, fiscal_year, fiscal_quarter, paragraph_number. No text: the turn is in .eccorpus/ai-questions.parquet after `build` (joined on question_id), or in the pinned source."
     primary_key: [question_id]
     columns:
       "question_id":
@@ -74,16 +80,12 @@ tables:
         verbatim: true
       "turn_blake3":
         type: string
-        description: "BLAKE3 of text."
-        hash_of: "text, UTF-8"
+        description: "BLAKE3 of the full turn, the source paragraph content (text not stored here)."
+        hash_of: "the turn text, UTF-8"
       "n_chars":
         type: integer
         unit: characters
-        description: "Length of text in Python string characters (at most 3,000)."
-      "text":
-        type: string
-        description: "The full turn, verbatim from the source paragraph content."
-        verbatim: true
+        description: "Length of the turn in Python string characters (at most 3,000)."
   corpus/earnings-calls/question-calls.tsv:
     title: "Questioner turns per call (question denominator)"
     description: "One row per unique, non-stub S&P 500 call, sorted by symbol, fiscal_year, fiscal_quarter."

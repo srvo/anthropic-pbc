@@ -29,10 +29,12 @@ Every questioner turn in an S&P call is counted for the denominator, AI or
 not, so "share of analyst questions that are about AI" has a base.
 
     uv run scripts/ec_questions.py build     # writes corpus/earnings-calls/ai-questions.parquet + question-calls.tsv
-    uv run scripts/ec_questions.py verify    # re-hashes every stored turn
+    uv run scripts/ec_questions.py verify    # re-reads every turn from the pinned source and re-hashes it
 
-Text is verbatim: the full turn, with BLAKE3 of the turn. Requires the pinned
-source parquet in .eccorpus/ (scripts/ec_extract.py fetch).
+The committed table holds ids, metadata and the BLAKE3 of each full turn, never
+the text; the same table with the verbatim turn is written to the gitignored
+.eccorpus/ai-questions.parquet (scripts/ec_text.py). Requires the pinned source
+parquet in .eccorpus/ (scripts/ec_extract.py fetch).
 """
 
 from __future__ import annotations
@@ -45,9 +47,11 @@ import duckdb
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import ec_extract as ex  # noqa: E402  (TERMS / ANY regex, source path, corpus dir)
+import ec_text as ect  # noqa: E402  (committed table vs local text)
 
 CORPUS = ex.CORPUS
-OUT_Q = CORPUS / "ai-questions.parquet"
+OUT_Q = ect.QUESTIONS          # committed: ids, metadata, BLAKE3; no text
+OUT_Q_TEXT = ect.QUESTIONS_TEXT  # gitignored .eccorpus/: the same table with the turn text
 OUT_CALLS = CORPUS / "question-calls.tsv"
 MAX_CHARS = 3000  # 99th percentile of AI questioner turns is ~3,300; longer turns are mostly mis-attributed remarks
 QA_START = (r"(?i)(first question|question-and-answer|question and answer|\bq ?& ?a\b|"
@@ -127,8 +131,11 @@ def cmd_build() -> int:
     con.executemany("INSERT INTO q VALUES (?,?,?,?,?,?,?,?,?,?)", out)
     if con.execute("SELECT count(*) - count(DISTINCT question_id) FROM q").fetchone()[0]:
         sys.exit("question_id collision")
-    con.execute(f"COPY (SELECT * FROM q ORDER BY symbol, fiscal_year, fiscal_quarter, paragraph_number) "
-                f"TO '{OUT_Q}' (FORMAT parquet, COMPRESSION zstd, ROW_GROUP_SIZE 8192)")
+    order, opts = "ORDER BY symbol, fiscal_year, fiscal_quarter, paragraph_number", \
+        "(FORMAT parquet, COMPRESSION zstd, ROW_GROUP_SIZE 8192)"
+    ex.BULK.mkdir(exist_ok=True)
+    con.execute(f"COPY (SELECT * FROM q {order}) TO '{OUT_Q_TEXT}' {opts}")
+    con.execute(f"COPY (SELECT * EXCLUDE (text) FROM q {order}) TO '{OUT_Q}' {opts}")
     con.execute(f"""
       COPY (SELECT c.symbol, c.fiscal_year, c.fiscal_quarter, qa.qa_pn IS NOT NULL AS qa_found,
                    count(DISTINCT qn.speaker) AS n_questioners,
@@ -146,24 +153,27 @@ def cmd_build() -> int:
 
 
 def cmd_verify() -> int:
+    """Re-read every question turn from the pinned source and re-hash it (the committed table
+    carries no text), then check the local text table, if built, against the same hashes."""
     con = duckdb.connect()
-    src = ex.source_path()
-    con.execute(f"CREATE VIEW src AS SELECT * FROM '{src}'")
+    con.execute("SET threads=8")
     con.execute(f"CREATE TABLE q AS SELECT * FROM '{OUT_Q}'")
+    text = ex.source_paragraphs(con, "q")
     bad = 0
-    for qid, sym, fy, fq, pn, tb, text in con.execute(
-            "SELECT question_id, symbol, fiscal_year, fiscal_quarter, paragraph_number, turn_blake3, text FROM q").fetchall():
-        if b3(text) != tb or b3(f"q|{sym}|{fy}|{fq}|{pn}|{tb}")[:16] != qid:
+    for qid, sym, fy, fq, pn, tb, n in con.execute(
+            "SELECT question_id, symbol, fiscal_year, fiscal_quarter, paragraph_number, turn_blake3, n_chars FROM q").fetchall():
+        t = text.get((sym, fy, fq, pn))
+        if t is None or b3(t) != tb or len(t) != n or b3(f"q|{sym}|{fy}|{fq}|{pn}|{tb}")[:16] != qid:
             bad += 1
-    src_bad = con.execute("""
-      SELECT count(*) FROM q LEFT JOIN (
-        SELECT s.symbol, s.fiscal_year, s.fiscal_quarter, t.paragraph_number, t.content
-        FROM src s SEMI JOIN q USING (symbol, fiscal_year, fiscal_quarter),
-             LATERAL (SELECT unnest(s.transcripts, recursive := true)) t) x
-      USING (symbol, fiscal_year, fiscal_quarter, paragraph_number)
-      WHERE x.content IS DISTINCT FROM q.text""").fetchone()[0]
-    print(f"verify: {bad} hash mismatches, {src_bad} turns differing from source")
-    return 1 if bad or src_bad else 0
+    local = "not built"
+    if OUT_Q_TEXT.exists():
+        lb = con.execute(f"""SELECT count(*) FROM q FULL JOIN '{OUT_Q_TEXT}' x USING (question_id)
+                             WHERE x.turn_blake3 IS DISTINCT FROM q.turn_blake3""").fetchone()[0]
+        lb += sum(b3(t) != tb for tb, t in con.execute(f"SELECT turn_blake3, text FROM '{OUT_Q_TEXT}'").fetchall())
+        local, bad = f"{lb} bad", bad + lb
+    print(f"verify: {con.execute('SELECT count(*) FROM q').fetchone()[0]} questions re-read from the pinned source, "
+          f"{bad} mismatches; local text table {local}")
+    return 1 if bad else 0
 
 
 def main() -> int:

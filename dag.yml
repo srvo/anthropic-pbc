@@ -23,7 +23,9 @@
 #
 # Paths are unchanged from before the graph existed; the URI names a step and
 # `outputs` says where it writes. `cmd` records the command that produced the
-# committed bytes. Witness steps ran through the Modal wrapper (bf16, L40S, per
+# committed bytes. Earnings-call text is not committed: units with text live in the
+# gitignored .eccorpus/ (scripts/ec_text.py), rebuilt by the meadow steps, as Hacker
+# News units live in .hncorpus/. Witness steps ran through the Modal wrapper (bf16, L40S, per
 # each run-*.json). Any backend can run the same scoring (scripts/ec_classify.py,
 # AGENTS.md "Compute"), but its scores carry its own backend tag and will not be
 # byte-identical: bf16 varies with hardware and batch composition
@@ -68,11 +70,13 @@ steps:
   data://meadow/earnings_calls/2026-11-04/ai_windows:
     meta: corpus/earnings-calls/ai_windows.meta.yml
     cmd: uv run scripts/ec_extract.py build
+    inputs: [scripts/ec_text.py]
     deps: [snapshot://defeatbeta/2026-11-04/stock_earning_call_transcripts, snapshot://wikipedia/2026-10-27/sp500_constituents]
     outputs: [corpus/earnings-calls/calls.tsv, corpus/earnings-calls/ai-paragraphs.parquet, corpus/earnings-calls/ai-windows.parquet]
   data://meadow/earnings_calls/2026-11-04/ai_questions:
     meta: corpus/earnings-calls/ai_questions.meta.yml
     cmd: uv run scripts/ec_questions.py build
+    inputs: [scripts/ec_extract.py, scripts/ec_text.py]
     deps: [snapshot://defeatbeta/2026-11-04/stock_earning_call_transcripts, data://meadow/earnings_calls/2026-11-04/ai_windows]
     outputs: [corpus/earnings-calls/ai-questions.parquet, corpus/earnings-calls/question-calls.tsv]
   data://witness/earnings_calls/2026-11-04/codebook_v0_1:
@@ -84,7 +88,7 @@ steps:
               proposals/earnings-calls/codebook-v0.1/run-deberta.json, proposals/earnings-calls/codebook-v0.1/run-modernbert.json]
   data://witness/earnings_calls/2026-11-04/codebook_questions_v0_1:
     meta: proposals/earnings-calls/codebook-questions-v0.1/codebook_questions_v0_1.meta.yml
-    cmd: uvx --with duckdb==2.0.0 --with blake3 modal run scripts/ec_classify_modal.py --model deberta --units corpus/earnings-calls/ai-questions.parquet --codebook corpus/earnings-calls/codebook-questions-v0.1.tsv --id-col question_id && uvx --with duckdb==2.0.0 --with blake3 modal run scripts/ec_classify_modal.py --model modernbert --units corpus/earnings-calls/ai-questions.parquet --codebook corpus/earnings-calls/codebook-questions-v0.1.tsv --id-col question_id
+    cmd: uvx --with duckdb==2.0.0 --with blake3 modal run scripts/ec_classify_modal.py --model deberta --units .eccorpus/ai-questions.parquet --codebook corpus/earnings-calls/codebook-questions-v0.1.tsv --id-col question_id && uvx --with duckdb==2.0.0 --with blake3 modal run scripts/ec_classify_modal.py --model modernbert --units .eccorpus/ai-questions.parquet --codebook corpus/earnings-calls/codebook-questions-v0.1.tsv --id-col question_id
     deps: [data://meadow/earnings_calls/2026-11-04/ai_questions, snapshot://ethicalcapital/v0.1/codebook_questions]
     inputs: [scripts/ec_classify.py]
     outputs: [proposals/earnings-calls/codebook-questions-v0.1/deberta.parquet, proposals/earnings-calls/codebook-questions-v0.1/modernbert.parquet,
@@ -92,6 +96,7 @@ steps:
   data://witness/earnings_calls/2026-11-04/topics_v0_1:
     meta: proposals/earnings-calls/topics-v0.1/topics_v0_1.meta.yml
     cmd: uv run scripts/ec_topics.py
+    inputs: [scripts/ec_text.py]
     deps: [data://meadow/earnings_calls/2026-11-04/ai_windows]
     outputs: [proposals/earnings-calls/topics-v0.1/assignments.parquet, proposals/earnings-calls/topics-v0.1/by-year.tsv,
               proposals/earnings-calls/topics-v0.1/run.json, proposals/earnings-calls/topics-v0.1/topics.tsv]
@@ -105,6 +110,7 @@ steps:
   data://witness/earnings_calls/2026-11-04/ai_risk_series:
     meta: proposals/earnings-calls/codebook-v0.1/report/ai_risk_series.meta.yml
     cmd: uv run scripts/ec_risk_series.py
+    inputs: [scripts/ec_text.py]
     deps: [data://witness/earnings_calls/2026-11-04/codebook_v0_1, data://meadow/earnings_calls/2026-11-04/ai_windows]
     outputs: [proposals/earnings-calls/codebook-v0.1/report/ai-risk-by-year.tsv, proposals/earnings-calls/codebook-v0.1/report/ai-risk-by-year.svg,
               proposals/earnings-calls/codebook-v0.1/report/risk-ranking-ttm.tsv, proposals/earnings-calls/codebook-v0.1/report/risk-ranking-ttm.svg,
@@ -112,6 +118,7 @@ steps:
   data://witness/earnings_calls/2026-11-04/question_report:
     meta: proposals/earnings-calls/codebook-questions-v0.1/report/question_report.meta.yml
     cmd: uv run scripts/ec_question_report.py
+    inputs: [scripts/ec_text.py]
     deps: [data://witness/earnings_calls/2026-11-04/codebook_questions_v0_1, data://meadow/earnings_calls/2026-11-04/ai_questions]
     outputs: [proposals/earnings-calls/codebook-questions-v0.1/report/agreement.tsv, proposals/earnings-calls/codebook-questions-v0.1/report/by-year.tsv,
               proposals/earnings-calls/codebook-questions-v0.1/report/ttm.tsv, proposals/earnings-calls/codebook-questions-v0.1/report/oversight-questions.tsv,
@@ -119,6 +126,7 @@ steps:
   data://garden/earnings_calls/2026-11-04/gold_samples:
     meta: gold/earnings-calls/gold_samples.meta.yml
     cmd: uv run scripts/ec_gold.py sample && uv run scripts/ec_gold.py --set questions sample
+    inputs: [scripts/ec_text.py]
     deps: [data://witness/earnings_calls/2026-11-04/codebook_v0_1, data://witness/earnings_calls/2026-11-04/codebook_questions_v0_1]
     outputs: [gold/earnings-calls/codebook-v0.1/sample.tsv, gold/earnings-calls/codebook-questions-v0.1/sample.tsv]
 
@@ -178,13 +186,13 @@ steps:
     outputs: [corpus/codebooks/codebook-v0.2-draft.tsv]
   data://witness/earnings_calls/2026-11-04/codebook_v0_2_draft:
     meta: proposals/earnings-calls/codebook-v0.2-draft/codebook_v0_2_draft.meta.yml
-    cmd: uvx --with duckdb==2.0.0 --with blake3 modal run scripts/ec_classify_modal.py --model deberta --codebook corpus/codebooks/codebook-v0.2-draft.tsv --units corpus/earnings-calls/ai-windows.parquet --out proposals/earnings-calls/codebook-v0.2-draft && uvx --with duckdb==2.0.0 --with blake3 modal run scripts/ec_classify_modal.py --model modernbert --codebook corpus/codebooks/codebook-v0.2-draft.tsv --units corpus/earnings-calls/ai-windows.parquet --out proposals/earnings-calls/codebook-v0.2-draft
+    cmd: uvx --with duckdb==2.0.0 --with blake3 modal run scripts/ec_classify_modal.py --model deberta --codebook corpus/codebooks/codebook-v0.2-draft.tsv --units .eccorpus/ai-windows.parquet --out proposals/earnings-calls/codebook-v0.2-draft && uvx --with duckdb==2.0.0 --with blake3 modal run scripts/ec_classify_modal.py --model modernbert --codebook corpus/codebooks/codebook-v0.2-draft.tsv --units .eccorpus/ai-windows.parquet --out proposals/earnings-calls/codebook-v0.2-draft
     deps: [data://meadow/earnings_calls/2026-11-04/ai_windows, snapshot://ethicalcapital/v0.2-draft/codebook]
     inputs: [scripts/ec_classify.py]
     outputs: [proposals/earnings-calls/codebook-v0.2-draft/deberta.parquet, proposals/earnings-calls/codebook-v0.2-draft/modernbert.parquet, proposals/earnings-calls/codebook-v0.2-draft/run-deberta.json, proposals/earnings-calls/codebook-v0.2-draft/run-modernbert.json]
   data://witness/earnings_calls/2026-11-04/codebook_questions_v0_2_draft:
     meta: proposals/earnings-calls/codebook-v0.2-draft-questions/codebook_questions_v0_2_draft.meta.yml
-    cmd: uvx --with duckdb==2.0.0 --with blake3 modal run scripts/ec_classify_modal.py --model deberta --codebook corpus/codebooks/codebook-v0.2-draft.tsv --units corpus/earnings-calls/ai-questions.parquet --out proposals/earnings-calls/codebook-v0.2-draft-questions --id-col question_id && uvx --with duckdb==2.0.0 --with blake3 modal run scripts/ec_classify_modal.py --model modernbert --codebook corpus/codebooks/codebook-v0.2-draft.tsv --units corpus/earnings-calls/ai-questions.parquet --out proposals/earnings-calls/codebook-v0.2-draft-questions --id-col question_id
+    cmd: uvx --with duckdb==2.0.0 --with blake3 modal run scripts/ec_classify_modal.py --model deberta --codebook corpus/codebooks/codebook-v0.2-draft.tsv --units .eccorpus/ai-questions.parquet --out proposals/earnings-calls/codebook-v0.2-draft-questions --id-col question_id && uvx --with duckdb==2.0.0 --with blake3 modal run scripts/ec_classify_modal.py --model modernbert --codebook corpus/codebooks/codebook-v0.2-draft.tsv --units .eccorpus/ai-questions.parquet --out proposals/earnings-calls/codebook-v0.2-draft-questions --id-col question_id
     deps: [data://meadow/earnings_calls/2026-11-04/ai_questions, snapshot://ethicalcapital/v0.2-draft/codebook]
     inputs: [scripts/ec_classify.py]
     outputs: [proposals/earnings-calls/codebook-v0.2-draft-questions/deberta.parquet, proposals/earnings-calls/codebook-v0.2-draft-questions/modernbert.parquet, proposals/earnings-calls/codebook-v0.2-draft-questions/run-deberta.json, proposals/earnings-calls/codebook-v0.2-draft-questions/run-modernbert.json]

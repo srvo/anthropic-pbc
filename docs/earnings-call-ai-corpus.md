@@ -2,9 +2,10 @@
 
 ### What S&P 500 companies say about AI on their calls, and how the repository reads it
 
-**Status: corpus HELD as verbatim text; model output is WITNESS ONLY.** The
-corpus files are deterministic extractions that `verify` re-checks byte for
-byte. Every model score in `proposals/` is a proposal under
+**Status: corpus HELD as byte anchors into verbatim text; model output is
+WITNESS ONLY.** The corpus files are deterministic extractions that `verify`
+re-checks byte for byte against the pinned source. The repository commits ids,
+offsets and hashes, not the transcripts (§2a). Every model score in `proposals/` is a proposal under
 [`bert-enrichment-spec.md`](bert-enrichment-spec.md) §5. It is not a verdict
 or a finding, and it is not evidence that any risk materialised.
 
@@ -45,11 +46,40 @@ are merged. A merged window longer than 1,500 characters (a run-on transcript
 match, snapped to spaces. Pieces around nearby matches merge, so a clipped
 window can still exceed 1,500 characters: 856 of 38,600 do, the longest 7,894. Each window is stored as
 `[start_char, end_char)` of its paragraph, with BLAKE3 of both. `verify`
-re-slices every window and re-hashes it.
+reads every paragraph again from the pinned source, re-slices every window
+from it, and re-hashes both.
 
 The source paragraph is the wrong unit. Its median is about 900 characters,
 but its 90th percentile is about 8,700 and its maximum about 56,000, because
 whole prepared remarks are stored as one paragraph.
+
+## 2a. What is committed, and what is not
+
+Quotes from the calls may be published; whole transcripts and the whole corpus
+may not (maintainer decision, 2026-11-04). The principle is permacomputing:
+keep everything as small as it needs to be. So the repository is split in
+two, as the Hacker News corpus is:
+
+- **Committed** (`corpus/earnings-calls/`): `ai-paragraphs.parquet`,
+  `ai-windows.parquet` and `ai-questions.parquet` hold ids, symbol, fiscal
+  period, report date, paragraph number, speaker and role, the
+  `[start_char, end_char)` offsets, and BLAKE3 hashes. They hold no text.
+  Speaker names stay: they are executives and analysts speaking on public
+  calls, and the reports name who said what.
+- **Not committed** (the gitignored `.eccorpus/`): the same three tables with
+  their text, written by `ec_extract.py build` and `ec_questions.py build`
+  from the pinned source. They are byte-identical to the tables committed
+  before 2026-11-04, so the `windows_blake3` in every witness `run-*.json`
+  names a file anyone can rebuild (the `windows` path in those records is the
+  old committed path). `scripts/ec_text.py` says where each file lives;
+  scripts read metadata from the committed table and text from `.eccorpus/`,
+  joined by id.
+- **Quotes stay committed.** The short outputs a reader needs to check a
+  claim carry their text: `risk-quotes-ttm.tsv`, `oversight-questions.tsv`,
+  the gold samples in `gold/earnings-calls/*/sample.tsv`, and the deck quotes.
+
+Git history before this change still holds the old full-text tables; whether
+to rewrite it is the maintainer's decision, not made here.
 
 ## 3. Term match
 
@@ -113,7 +143,7 @@ own count and Cohen's κ between them are reported beside it
 pinned revision, UMAP with seed 42, and HDBSCAN with a minimum cluster size of
 60. It is a reading aid for choosing what to hand-code next. Spec §9 bars
 clusters and embeddings as evidence, so no topic is cited as a finding. Every
-topic lists window ids that resolve to verbatim text.
+topic lists window ids that resolve to verbatim text after a rebuild (§2a).
 
 ## 7. What this corpus does not answer
 
@@ -135,7 +165,8 @@ topic lists window ids that resolve to verbatim text.
 ## 8. Rebuild
 
     uv run scripts/ec_extract.py fetch && uv run scripts/ec_extract.py constituents
-    uv run scripts/ec_extract.py build            # verifies on completion
+    uv run scripts/ec_extract.py build            # committed tables + .eccorpus/ text; verifies on completion
+    uv run scripts/ec_extract.py verify           # re-slice every window from the pinned source
     # witnesses: Modal GPUs (default), or locally with scripts/ec_classify.py
     uvx --with duckdb==2.0.0 --with blake3 modal run scripts/ec_classify_modal.py --model deberta
     uvx --with duckdb==2.0.0 --with blake3 modal run scripts/ec_classify_modal.py --model modernbert
@@ -143,9 +174,9 @@ topic lists window ids that resolve to verbatim text.
     uv run scripts/ec_risk_series.py              # AI-as-risk time series, 12-month ranking, verbatim quotes
     uv run scripts/ec_topics.py
     # analyst questions (§10)
-    uv run scripts/ec_questions.py build
+    uv run scripts/ec_questions.py build          # committed table + .eccorpus/ai-questions.parquet
     uvx --with duckdb==2.0.0 --with blake3 modal run scripts/ec_classify_modal.py --model deberta \
-        --units corpus/earnings-calls/ai-questions.parquet \
+        --units .eccorpus/ai-questions.parquet \
         --codebook corpus/earnings-calls/codebook-questions-v0.1.tsv --id-col question_id
     # ...the same with --model modernbert, then:
     uv run scripts/ec_question_report.py

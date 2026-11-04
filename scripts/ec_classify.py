@@ -30,7 +30,9 @@ Several machines can split one run: --workers N --worker i on each, gather
 the shard files, then --merge-only.
 
 Inputs and model weights are pinned (window file BLAKE3, codebook BLAKE3, HF
-model revision). Output: proposals/earnings-calls/<codebook>/<model>.parquet,
+model revision). Unit files carry text and live in the gitignored .eccorpus/ or
+.hncorpus/; the earnings-call ones are rebuilt by scripts/ec_extract.py build and
+scripts/ec_questions.py build. Output: proposals/earnings-calls/<codebook>/<model>.parquet,
 long format (window_id, hypothesis_id, p_entail), plus run-<model>.json with
 every pin and the software/device used. No clock enters either file.
 Shards are tagged by model, dtype and backend, so runs on different precision
@@ -53,7 +55,12 @@ import duckdb
 
 ROOT = Path(__file__).resolve().parent.parent
 CORPUS = ROOT / "corpus" / "earnings-calls"
-WINDOWS = CORPUS / "ai-windows.parquet"
+# Units carry text, so they are local: the full window table that scripts/ec_extract.py build
+# writes to the gitignored .eccorpus/ (scripts/ec_text.py). Its bytes, and so the BLAKE3 in
+# every run-*.json, are those of the table committed as corpus/earnings-calls/ai-windows.parquet
+# before the text came out of the repository. Spelled out here, not imported, because the
+# Modal image ships this module alone.
+WINDOWS = ROOT / ".eccorpus" / "ai-windows.parquet"
 CODEBOOK = CORPUS / "codebook-v0.1.tsv"
 OUT = ROOT / "proposals" / "earnings-calls" / "codebook-v0.1"
 SHARDS = ROOT / ".eccorpus" / "shards"
