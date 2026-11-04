@@ -1074,7 +1074,7 @@ own limits — §8.2).
 | # | Mechanism | Trigger (who pulls) | Metric | Penalty on fire |
 |---|---|---|---|---|
 | GOV-1 | **Doubt-first replication gate** — no capability/safety/productivity claim ships until an accredited external evaluator reproduces it | Evaluator (METR-type, regulator-accredited, paid from escrow not fees-for-pass) | Reproduced effect + CI vs claim | Release and claim **blocked**; S-1-style restatement if already public |
-| GOV-2 | **Existence ≠ entailment registry** — every benefit claim filed as (quote/source exists) vs (outcome entailed, measured) | Auditor; any investor can query | % of public claims with measured outcome; LTBT "inputs→outcomes" made numeric | Exec comp escrow until outcome rate clears a floor; corrections as new filings, never edits |
+| GOV-2 | **Existence ≠ entailment registry** — every benefit claim filed as (quote/source exists) vs (outcome entailed, measured) | Auditor; any investor can query | % of public claims with measured outcome; LTBT inputs-to-outcomes standard made numeric | Exec comp escrow until outcome rate clears a floor; corrections as new filings, never edits |
 | GOV-3 | **Circle labelling** — public claims tagged circle 0 artifact → 4 human attestation, with per-stage loss | Auditor downgrade | Overstated/unlabelled claims count | Per-claim marketing prohibition + fine; Glasswing/80% figures could not print above circle 3 today |
 | GOV-4 | **Contest standing (`against`)** — cure §365/367 by charter: purpose-trust enforcer + affected-person/class contest with equal visibility | Named subject, author class, host community, worker cohort | Contests unresolved >90 days | Injunction on the contested use + victim-fund payout; P13 built, not promised |
 | GOV-5 | **Frameworks-as-data** — ≥3 external evaluation frameworks rate the same evidence; divergence published | Framework divergence > threshold | Inter-framework gap | Board supermajority incl. non-founder, non-LTBT-appointed seats to proceed |
@@ -1090,9 +1090,9 @@ language — sunset, removal %, enforcer standing — and read the shares as
 controlled-company stock until changed (a disclosure instruction, not a valuation view). (2) Quantify the 5–7% in dollars
 per quarter going forward with auditor attestation (GOV-9). (3) Publish
 site-level power/water commitments behind the $895.4B schedule (GOV-10).
-(4) Convert the 5% Fund from wholly-owned subsidiary to independently
-trustee'd vehicle with non-Anthropic enforcer, or stop calling it
-"separate." (5) Restate flagship benefit numbers under GOV-2/GOV-3
+(4) Convert the 5% Fund from wholly owned subsidiary to an independently
+trustee'd vehicle with a non-Anthropic enforcer, so that the "separate
+entity" the LTBT describes is separate in control as well as in law. (5) Restate flagship benefit numbers under GOV-2/GOV-3
 labelling in the next amendment. None of these slows a safe frontier.
 All of them slow an *unverifiable* one — which is the Report's own stated
 preference ("pace the frontier," Sept 2026).
