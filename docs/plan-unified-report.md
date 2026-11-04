@@ -60,8 +60,11 @@ never "this happened, and then this happened", always "this happened, *therefore
 this happened, *but* then this happened". It is the buzz-saw logical chain made
 structural.
 
-- **Root.** One inciting fact the chain starts from (Sloane chooses it; see
-  decision 9).
+- **Root.** The chain starts from an open question, not a fact: **is
+  Anthropic a public benefit corporation?** (decided by Sloane, 2026-11-04).
+  It keeps the kind *open question* until the chain answers it. Every link
+  after it is a step toward the answer, and the Bottom line states the answer
+  the chain reaches, with its status.
 - **Links.** Every step from one claim to the next is a `therefore` (it follows
   because of the one before) or a `but` (it complicates or reverses the one
   before). There is no third kind: a step that is only "and then" is not an
@@ -199,6 +202,5 @@ linked by locator.
    it out (its content hash is unsealed). Recommendation: (a), status as
    written there, marked unsealed.
 
-9. **The root.** What kicked it off: the one fact the chain starts from (for
-   example Anthropic's choice to be a public benefit corporation, or a specific
-   charter or filing event). Sloane's call; the plan does not presume it.
+9. **The root.** Answered by Sloane, 2026-11-04: the chain starts from the
+   open question "Is Anthropic a public benefit corporation?" (§2a).
