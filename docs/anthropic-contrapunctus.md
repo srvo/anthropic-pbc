@@ -62,11 +62,14 @@ cannot. The trust can be amended away by the shareholders it is meant to
 check, and seven co-founders control 50.1% of the vote. If only a few people can
 steer this technology safely, the governance must survive them; this one
 depends on them. So the promise rests on
-Anthropic's word, and we take Anthropic at the deepest word it has given:
-the Constitution it wrote to set Claude's values. That document counts
-selective emphasis as deception and names Anthropic itself as a possible
-violator. Anthropic's Public Benefit Report does what it forbids: it
-reports inputs as outcomes and grades itself, and its own trust says so.
+Anthropic's word. Anthropic manages a Claude it cannot fully verify; the
+public has to manage an Anthropic it cannot fully verify. The Constitution
+Anthropic wrote to set Claude's values shows how it chose to govern such an
+agent, so we read it as a lens, not as a rule that binds Anthropic. It
+counts selective emphasis as deception. By the standard Anthropic set for
+Claude, its Public Benefit Report's selective emphasis would count as
+deception: it reports inputs as outcomes and grades itself, and its own
+trust says it largely describes inputs.
 On a like-for-like standard of proof, its harms are documented and priced;
 its benefits are mostly anecdote. Therefore Anthropic is a public benefit
 corporation in law, and not in the sense the category promises: no one it
