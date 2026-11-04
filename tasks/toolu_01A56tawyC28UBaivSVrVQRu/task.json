@@ -1,0 +1,15 @@
+{
+  "tool_use_id": "toolu_01A56tawyC28UBaivSVrVQRu",
+  "agent_id": "a4711b97454eebf30",
+  "subagent_type": "general-purpose",
+  "task_description": "Fix docs and hygiene review findings",
+  "token_usage": {
+    "input_tokens": 126,
+    "cache_creation_tokens": 162129,
+    "cache_read_tokens": 7398863,
+    "output_tokens": 32156,
+    "api_call_count": 62
+  },
+  "started_at": "2026-11-04T13:26:39.279763-07:00",
+  "completed_at": "2026-11-04T13:35:58.205098-07:00"
+}
