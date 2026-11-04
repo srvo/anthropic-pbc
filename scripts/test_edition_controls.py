@@ -9,6 +9,9 @@
 # ///
 """Negative tests: each display control in build_edition.py must fail on a bad input.
 
+Templates here follow the report template (edition/report.template.md): Praxis research front matter,
+then the eight research sections, which the build requires in order.
+
     uv run scripts/test_edition_controls.py
 
 Nothing in the repository is written: templates are temporary files, charts go to
@@ -50,7 +53,7 @@ def build_with(template: str) -> be.Build:
     b.reg.put("q_ok", "33,000+", source="test", how="test")
     b.reg.put("n", "137", source="test", how="test")
     with tempfile.NamedTemporaryFile("w", suffix=".md", delete=False) as f:
-        f.write(template)
+        f.write(template + SECTIONS_MD)
     old = be.TEMPLATE
     be.TEMPLATE = Path(f.name)
     try:
@@ -60,7 +63,8 @@ def build_with(template: str) -> be.Build:
     return b
 
 
-FM = "---\nmarp: true\nsize: 16:9\n---\n\n"
+FM = "---\ntitle: \"t\"\ntemplate: research\npresentation: praxis\npublisher: praxis\n---\n\n"
+SECTIONS_MD = "".join(f"\n## {s}\n" for s in be.SECTIONS)
 
 # 1-2. exact inputs and one rounding rule
 display.selftest()
@@ -109,25 +113,33 @@ b.compose("c", "{a} and 13", source="t", how="t")
 expect("composite binding with a hand-typed numeral fails", any("binding c" in e and "13" in e for e in b.errs))
 
 # 5 (M3). every channel that ships is checked
-b = build_with(FM + "<!-- presenter note: 42 firms -->\n")
-expect("numeral in an HTML comment (presenter note) fails", any("['42']" in e for e in b.errs))
-b = build_with(FM + "![w:900 chart of 42 firms](deck/x.svg)\n")
+b = build_with(FM + "<!-- note: 42 firms -->\n")
+expect("numeral in an HTML comment fails", any("['42']" in e for e in b.errs))
+b = build_with(FM + "![chart of 42 firms](x.svg)\n")
 expect("numeral in image alt text fails", any("['42']" in e for e in b.errs))
-b = build_with(FM + "![w:900](deck/x.svg)\n")
+b = build_with(FM + "![](x.svg)\n")
 expect("chart image without alt text fails (Q23)", any("alt binding" in e for e in b.errs))
 b = be.Build("v0.2-draft")
 b.reg.put("n", "137", source="t", how="t")
 b.compose("alt_x", "Bar chart: {n} firms.", source="t", how="t")
 with tempfile.NamedTemporaryFile("w", suffix=".md", delete=False) as f:
-    f.write(FM + "![w:900 h:400 {{alt_x}}](deck/x2.svg)\n")
+    f.write(FM + "![{{alt_x}}](x2.svg)\n" + SECTIONS_MD)
 old_t, be.TEMPLATE = be.TEMPLATE, Path(f.name)
 try:
     b.render("0" * 40)
 finally:
     be.TEMPLATE = old_t
-expect("image size keywords and a bound alt pass", not b.errs)
-b = build_with('---\nmarp: true\ntitle: "Top 42 risks"\nsize: 16:9\n---\n\nx\n')
+expect("a bound alt passes", not b.errs)
+b = build_with(FM + "Some text, then ![chart, alt bound](x.svg)\n")
+expect("inline image with unbound alt text fails", any("alt binding" in e for e in b.errs))
+b = build_with('---\ntitle: "Top 42 risks"\ntemplate: research\n---\n\nx\n')
 expect("numeral in the front-matter title fails", any("['42']" in e for e in b.errs))
+b = build_with('---\ntitle: "t"\ndate: "2026-11-04"\n---\n\nx\n')
+expect("hand-typed front-matter date fails", any("['2026-11-04']" in e for e in b.errs))
+b = build_with('---\ntitle: "t"\ndate: "{{as_of}}"\nrevision: "DRAFT, revision 3"\n---\n\nx\n')
+expect("numeral in the front-matter revision fails", any("['3']" in e for e in b.errs))
+b = build_with('---\ntitle: "t"\ntoc_depth: 0\n---\n\nx\n')
+expect("layout front matter (toc_depth) is not shipped text", not b.errs)
 for svg, what in (("<svg><text>ok<tspan>42</tspan></text></svg>", "tspan text"),
                   ("<svg><g><text>a</text>42 firms</g></svg>", "tail text"),
                   ('<svg aria-label="42 firms"><text>a</text></svg>', "aria-label"),
@@ -269,15 +281,37 @@ with tempfile.TemporaryDirectory() as d:
     src2 = commit("input.txt", "c")
     expect("committing an input moves the source commit", be.source_commit(["input.txt"], cwd=g) == src2)
 
-# Alt text: Marp drops a bare "12.2%" token from image alt text as a size keyword
+# 10. reading order: the Praxis research sections, all of them, in order
+with tempfile.NamedTemporaryFile("w", suffix=".md", delete=False) as f:
+    f.write(FM + "".join(f"\n## {s}\n" for s in reversed(be.SECTIONS)))
+old_t, be.TEMPLATE = be.TEMPLATE, Path(f.name)
+try:
+    b = be.Build("v0.2-draft")
+    b.reg.put("as_of", "2026-11-04", source="t", how="t")
+    b.render("0" * 40)
+finally:
+    be.TEMPLATE = old_t
+expect("research sections out of order fail", any("Praxis research sections" in e for e in b.errs))
+b = build_with(FM + "## Appendix\n")
+expect("a level-two heading outside the research sections fails", any("Praxis research sections" in e for e in b.errs))
+
+# Claims and sources: every Evidence line traces a binding to its numerator, denominator and dag.yml step
 b = be.Build("v0.2-draft")
-b.reg.put("p", "12.2", source="t", how="t")
-alt = b.compose("alt_t", "share {p}% of calls", source="t", how="t")
-expect("alt text writes a bound percentage as 'per cent'", alt == "share 12.2 per cent of calls" and not b.errs)
-b = be.Build("v0.2-draft")
-b.reg.put("p", "12.2", source="t", how="t")
-b.compose("alt_t", "share {p}%, then w:900 here", source="t", how="t")
-expect("alt text carrying a Marp keyword token fails", any("Marp would drop" in e for e in b.errs))
+b.reg.pct("ec_x", 214, 1760, 1, source="corpus/earnings-calls/{calls.tsv,ai-windows.parquet}", how="t")
+b.reg.copy("ec_y", "ec_x", how="last year")
+old_c, be.CLAIMS = be.CLAIMS, {"c": [("ec_y", "%")]}
+try:
+    b.claims()
+finally:
+    be.CLAIMS = old_c
+ev = b.reg.values.get("ev_c", {}).get("text", "")
+expect("claim evidence names the origin binding and its n / d", "12.2% = `ec_x`: 214 / 1,760" in ev and not b.errs)
+expect("claim sources map to dag.yml steps", "data://meadow/earnings_calls" in b.reg.values["sources_index"]["text"])
+expect("claim id and tag are bound", (b.reg.values["c_c"]["text"], b.reg.values["ct_c"]["text"]) == ("C0001", "{{C0001}}"))
+expect("a source no dag.yml step writes fails",
+       raises(lambda: be.describe_source("corpus/nope.tsv", be.dag_steps(be.DAG)), ValueError))
+expect("registry source strings expand to paths",
+       be.source_paths("a/{b.tsv,c.parquet} + d/e + git") == ["a/b.tsv", "a/c.parquet", "d/e"])
 
 print(f"\n{len(FAILS)} failure(s)")
 sys.exit(1 if FAILS else 0)

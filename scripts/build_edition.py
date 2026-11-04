@@ -7,10 +7,17 @@
 #   "matplotlib==3.10.7",
 # ]
 # ///
-"""Build DECK.md as an edition of one source commit and one risk codebook.
+"""Build edition/REPORT.md as an edition of one source commit and one risk codebook.
 
-    uv run scripts/build_edition.py --codebook v0.2-draft          # write DECK.md, deck/*.svg, deck/STAMP.json
+    uv run scripts/build_edition.py --codebook v0.2-draft          # write edition/REPORT.md, edition/*.svg, edition/STAMP.json
     uv run scripts/build_edition.py --codebook v0.2-draft --check  # exit 1 if a rebuild would change anything
+
+REPORT.md follows the Praxis research presentation standard (praxis/design/research-template.md):
+Bottom line, Decision-relevant facts, What could change the conclusion, Analysis, Methods and
+limitations, Claims index, Sources index, Revision and review record. Every number is a claim
+(C0001, ...) whose Evidence line names the binding, its numerator and denominator and its source
+(S001, ...); the Sources index maps each source file to its dag.yml step. The PDF is rendered
+separately by the Praxis report writer (scripts/render_report.py; docs/report-build.md).
 
 The build is the review step: it writes into the working tree and never commits.
 Review `git diff`, then commit the edition yourself.
@@ -23,16 +30,16 @@ Display controls (docs/report-build.md; every one fails the build):
   1. Exact inputs. Every number shown is computed from integer counts by
      scripts/display.py: no float, and no rounded table column, is ever shown.
   2. One rounding rule: half up, from the exact fraction.
-  3. One source per number. Every chart in the deck is drawn here, from the
+  3. One source per number. Every chart in the report is drawn here, from the
      same registered values as the captions, so chart and caption cannot disagree.
   4. Provenance. Every displayed value is registered with its source file,
      computation, numerator and denominator, and written to the stamp.
   5. No unbound numerals, checked by identity. The template may contain no
-     digits outside {{...}}. Every numeral in a built DECK.md line must come
+     digits outside {{...}}. Every numeral in a built REPORT.md line must come
      from a binding used on that template line; every numeral in a chart
      string must come from the bindings that string was built from (say()).
-     Checked channels: body, HTML comments (presenter notes), image alt text,
-     front-matter title/description/header/footer, SVG text/tspan/tail/
+     Checked channels: body, HTML comments, image alt text, front-matter
+     title/subtitle/author/date/revision/classification/note/watermark, SVG text/tspan/tail/
      comments/aria-label, and fixed tick labels (scale ticks excepted).
   6. Quotes. Quoted text in the template (straight or curly, double or single
      quotes, markdown or HTML blockquotes) must be a single quote binding, and
@@ -42,6 +49,8 @@ Display controls (docs/report-build.md; every one fails the build):
   7. Nothing clipped. Every text element of a matplotlib chart lies inside the
      figure. Every SVG parses as XML.
   8. One codebook. Every risk chart and number uses the --codebook given.
+  9. Alt text. Every image carries exactly one {{alt_*}} binding.
+ 10. Reading order. The template's level-two headings are the Praxis research sections, in order.
 Positive = DeBERTa and ModernBERT both >= 0.5, everywhere.
 """
 
@@ -66,8 +75,27 @@ sys.path.insert(0, str(ROOT / "scripts"))
 import display  # noqa: E402
 import ec_text as ect  # noqa: E402  (window text is local: .eccorpus/, joined on window_id)
 
-TEMPLATE = ROOT / "deck" / "deck.template.md"
-OUT_DIR = ROOT / "deck"
+TEMPLATE = ROOT / "edition" / "report.template.md"
+OUT_DIR = ROOT / "edition"
+REPORT = "edition/REPORT.md"
+DAG = ROOT / "dag.yml"
+# The Praxis research presentation standard (praxis/design/research-presentation.md): these level-two
+# sections, in this order, are all REPORT.md may have. Praxis's `report check` enforces the same list.
+SECTIONS = ("Bottom line", "Decision-relevant facts", "What could change the conclusion", "Analysis",
+            "Methods and limitations", "Claims index", "Sources index", "Revision and review record")
+# Report-local claims, in claim-id order (C0001, C0002, ...): each names the bindings its Evidence line
+# traces, with the unit the value is shown in. A composite binding (ec_top3) is traced through its parts.
+CLAIMS = {
+    "ec_rise": [("ec_pct_witness_last", "%"), ("ec_pre2023_max", "%")],
+    "ec_volume": [("ec_wpc_base", ""), ("ec_wpc_last", ""), ("ec_win_base", "%"), ("ec_win_last", "%")],
+    "ec_firms": [("ec_ttm_risk_firms", ""), ("ec_top3", "")],
+    "q_intent": [("q_commercial_pct", "%"), ("q_oversight_pct", "%")],
+    "ds_safety": [("ds_exec_safety", "%"), ("ds_hn_safety", "%"), ("ds_wp_safety", "%")],
+    "ds_cyber": [("ds_sec_cyber", "%")],
+    "cve_credit": [("cve_claude_total", ""), ("cve_ai_total", "")],
+    "paper_33k": [("q_33k", ""), ("q_33k_status", "")],
+}
+RENDER = "uv run scripts/render_report.py -o OUT.pdf  (Praxis report writer: from-md --template research --publisher praxis)"
 EC = ROOT / "corpus" / "earnings-calls"
 PAPER, PAPER_V0 = "docs/anthropic-contrapunctus.md", "1afb042"
 DAG_TOOL = ROOT.parent / "praxis" / "datasets" / "dag.py"
@@ -101,9 +129,8 @@ QUOTED = re.compile(r'"([^"\n]*)"|\u201c([^\u201d\n]*)\u201d'           # straig
                     r"|(?<!\w)['\u2018]([^'\u2019\n]+?)['\u2019](?!\w)")    # single quotes; apostrophes sit inside words
 QUOTE_BINDING = re.compile(r"\{\{q_\w+\}\}")
 STATIC_NAMES = re.compile(r"S&P 500|CVEProject/cvelistV5")   # names, not quantities: removed before numerals are read
-FM_CHECKED = re.compile(r"^(title|description|header|footer|author|keywords|lang)\s*:")   # front-matter text that ships
-MARP_ALT_KEYWORD = re.compile(r"[\d.]+%|(?:w|h|width|height):\S+")   # alt tokens Marp consumes
-MARP_SIZE = re.compile(r"(?<!\S)(?:w|h|width|height):\d+(?:px|%)?(?!\S)")   # image-size keywords in alt text: layout
+FM_CHECKED = re.compile(r"^(title|subtitle|description|author|date|revision|classification|note|watermark|keywords|lang)"
+                        r"\s*:")   # front-matter text that ships
 DIALOGUE_SOURCES = [("executives", "Executives (calls)"), ("analysts", "Analyst questions"),
                     ("hn_anthropic", "HN: Anthropic"), ("hn_security", "HN: AI security"), ("wikipedia", "Wikipedia")]
 LABELS = {"regulation": "Regulation", "cyber": "Cybersecurity", "privacy": "Data privacy",
@@ -174,8 +201,8 @@ class Build:
         return [self.cb["file"], self.cb["ec_scores"], self.cb["dialogue"], QUESTIONS["file"], QUESTIONS["ttm"], CVE,
                 QUESTIONS["scores"], QUESTIONS["units"],
                 "corpus/earnings-calls/calls.tsv", "corpus/earnings-calls/ai-windows.parquet",
-                "deck/deck.template.md", "scripts/build_edition.py", "scripts/display.py",
-                "scripts/ec_question_report.py", "dag.lock.tsv", CVE_MANIFEST]
+                "edition/report.template.md", "scripts/build_edition.py", "scripts/display.py",
+                "scripts/ec_question_report.py", "dag.lock.tsv", "dag.yml", CVE_MANIFEST]
 
     def preflight(self) -> bool:
         r = subprocess.run(["uv", "run", "--quiet", str(DAG_TOOL), "status"], cwd=ROOT, capture_output=True, text=True)
@@ -212,12 +239,7 @@ class Build:
 
     def compose(self, key: str, fmt: str, *, source: str, how: str) -> str:
         """Register a value built from other bindings; its numerals must all come from them."""
-        if key.startswith("alt_"):
-            # Marp reads a bare "12.2%" in image alt text as a size keyword and drops it.
-            fmt = fmt.replace("}%", "} per cent")
         s = self.say(fmt)
-        if key.startswith("alt_") and (bad := [t for t in s.split() if MARP_ALT_KEYWORD.fullmatch(t)]):
-            self.errs.append(f"binding {key}: Marp would drop {bad} from the alt text")
         parts = sorted(self.bound[s])
         self.reg.put(key, s, source=source, how=how)
         self.reg.values[key]["parts"] = parts
@@ -257,7 +279,7 @@ class Build:
         fig.savefig(path, facecolor=SURFACE, metadata=META)
         plt.close(fig)
         ET.fromstring(path.read_bytes())
-        self.outs[f"deck/{name}"] = path.read_bytes()
+        self.outs[f"edition/{name}"] = path.read_bytes()
 
     def save_svg(self, svg: str, name: str) -> None:
         """Every text channel of a hand-built SVG: element text (text, tspan, title, desc, ...),
@@ -273,7 +295,7 @@ class Build:
                     self.check_text(name, s.strip() if s.strip() in self.bound else s)
         path = OUT_DIR / name
         path.write_text(svg)
-        self.outs[f"deck/{name}"] = path.read_bytes()
+        self.outs[f"edition/{name}"] = path.read_bytes()
 
     # ------------------------------------------------------------ values
     def register_static(self, head: str) -> None:
@@ -667,15 +689,79 @@ class Build:
             "month; CVEs whose credits name an AI system, {cve_last_ai} in the last month, {cve_last_claude} of them "
             "naming Claude."), source=CVE, how="alt text of cve-ai-credit.svg, from the chart's bindings")
 
-    # ------------------------------------------------------------ deck
+    # ------------------------------------------------------------ claims and sources
+    def leaves(self, key: str) -> list[str]:
+        """A binding, or the parts of a composite binding."""
+        v = self.reg.values[key]
+        return [x for p in v["parts"] for x in self.leaves(p)] if "parts" in v else [key]
+
+    def origin(self, key: str) -> str:
+        """The binding a copy (Registry.copy, how '= <key> ...') was taken from, followed to the end."""
+        while (how := self.reg.values[key]["how"]).startswith("= "):
+            key = how[2:].split()[0]
+        return key
+
+    def claims(self) -> None:
+        """Claim ids (C0001, ...), one Evidence line per claim and the Sources index (S001, ...), all from
+        the registry. Every numeral in them comes from a registered value: the value itself, its numerator
+        and denominator (registered as counts), its provenance text, or a dag.yml step."""
+        R, steps = self.reg, dag_steps(DAG)
+        sources: dict[str, list[str]] = {}   # source path -> claim keys citing it
+        evid: dict[str, list[tuple[str, str, list[str]]]] = {}
+        for i, (c, keys) in enumerate(CLAIMS.items(), 1):
+            cid = f"C{i:04d}"
+            R.put(f"c_{c}", cid, source="build_edition.CLAIMS", how="report-local claim id: position in CLAIMS")
+            R.put(f"ct_{c}", "{{" + cid + "}}", source="build_edition.CLAIMS", how="claim tag (Praxis report writer)")
+            evid[c] = []
+            for key, unit in keys:
+                if key not in R.values:
+                    self.errs.append(f"claim {c}: unknown binding {key}")
+                    continue
+                for leaf in self.leaves(key):
+                    paths = source_paths(R.values[leaf]["source"])
+                    for p in paths:
+                        sources.setdefault(p, [])
+                        if c not in sources[p]:
+                            sources[p].append(c)
+                    evid[c].append((leaf, unit, paths))
+        sid = {p: f"S{j:03d}" for j, p in enumerate(sources, 1)}
+        for j, (p, cs) in enumerate(sources.items(), 1):
+            R.put(f"sid_{j}", sid[p], source="build_edition.claims", how="report-local source id: first citation order")
+            R.put(f"spath_{j}", p, source="build_edition.claims", how="source path, from the registry")
+            R.put(f"sdesc_{j}", describe_source(p, steps), source="dag.yml", how=f"dag.yml steps writing {p}")
+        jid = {p: j for j, p in enumerate(sources, 1)}
+        for c, rows in evid.items():
+            parts = []
+            for leaf, unit, paths in rows:
+                v, o = R.values[leaf], self.origin(leaf)
+                R.put(f"ek_{leaf}", o, source="build_edition", how="binding name (edition/STAMP.json values)")
+                R.put(f"eh_{leaf}", R.values[o]["how"], source=R.values[o]["source"], how=f"provenance of {o}")
+                frac = ""
+                if "n" in v and "d" in v:
+                    R.count(f"en_{leaf}", v["n"], source=v["source"], how=f"numerator of {leaf}")
+                    R.count(f"ed_{leaf}", v["d"], source=v["source"], how=f"denominator of {leaf}")
+                    frac = f"{{en_{leaf}}} / {{ed_{leaf}}}; "
+                src = ", ".join(f"{{sid_{jid[p]}}}" for p in paths) or "the build's own parameters"
+                parts.append(f"{{{leaf}}}{unit} = `{{ek_{leaf}}}`: {frac}{{eh_{leaf}}} ({src})")
+            self.compose(f"ev_{c}", "; ".join(parts) + ".", source="registry", how=f"evidence of claim {c}")
+            paths = [p for p in sources if c in sources[p]]
+            self.compose(f"src_{c}", ", ".join(f"{{sid_{jid[p]}}}" for p in paths), source="registry",
+                         how=f"sources of claim {c}")
+        self.compose("sources_index", "\n\n".join(
+            f"### {{sid_{j}}} — `{{spath_{j}}}`\n\n{{sdesc_{j}}} Cited by "
+            + ", ".join(f"{{c_{c}}}" for c in cs) + "."
+            for j, (p, cs) in enumerate(sources.items(), 1)), source="registry", how="Sources index")
+
+    # ------------------------------------------------------------ report
     def render(self, head: str) -> None:
-        """Every line that ships is checked: body text, HTML comments (Marp presenter notes), image
-        alt text, and the front-matter fields that render (title, ...). A numeral in a built line
-        must come from a binding used on that template line."""
+        """Every line that ships is checked: body text, HTML comments, image alt text, and the
+        front-matter fields that render (title, date, ...). A numeral in a built line must come from
+        a binding used on that template line."""
         tpl = TEMPLATE.read_text()
+        name = TEMPLATE.name
         fm_lines = tpl[:tpl.index("\n---\n", 4) + 5].count("\n")
-        self.reg.put("generated_notice", f"<!-- GENERATED by scripts/build_edition.py --codebook {self.codebook} from {head}. "
-                     "Edit deck/deck.template.md, not this file. -->", source="build", how="notice")
+        self.reg.put("generated_notice", f"Generated by `scripts/build_edition.py --codebook {self.codebook}` from source "
+                     f"commit `{head}`. Edit `edition/report.template.md`, not this file.", source="build", how="notice")
         vals = {k: v["text"] for k, v in self.reg.values.items()}
         missing = sorted(set(keys_in(tpl)) - set(vals))
         self.errs += [f"unresolved binding {{{{{m}}}}}" for m in missing]
@@ -683,20 +769,25 @@ class Build:
         def fill(x: str) -> str:
             return re.sub(r"\{\{(\w+)\}\}", lambda m: vals.get(m.group(1), m.group(0)), x)
 
-        def shown(x: str) -> str:   # image targets are paths; size keywords in alt text are layout
-            return re.sub(r"!\[([^\]]*)\]\([^)]*\)", lambda m: "![" + MARP_SIZE.sub("", m.group(1)) + "]", x)
-        for i, line in enumerate(tpl.splitlines(), 1):
+        def shown(x: str) -> str:   # image targets are paths, not text
+            return re.sub(r"!\[([^\]]*)\]\([^)]*\)", lambda m: "![" + m.group(1) + "]", x)
+        lines = tpl.splitlines()
+        h2 = [l[3:].strip() for l in lines[fm_lines:] if l.startswith("## ")]
+        if tuple(h2) != SECTIONS:
+            self.errs.append(f"{name}: level-two headings must be the Praxis research sections in order "
+                             f"{list(SECTIONS)}, not {h2}")
+        for i, line in enumerate(lines, 1):
             in_fm = i <= fm_lines
             for alt in re.findall(r"!\[([^\]]*)\]\(", line):
-                if not re.fullmatch(r"\{\{alt_\w+\}\}", MARP_SIZE.sub("", alt).strip()):
-                    self.errs.append(f"deck.template.md:{i}: image alt text must be one alt binding: {alt!r}")
+                if not re.fullmatch(r"\{\{alt_\w+\}\}", alt.strip()):
+                    self.errs.append(f"{name}:{i}: image alt text must be one alt binding: {alt!r}")
             if in_fm and not FM_CHECKED.match(line):
                 continue
             bad = sorted(tokens(shown(re.sub(r"\{\{\w+\}\}", "", line))))
             if bad:
-                self.errs.append(f"deck.template.md:{i}: hand-typed numerals {bad}")
+                self.errs.append(f"{name}:{i}: hand-typed numerals {bad}")
             if not missing:
-                self.check_text(f"DECK.md:{i}", shown(fill(line)), keys_in(line))
+                self.check_text(f"REPORT.md:{i}", shown(fill(line)), keys_in(line))
             if in_fm:
                 continue
             plain = re.sub(r"<[^>]+>", "", line)
@@ -708,8 +799,8 @@ class Build:
                 quoted.append(re.sub(r"<[^>]+>", "", re.search(r"(?i)<(blockquote|q)\b[^>]*>(.*)", line).group(2)).strip())
             for q in quoted:
                 if not QUOTE_BINDING.fullmatch(q):
-                    self.errs.append(f"deck.template.md:{i}: quoted text must be one quote binding: \"{q}\"")
-        self.outs["DECK.md"] = fill(tpl).encode()
+                    self.errs.append(f"{name}:{i}: quoted text must be one quote binding: \"{q}\"")
+        self.outs[REPORT] = fill(tpl).encode()
 
     def run(self) -> tuple[dict[str, bytes], list[str]]:
         display.selftest()
@@ -722,6 +813,7 @@ class Build:
         self.questions()
         self.dialogue()
         self.cve()
+        self.claims()
         self.render(head)
         stamp = {
             "edition_of": head,
@@ -731,18 +823,66 @@ class Build:
             "rounding": "half up from the exact fraction of integer counts (scripts/display.py)",
             "dag_lock_blake3": b3(ROOT / "dag.lock.tsv"),
             "paper_v0": f"{PAPER}@{PAPER_V0}",
-            "tools": {"python": "duckdb==2.0.0 matplotlib==3.10.7 blake3==1.0.11",
-                      "render": "npx @marp-team/marp-cli@4.1.2 DECK.md --pptx --allow-local-files"},
+            "tools": {"python": "duckdb==2.0.0 matplotlib==3.10.7 blake3==1.0.11", "render": RENDER},
             "values": {k: v for k, v in sorted(self.reg.values.items()) if k != "generated_notice"},
             "inputs": {p: b3(ROOT / p) for p in sorted(self.inputs()) if (ROOT / p).is_file()},
             "outputs": {k: blake3.blake3(v).hexdigest() for k, v in sorted(self.outs.items())},
         }
-        self.outs["deck/STAMP.json"] = (json.dumps(stamp, indent=2, ensure_ascii=False) + "\n").encode()
+        self.outs["edition/STAMP.json"] = (json.dumps(stamp, indent=2, ensure_ascii=False) + "\n").encode()
         return self.outs, self.errs
 
 
-OUTPUTS = ["DECK.md", "deck/STAMP.json", "deck/ai-risk-by-year.svg", "deck/risk-ranking-ttm.svg",
-           "deck/intent-ttm.svg", "deck/dialogue-space.svg", "deck/cve-ai-credit.svg"]
+def source_paths(source: str) -> list[str]:
+    """Repository paths named in a registry source string: 'a/{b,c} + d' -> a/b, a/c, d. Names that are not
+    paths (git, build_edition.CONSTANT) are dropped; 'file@commit' is kept as it is."""
+    out = []
+    for part in source.split(" + "):
+        m = re.fullmatch(r"(.*)\{(.*)\}(.*)", part.strip())
+        out += [m.group(1) + x + m.group(3) for x in m.group(2).split(",")] if m else [part.strip()]
+    return [p for p in out if "/" in p]
+
+
+def dag_steps(path: Path) -> dict[str, dict]:
+    """dag.yml step URI -> {'meta': path, 'outputs': [paths]}. Reads only the keys the Sources index needs."""
+    steps: dict[str, dict] = {}
+    cur, buf = None, None
+    for line in path.read_text().splitlines():
+        if m := re.match(r"  (\w+://\S+):\s*$", line):
+            cur, buf = steps.setdefault(m.group(1), {"meta": "", "outputs": []}), None
+            continue
+        if cur is None:
+            continue
+        if m := re.match(r"    meta:\s*(\S+)", line):
+            cur["meta"] = m.group(1)
+        if m := re.match(r"    outputs:\s*(.*)", line):
+            buf = m.group(1)
+        elif buf is not None:
+            buf += " " + line.strip()
+        if buf is not None and "]" in buf:
+            cur["outputs"] = [x.strip() for x in buf.split("]")[0].lstrip("[").split(",") if x.strip()]
+            buf = None
+    return steps
+
+
+def describe_source(p: str, steps: dict[str, dict]) -> str:
+    """One Sources-index entry: the dag.yml steps that write the path, their metadata, and its digest."""
+    if "@" in p:
+        f, commit = p.split("@", 1)
+        return (f"Edition v0 of the paper, `{f}` at commit `{commit}`, hand-written and frozen. "
+                "Quotes are matched verbatim against this commit by the build.")
+    hits = [(u, s) for u, s in steps.items() if p in s["outputs"] or any(o.startswith(p + "/") for o in s["outputs"])]
+    if not hits:
+        raise ValueError(f"no dag.yml step writes {p}")
+    out = " ".join(f"Written by step `{u}`" + (f" (metadata `{s['meta']}`)" if s["meta"] else "") + "." for u, s in hits)
+    if (ROOT / p).is_file():
+        out += f" BLAKE3 `{b3(ROOT / p)}`."
+    else:
+        out += " A directory of witness scores; each file is locked by hash in `dag.lock.tsv`."
+    return out + " Licence, attribution and refresh commands: `DATASETS.md`."
+
+
+OUTPUTS = [REPORT, "edition/STAMP.json", "edition/ai-risk-by-year.svg", "edition/risk-ranking-ttm.svg",
+           "edition/intent-ttm.svg", "edition/dialogue-space.svg", "edition/cve-ai-credit.svg"]
 
 
 def main() -> int:
@@ -770,7 +910,7 @@ def main() -> int:
         return 1 if diff else 0
     for p, v in outs.items():
         (ROOT / p).write_bytes(v)
-    print(f"built edition of {json.loads(outs['deck/STAMP.json'])['edition_of'][:12]} with risk codebook "
+    print(f"built edition of {json.loads(outs['edition/STAMP.json'])['edition_of'][:12]} with risk codebook "
           f"{a.codebook}. Review `git diff`, then commit.")
     return 0
 
