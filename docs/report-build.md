@@ -118,20 +118,17 @@ retired deck's sentences or describes method.
 ### Render the report: one version, PDF and web page
 
 The report has one source, `edition/REPORT.md`, and one version (Sloane,
-2026-11-04). The PDF and the web page at the repository root (`index.html`)
-are two renderings of it; neither is edited by hand.
+2026-11-04). The PDF and the web page are two renderings of it. **Emitted files
+are never committed:** they are built outside the repository and attached to a
+release, to keep the repository small (P1).
 
     uv run scripts/build_edition.py --codebook v0.2-draft
-    uv run scripts/render_report.py --bundle /absolute/path/outside/the/repo/site --publish
+    uv run scripts/render_report.py --bundle /absolute/path/outside/the/repo/site
 
 `--bundle` runs `./praxis report bundle edition/REPORT.md --publisher praxis`
 from the Praxis checkout beside this repository (`../praxis`): the Praxis web
-page and the PDF in one directory, with a manifest of SHA-256 hashes. Praxis
-refuses to write a bundle inside a repository, so the directory is outside it;
-`--publish` then copies every file the manifest lists, and the manifest, into
-the repository root (`index.html`, `report.pdf`, `styles.css`, `assets/`,
-`archive.html`, `sustainability.html`, `carbon.txt`, `manifest.json`). Review
-`git diff` and commit them with the edition outputs. For the PDF alone:
+page and the PDF in one directory, with a manifest of SHA-256 hashes, for a
+release. For the PDF alone:
 
     uv run scripts/render_report.py -o /absolute/path/outside/the/repo/anthropic-pbc-report.pdf
 
@@ -144,21 +141,21 @@ Two additions to Praxis's own code, both in the wrapper:
   alt text binding.
 - **Web charts.** The Praxis web writer shows only the caption for a local
   image ("phase 2" in Praxis). The wrapper links each chart by its path from
-  the repository root (`edition/*.svg`) with its alt text, so the published
-  page shows the committed SVGs and nothing is copied (P1). The staging bundle
-  outside the repository therefore shows captions only.
+  the repository root (`edition/*.svg`) with its alt text, so nothing is
+  copied (P1). The charts therefore show only when the page is served from a
+  checkout's root; a self-contained release bundle needs the Praxis writer to
+  carry local images (being fixed in a separate session).
 
 Everything else (the eight-section check, the publisher lock, fonts, design
 tokens, the page layout) is Praxis's own code, unchanged. Both fixes belong in
 Praxis: resolve local images against the report's directory. Python 3.14 or
 later and Typst are needed (Praxis's requirements); the build itself is not.
 
-**The old `index.html`.** Before 2026-11-04 the root page embedded the whole
-paper and was rewritten by `scripts/seal.py sync` (an uncommitted draft from a
-design session). That page is replaced by the edition's; `seal.py sync` would
-overwrite it and must not be run until it is pointed at the edition. The design
-draft is kept at `refs/drafts/index-html-design-2026-11-04`
-(`git show refs/drafts/index-html-design-2026-11-04`).
+**The old `index.html`.** The committed root page is paper v0 with the whole
+paper embedded, rewritten by `scripts/seal.py sync` (an uncommitted draft from
+a design session, its page kept at `refs/drafts/index-html-design-2026-11-04`).
+It is emitted output, so under the rule above it leaves the repository once the
+release carries the web page.
 
 Determinism: two bundles of the same `REPORT.md` gave byte-identical files
 (every file's SHA-256 equal, 2026-11-04).

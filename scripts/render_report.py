@@ -6,16 +6,14 @@
 """Render edition/REPORT.md, on the Praxis brand, as the one version: a PDF and the web page.
 
     uv run scripts/render_report.py -o /abs/path/anthropic-pbc-report.pdf      # PDF only (from-md)
-    uv run scripts/render_report.py --bundle /abs/path/out [--publish]           # web page + PDF (bundle)
+    uv run scripts/render_report.py --bundle /abs/path/out                       # web page + PDF (bundle)
 
 The report has one source (edition/REPORT.md) and one version; the PDF and the web page are two
-renderings of it. `--bundle DIR` runs `./praxis report bundle` (Praxis refuses to write a bundle inside
-a repository, so DIR is outside it); `--publish` then copies every file the bundle's manifest lists, and
-the manifest, into this repository's root, replacing index.html: the page, its PDF, styles and assets. The Praxis web writer leaves local images out for now (caption only), so this
-script links each chart by its path from the repository root (edition/*.svg), with its alt text: the
-published page shows the committed SVGs themselves, and nothing is copied (Praxis PRINCIPLES.md P1).
-The staging bundle outside the repository therefore shows captions without charts; only the published
-copy resolves them.
+renderings of it. `--bundle DIR` runs `./praxis report bundle` into DIR, outside the repository. Emitted
+files are never committed: the bundle is attached to a release (Sloane, 2026-11-04). The Praxis web writer leaves local images out for now (caption only), so this
+script links each chart by its path from the repository root (edition/*.svg), with its alt text, so
+nothing is copied (Praxis PRINCIPLES.md P1). A bundle shows the charts only when served from a
+checkout's root; a self-contained release bundle needs the Praxis writer fixed (separate session).
 
 The PDF runs exactly `./praxis report from-md edition/REPORT.md --template research --publisher praxis -o OUT`
 from the Praxis checkout beside this repository (../praxis, as for dag.py), with one addition. from-md
@@ -34,9 +32,7 @@ from __future__ import annotations
 
 import argparse
 import html
-import json
 import re
-import shutil
 import sys
 from pathlib import Path
 
@@ -61,12 +57,9 @@ def main() -> int:
     out = ap.add_mutually_exclusive_group(required=True)
     out.add_argument("-o", "--output", help="PDF path only (keep it outside the repository)")
     out.add_argument("--bundle", help="directory for the web page + PDF, outside the repository")
-    ap.add_argument("--publish", action="store_true", help="with --bundle: copy the web files into the repository root")
     ap.add_argument("--report", default=str(ROOT / "edition" / "REPORT.md"))
     ap.add_argument("--praxis", default=str(ROOT.parent / "praxis"), help="Praxis checkout (default ../praxis)")
     a = ap.parse_args()
-    if a.publish and not a.bundle:
-        ap.error("--publish needs --bundle")
     report = Path(a.report).resolve()
     sys.path.insert(0, str(Path(a.praxis).resolve() / "report_writer"))
     import cli  # noqa: E402  (Praxis report_writer)
@@ -101,18 +94,10 @@ def main() -> int:
     if a.output:
         return praxis_cli.main(["from-md", str(report), "--template", "research", "--publisher", "praxis",
                                 "-o", str(Path(a.output).resolve())])
-    bundle = Path(a.bundle).resolve()
-    rc = praxis_cli.main(["bundle", str(report), "--publisher", "praxis", "--force", "-o", str(bundle)])
-    if rc or not a.publish:
-        return rc
-    # Publish every file the bundle's manifest lists, and the manifest: the page links them all
-    # (report.pdf, archive.html, sustainability.html, carbon.txt).
-    names = [f["path"] for f in json.loads((bundle / "manifest.json").read_text(encoding="utf-8"))["files"]]
-    for name in [*names, "manifest.json"]:
-        (ROOT / name).parent.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(bundle / name, ROOT / name)
-    print(f"published {len(names) + 1} files to {ROOT}; review `git diff`, then commit")
-    return 0
+    # Emitted files are never committed (Sloane, 2026-11-04): the bundle stays outside the repository
+    # and is attached to a release.
+    return praxis_cli.main(["bundle", str(report), "--publisher", "praxis", "--force", "-o",
+                            str(Path(a.bundle).resolve())])
 
 
 if __name__ == "__main__":
