@@ -87,14 +87,13 @@ Paper sections in brackets are what each step draws on.
        co-founder of Woodcache PBC. She is no longer active in the company
        and retains equity in it.* The paper's own phrase, "a public benefit
        corporation I'm directly involved in", is replaced by this.
-     - **Figure F0001, "Who gets checked."** A Mermaid diagram,
-       `edition/figures/F0001-who-gets-checked.mmd`. Woodcache: worst case,
-       the good things do not happen; checked by Puro.earth verification and
-       Colorado landfill regulation. Anthropic: worst case, the serious risks
-       it discloses itself (S-1 risk factors); checked by its own Public
-       Benefit Report, which its own trust says largely describes inputs.
-       Every box is a claim already in the paper. The web renders the
-       Mermaid source; the PDF needs a renderer (open decision below).
+     - **Figure F0001, "Who gets checked."** A hand-written SVG,
+       `edition/figures/F0001-who-gets-checked.svg`: two boxes per company,
+       worst case and who checks it. Every box restates a claim in the
+       paper. Plain SVG is the simplest durable form (Sloane, 2026-11-04):
+       an open text standard that browsers, GitHub and Typst all draw with
+       no renderer or build step, small enough to read and edit by hand, and
+       its hash moves only when someone edits it.
      [Opening, Wood Cache] *Needs a source:* any "first to complete"
      claim about Woodcache's audit is not in the paper and stays out until
      one is cited.
