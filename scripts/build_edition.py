@@ -515,7 +515,18 @@ class Build:
     # ------------------------------------------------------------ cross-source dialogue space
     def dialogue(self) -> None:
         R, cb = self.reg, self.cb
-        _, rows = table(cb["dialogue"])
+        comments, rows = table(cb["dialogue"])
+        # The sources cover different periods; v02_map.py records each one as "# window <source>: <text>".
+        windows = dict(re.fullmatch(r"# window (\w+): (.+)", c).groups() for c in comments if c.startswith("# window "))
+        for k, _ in DIALOGUE_SOURCES:
+            if k not in windows:
+                self.errs.append(f"{cb['dialogue']}: no '# window {k}:' line")
+                return
+            R.put(f"ds_window_{k}", windows[k], source=cb["dialogue"], how=f"window of source {k} (v02_map.py)")
+        for group, (a, b) in {"calls": ("executives", "analysts"), "hn": ("hn_anthropic", "hn_security")}.items():
+            if windows[a] != windows[b]:
+                self.errs.append(f"{cb['dialogue']}: {a} and {b} windows differ, but the caption names one {group} window")
+            R.copy(f"ds_window_{group}", f"ds_window_{a}", how=f"same as ds_window_{b}")
         base = next(r for r in rows if r["risk_type"] == "ai_risk_units")
         bases = {k: int(base[f"{k}_n"]) for k, _ in DIALOGUE_SOURCES}
         types = [r for r in rows if r["risk_type"] != "ai_risk_units"]
@@ -533,7 +544,7 @@ class Build:
         rows_sorted = sorted(types, key=lambda r: (-max(Fraction(int(r[f'{k}_n']), bases[k]) for k, _ in DIALOGUE_SOURCES),
                                                    r["risk_type"]))
         cw, rh, left, top = 128, 24, 210, 108
-        W, H = left + cw * len(DIALOGUE_SOURCES) + 24, top + rh * len(rows_sorted) + 64
+        W, H = left + cw * len(DIALOGUE_SOURCES) + 24, top + rh * len(rows_sorted) + 80
 
         def fill(n: int, d: int) -> str:
             t = min(Fraction(100 * n, d) / 50, Fraction(1))
@@ -563,12 +574,14 @@ class Build:
                          f'<rect x="{left + j * cw + 1}" y="{y + 1}" width="{cw - 2}" height="{rh - 2}" rx="2" fill="{fill(n, d)}"/>'
                          f'<text x="{left + j * cw + cw / 2}" y="{y + rh / 2 + 4}" font-size="11" text-anchor="middle" '
                          f'style="fill:{ink}">' + escape(self.say("{" + f"ds_{k}_{t}" + "}"), quote=False) + '</text></g>')
-        R.put("dialogue_table", cb["dialogue"], source=cb["dialogue"], how="path of the table")
-        o.append(f'<text x="16" y="{H - 30}" font-size="11" class="m">' + escape(quote=False, s=self.say(
+        o.append(f'<text x="16" y="{H - 46}" font-size="11" class="m">' + escape(quote=False, s=self.say(
             "n = passages both NLI witnesses score ≥ {threshold} on ai_risk; a cell needs both on the type too. "
             "A passage can name several types.")) + '</text>')
-        o.append(f'<text x="16" y="{H - 14}" font-size="11" class="m">'
-                 + escape(self.say("Windows as in {dialogue_table}. Witness proposals, no gold set."), quote=False) + '</text>')
+        o.append(f'<text x="16" y="{H - 30}" font-size="11" class="m">' + escape(quote=False, s=self.say(
+            "Different windows: {ds_window_calls}; HN {ds_window_hn};")) + '</text>')
+        o.append(f'<text x="16" y="{H - 14}" font-size="11" class="m">' + escape(quote=False, s=self.say(
+            "Wikipedia {ds_window_wikipedia}. Levels compare across sources only in rough order. "
+            "Witness proposals, no gold set.")) + '</text>')
         o.append("</svg>")
         self.save_svg("\n".join(o) + "\n", "dialogue-space.svg")
 

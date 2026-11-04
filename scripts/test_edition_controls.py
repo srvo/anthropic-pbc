@@ -223,6 +223,19 @@ with tempfile.TemporaryDirectory() as d:
         be.QUESTIONS = old_q
     expect("question total that disagrees with ttm.tsv's header fails", any("AI questions in the window" in e for e in b.errs))
 
+# H4. the dialogue caption needs each source's window from the table
+with tempfile.TemporaryDirectory() as d:
+    src = be.ROOT / be.CODEBOOKS["v0.2-draft"]["dialogue"]
+    bad = Path(d) / "dialogue-space.tsv"
+    bad.write_text("".join(l for l in src.read_text().splitlines(keepends=True) if not l.startswith("# window wikipedia")))
+    be.OUT_DIR = Path(d)
+    b = be.Build("v0.2-draft")
+    b.cb = {**b.cb, "dialogue": str(bad)}
+    for k, v in (("new_tag_0", "v0.2"), ("threshold", "0.5"), ("codebook", "v0.2-draft")):
+        b.reg.put(k, v, source="t", how="t")
+    b.dialogue()
+    expect("dialogue table without a source's window fails", any("# window wikipedia" in e for e in b.errs))
+
 # M1. the source commit is the last commit touching an input, so committing the outputs keeps --check passing
 with tempfile.TemporaryDirectory() as d:
     g = Path(d)

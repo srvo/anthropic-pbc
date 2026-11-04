@@ -65,7 +65,7 @@ Edition {{paper_edition}} of the paper (`docs/anthropic-contrapunctus.md` at `{{
 
 ![h:540](deck/dialogue-space.svg)
 
-<div class="src">Safety and ethics: {{ds_exec_safety}}% of executives' AI-risk passages, {{ds_hn_safety}}% on Hacker News about Anthropic, {{ds_wp_safety}}% on Wikipedia. HN's AI-security set is selected on security terms, so its cybersecurity share ({{ds_sec_cyber}}%) is high by construction.</div>
+<div class="src">The sources cover different windows ({{ds_window_calls}}; HN {{ds_window_hn}}; Wikipedia {{ds_window_wikipedia}}), and their levels compare only in rough order. Safety and ethics: {{ds_exec_safety}}% of executives' AI-risk passages, {{ds_hn_safety}}% on Hacker News about Anthropic, {{ds_wp_safety}}% on Wikipedia. HN's AI-security set is selected on security terms, so its cybersecurity share ({{ds_sec_cyber}}%) is high by construction.</div>
 
 ---
 

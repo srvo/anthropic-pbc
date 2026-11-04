@@ -35,17 +35,27 @@ CB = ROOT / "corpus" / "codebooks" / "codebook-v0.2-draft.tsv"
 OUT = ROOT / "proposals" / "cross-source" / "codebook-v0.2-draft" / "report"
 EC, HN, WP = ROOT / "corpus" / "earnings-calls", ROOT / "corpus" / "hacker-news", ROOT / "corpus" / "wikipedia-ai-risk"
 P = ROOT / "proposals"
+# Each source's window. The sources cover different periods; the output table records them ("# window" lines)
+# so a reader of the table, and the edition build, can say so.
+CALLS = ("2025-11-04", "2026-11-04")    # report_date after the first, through the second
+HN_DAYS = ("2025-09-01", "2026-08-31")  # comment day, inclusive
+WP_AS_OF = "2026-11-04"                 # the article revisions pinned in corpus/wikipedia-ai-risk/MANIFEST.tsv
+WINDOWS = {"executives": f"calls dated after {CALLS[0]} through {CALLS[1]}",
+           "analysts": f"calls dated after {CALLS[0]} through {CALLS[1]}",
+           "hn_anthropic": f"comments dated {HN_DAYS[0]} to {HN_DAYS[1]}",
+           "hn_security": f"comments dated {HN_DAYS[0]} to {HN_DAYS[1]}",
+           "wikipedia": f"article revisions as of {WP_AS_OF}"}
 SOURCES = [  # (key, label, scores dir, id col, unit filter SQL over table u)
     ("executives", "Executives (calls)", P / "earnings-calls/codebook-v0.2-draft", "window_id",
      f"SELECT window_id AS id FROM '{EC / 'ai-windows.parquet'}' WHERE role NOT IN ('analyst_heuristic', 'operator') "
-     "AND report_date::DATE > DATE '2025-11-04' AND report_date::DATE <= DATE '2026-11-04'"),
+     f"AND report_date::DATE > DATE '{CALLS[0]}' AND report_date::DATE <= DATE '{CALLS[1]}'"),
     ("analysts", "Analyst questions", P / "earnings-calls/codebook-v0.2-draft-questions", "question_id",
      f"SELECT question_id AS id FROM '{EC / 'ai-questions.parquet'}' "
-     "WHERE report_date::DATE > DATE '2025-11-04' AND report_date::DATE <= DATE '2026-11-04'"),
+     f"WHERE report_date::DATE > DATE '{CALLS[0]}' AND report_date::DATE <= DATE '{CALLS[1]}'"),
     ("hn_anthropic", "HN: Anthropic", P / "hacker-news/anthropic-v0.2-draft", "window_id",
-     f"""SELECT window_id AS id FROM '{HN / 'windows.parquet'}' WHERE "set" = 'anthropic' AND day BETWEEN '2025-09-01' AND '2026-08-31'"""),
+     f"""SELECT window_id AS id FROM '{HN / 'windows.parquet'}' WHERE "set" = 'anthropic' AND day BETWEEN '{HN_DAYS[0]}' AND '{HN_DAYS[1]}'"""),
     ("hn_security", "HN: AI security", P / "hacker-news/ai_security-v0.2-draft", "window_id",
-     f"""SELECT window_id AS id FROM '{HN / 'windows.parquet'}' WHERE "set" = 'ai_security' AND day BETWEEN '2025-09-01' AND '2026-08-31'"""),
+     f"""SELECT window_id AS id FROM '{HN / 'windows.parquet'}' WHERE "set" = 'ai_security' AND day BETWEEN '{HN_DAYS[0]}' AND '{HN_DAYS[1]}'"""),
     ("wikipedia", "Wikipedia", P / "wikipedia-ai-risk/codebook-v0.2-draft", "window_id",
      f"SELECT window_id AS id FROM '{WP / 'windows.parquet'}'"),
 ]
@@ -74,6 +84,8 @@ def main() -> int:
     with (OUT / "dialogue-space.tsv").open("w") as f:
         f.write("# Share (%) of each source's AI-risk units naming each risk type; both witnesses >= 0.5. "
                 "codebook-v0.2-draft (DRAFT wording), witness proposals, no gold set.\n")
+        for k, *_ in SOURCES:
+            f.write(f"# window {k}: {WINDOWS[k]}\n")
         f.write("risk_type\tnew_in_v0.2\t" + "\t".join(f"{k}_pct\t{k}_n" for k, *_ in SOURCES) + "\n")
         f.write("ai_risk_units\t\t" + "\t".join(f"\t{shares[k][types[0]['id']][1]}" for k, *_ in SOURCES) + "\n")
         for t in rows:
