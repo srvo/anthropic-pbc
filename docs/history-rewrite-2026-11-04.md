@@ -15,7 +15,7 @@ text into the gitignored `.eccorpus/` from the pinned source
 (`docs/earnings-call-ai-corpus.md` §2a). Quotes stay committed.
 
 Removed blobs (3, 33.5 MB): `7d614c9e60d7`, `a398b70c08d8`, `fd47c7a36fd6`.
-Packed repository: 113 MiB before, 54 MiB after (measured on a clean clone).
+Packed repository: 113 MiB before, 82 MiB after (measured on a clean clone). The rest is mostly model-output parquets, Epoch CSVs and Wikipedia article text; see the audit below.
 
 ## What did not change
 
@@ -111,3 +111,18 @@ rewritten by filter-repo; file contents were not.
 | `1b6ac7f` | `cb1c1ac` | earnings calls: commit ids, offsets and hashes; text only in .eccorpus/ |
 | `aff1412` | `21919f1` | earnings calls: document that text is not committed; quotes are |
 | `5a52652` | `cd7ae1f` | Merge earnings corpus to pointers: ids, offsets and hashes; text only in .eccorpus/ |
+
+## Still larger than it needs to be
+
+Found on 2026-11-04 by the same audit; not yet changed:
+
+- `corpus/wikipedia-ai-risk/articles.parquet` (859 KB) and `windows.parquet`
+  (1.02 MB) both hold the full prose of 151 articles: the same text twice.
+- `proposals/earnings-calls/codebook-v0.1/report/window-flags.tsv`, 5.5 MB of
+  ids and flags in TSV.
+- Witness parquets in long format with text ids: `proposals/hacker-news/`
+  25 MB, `proposals/earnings-calls/` 15 MB.
+- `corpus/hacker-news/windows.parquet`, 10 MB, two 64-character hashes per
+  row.
+- `corpus/epoch/`, 18 MB of whole third-party CSVs, kept because the saved bytes
+  are the pin.
