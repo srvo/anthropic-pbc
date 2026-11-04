@@ -10,6 +10,9 @@ New questions come from the work itself and from `PASTEBIN.md`.
 ## Open
 
 ### Q1 · Who signs the datasets?
+- **Status:** partly answered 2026-11-04. Sloane signs with her own key;
+  `scripts/attest_datasets.py` builds the records. Still open: which key, the
+  first signing run, and whether to sign commits.
 - **Owner:** Sloane
 - **Context:** Every corpus is hash-pinned and rebuilds byte-identical, but
   nothing is signed. The attestation protocol (`docs/contrapunctus-attest.md`:

@@ -24,15 +24,15 @@ Model output is a witness proposal in `proposals/`, never a finding
 
 ## Overview
 
-| Dataset | Pinned as of | Source cadence | Manifest rows |
-|---|---|---|---:|
-| [S&P 500 earnings-call AI corpus](#earnings-calls) | 2026-11-04 | Source dataset updates as new calls post; universe is today's index (survivorship bias) | 2 |
-| [10-K Item 1A risk-factor corpus](#risk-factors) | — | EDGAR updates continuously | — |
-| [Hacker News: Anthropic and AI-security comments](#hacker-news) | 2026-08 (archive end) | Source publishes monthly files plus 5-minute deltas; Sep 2026 onward not yet pinned | 68 |
-| [Wikipedia AI-risk articles](#wikipedia-ai-risk) | 2026-11-04 | Articles edited continuously; category membership read on the day pin runs | 151 |
-| [Monthly CVE series](#cve) | 2026-11-04 | Baseline published daily; GitHub keeps release assets about six weeks | 2 |
-| [Epoch AI datasets snapshot](#epoch) | 2026-11-04 | Each dataset updates on its own schedule (see the Updated column); bundles are regenerated per request, so saved bytes are the pin | 18 |
-| [NLI codebooks](#codebooks) | — | Changes by human review only | — |
+| Dataset | Pinned as of | Source cadence | Manifest rows | Signature |
+|---|---|---|---:|---|
+| [S&P 500 earnings-call AI corpus](#earnings-calls) | 2026-11-04 | Source dataset updates as new calls post; universe is today's index (survivorship bias) | 2 | unsigned |
+| [10-K Item 1A risk-factor corpus](#risk-factors) | — | EDGAR updates continuously | — | — |
+| [Hacker News: Anthropic and AI-security comments](#hacker-news) | 2026-08 (archive end) | Source publishes monthly files plus 5-minute deltas; Sep 2026 onward not yet pinned | 68 | unsigned |
+| [Wikipedia AI-risk articles](#wikipedia-ai-risk) | 2026-11-04 | Articles edited continuously; category membership read on the day pin runs | 151 | unsigned |
+| [Monthly CVE series](#cve) | 2026-11-04 | Baseline published daily; GitHub keeps release assets about six weeks | 2 | unsigned |
+| [Epoch AI datasets snapshot](#epoch) | 2026-11-04 | Each dataset updates on its own schedule (see the Updated column); bundles are regenerated per request, so saved bytes are the pin | 18 | unsigned |
+| [NLI codebooks](#codebooks) | — | Changes by human review only | — | unsigned |
 
 ---
 
@@ -50,6 +50,7 @@ Model output is a witness proposal in `proposals/`, never a finding
 | Folder | `corpus/earnings-calls` · 10 files · 35.4 MB |
 | Manifest | 2 rows · BLAKE3 `d2ac999e14259ffa` |
 | Method | [`docs/earnings-call-ai-corpus.md`](docs/earnings-call-ai-corpus.md) |
+| Signature | unsigned (`attestations/datasets/`) |
 
 Refresh:
 
@@ -82,6 +83,7 @@ Refresh:
 | Folder | — |
 | Manifest | — rows · BLAKE3 `—` |
 | Method | [`docs/risk-factor-corpus.md`](docs/risk-factor-corpus.md) |
+| Signature | no corpus folder (`attestations/datasets/`) |
 
 Refresh:
 
@@ -103,6 +105,7 @@ Refresh:
 | Folder | `corpus/hacker-news` · 4 files · 10.0 MB |
 | Manifest | 68 rows · BLAKE3 `215282c839346692` |
 | Method | [`docs/hacker-news-corpus.md`](docs/hacker-news-corpus.md) |
+| Signature | unsigned (`attestations/datasets/`) |
 
 Refresh:
 
@@ -114,6 +117,7 @@ Refresh:
 | `proposals/hacker-news/ai_security` | modernbert | 204192 |
 | `proposals/hacker-news/anthropic` | deberta | 1688944 |
 | `proposals/hacker-news/anthropic` | modernbert | 1688944 |
+| `proposals/hacker-news/anthropic-v0.2-draft` | modernbert | 3166770 |
 
 ---
 
@@ -131,6 +135,7 @@ Refresh:
 | Folder | `corpus/wikipedia-ai-risk` · 7 files · 2.1 MB |
 | Manifest | 151 rows · BLAKE3 `9872049e49b8e6eb` |
 | Method | [`docs/wikipedia-ai-risk-corpus.md`](docs/wikipedia-ai-risk-corpus.md) |
+| Signature | unsigned (`attestations/datasets/`) |
 
 Refresh:
 
@@ -157,6 +162,7 @@ Refresh:
 | Folder | `corpus/cve` · 6 files · 0.5 MB |
 | Manifest | 2 rows · BLAKE3 `75683ee183f5d0a8` |
 | Method | [`docs/cve-series.md`](docs/cve-series.md) |
+| Signature | unsigned (`attestations/datasets/`) |
 
 Refresh:
 
@@ -178,6 +184,7 @@ Refresh:
 | Folder | `corpus/epoch` · 72 files · 17.5 MB |
 | Manifest | 18 rows · BLAKE3 `54ab54813305af7c` |
 | Method | [`corpus/epoch/README.md`](corpus/epoch/README.md) |
+| Signature | unsigned (`attestations/datasets/`) |
 
 Refresh:
 
@@ -221,6 +228,7 @@ Refresh:
 | Folder | `corpus/codebooks` · 1 files · 0.0 MB |
 | Manifest | — rows · BLAKE3 `—` |
 | Method | [`docs/bert-enrichment-spec.md`](docs/bert-enrichment-spec.md) |
+| Signature | unsigned (`attestations/datasets/`) |
 
 Refresh:
 

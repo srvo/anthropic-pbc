@@ -1,0 +1,21 @@
+namespace: anthropic-pbc-dataset
+dataset: hacker-news
+title: Hacker News: Anthropic and AI-security comments
+pinned_as_of: 2026-08 (archive end)
+registry: corpus/datasets.tsv
+
+By signing this record, the signer attests that, when they signed: the files listed
+had exactly these BLAKE3 hashes; the dataset's own verify step (where it has one)
+passed; and, where scripts are listed, the files are the output of those scripts
+run on the sources pinned in the dataset's MANIFEST.tsv. It does not attest that
+any finding drawn from the dataset is true, and it says nothing about model
+output in proposals/.
+
+files (BLAKE3, path):
+215282c8393466921f5c4f6a47bde8a1ee9b5d5b716dd6c07feb46ebf07b463f  corpus/hacker-news/MANIFEST.tsv
+f00d2f2be24bff9d1af5ebbe9d08f65224284d7f5c50fd8502ac442bc649ef49  corpus/hacker-news/README.md
+3bc5a50aab64e124b8ff4de77e31ece3a195e5a6d2999ebd249ef5766155c5b6  corpus/hacker-news/months.tsv
+ee162681ad4c78226b187a7fe2046ab765e4d12aa991030a1e0e972f70911393  corpus/hacker-news/windows.parquet
+
+scripts (BLAKE3, path):
+c032e65328cd3e202903e5e89bbd16815f5392bfcf09cc6f94da38e9ba5531b3  scripts/hn_extract.py

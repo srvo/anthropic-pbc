@@ -26,6 +26,9 @@ from pathlib import Path
 
 import blake3
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import attest_datasets  # noqa: E402
+
 ROOT = Path(__file__).resolve().parent.parent
 REGISTRY = ROOT / "corpus" / "datasets.tsv"
 OUT = ROOT / "DATASETS.md"
@@ -101,12 +104,13 @@ def epoch_table() -> list[str]:
 
 def render() -> str:
     reg = list(csv.DictReader(REGISTRY.open(), delimiter="\t"))
+    sig = dict(attest_datasets.status())
     o = [HEAD, "---", "", "## Overview", "",
-         "| Dataset | Pinned as of | Source cadence | Manifest rows |", "|---|---|---|---:|"]
+         "| Dataset | Pinned as of | Source cadence | Manifest rows | Signature |", "|---|---|---|---:|---|"]
     for r in reg:
         d = ROOT / r["corpus_dir"] if r["corpus_dir"] != "—" else None
         n, _ = manifest_info(d) if d else ("—", "—")
-        o.append(f"| [{cell(r['title'])}](#{r['id']}) | {r['pinned_as_of']} | {cell(r['source_cadence'])} | {n} |")
+        o.append(f"| [{cell(r['title'])}](#{r['id']}) | {r['pinned_as_of']} | {cell(r['source_cadence'])} | {n} | {sig.get(r['id'], '—')} |")
     for r in reg:
         d = ROOT / r["corpus_dir"] if r["corpus_dir"] != "—" else None
         n, h = manifest_info(d) if d else ("—", "—")
@@ -121,6 +125,7 @@ def render() -> str:
               f"| Folder | `{r['corpus_dir']}` · {nf} files · {nb / 1e6:.1f} MB |" if d else "| Folder | — |",
               f"| Manifest | {n} rows · BLAKE3 `{h}` |",
               f"| Method | [`{r['doc']}`]({r['doc']}) |",
+              f"| Signature | {sig.get(r['id'], 'no corpus folder')} (`attestations/datasets/`) |",
               "", "Refresh:", "", f"    {r['refresh']}"]
         rs = runs(r["id"])
         if rs:

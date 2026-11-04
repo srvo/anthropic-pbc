@@ -52,8 +52,9 @@ its own attribution README.
 4. Respect source terms. A dataset whose terms bar AI ingestion is not
    fetched. Private individuals' text is stored as ids and hashes only (see the
    Hacker News corpus).
-5. Add a row to `corpus/datasets.tsv`, run `uv run scripts/datasets_md.py`, and
-   commit the deck with the data. `uv run scripts/datasets_md.py check` fails
+5. Add a row to `corpus/datasets.tsv`, run `uv run scripts/attest_datasets.py record`
+   and `uv run scripts/datasets_md.py`, and commit the records and the deck with
+   the data. A human signs the record (`attestations/README.md`); agents never sign. `uv run scripts/datasets_md.py check` fails
    if the deck is stale.
 
 ## Where to look

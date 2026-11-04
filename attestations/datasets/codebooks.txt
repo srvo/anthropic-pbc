@@ -1,0 +1,16 @@
+namespace: anthropic-pbc-dataset
+dataset: codebooks
+title: NLI codebooks
+pinned_as_of: —
+registry: corpus/datasets.tsv
+
+By signing this record, the signer attests that, when they signed: the files listed
+had exactly these BLAKE3 hashes; the dataset's own verify step (where it has one)
+passed; and, where scripts are listed, the files are the output of those scripts
+run on the sources pinned in the dataset's MANIFEST.tsv. It does not attest that
+any finding drawn from the dataset is true, and it says nothing about model
+output in proposals/.
+
+files (BLAKE3, path):
+
+scripts (BLAKE3, path):

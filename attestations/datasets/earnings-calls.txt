@@ -1,0 +1,28 @@
+namespace: anthropic-pbc-dataset
+dataset: earnings-calls
+title: S&P 500 earnings-call AI corpus
+pinned_as_of: 2026-11-04
+registry: corpus/datasets.tsv
+
+By signing this record, the signer attests that, when they signed: the files listed
+had exactly these BLAKE3 hashes; the dataset's own verify step (where it has one)
+passed; and, where scripts are listed, the files are the output of those scripts
+run on the sources pinned in the dataset's MANIFEST.tsv. It does not attest that
+any finding drawn from the dataset is true, and it says nothing about model
+output in proposals/.
+
+files (BLAKE3, path):
+d2ac999e14259ffa23dcf673e1c9bbe5816bb5ff51b11ddbb28517692c614448  corpus/earnings-calls/MANIFEST.tsv
+f09f679fe08a687ca03b89f698faaf2c7996932e03c46254d5ff81938608cd12  corpus/earnings-calls/README.md
+091bd9acac1bf4b63439715dd0e4033343c78c607ca6ba32d92cd47c2ee24711  corpus/earnings-calls/ai-paragraphs.parquet
+593dc5cbc821a9dd9760daedf6de39f5a0d3a7660388572062088c9ac6265979  corpus/earnings-calls/ai-questions.parquet
+61465b2fbbb46f8da8e1606b500654ca3b0ac9db3306e4a59ee1e67d1d7b7e51  corpus/earnings-calls/ai-windows.parquet
+5f74c37cce10819c413118902cb7cd2b5d40c55a7fb771201a3aeb0601cf9bfb  corpus/earnings-calls/calls.tsv
+8d10599c1428e67d9d20cd2a172e50d9c218d4cf124d962a35c15281a445a12b  corpus/earnings-calls/codebook-questions-v0.1.tsv
+16d1c01230a706e9c789eb22ccf7ced9f92906659d12b7800b69d4bf25e950a3  corpus/earnings-calls/codebook-v0.1.tsv
+305da463005585111424a10cbbd58e60dff3cadb4be1d1740debb18c0d07da0b  corpus/earnings-calls/question-calls.tsv
+906a5041373687dbc293e943c4c9b014df145b0f87348fac5d4f9edcb5b59d82  corpus/earnings-calls/sp500-constituents.tsv
+
+scripts (BLAKE3, path):
+40bc2eaf637846724d1daccf60e82aa2367ed2d759c51faf207458816341cc6c  scripts/ec_extract.py
+72991f113b02e8eb608c3d612721650e05bf21ee7f2439d4c1d63c1931eb41f0  scripts/ec_questions.py
