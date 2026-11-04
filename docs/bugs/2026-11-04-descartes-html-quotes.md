@@ -23,6 +23,17 @@ quotation that a reader sees as one sentence fails:
   defect; it was fixed by pinning its PDF instead (`70a8866`), which is not
   available for every page.
 
+### Same defect in PDF-derived text (added after the re-run, merge e36f74e)
+
+The PDF recipe (`pdftotext -enc UTF-8 -nopgbrk`) keeps the printed line
+breaks, so a quotation that runs across a printed line fails, although its
+words are the source's: 18 claims (Constitution 11, Public Benefit Report 6,
+RSP 1). The RSP's text also carries a zero-width space (U+200B) at each line
+edge (982 in `derived/rsp-v3.4.txt`). A reader sees one sentence; the check
+sees a newline. Whether a layout line break or a zero-width space matches a
+space is a general rule for Descartes to decide once, for every source, not
+something to settle quote by quote.
+
 ## What should happen
 
 A quotation should be checked against what was published, as a reader saw it

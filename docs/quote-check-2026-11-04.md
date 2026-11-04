@@ -93,3 +93,27 @@ automated fetches without a contact email in the User-Agent.
 Unchanged: 12 of 81 pass. The Constitution quotes no longer fail on duplication; they still fail on
 layout line breaks and typography, which the atomic review addresses quote by quote
 (`claims/anthropic-contrapunctus.review.tsv`).
+
+## Re-run after applying the atomic review (merge e36f74e)
+
+Command, unedited, from the repository root:
+`descartes check claims/anthropic-contrapunctus.tsv`. Exit 1, no seal.
+
+Summary line: `59 claims ok	70 problems` (35 failing claims; each failing claim reports
+its quote and then "has no surviving evidence").
+
+Failing claims by source and cause:
+
+| Source | Claims | Cause |
+|---|---|---|
+| `sources/s1a1.htm` | Q006 Q010 Q011 Q012 Q013 Q014 Q015 Q016 Q017 Q039a Q039b Q043 Q054 Q079 Q090 | HTML markup splits sentences; entities (`docs/bugs/2026-11-04-descartes-html-quotes.md`) |
+| `sources/anthropic-misuse-aug-2025.html` | Q048 | occurs more than once (rendered text plus embedded JSON copy) |
+| `sources/anthropic-productivity-gains.html` | Q084 | occurs more than once (same) |
+| `derived/constitution.txt` | Q025 Q026a Q026b Q027 Q028 Q029 Q030 Q031 Q032a Q032b Q052 | printed line breaks inside the quotation |
+| `derived/pbc-report-2026.txt` | Q001 Q050 Q062 Q064 Q066 Q070 | printed line breaks inside the quotation |
+| `derived/rsp-v3.4.txt` | Q022a | printed line breaks, plus zero-width spaces (U+200B) around each line |
+
+Spot checks against the derived text: the failing PDF quotations are the source's words, broken
+by the printed layout (e.g. Constitution line 19, Report lines 199–200, RSP lines 1027–1028).
+They are not fixed by editing the paper or the sources (AGENTS.md, "Checks are not beaten");
+they wait on the recipe fix in the bug report.
