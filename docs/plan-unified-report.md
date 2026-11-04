@@ -204,3 +204,23 @@ linked by locator.
 
 9. **The root.** Answered by Sloane, 2026-11-04: the chain starts from the
    open question "Is Anthropic a public benefit corporation?" (§2a).
+
+### Answers, Sloane, 2026-11-04
+
+1. **Pin:** the latest committed (recompiled) paper, not frozen v0. Today that
+   is still `1afb042`; the pin moves forward each time the paper is recompiled
+   and committed, and every edition records the paper commit it quoted.
+2. **Claim wording:** verbatim excerpts, with the most relevant part of each
+   quote highlighted (a highlighted sub-span inside the excerpt, both checked
+   by hash).
+3. **Ids:** C-ids with aliases (recommendation stands; not contested).
+4. **Descartes:** every number in the report becomes a Descartes claim
+   (answers Praxis Q21).
+5. **Disclosure:** (c). The adviser disclaimer goes only on outputs published
+   under the Ethical Capital brand. Under Praxis, a different statement: this
+   is not a publication; it is set up to facilitate dialogue between
+   communities, toward the goal of asserting collective stewardship (Praxis
+   `PRINCIPLES.md` P2). The paper's intro can be improved separately.
+6–8. Recommendations stand (CiTO plus one local term; indexes inline unless
+   the PDF passes 25 pages; risk-governance rows included, marked unsealed).
+9. **Root:** "Is Anthropic a public benefit corporation?"
