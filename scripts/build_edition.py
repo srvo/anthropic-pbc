@@ -53,6 +53,7 @@ PAPER = "docs/anthropic-contrapunctus.md"
 PAPER_V0 = "1afb042"
 DAG_TOOL = ROOT.parent / "praxis" / "datasets" / "dag.py"
 FIRST_YEAR = 2013
+CUTOFF_YEAR = 2023   # "before" year for the earnings-call comparison caption
 RISK_WORD = r"(?i)\brisk(s|y|ier|iest)?\b"
 
 # Risk codebooks this build supports: codebook file, score folder for earnings-call windows,
@@ -140,8 +141,8 @@ def earnings(cb: dict, b: dict) -> tuple[list[tuple], list[tuple]]:
         firms = con.execute(f"SELECT count(DISTINCT symbol) FROM ttm WHERE window_id IN ({flags_sql(scores, t)})").fetchone()[0]
         ranking.append((t, label(t), firms))
     ranking.sort(key=lambda r: (-r[2], r[0]))
-    b.update(as_of=as_of, ec_year_last=str(series[-1][0]), ec_pct_witness_last=f"{series[-1][3]:.1f}",
-             ec_pre2023_max=f"{max(r[3] for r in series if r[0] < 2023):.1f}",
+    b.update(as_of=as_of, ec_cutoff_year=str(CUTOFF_YEAR), ec_year_last=str(series[-1][0]), ec_pct_witness_last=f"{series[-1][3]:.1f}",
+             ec_pre2023_max=f"{max(r[3] for r in series if r[0] < CUTOFF_YEAR):.1f}",
              ec_ttm_risk_firms=str(con.execute("SELECT count(DISTINCT symbol) FROM ttm").fetchone()[0]),
              ec_top3=", ".join(f"{r[1].rstrip(' *')} ({r[2]})" for r in ranking[:3]))
     return series, ranking

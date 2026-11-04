@@ -41,7 +41,7 @@ Edition v0 of the paper (`docs/anthropic-contrapunctus.md` at `{{paper_v0}}`) re
 
 ![w:900](deck/ai-risk-by-year.svg)
 
-<div class="src">AI framed as a risk: {{ec_pct_witness_last}}% of {{ec_year_last}} S&P 500 calls (to {{as_of}}), against at most {{ec_pre2023_max}}% in any year before 2023.</div>
+<div class="src">AI framed as a risk: {{ec_pct_witness_last}}% of {{ec_year_last}} S&P 500 calls (to {{as_of}}), against at most {{ec_pre2023_max}}% in any year before {{ec_cutoff_year}}.</div>
 
 ---
 
