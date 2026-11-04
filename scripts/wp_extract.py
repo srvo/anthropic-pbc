@@ -531,6 +531,11 @@ def b3file(p: Path) -> str:
 
 # ---------------------------------------------------------------- verify
 def cmd_verify() -> int:
+    for m in manifest():
+        p = BULK / f"{m['revid']}.wikitext"
+        if not p.exists():
+            print(f"FAIL: missing {p.relative_to(ROOT)}; run uv run scripts/wp_extract.py fetch")
+            return 1
     bad = 0
     con = duckdb.connect()
     paras = con.execute(f"SELECT title, revid, paragraph_number, md_start, md_end, markdown_blake3, "

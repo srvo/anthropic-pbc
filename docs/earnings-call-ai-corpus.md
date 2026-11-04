@@ -159,7 +159,7 @@ These are the measured options (bfloat16, DeBERTa-v3-large):
 |---|---|---|
 | Modal L40S | 1,443 pairs/s per GPU | **Default.** `scripts/ec_classify_modal.py`, up to 8 GPUs in parallel. List price $0.000542/s, about $0.23 of GPU time per model on one GPU, plus container start-up. The Starter plan includes $30/month and up to 10 concurrent GPUs. Auth comes from the local `modal` profile via `uvx`. |
 | Apple M5 (MPS) | 134–152 pairs/s | `scripts/ec_classify.py`, about 1.2+ h per model. Shards resume after interruption. |
-| RunPod | not yet measured | API key in BWS as `RUNPOD_API_KEY`. Not wired up; Modal covered the need. |
+| RunPod | not yet measured | Requires an API key for the provider. Not wired up; Modal covered the need. |
 | k3s on the Proxmox cluster | not yet measured | The hosts are CPU-only (Hetzner EX44, 20 threads; no GPU), and a VM is bounded by one node. To use them, run `ec_classify.py --workers N --worker i` on each node, with float32 and `--threads`, then `--merge-only`. Best use is a full-corpus float32 cross-check, not speed. |
 
 Shards are tagged by model, dtype and backend (`modal-L40S`, or none for a

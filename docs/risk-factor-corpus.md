@@ -6,6 +6,14 @@ Status: METHOD. Binds nothing. The corpus is an input to analysis, not a finding
 Nothing here is scored, summarized, or judged. Every downstream claim must cite a
 `text_blake3` value and re-slice it, per [`descartes-spec.md`](descartes-spec.md).
 
+**Not rebuildable yet.** This corpus has no `MANIFEST.tsv`, no `dag.yml` step
+and no committed data. The defeatbeta filing index is not pinned by revision
+and hash, and the fetched filings and extracted spans exist only in one local,
+gitignored store (`.rfcorpus/`). A stranger can run the scripts but cannot
+reproduce or verify the counts below. Treat every number in this document as a
+local measurement, not a pinned result, until the corpus is pinned and added to
+the DAG.
+
 Sources: SEC EDGAR primary documents, addressed through the
 `defeatbeta/yahoo-finance-data` filing index on Hugging Face (ODC-BY).
 

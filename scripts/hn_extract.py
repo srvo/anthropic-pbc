@@ -1,7 +1,7 @@
 #!/usr/bin/env -S uv run --script
 # /// script
 # requires-python = ">=3.10"
-# dependencies = ["duckdb==2.0.0", "blake3>=1.0"]
+# dependencies = ["duckdb==2.0.0", "blake3==1.0.11"]
 # ///
 """Hacker News focused AI corpus: Anthropic, and AI security incidents. IDs only.
 
@@ -261,6 +261,12 @@ def cmd_build() -> int:
 
 
 def cmd_verify() -> int:
+    need = [(BULK / r["path"], "uv run scripts/hn_extract.py fetch") for r in months()]
+    need.append((BULK / "comments-text.parquet", "uv run scripts/hn_extract.py build"))
+    for p, fix in need:
+        if not p.exists():
+            print(f"FAIL: missing {p.relative_to(ROOT)}; run {fix}")
+            return 1
     con = connect()
     text = dict(con.execute(f"SELECT item_id, text FROM '{BULK / 'comments-text.parquet'}'").fetchall())
     raw = {}

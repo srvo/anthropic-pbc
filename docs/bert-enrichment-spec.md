@@ -589,3 +589,28 @@ column. That reading found these problems:
   not check the hand-entered wave, group, item or `response` columns, and
   `response` is not a word of the quote in 56 of 129 rows. All outputs
   rebuilt byte-identical.
+
+### 2026-11-04 · §7's v0.1 spike layout is a plan, not the committed tree
+
+§7 says the repository "holds documents only" and lists spike artifacts:
+`sources/MANIFEST.tsv`, `sources/`, `frameworks/promise-act-v0.1.md`,
+`gold/pilot-v0.1.tsv`, `gold/pilot-v0.1.agreement.md`,
+`scripts/enrich_stage2.py` and `proposals/enrich-extraction-v0.1.tsv`. None of
+these is committed; §7 describes a plan that was not built in that form. §7 is
+left as written (§§1–9 are frozen).
+
+What was built instead, all on public data:
+
+- Corpora, each pinned and in `dag.yml`: earnings calls
+  (`corpus/earnings-calls/`), Hacker News, Wikipedia AI-risk articles, the CVE
+  series, the Epoch snapshot and the democracy proxies. `DATASETS.md` is the
+  catalog; `docs/corpus-roadmap.md` lists what is still planned.
+- Codebooks in place of `frameworks/`: `corpus/earnings-calls/codebook-v0.1.tsv`,
+  `codebook-questions-v0.1.tsv` and `corpus/codebooks/codebook-v0.2-draft.tsv`.
+- Witness scoring in `scripts/ec_classify.py`, with outputs under
+  `proposals/<corpus>/<codebook>/`.
+- Gold samples in place of `gold/pilot-v0.1.tsv`: `gold/earnings-calls/`,
+  written by `scripts/ec_gold.py` and not yet coded.
+
+The Anthropic primary documents (`sources/`) and the promise↔act codebook
+remain unbuilt.
