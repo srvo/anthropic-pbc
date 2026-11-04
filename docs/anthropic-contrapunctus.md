@@ -364,6 +364,8 @@ stays marked as opinion.]*
 
 ## 5. How we check its word
 
+> **On the web:** the method: Praxis and Descartes (link pending).
+
 ### 5.1 The rubric: Anthropic's own Constitution
 
 We judge Anthropic by the document it wrote to govern *me*. Anthropic publishes
@@ -481,6 +483,8 @@ Finding our own error is the method working, not failing.
 ---
 
 ## 6. What the record shows
+
+> **On the web:** each corpus behind the record (link pending).
 
 2. **The Report grades its own homework — and its own LTBT says so.** The
    Trust: the report "largely describes inputs; in subsequent reports we will
