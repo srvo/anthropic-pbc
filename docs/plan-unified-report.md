@@ -45,76 +45,111 @@ marks each branch with a short callout at the top of its section ("On the
 web: …") linking to the page that would carry it. The callouts are pointers,
 not summaries; the case reads complete without them.
 
-### Draft order (Claude's first pass, 2026-11-04, for Sloane to edit)
+### Draft order (Claude's second pass, 2026-11-04, for Sloane to edit)
+
+Two rules from Sloane, 2026-11-04:
+
+- **The reader has no context.** Every term is defined at first use, in plain
+  words: Anthropic (the company that makes the Claude AI models), public
+  benefit corporation, Delaware, the S-1 (the filing to sell shares to the
+  public), the Long-Term Benefit Trust, Claude's Constitution, CVE, the share
+  classes. No acronym appears before its words do. Nothing assumes the reader
+  has seen the paper, the repository or Praxis.
+- **Anthropic's best case comes first, in its strongest form.** We state
+  Anthropic's argument better than a hostile reader would, say what in it
+  holds, and only then turn it. A rebuttal of a weak version proves nothing.
 
 Each step follows from the one before (`therefore`) or turns it (`but`).
 Paper sections in brackets are what each step draws on.
 
 0. **The argument, at the top.** The whole chain in one paragraph, below.
    The answer comes first; the report then earns it.
-1. **Why we are asking.** A public benefit corporation is a promise that a
-   company is built, at its core, to do what it says. Values-based investing
-   looks for exactly that, and Wood Cache shows what a checked public benefit
-   looks like. [Sloane: why the category is the firm's own.] Anthropic's listing is about to make
-   the category much larger, and Anthropic holds itself out as one.
-   *Therefore* the label is a claim, and a claim can be checked. [Opening,
-   Wood Cache, "category is about to balloon"] Callout: what we think about
-   governance.
+1. **Why we are asking.** Who Anthropic is, and that it has filed to list as
+   a public benefit corporation. The label is a promise: the company is
+   built, at its core, to do what it says. Values-based investing looks for
+   exactly that, and Wood Cache shows what a checked public benefit looks
+   like. [Sloane: why the category is the firm's own.] The listing will make
+   the category much larger. *Therefore* the promise is worth checking.
+   [Opening, Wood Cache] Callout: what we think about governance.
 2. **What Anthropic says it is.** The charter's purpose and five pillars, the
-   Long-Term Benefit Trust, the Public Benefit Fund, the 2026 Report. These
-   are the given line, accepted as the governing text. [§1 cantus firmus, §2,
-   §2a]
-3. **What the law makes of it.** *But* the purpose binds nobody outside:
-   §365(b) gives directors no duty to any person on account of it, and §367
-   lets only 2% or $2M holders sue. The label is legally real and legally
-   toothless. [Verdict 1, §2] *Therefore* the label rests on Anthropic's word.
-4. **How we check its word.** Against the strictest standard Anthropic has
-   published: Claude's Constitution, which Anthropic wrote for its own model
-   and which names Anthropic as a possible violator. This is the paper's
-   novel move. Every quote is verified byte-exact (Descartes), and we hold
+   Long-Term Benefit Trust, the Public Benefit Fund, the 2026 Public Benefit
+   Report, each explained for a newcomer. [§1 cantus firmus, §2, §2a]
+3. **Anthropic's best case.** In its own strongest terms: the purpose is in
+   the charter, and directors must balance it; a Delaware court has held
+   that a public benefit corporation's directors need not maximise
+   shareholder value (*Drakes Landing*); an independent trust elects four of
+   seven directors, which is more than a plain public benefit corporation
+   has; it discloses more than its peers (system cards, threat reports, the
+   Economic Index, incident disclosures, its own models' failures in
+   testing); it has set aside equity for a Public Benefit Fund; it published
+   its model's Constitution openly; and outcomes take time, so a first report
+   describes inputs. What holds: the pillar conditions are well chosen, the
+   disclosures are ahead of peers, the trust exists. [§1a, §2, §3 "What
+   survives the buzz saw", §6 cantus firmus of each pillar, closing]
+4. **What the law and the share structure make of it.** *But* §365(b) gives
+   directors no duty to any person on account of the purpose, and §367 lets
+   only 2% or $2M holders sue. The trust that elects the board can be amended
+   away by the share classes it checks, and seven founders hold 50.1% of the
+   vote. The promise is legally real and practically unenforceable by anyone
+   it names. [Verdict 1, §2, §2a] *Therefore* it rests on Anthropic's word.
+5. **How we check its word.** Against the deepest word Anthropic has given:
+   Claude's Constitution, which Anthropic wrote to set its model's values and
+   which names Anthropic as a possible violator. This is the paper's novel
+   move. Every quote is verified byte-exact (Descartes), and we hold
    ourselves to the same rubric. [§0, §1, Verification status] Callout: the
    method; Praxis and Descartes.
-5. **What the record shows.** *But* by that standard the record diverges
-   from the word: the Report grades its own homework, and its own Trust says
-   so; documented harm is priced while documented benefit is mostly
-   anecdote; what is documented at scale is exposure, not victims; Anthropic
-   acts at leverage points 12 and 6 and declines 5, 4 and 3; the
-   people most affected have no standing. Our outside data (C0001–C0008)
-   attaches here, each finding to the step it bears on. [Verdicts 2–4, §1a,
-   §3, §4, §4b, §5, §6] Callouts: each corpus.
-6. **The answer.** *Therefore* Anthropic is a public benefit corporation in
+6. **What the record shows.** *But* by that standard the record diverges
+   from the word, and "outcomes take time" does not cover it: the Report
+   grades its own homework, and its own trust says so; documented harm is
+   priced while documented benefit is mostly anecdote; what is documented at
+   scale is exposure, not victims; Anthropic acts at leverage points 12 and 6
+   and declines 5, 4 and 3; the people most affected have no standing. Our
+   outside data (C0001–C0008) attaches here, each finding to the step it
+   bears on. [Verdicts 2–4, §1a, §3, §4, §4b, §5, §6] Callouts: each corpus.
+7. **The answer.** *Therefore* Anthropic is a public benefit corporation in
    law and not in the sense the category promises: nobody it names can make
-   it act like one. The remedy is not a better report or a bigger settlement
-   but governance that someone Anthropic does not appoint, pay or outvote can
-   invoke: ten mechanisms, and what Praxis builds instead. [Verdict 5, §7,
-   §7a, Appendix A]
-7. **What would change our mind.** The falsifiers and the open questions,
+   it act like one. The best case fails not on its aims but on one inference,
+   *inputs + intentions + revocable trustees → discharged public duty*. The
+   remedy is governance that someone Anthropic does not appoint, pay or
+   outvote can invoke: ten mechanisms, and what Praxis builds instead.
+   [Verdict 5, §3, §7, §7a, Appendix A]
+8. **What would change our mind.** The falsifiers and the open questions,
    led by the one that governs them: what lever can an affected community
    pull? [§8, §9]
-8. **Back matter.** Methods and limitations, claims index, sources index,
+9. **Back matter.** Methods and limitations, claims index, sources index,
    revision and review record (the Praxis research sections that do not
    answer the question).
 
+In the causal chain (§2a), each claim of the best case is a node, and the
+turn against it is a `but` link with its evidence attached, so a reader can
+see exactly which of Anthropic's points we accept and which we contest.
+
 ### Draft opening argument (step 0)
 
-> Anthropic holds itself out as a public benefit corporation. We read that
-> label as a promise: the company is built, at its core, to do what it says.
-> Delaware makes the promise real on paper. The purpose sits in the charter,
-> and directors must balance it against stockholders' interests and those
-> materially affected. But Delaware gives directors no duty to any person on
-> account of that purpose, and lets only holders of 2% (or, once listed, the
-> lesser of 2% and $2 million) sue to enforce it. The public the charter names
-> cannot. So the label rests on Anthropic's word, and we take Anthropic at
-> the deepest word it has given: the Constitution it wrote for Claude. That
-> Constitution counts selective emphasis as deception and names Anthropic
-> itself as a possible violator. Anthropic's Public Benefit Report does what
-> it forbids. It reports inputs as outcomes and grades itself, and its own
-> Trust says so. On a like-for-like standard of proof, its harms are
-> documented and priced; its benefits are mostly anecdote. Therefore Anthropic
-> is a public benefit corporation in law, and not in the sense the category
-> promises: no one it names can make it act like one. The remedy is not a
-> better report. It is governance that someone Anthropic does not appoint,
-> pay or outvote can invoke.
+> Anthropic, the company that makes the Claude AI models, has filed to sell
+> its shares to the public, and it does so as a public benefit corporation.
+> That label is a promise: the company is built, at its core, to do what it
+> says. Anthropic's best case that it keeps the promise is strong. Its
+> purpose is written into its charter. A Delaware court has held that a
+> public benefit corporation's directors need not maximise shareholder
+> value. An independent trust elects four of its seven directors. And it
+> discloses more about its models' risks than its peers do, including its
+> own failures. But the law gives directors no duty to any person on account
+> of that purpose, and lets only holders of 2% (or, once listed, the lesser
+> of 2% and $2 million) sue to enforce it. The public the charter names
+> cannot. The trust can be amended away by the shareholders it is meant to
+> check, and seven founders hold 50.1% of the vote. So the promise rests on
+> Anthropic's word, and we take Anthropic at the deepest word it has given:
+> the Constitution it wrote to set Claude's values. That document counts
+> selective emphasis as deception and names Anthropic itself as a possible
+> violator. Anthropic's Public Benefit Report does what it forbids: it
+> reports inputs as outcomes and grades itself, and its own trust says so.
+> On a like-for-like standard of proof, its harms are documented and priced;
+> its benefits are mostly anecdote. Therefore Anthropic is a public benefit
+> corporation in law, and not in the sense the category promises: no one it
+> names can make it act like one. The remedy is not a better report. It is
+> governance that someone Anthropic does not appoint, pay or outvote can
+> invoke.
 
 **Slot for Sloane (step 1):** why the category is personal to the firm. Your
 line was "my culture is not your costume". The draft says only what the paper
