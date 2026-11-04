@@ -415,6 +415,11 @@ def cmd_verify(as_of: str) -> int:
     bad = 0
     rows = read_manifest()
     for r in rows:
+        if not (BULK / r["path"]).exists():
+            print(f"FAIL: missing {(BULK / r['path']).relative_to(ROOT)}; run uv run scripts/democracy_proxies.py "
+                  f"fetch-{r['source']} --as-of {r['as_of']}")
+            return 1
+    for r in rows:
         p = BULK / r["path"]
         if not p.exists():
             print(f"MISSING {r['path']}")
