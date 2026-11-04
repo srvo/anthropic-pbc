@@ -371,6 +371,17 @@ class Build:
                 source=src, how="firms with >= 1 company-speaker ai_risk window, trailing window")
         self.compose("ec_top3", ", ".join(f"{LABELS.get(r[0], r[0])} ({{ec_rank_{r[0]}}})" for r in ranking[:3]),
                      source=src, how="top three of the ranking")
+        first, y_last = series[0][0], last[0]
+        self.compose("alt_series", (
+            f"Line chart, {{year_{first}}} to {{ec_year_last}}: share of S&P 500 earnings calls where both models frame AI "
+            f"as a risk, {{ec_nli_{y_last}}}% in {{ec_year_last}} against at most {{ec_pre2023_max}}% in any year before "
+            f"{{ec_cutoff_year}}; calls with a risk word next to AI, {{ec_lex_{y_last}}}% in {{ec_year_last}}; share of AI "
+            f"passages framed as a risk, {{ec_win_base}}% in {{ec_win_base_year}} and {{ec_win_last}}% in {{ec_year_last}}."),
+            source=src, how="alt text of ai-risk-by-year.svg, from the chart's bindings")
+        self.compose("alt_ranking", (
+            "Bar chart: number of companies whose own speakers raised each AI risk on S&P 500 calls, {ttm_months} months "
+            "to {as_of}: " + "; ".join(f"{LABELS.get(t, t)} {{ec_rank_{t}}}" for t, _, n in ranking if n > 0) + "."),
+            source=src, how="alt text of risk-ranking-ttm.svg, from the chart's bindings")
         self.plot_series(series)
         self.plot_ranking(ranking)
 
@@ -511,6 +522,11 @@ class Build:
                  color=INK2, fontsize=7)
         fig.tight_layout(rect=(0, 0.04, 1, 1))
         self.save_fig(fig, "intent-ttm.svg")
+        self.compose("alt_intent", (
+            "Bar chart: share of {q_n} analyst questions on AI by topic, {ttm_months} months to {as_of}: "
+            + "; ".join(f"{qr.LABELS[h]} {{q_{h[2:]}_pct}}%" for h, *_ in out)
+            + ". Commercial topics together {q_commercial_pct}%, oversight topics together {q_oversight_pct}%."),
+            source=QUESTIONS["ttm"], how="alt text of intent-ttm.svg, from the chart's bindings")
 
     # ------------------------------------------------------------ cross-source dialogue space
     def dialogue(self) -> None:
@@ -584,6 +600,13 @@ class Build:
             "Witness proposals, no gold set.")) + '</text>')
         o.append("</svg>")
         self.save_svg("\n".join(o) + "\n", "dialogue-space.svg")
+        top3 = {k: sorted(types, key=lambda r: (-int(r[f"{k}_n"]), r["risk_type"]))[:3] for k, _ in DIALOGUE_SOURCES}
+        self.compose("alt_dialogue", (
+            "Heatmap: share of each source's AI-risk passages naming each risk type. Largest three per source: "
+            + "; ".join(f"{label} (n = {{ds_base_{k}}}): "
+                        + ", ".join(f"{r['risk_type']} {{ds_{k}_{r['risk_type']}}}%" for r in top3[k])
+                        for k, label in DIALOGUE_SOURCES) + "."),
+            source=cb["dialogue"], how="alt text of dialogue-space.svg, from the chart's bindings")
 
     # ------------------------------------------------------------ CVE
     def cve(self) -> None:
@@ -632,6 +655,10 @@ class Build:
                  color=INK2, fontsize=7)
         fig.subplots_adjust(left=0.08, right=0.98, top=0.88, bottom=0.12)
         self.save_fig(fig, "cve-ai-credit.svg")
+        self.compose("alt_cve", (
+            "Two bar charts by month, {cve_chart_first} to {cve_last}: CVEs published per month, {cve_last_pub} in the last "
+            "month; CVEs whose credits name an AI system, {cve_last_ai} in the last month, {cve_last_claude} of them "
+            "naming Claude."), source=CVE, how="alt text of cve-ai-credit.svg, from the chart's bindings")
 
     # ------------------------------------------------------------ deck
     def render(self, head: str) -> None:
@@ -653,6 +680,9 @@ class Build:
             return re.sub(r"!\[([^\]]*)\]\([^)]*\)", lambda m: "![" + MARP_SIZE.sub("", m.group(1)) + "]", x)
         for i, line in enumerate(tpl.splitlines(), 1):
             in_fm = i <= fm_lines
+            for alt in re.findall(r"!\[([^\]]*)\]\(", line):
+                if not re.fullmatch(r"\{\{alt_\w+\}\}", MARP_SIZE.sub("", alt).strip()):
+                    self.errs.append(f"deck.template.md:{i}: image alt text must be one alt binding: {alt!r}")
             if in_fm and not FM_CHECKED.match(line):
                 continue
             bad = sorted(tokens(shown(re.sub(r"\{\{\w+\}\}", "", line))))

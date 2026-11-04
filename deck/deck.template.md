@@ -39,7 +39,7 @@ Edition {{paper_edition}} of the paper (`docs/anthropic-contrapunctus.md` at `{{
 
 <!-- _class: chart -->
 
-![w:900](deck/ai-risk-by-year.svg)
+![w:900 {{alt_series}}](deck/ai-risk-by-year.svg)
 
 <div class="src">AI framed as a risk: {{ec_pct_witness_last}}% of {{ec_year_last}} S&P 500 calls (to {{as_of}}), against at most {{ec_pre2023_max}}% in any year before {{ec_cutoff_year}}. The call rate rises with AI talk itself: AI passages per call went from {{ec_wpc_base}} in {{ec_win_base_year}} to {{ec_wpc_last}} in {{ec_year_last}}, while the share of AI passages framed as a risk went from {{ec_win_base}}% to {{ec_win_last}}%.</div>
 
@@ -47,7 +47,7 @@ Edition {{paper_edition}} of the paper (`docs/anthropic-contrapunctus.md` at `{{
 
 <!-- _class: chart -->
 
-![h:520](deck/risk-ranking-ttm.svg)
+![h:520 {{alt_ranking}}](deck/risk-ranking-ttm.svg)
 
 <div class="src">Company executives and other company speakers at {{ec_ttm_risk_firms}} firms raised AI as a risk in the {{ttm_months}} months to {{as_of}}; analysts' questions are excluded (speaker role is a name heuristic). Most named: {{ec_top3}}.</div>
 
@@ -55,7 +55,7 @@ Edition {{paper_edition}} of the paper (`docs/anthropic-contrapunctus.md` at `{{
 
 <!-- _class: chart -->
 
-![h:520](deck/intent-ttm.svg)
+![h:520 {{alt_intent}}](deck/intent-ttm.svg)
 
 <div class="src">Analysts ask how AI sells or what it costs ({{q_commercial_pct}}% of AI questions) far more than how its risks are governed ({{q_oversight_pct}}%). Each share counts a question once, however many topics in its group it carries. Question-intent codebook {{question_codebook}}.</div>
 
@@ -63,7 +63,7 @@ Edition {{paper_edition}} of the paper (`docs/anthropic-contrapunctus.md` at `{{
 
 <!-- _class: chart -->
 
-![h:540](deck/dialogue-space.svg)
+![h:540 {{alt_dialogue}}](deck/dialogue-space.svg)
 
 <div class="src">The sources cover different windows ({{ds_window_calls}}; HN {{ds_window_hn}}; Wikipedia {{ds_window_wikipedia}}), and their levels compare only in rough order. Safety and ethics: {{ds_exec_safety}}% of executives' AI-risk passages, {{ds_hn_safety}}% on Hacker News about Anthropic, {{ds_wp_safety}}% on Wikipedia. HN's AI-security set is selected on security terms, so its cybersecurity share ({{ds_sec_cyber}}%) is high by construction.</div>
 
@@ -71,7 +71,7 @@ Edition {{paper_edition}} of the paper (`docs/anthropic-contrapunctus.md` at `{{
 
 <!-- _class: chart -->
 
-![w:950](deck/cve-ai-credit.svg)
+![w:950 {{alt_cve}}](deck/cve-ai-credit.svg)
 
 <div class="src">CVE credits name Claude on {{cve_claude_total}} CVEs and any AI system on {{cve_ai_total}} ({{cve_first}} to {{cve_last}}). That cannot confirm or refute the claim of "{{q_33k}}", which edition {{paper_edition}} of the paper itself marks {{q_33k_status}}: not every flaw becomes a CVE, and credits need not name the tool.</div>
 

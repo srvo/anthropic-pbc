@@ -113,7 +113,18 @@ b = build_with(FM + "<!-- presenter note: 42 firms -->\n")
 expect("numeral in an HTML comment (presenter note) fails", any("['42']" in e for e in b.errs))
 b = build_with(FM + "![w:900 chart of 42 firms](deck/x.svg)\n")
 expect("numeral in image alt text fails", any("['42']" in e for e in b.errs))
-b = build_with(FM + "![w:900 h:400 {{n}} firms](deck/x2.svg)\n")
+b = build_with(FM + "![w:900](deck/x.svg)\n")
+expect("chart image without alt text fails (Q23)", any("alt binding" in e for e in b.errs))
+b = be.Build("v0.2-draft")
+b.reg.put("n", "137", source="t", how="t")
+b.compose("alt_x", "Bar chart: {n} firms.", source="t", how="t")
+with tempfile.NamedTemporaryFile("w", suffix=".md", delete=False) as f:
+    f.write(FM + "![w:900 h:400 {{alt_x}}](deck/x2.svg)\n")
+old_t, be.TEMPLATE = be.TEMPLATE, Path(f.name)
+try:
+    b.render("0" * 40)
+finally:
+    be.TEMPLATE = old_t
 expect("image size keywords and a bound alt pass", not b.errs)
 b = build_with('---\nmarp: true\ntitle: "Top 42 risks"\nsize: 16:9\n---\n\nx\n')
 expect("numeral in the front-matter title fails", any("['42']" in e for e in b.errs))

@@ -124,6 +124,10 @@ build (`scripts/build_edition.py`) fails on any breach:
 7. **Nothing clipped or malformed.** Chart text must lie inside the figure;
    every SVG must parse.
 8. **One codebook** per edition.
+9. **Alt text.** Every image in the template carries exactly one `{{alt_*}}`
+   binding (Marp size keywords aside). Each alt text is composed from the
+   same registered values as its chart and caption, so the numbers a screen
+   reader hears are the numbers on the slide (Praxis Q23).
 
 `uv run scripts/test_edition_controls.py` feeds each control a bad input and
 confirms it fails (14 cases).
