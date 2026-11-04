@@ -64,13 +64,34 @@ Paper sections in brackets are what each step draws on.
 
 0. **The argument, at the top.** The whole chain in one paragraph, below.
    The answer comes first; the report then earns it.
-1. **Why we are asking.** Who Anthropic is, and that it has filed to list as
-   a public benefit corporation. The label is a promise: the company is
-   built, at its core, to do what it says. Values-based investing looks for
-   exactly that, and Wood Cache shows what a checked public benefit looks
-   like. [Sloane: why the category is the firm's own.] The listing will make
-   the category much larger. *Therefore* the promise is worth checking.
-   [Opening, Wood Cache] Callout: what we think about governance.
+1. **Why we are asking.** (Sloane, 2026-11-04; introduced on the web by a
+   short video of Sloane's.)
+   - **Who we are.** Ethical Capital identifies companies that create
+     unambiguous positive impact and aligns capital with them. A public
+     benefit corporation is the legal form of that promise, so the category
+     is ours to care about.
+   - **What the form should look like: Wood Cache.** Its front page tells
+     you in a minute what it does. It buries dead trees that would otherwise
+     burn and verifies the stored carbon end to end, and Colorado regulates
+     its burial sites as landfills. It is low-key: it does not advertise how
+     hard its verification was. Its CEO's view of its risk, in conversation
+     with Sloane: the only thing that can go wrong is that the good things do
+     not happen. The scrutiny on it is immense, like regulating a lemonade
+     stand like a refinery. [Opening, Wood Cache] *Needs Sloane:* whether to
+     quote the CEO, and a source for any "first to complete" claim about its
+     audit (not in the paper; Descartes will need one).
+   - **The missed risk.** Scrutiny runs backwards: the small, observable
+     benefit whose worst case is "nothing good happens" is checked hard; the
+     company whose worst case is the serious risks it discloses is checked by
+     its own report. That gap is the risk the market misses, and Anthropic's
+     listing will make the category much larger.
+   - **Governance, slimmest version.** Governance is effective control over
+     your surroundings: whether the people affected by a system can steer
+     it, and whether it survives the loss of any one person ("Governance
+     exists so that systems can survive individuals"). One paragraph only;
+     the full premise is a separate Praxis paper.
+   - *Therefore* the promise is worth checking. Callout: what we think about
+     governance (the premise paper).
 2. **What Anthropic says it is.** The charter's purpose and five pillars, the
    Long-Term Benefit Trust, the Public Benefit Fund, the 2026 Public Benefit
    Report, each explained for a newcomer. [§1 cantus firmus, §2, §2a]
@@ -91,7 +112,14 @@ Paper sections in brackets are what each step draws on.
    only 2% or $2M holders sue. The trust that elects the board can be amended
    away by the share classes it checks, and seven founders hold 50.1% of the
    vote. The promise is legally real and practically unenforceable by anyone
-   it names. [Verdict 1, §2, §2a] *Therefore* it rests on Anthropic's word.
+   it names. [Verdict 1, §2, §2a]
+   - **"Only we can save us."** Anthropic's case rests on being the safety-
+     focused lab at the frontier. If it is true that only a few people can
+     steer this technology safely, the governance has to be far stronger,
+     not weaker, because it must survive those people. Here it depends on
+     them. (Sloane's argument; *needs* Anthropic's own words for the "only
+     we" stance, quoted and verified, or it stays marked as opinion.)
+   *Therefore* the promise rests on Anthropic's word.
 5. **How we check its word.** Against the deepest word Anthropic has given:
    Claude's Constitution, which Anthropic wrote to set its model's values and
    which names Anthropic as a possible violator. This is the paper's novel
@@ -138,7 +166,9 @@ see exactly which of Anthropic's points we accept and which we contest.
 > of that purpose, and lets only holders of 2% (or, once listed, the lesser
 > of 2% and $2 million) sue to enforce it. The public the charter names
 > cannot. The trust can be amended away by the shareholders it is meant to
-> check, and seven founders hold 50.1% of the vote. So the promise rests on
+> check, and seven founders hold 50.1% of the vote. If only a few people can
+> steer this technology safely, the governance must survive them; this one
+> depends on them. So the promise rests on
 > Anthropic's word, and we take Anthropic at the deepest word it has given:
 > the Constitution it wrote to set Claude's values. That document counts
 > selective emphasis as deception and names Anthropic itself as a possible
@@ -151,10 +181,8 @@ see exactly which of Anthropic's points we accept and which we contest.
 > governance that someone Anthropic does not appoint, pay or outvote can
 > invoke.
 
-**Slot for Sloane (step 1):** why the category is personal to the firm. Your
-line was "my culture is not your costume". The draft says only what the paper
-already establishes (values-based investing, Wood Cache); anything about the
-firm's own standing is yours to write.
+**Separate paper (Praxis):** the premise that governance is effective control
+over your surroundings. This report carries one paragraph of it and links out.
 
 The template-order list below is the earlier draft, kept until this order is
 approved.
