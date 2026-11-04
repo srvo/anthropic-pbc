@@ -175,11 +175,12 @@ waves follow a panel of the same respondents (R10: N = 1,093).
 
 ### 3.2 Method: transcribe text, never charts
 
-Each report is two pages of prose around one to three chart images. Every
+Each report is one or two pages of prose (R01 has one) with up to three
+embedded images per page. Every
 percent that appears **in the text layer** was hand-transcribed into
 `rooney-transcription.tsv`. Each row carries the report, page, wave as the
 report states it, group, the report's wording of the item, whether that wording
-is quoted or only described, the value as printed, the numeric percent, and a
+is quoted or only described, the response category, the value as printed, the numeric percent, and a
 verbatim quote. `build` re-extracts each page with `pypdf==5.4.0` and fails
 unless:
 
@@ -188,6 +189,10 @@ unless:
 - the printed value is in the quote;
 - the numeric percent is in the quote.
 
+`build` does not check the hand-entered `wave_as_stated`, `group`, `item` or
+`response` columns. `response` is the transcriber's label for the answer
+category; in 56 of 129 rows it is not a word of the quote.
+
 Hedged values ("roughly 10%", "approximately 93%") keep the hedge in
 `value_text` and the number in `percent`. Bounds and ranges ("Over 40%",
 "19-22%", "near 4-6%") and verbal fractions ("one-in-four", "Nearly 1 in 5",
@@ -195,14 +200,16 @@ Hedged values ("roughly 10%", "approximately 93%") keep the hedge in
 inference.
 
 **Not extracted:** everything in the chart images. `rooney-reports.tsv` lists
-the embedded images per page (charts and logos; 1 to 3 per page). The charts
+the embedded images per page (charts and logos; 0 to 3 per page). The charts
 carry figures the text omits, for example every Independent figure in R01 and
 the full least-liked-group distribution in R06. They were not read and not
 estimated.
 
 Item wording. The reports paraphrase. For the October 2025 wave, the published
-questionnaire gives exact stems, so `rooney-questionnaire.tsv` maps 30 report
-items to questionnaire blocks, and `build` checks that each stem occurs in the
+questionnaire gives exact stems, so `rooney-questionnaire.tsv` maps 30
+items to questionnaire blocks (29 from October 2025, plus
+`democracy_most_important_problem` from May 2026; that one and
+`democratic_system_good` have no percent in any pinned report), and `build` checks that each stem occurs in the
 pinned questionnaire PDF (`rooney-items.tsv`, with page numbers). Earlier waves'
 questionnaires are on Google Drive as codebooks and were not pinned, so for
 reports drawing on 2024 and spring 2025 waves the wording is the report's own.
@@ -257,9 +264,10 @@ pure independents and representation (R02); strong-leader items by Trump vote
 
 **An Anthropic finding inside the democracy data.** Three reports (R08
 December 2025, R09 January 2026, R10 February 2026) carry an "AI transparency
-statement". It begins: "Anthropic's Claude Opus 4.6 was used in initial data
+statement". R08 and R10 begin: "Anthropic's Claude Opus 4.6 was used in initial data
 analysis and identification of trends. Results reported were manually and
-independently verified by the author without use of generative AI." The full
+independently verified by the author without use of generative AI." R09 reads
+"identification/ summarization of trends" instead. The full
 text is in `rooney-reports.tsv`. So Anthropic's product is an input to the
 production of this democracy-health research. That is a fact about tool use,
 disclosed by the authors. It says nothing about whether the use improved or

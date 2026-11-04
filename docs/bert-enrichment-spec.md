@@ -580,3 +580,12 @@ column. That reading found these problems:
   data-center chillers, GPU clusters, and benchmark model metadata, which
   holds blank and duplicate rows against Epoch's own "one row per model
   version". Each is declared, not invented.
+- **Democracy metadata: seven doc-versus-data fixes.** The Rooney series
+  are stated attitudes, not conditions (the script docstring and README
+  said conditions). The user agent no longer calls `corpus/democracy/` CC0.
+  R01 has one page and two reports have an image-free page. Of 30
+  questionnaire items, one is from May 2026 and two have no report percent.
+  R09's AI disclosure reads "identification/ summarization". `build` does
+  not check the hand-entered wave, group, item or `response` columns, and
+  `response` is not a word of the quote in 56 of 129 rows. All outputs
+  rebuilt byte-identical.

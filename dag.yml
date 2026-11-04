@@ -236,7 +236,7 @@ steps:
     outputs: [corpus/democracy/MANIFEST.tsv]
   snapshot://ethicalcapital/2026-11-04/rooney_transcription:
     meta: corpus/democracy/rooney_transcription.meta.yml
-    # hand-transcribed from the pinned PDFs; `build` checks every quote and number against the page text
+    # hand-transcribed from the pinned PDFs; `build` checks each quote against its page and each value against its quote; group, wave, item and response are unchecked
     outputs: [corpus/democracy/rooney-transcription.tsv, corpus/democracy/rooney-questionnaire.tsv]
   data://garden/democracy/2026-11-04/proxies:
     meta: corpus/democracy/proxies.meta.yml

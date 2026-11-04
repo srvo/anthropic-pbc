@@ -1,7 +1,7 @@
 # Democracy proxies: GDELT phrase timelines and Rooney Report toplines
 
 Quick, citable proxy series for "health of democracy" as a public topic (how
-often news and television say the words) and as a stated condition (what
+often news and television say the words) and as stated attitudes (what
 survey respondents tell the Notre Dame Health of Democracy Survey). Method and
 limits: [`docs/democracy-proxies.md`](../../docs/democracy-proxies.md).
 

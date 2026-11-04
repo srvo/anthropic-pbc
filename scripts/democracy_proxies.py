@@ -6,7 +6,7 @@
 """Health-of-democracy proxies: GDELT phrase timelines and Rooney Report toplines.
 
 These series measure ATTENTION to democracy (how often news and television use
-the words) and stated CONDITIONS (what survey respondents say). None of them
+the words) and stated ATTITUDES (what survey respondents say). None of them
 measures any effect of Anthropic on democracy. See docs/democracy-proxies.md.
 
 Two sources, each pinned by the bytes actually received:
@@ -59,7 +59,7 @@ MANIFEST = CORPUS / "MANIFEST.tsv"
 TRANSCRIPTION = CORPUS / "rooney-transcription.tsv"   # hand-transcribed report numbers (input)
 QUESTIONNAIRE = CORPUS / "rooney-questionnaire.tsv"   # hand-copied questionnaire stems (input)
 OUTPUTS = ("gdelt-timelines.tsv", "gdelt-summary.tsv", "rooney-reports.tsv", "rooney-toplines.tsv", "rooney-items.tsv")
-UA = "anthropic-pbc democracy-proxies research (public CC0 research repo; contact sloane@ethicic.com)"
+UA = "anthropic-pbc democracy-proxies research (public research repo; contact sloane@ethicic.com)"
 TSV = {"delimiter": "\t", "quoting": csv.QUOTE_NONE, "quotechar": None}   # plain TSV: no quoting, no tabs in fields
 MANIFEST_COLS = ["source", "item", "path", "url", "bytes", "sha256", "blake3", "as_of"]
 
