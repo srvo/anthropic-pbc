@@ -130,7 +130,7 @@ build (`scripts/build_edition.py`) fails on any breach:
    reader hears are the numbers on the slide (Praxis Q23).
 
 `uv run scripts/test_edition_controls.py` feeds each control a bad input and
-confirms it fails (14 cases).
+confirms it fails (52 cases at the 2026-11-04 review fixes).
 
 Moving the cross-source chart onto this path changed none of its 125 cell
 values. The corpus report scripts moved onto `display.py` at `23a4bb6`: no
