@@ -1,7 +1,7 @@
 id	role	fetched	url	path	bytes	blake3
 anthropic-report	case	2026-11-04	https://www-cdn.anthropic.com/a9ceec76a54d28d27affffcdab6faf7c142cd587.pdf	pbc-report-2026.pdf	1272863	973dd771d7071098f1f77692b20b772ab08d8afeb04fd0e60ff1c2486f413d6c
 anthropic-s1a1	case	2026-11-04	https://www.sec.gov/Archives/edgar/data/2130357/000162828026068676/anthropicpbc-sx1ax1.htm	s1a1.htm	14311205	54d7092c1f311130af595b3967db8afffdddebd769f9c35df6de0e08d19029cb
-anthropic-constitution	case	2026-11-04	https://www.anthropic.com/constitution	constitution.html	663520	7e48f45db74aab2a3e686d8aa91e82a85aa1a757724ca6aa9981efea26b6f1f3
+anthropic-constitution	case	2026-11-04	https://assets.claude.com/d0636f72a9493d279ed36b33987da3430bcb5911.pdf	constitution.pdf	982113	4c05ce51809f03cf4952d606f0118cbe1f8b920e525dc69ed82434b579f667bc
 peer-coreweave-s1	peer-nonpbc	2026-11-04	https://www.sec.gov/Archives/edgar/data/1769628/000119312525058309/d899798ds1a.htm	peer-coreweave-s1.htm	3259375	616da8e457d616ea0cfc25a9a32c5bb39ab84aeebb0f1bdce70ea92f91228ee5
 comparator-lemonade-10k	comparator-pbc	2026-11-04	https://www.sec.gov/Archives/edgar/data/1691421/000169142126000016/lmnd-20251231.htm	comparator-lemonade-10k.htm	3075506	99453ab7dac8b22b61a789e6114a9a951de794ae18c19be3a82914880798a496
 anthropic-rsp-v3.4	case	2026-11-04	https://cdn.sanity.io/files/4zrzovbb/website/0bacdc8440ea96e62a8766d99ebe1d4eea6d5f3a.pdf	rsp-v3.4.pdf	304755	9731558ed40f70f59055998a389a60ca121a33343d9425198237d6805f0d7d00

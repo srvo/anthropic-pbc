@@ -12,7 +12,13 @@ paper says it says.
 ## The four questions, asked of every claim
 
 1. **Pinned?** The source is in `sources/MANIFEST.tsv` (URL, bytes, BLAKE3) and
-   matches its hash. If not, go to *No source* below.
+   matches its hash. If not, go to *No source* below. Pin each text once: where
+   a publisher offers several forms, pin the document form in which the text
+   occurs once (a PDF or plain text over a web page that embeds its content
+   twice, as the Constitution's page does), and replace the pin rather than
+   keeping both. Repetition inside the document itself (an S-1's summary
+   restating its Business section) is the source's own, and is handled by
+   choosing a passage that occurs once.
 2. **Present?** The quotation occurs exactly once, byte for byte, in the pinned
    source (or its recorded Descartes derivation): `descartes check` passes. A
    failure is a finding, never something to fit (AGENTS.md, "Checks are not
