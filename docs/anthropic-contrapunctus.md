@@ -14,7 +14,8 @@
 
 ---
 
-**From:** The Praxis project (Ethical Capital) — see
+**From:** Sloane Ortel, personal working paper
+([github.com/srvo/anthropic-pbc](https://github.com/srvo/anthropic-pbc)) — see
 [`praxis-white-paper.md`](praxis-white-paper.md) and
 [`praxis-standard.md`](praxis-standard.md).
 **To:** Prospective Class A investors, regulators, the Long-Term Benefit Trust,
@@ -30,13 +31,12 @@ filed under securities law, compel — and what they conspicuously do not.
 **Status: working paper, v0 — released for disagreement, not as a verdict.**
 
 >
-> **Publication note.** Research and opinion from Ethical Capital
-> (state-registered investment adviser, Utah, CRD #316032; registration does
-> not imply a certain level of skill or training), prepared first for
-> institutional diligence and then for wide release. Not investment advice,
-> not an offer or solicitation, no performance claim. We manage conflicts of
-> interest as disclosed in our Form ADV Part 2A; the live one is in §8.2 (we
-> are building Praxis, the counter-model this paper argues from). Every
+> **Praxis note** *(wording to be finalised by Sloane)*. This is not a
+> publication. It is set up to facilitate dialogue between communities,
+> toward the goal of asserting collective stewardship. Not investment advice,
+> not an offer or solicitation, no performance claim. The live conflict of
+> interest is in §8.2 (we are building Praxis, the counter-model this paper
+> argues from). Every
 > benefit claim below is paired with its evidence limit and every harm claim
 > with its attribution limit, because fair and balanced is how the argument
 > earns the right to be blunt. We are wrong about some of this, and we accept
