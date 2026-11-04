@@ -199,6 +199,53 @@ def extract_item_1a(text: str) -> tuple[str, str] | None:
     method, s, e = cands[0]
     return (text[s:e].strip(), method)
 
+# ---------------------------------------------------------------- span checks
+
+# Fail-fast invariants on the OUTPUT, independent of how it was sliced.
+# These exist because pattern-matching the input kept producing fixes tailored
+# to individual filings (HURC, BDL, GNVR, ...), which does not generalize. A
+# check on the produced span needs no knowledge of any filing: if the span
+# violates one of these, the slice is wrong however it was reached.
+#
+# Deliberately NOT included: a minimum count of the word "risk". Short sections
+# from small filers and grantor trusts (PLAB 7 occurrences, JANL 3, FXB 3) are
+# correct extractions; a vocabulary threshold would delete valid data. Length
+# and vocabulary are not quality signals. Boundaries and plausibility are.
+
+_SPAN_CHECKS = (
+    # a not-applicable record is a short verbatim fragment by design; every
+    # other method must return real section text
+    ("empty", lambda t, m: len(t.strip()) >= (0 if m == "not-applicable" else 400)),
+    ("prose", lambda t, m: len(re.findall(r"[A-Za-z]{4,}", t)) >= 50),
+    # a span that reaches signatures, exhibits or certifications crossed its
+    # end boundary and swallowed the rest of the document
+    ("boundary", lambda t, m: not re.search(
+        r"(?i)\b(power of attorney|exhibit index|certification pursuant)\b", t[-600:])),
+    # a heading was found; the slice must begin at one, not mid-sentence
+    ("heading", lambda t, m: m == "not-applicable" or
+     bool(re.match(r"(?i)\W{0,6}i\s*t\s*e\s*m\s*1\s*a", t))),
+)
+
+
+def check_span(text: str, method: str) -> str | None:
+    """Return the first failing invariant name, or None if the span passes.
+
+    A not-applicable record is a verbatim fragment recording that the filer
+    disclosed no Item 1A. Prose and length invariants do not apply to it; only
+    its presence does. Applying them uniformly was a real bug in this checker
+    (2,178 false refusals across the stored corpus).
+    """
+    if method == "not-applicable":
+        return None if text.strip() else "empty"
+    for name, ok in _SPAN_CHECKS:
+        try:
+            if not ok(text, method):
+                return name
+        except Exception:
+            return "check-error"
+    return None
+
+
 # ---------------------------------------------------------------- edgar fetch
 
 def _get(url: str, tries: int = 3) -> bytes | None:
@@ -342,6 +389,13 @@ def cmd_fetch(a) -> int:
                 got = extract_item_1a(text)
                 if not got:
                     stats["fail"] += 1
+                elif (bad := check_span(got[0], got[1])):
+                    # The slice failed an invariant that needs no knowledge of
+                    # this filing. Refuse it and name the check, so a regression
+                    # shows up as a labelled count rather than a silent bad row.
+                    stats["fail"] += 1
+                    stats.setdefault("checks", {})
+                    stats["checks"][bad] = stats["checks"].get(bad, 0) + 1
                 else:
                     span, method = got
                     b = span.encode("utf-8")
@@ -367,6 +421,9 @@ def cmd_fetch(a) -> int:
 
     print(f"\nextracted {stats['ok']:,} spans; {stats['fail']:,} failed; "
           f"skipped {stats['skip']:,} previously done")
+    if stats.get("checks"):
+        print("refused by invariant: " + ", ".join(
+            f"{k}={v:,}" for k, v in sorted(stats["checks"].items())))
     con.close()
     return 0
 
