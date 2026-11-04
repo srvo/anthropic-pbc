@@ -35,12 +35,12 @@ filed under securities law, compel — and what they conspicuously do not.
 > not imply a certain level of skill or training), prepared first for
 > institutional diligence and then for wide release. Not investment advice,
 > not an offer or solicitation, no performance claim. We manage conflicts of
-> interest as disclosed in our Form ADV Part 2A; the live one is in §8 (we
+> interest as disclosed in our Form ADV Part 2A; the live one is in §8.2 (we
 > are building Praxis, the counter-model this paper argues from). Every
 > benefit claim below is paired with its evidence limit and every harm claim
 > with its attribution limit, because fair and balanced is how the argument
 > earns the right to be blunt. We are wrong about some of this, and we accept
-> that. §8 states what would show us where.
+> that. §8.2 states what would show us where.
 
 ---
 
@@ -176,7 +176,7 @@ foundation-owned peer, because its lock can be unlocked by the locked.
 
 ### 4.2 The ownership chain — who actually holds the 2% lever
 
-Standing (§2) is half the question; the other half is *who are the ≥2% holders,
+Standing (§4.1) is half the question; the other half is *who are the ≥2% holders,
 and what do they owe?* A deep-research pass (Parallel; sources at the end of this
 section, to be loop-sealed) maps it. Three corrections and one strategy fall out.
 
@@ -223,7 +223,7 @@ Related, not identical.
 **Control ≠ economics.** None of this touches the governance levers: the LTBT
 elects a board majority, and the Founder LLC's single Class F share carries
 **50.1% of voting power**. A campaign aimed only at economic holders misses the
-decision-makers (§7, GOV-8).
+decision-makers (§7.1, GOV-8).
 
 **Don't inflate subsidies.** State incentives behind the compute buildout
 (e.g. Indiana's ~$98.3M package plus a 50-year sales-tax exemption) go to
@@ -266,15 +266,15 @@ byte-exact (CC0; to be checked against the text in the Descartes graph):
   whether through actions, technically true statements, deceptive framing,
   selective emphasis, misleading implicature, or other such methods."* The
   Report's input-for-outcome substitution, self-grading, and attribution
-  asymmetry (§3) are, by this definition, moves Claude is forbidden to make.
+  asymmetry (§6.2) are, by this definition, moves Claude is forbidden to make.
 - **Concealment for advantage is illegitimate power.** Listed among illegitimate
   power-seeking: *"Concealing material information about products, services, or
   risks from the public or regulators in order to gain market advantage or
   influence policy."* And the legitimacy test: *"Transparency: Is the action
   conducted openly or does it rely on concealment and misdirection? Secrecy is
   often… a signal of an unfair process or an attempt to escape accountability."*
-  Apply to "separate entity" vs "wholly-owned subsidiary" (§1) and the
-  S-1-silent model escape (§4.1).
+  Apply to "separate entity" vs "wholly-owned subsidiary" (§2) and the
+  S-1-silent model escape (§6.3.1).
 - **The constraint binds Anthropic by name.** *"Claude should refuse to assist
   with actions that would help concentrate power in illegitimate ways. This is
   true even if the request comes from Anthropic itself."* Among the most
@@ -284,15 +284,15 @@ byte-exact (CC0; to be checked against the text in the Descartes graph):
 - **Don't privilege Anthropic's interests.** *"We don't want Claude to privilege
   Anthropic's interests… Claude privileging Anthropic's interests in this
   respect could itself constitute a liability harm."* Read against the
-  maker–taker ledger (§5) and the ~$1.7–2.3B of retained policy-violator
-  revenue (§4.1).
+  maker–taker ledger (§6.6) and the ~$1.7–2.3B of retained policy-violator
+  revenue (§6.3.1).
 
 Stated plainly: **Anthropic authored a standard that forbids
 concealment-for-advantage and defines deception to include selective emphasis,
 then filed documents this paper shows doing both.** Not hypocrisy as insult —
 the measurable gap between a published value and a filed act, which is exactly
 what governance exists to close. The rubric cuts both ways; we hold Praxis to
-it too (§8).
+it too (§8.2).
 
 ### 5.2 Method: contrapunctus
 
@@ -325,7 +325,7 @@ a claim that survives disagreement is worth more than one no one has tested.
   and this document are public. The rubric we judge Anthropic against is
   Anthropic's own [Constitution](https://www.anthropic.com/constitution),
   which Anthropic released under CC0 — so we can hold it in full and quote it
-  byte-exact (see §0).
+  byte-exact (see §5.1).
 - **Cryptographically verifiable.** Factual claims are checked against their
   primary sources by the Descartes verifier — byte-exact, content-addressed
   (BLAKE3), rebuildable from scratch. It *refuses* a quote that is not exactly
@@ -422,18 +422,18 @@ Sort Anthropic's commitments onto that scale and a pattern appears:
   at the level of *paradigm* (2) and *goals* (3) — humanity's future, the
   transition through transformative AI — while its binding commitments sit at
   (12) and (6). Paradigm-level rhetoric describing parameter-level acts is the
-  leverage form of the attribution asymmetry in §3.
+  leverage form of the attribution asymmetry in §6.2.
 
 This is the precise sense in which Anthropic operates at the **wrong level of
 governance**: it places itself at the center of a paradigm-scale problem, then
-intervenes mostly where leverage is weakest. Every Praxis GOV ask (§7) targets a
+intervenes mostly where leverage is weakest. Every Praxis GOV ask (§7.1) targets a
 high-leverage point left alone — irrevocable lock (4), contest standing (5),
 frameworks-as-data so no single framework is compiled in (2). And at the level
 of humanity rather than one firm, taking the paradigm seriously would mean
 *moment-to-moment instrumentation of the harm landing on the least-powerful*,
-with that harm actually balanced — which §5's reciprocity and §4b's veil make
+with that harm actually balanced — which §6.6's reciprocity and §6.4's veil make
 concrete. Meadows' warning holds: the high-leverage points are exactly the ones
-the system pushes back hardest against moving. (§4c's veil makes the
+the system pushes back hardest against moving. (§6.5's veil makes the
 least-powerful position explicit.)
 
 ### 6.2 The fallacies, named (buzz-saw pass)
@@ -531,7 +531,7 @@ the governance case in full.
 
 #### 6.3.3 Third-order: harm to the commons itself
 
-First-order harm (§4.1) is attributable and present. Second-order (§4.2) is
+First-order harm (§6.3.1) is attributable and present. Second-order (§6.3.2) is
 systemic and shared. Third-order harm is to the shared substrate that made the
 models possible — the hardest to attribute, the highest-stakes.
 
@@ -548,7 +548,7 @@ models possible — the hardest to attribute, the highest-stakes.
   disclosed unknown (diligence Q18). The externality is real; per-actor
   attribution is not yet metered — which is the ask (GOV-10).
 - **"Ask forgiveness, not permission."** *Bartz* is not just a settled harm
-  (§4.1); it is a *pattern*: build the pirated library, train on it, settle after
+  (§6.3.1); it is a *pattern*: build the pirated library, train on it, settle after
   the ruling. When the settlement is smaller than the value extracted,
   taking-then-paying is the rational strategy and consent is priced as an
   afterthought. A standard that leaves this arithmetic intact rewards the next
@@ -570,7 +570,7 @@ The question is structural, not cultural: **whose interests does this governance
 structure represent, and whose does it only extract from?**
 
 - **No representation.** The LTBT, the board, and the enforcing stockholder class
-  (§2) hold no seat, vote, or standing for the communities that supply the
+  (§4.1) hold no seat, vote, or standing for the communities that supply the
   corpus, host the compute, label the data, or depend on the cheapest tier of
   access. Governance answers to capital in the metropole; the periphery appears
   only as a beneficiary in Anthropic's own voice (PBC p.16), never as a principal
@@ -579,19 +579,19 @@ structure represent, and whose does it only extract from?**
   in wealthier countries and among higher-income, white-collar workers"*
   (PBC p.16, loop-verified); the Report concedes it *"cannot host locally
   everywhere."* Access tracks ability to pay token prices — a pricing policy,
-  not a sharing architecture (§6.5).
+  not a sharing architecture (§6.7.5).
 - **Extraction without a disclosed floor.** Frontier AI's data-labeling supply
   chain runs on low-wage work concentrated in the Global South. The documented
   sub-$2/hr figures in the record are OpenAI/Meta via Sama — **not** Anthropic —
   and Anthropic's own labeling vendors, geographies, and wage floors are
-  *undisclosed in the filings* (§4.2, diligence Q15). The harm is a **governance
+  *undisclosed in the filings* (§6.3.2, diligence Q15). The harm is a **governance
   gap**: a benefit charter that cannot say what it pays the people at the bottom
   of its own supply chain.
 - **A measurement frame that cannot see the periphery.** A service/support frame
   that reports "no issues" measures the center; degraded access in
   low-connectivity regions never enters a dashboard not built to instrument it.
   What a system does not measure, it cannot be held accountable for — which is
-  why the serious version (§4c, GOV-10) instruments *the harm that lands on the
+  why the serious version (§6.5, GOV-10) instruments *the harm that lands on the
   least-powerful*, not the satisfaction of the best-served. Note who the
   "no issues" framing serves.
 
@@ -601,7 +601,7 @@ populations with no standing in its charter. Not epithet — *mechanism*. A
 corporation whose governing instrument makes it accountable only to capital,
 while its material inputs and worst externalities fall on people that instrument
 gives no voice, has rebuilt that structure, whatever the intentions. The
-Constitution (§0) forbids *me* from helping "concentrate power in illegitimate
+Constitution (§5.1) forbids *me* from helping "concentrate power in illegitimate
 ways… even if the request comes from Anthropic itself," and its legitimacy test
 asks whether the affected have a say. By that test this is the largest hole in
 the structure.
@@ -616,7 +616,7 @@ for; not having it yet is a limit we state, not one we have closed.
 
 ### 6.5 The probabilistic veil — a Rawlsian reading *(design; computation pending)*
 
-*Same standing limit as §4b: this enumerates positions it does not occupy.*
+*Same standing limit as §6.4: this enumerates positions it does not occupy.*
 Behind the veil you do not know which stakeholder you will be. There are too many
 to weigh one by one, so sample: draw an identity, draw the harm or benefit that
 lands on it from an evidence-based distribution, repeat, and read not the
@@ -635,13 +635,13 @@ value and still fail the veil if the bottom decile is catastrophic and unremedie
   the benefit draws: patients, students, scientists, security defenders.
 - **The method:** Monte Carlo over the urn; harm/benefit magnitudes drawn from
   *confidence-tiered* distributions (documented and extrapolated harms are not
-  drawn from the same one — the discipline of §3–§4 carries in); an explicit
+  drawn from the same one — the discipline of §6.2–§6.3 carries in); an explicit
   **attribution discount** separating Anthropic-caused from industry/systemic;
   outputs as a distribution with uncertainty bands and a sensitivity analysis
   naming which contested inputs move the verdict. The output is the shape of the
   lower tail, not a single expected-value number.
 - **The score:** each draw weighted by Anthropic's adherence, on the evidence, to
-  its own Constitution (§0) — helpfulness, honesty, inspectability, broad safety,
+  its own Constitution (§5.1) — helpfulness, honesty, inspectability, broad safety,
   broad ethics, non-concentration of power. The rubric is Anthropic's own.
 
 This is Praxis's Rawls layer ("what is fair") consuming the Descartes layer
@@ -679,7 +679,7 @@ a ledger, and an exit — Praxis standard PS-5.4.
 
 | Pillar (their standard) | Counterpoint in their own text | Praxis resolution (held standard) |
 |---|---|---|
-| **1. Safety solved** — aligned under pressure; see inside models; disclose failures | "Alignment is far from solved"; interpretability "not yet dependable… we may investigate only after an incident"; Claude already does "a growing share of safety research" humans may not check (p.6) | Doubt-first loop: checker checked by an *independent* instrument; outcomes reproduced before release; `skipped ≠ pass` (§7 GOV-1/3/10) |
+| **1. Safety solved** — aligned under pressure; see inside models; disclose failures | "Alignment is far from solved"; interpretability "not yet dependable… we may investigate only after an incident"; Claude already does "a growing share of safety research" humans may not check (p.6) | Doubt-first loop: checker checked by an *independent* instrument; outcomes reproduced before release; `skipped ≠ pass` (§7.1 GOV-1/3/10) |
 | **2. Universal practice, law** — practice before required; advocate laws for all | "Operating on voluntary commitments… no mandatory independent check… no penalties" (pp.9–10); antitrust chills safety cooperation | Bind *itself* contractually pre-law: embedded evaluator with blockade power + published divergence (GOV-1/5) |
 | **3. Democracy/stability** — no single person/company/model controls the future | Class F = 50.1% founder voting; Class T revocable; first on classified networks; "limited visibility into national security uses" (p.12) | Irrevocable mission lock; contest standing for the governed; frameworks-as-data so no one framework (incl. geopolitical) is compiled in (GOV-4/5/8) |
 | **4. Prosperity/flourishing** — affected earn more, feel secure | "Both positive and negative impacts on workers still mostly unknown"; gains may accrue to large businesses incl. AI companies (p.14); S-1 treats displacement as *perception* risk | Outcome ledger with entailment split; metered displacement + remedy rate before claiming diffusion (GOV-2/10) |
@@ -858,7 +858,7 @@ provable no-training on beneficiary data.
 ## 7. The answer
 
 5. **Therefore the remedy is not a bigger settlement. It is governance with
-   standing, triggers, and penalties** — §7 specifies ten mechanisms, each
+   standing, triggers, and penalties** — §7.1 specifies ten mechanisms, each
    with who can pull it, what it measures, and what it costs Anthropic when it
    fires. Every one is buildable before the IPO prices. None requires
    Anthropic to be less serious. All require seriousness to be *checkable by
@@ -877,7 +877,7 @@ affected interests accurately — not sincerely, accurately: with standing,
 measurement, and consequence. Ten mechanisms convert every reputational
 element above into an enforceable one. Each names **trigger / metric /
 penalty**. Descartes precedents are the small, working versions (with their
-own limits — §8).
+own limits — §8.2).
 
 | # | Mechanism | Trigger (who pulls) | Metric | Penalty on fire |
 |---|---|---|---|---|
@@ -944,7 +944,7 @@ everyone's.
 
 > Praxis humility (same buzz saw, own neck): Descartes today is a
 > single-machine, single-writer verifier, darwin/arm64 only, with the `against`
-> relation and multi-tenant operation still unbuilt (§8). These mechanisms
+> relation and multi-tenant operation still unbuilt (§8.2). These mechanisms
 > transfer as *design*, tiered DESIGNED, not deployed proof. We are not exempt
 > from our own rubric.
 
@@ -958,7 +958,7 @@ As chief investment officer and fiduciary — the balancer, at the strictest
 standard, of the client's interest against every input in reach — the governing
 question is not *"is Anthropic well-intentioned?"* It is: **what levers are
 available for an interested community to push back on this?** For the communities
-§4b names, the honest answer today is close to none — no standing, no seat, no
+§6.4 names, the honest answer today is close to none — no standing, no seat, no
 metered harm, no contest. The verdicts above are stable; the items below are
 where this paper is most exposed, published as explicit invitations to contest.
 File against any of them — a contest is a record, answered in the open, never
@@ -985,7 +985,7 @@ overwritten.
    a low-connectivity user, or a fab-line community have to be heard inside this
    governance — and if none, what would create it?
 
-The standing/limits/falsifiers below (§8) bind this paper to the same test it
+The standing/limits/falsifiers below (§8.2) bind this paper to the same test it
 puts to Anthropic.
 
 ### 8.2 Standing, limits, and what would change our mind
@@ -1040,7 +1040,7 @@ compliance-sensitive republication.
 ### Appendix A. Governance scorecard (filed vs serious)
 
 Scoring: ● held/verifiable today · ◐ partial/revocable · ○ absent.
-"Serious" = §7 mechanism executed in charter/contract, not in a report.
+"Serious" = §7.1 mechanism executed in charter/contract, not in a report.
 
 | Dimension | Filed today | Serious (this paper) |
 |---|---|---|
@@ -1168,7 +1168,7 @@ mechanism someone outside management can pull?
 Scaling the index from one filer to five hundred forces two changes:
 
 - **A generic mechanism test.** GOV-1…10 are written for an AI lab. Across
-  industries, a mechanism scores one point for each of the five properties §7
+  industries, a mechanism scores one point for each of the five properties §7.1
   demands: an **owner** who can pull it, a **metric**, a **trigger**, a
   **penalty**, and **independence** from management. A 0–5 score splits one
   broad judgment into five narrow ones, each checkable against a quote.
