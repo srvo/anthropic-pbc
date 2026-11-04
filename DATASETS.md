@@ -302,7 +302,7 @@ Refresh:
 | Pinned as of | 2026-11-04 |
 | Source cadence | GDELT updates every 15 minutes (TV archive ends 2024-10); Rooney: 13 reports from 2024-10 to 2026-05; API responses are not reproducible, so saved bytes are the pin |
 | Committed | Timelines and hand-transcribed survey toplines with page-anchored quotes; raw responses and PDFs local only; 7 of 24 GDELT responses not pinned (rate limit) |
-| Folder | `corpus/democracy` · 9 files · 2.2 MB |
+| Folder | `corpus/democracy` · 12 files · 2.3 MB |
 | Manifest | 34 rows · BLAKE3 `107c7d74e31d3aab` |
 | Method | [`docs/democracy-proxies.md`](docs/democracy-proxies.md) |
 | Signature | unsigned (`attestations/datasets/`) |

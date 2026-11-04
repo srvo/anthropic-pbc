@@ -12,6 +12,15 @@ any finding drawn from the dataset is true, and it says nothing about model
 output in proposals/.
 
 files (BLAKE3, path):
+107c7d74e31d3aab5347023664bd8df7d64e167530b30b21e17a275ab02572d3  corpus/democracy/MANIFEST.tsv
+150e16ecb9831fc8140ead61e70fa7dccad297b94eb242a728248f0e148986d1  corpus/democracy/README.md
+4e3bf1ab745cb33508daa2784f5188b3d2e95d9e6e6891b03d15aa3490725fa4  corpus/democracy/gdelt-summary.tsv
+32fbaa3468e02392c19375506ad938a35f78a91939cdc491f237f48352684630  corpus/democracy/gdelt-timelines.tsv
+cd23dcabc9676e8034081ef1e9bbd8377ce8e1f9ad03e75befe863191ab28dbc  corpus/democracy/rooney-items.tsv
+d49cdc86b68f4f02cdaa089527a9ab2ef2a70ede74d56b66b17422ff33ebc2f8  corpus/democracy/rooney-questionnaire.tsv
+80ee4ff3bbb808eb1ee4565043411a581d289a3d5e028d33cc928a8e9b54bd42  corpus/democracy/rooney-reports.tsv
+42d66d7d158953c07a2112e7a49adbd322fc240eaeee51e27d873138df7249ca  corpus/democracy/rooney-toplines.tsv
+e9484f271d3136ec0924d907320f1e0a12f71248345acd67ca629831a0dc0ec4  corpus/democracy/rooney-transcription.tsv
 
 scripts (BLAKE3, path):
 30838f4eed4963ba018d0de9230f44c6259e31cf8e77356d1008ed8b796a737b  scripts/democracy_proxies.py

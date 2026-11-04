@@ -1,0 +1,156 @@
+# Metadata for snapshot://ethicalcapital/2026-11-04/rooney_transcription (schema/metadata.schema.yml)
+producer: Ethical Capital (this repository)
+title: Hand transcription of Rooney Report percents and questionnaire stems, 2026-11-04
+description: >-
+  Two hand-made inputs to the democracy-proxies build. rooney-transcription.tsv
+  holds every percent that appears in the text layer of the 13 pinned Rooney
+  Reports (129 rows), each with report, page, wave as stated, group, the
+  report's wording of the item, the value as printed, the numeric percent and a
+  verbatim quote. rooney-questionnaire.tsv holds 30 item stems hand-copied from
+  the two pinned questionnaires (29 from October 2025, 1 from May 2026), mapped
+  to questionnaire block and letter. Numbers that appear only in chart images
+  were not transcribed or estimated. `build` checks every quote and stem
+  against the page text of the pinned PDFs and fails on any mismatch.
+citation_full: >-
+  Ethical Capital, Rooney Report transcription and questionnaire stems,
+  corpus/democracy/rooney-transcription.tsv and
+  corpus/democracy/rooney-questionnaire.tsv, added in commit
+  7fcf0efed7e8ac5725c21a35ddd282fed8995e25 (2026-11-04) of the anthropic-pbc
+  repository. Transcribed from Rooney Democracy Institute, University of Notre
+  Dame, Rooney Reports 1-13 and the October 2025 and May 2026 questionnaires.
+attribution_short: Ethical Capital (transcription); Rooney Democracy Institute (source text)
+url_main: null
+url_main_reason: >-
+  unknown: other scripts' user agents (e.g. scripts/ec_extract.py) name
+  github.com/ethicalcapital/anthropic-pbc, but the git remote is
+  github.com/srvo/anthropic-pbc; which is the public home settles it.
+url_download: null
+url_download_reason: >-
+  unknown: commit 7fcf0ef is on no remote branch in this checkout (only local
+  branch ec-ai-corpus); a raw-file URL at that commit on the public remote, once
+  pushed, settles it.
+date_published: 2026-11-04
+date_accessed: 2026-11-04
+date_accessed_note: "Authored in the repository: the date of the commit that added both files (git log), and the as-of date of the PDFs they transcribe."
+version_producer: v0.1
+version_producer_note: "The version of docs/democracy-proxies.md that defines the transcription rules (\"Version: v0.1 · 2026-11-04\")."
+license: null
+license_reason: >-
+  unknown: corpus/democracy/README.md says the folder is not covered by the
+  repository's CC0 dedication and names no licence for the transcription; the
+  quotes are (c) University of Notre Dame, republished as short excerpts for
+  commentary and research. A licence statement from the repository owner (and,
+  for the quotes, the Institute) would settle it.
+terms_notes: >-
+  corpus/democracy/ is not covered by the repository's CC0 dedication. The
+  quote and stem_quote columns are short verbatim excerpts of Rooney Reports and
+  questionnaires, (c) University of Notre Dame, Rooney Democracy Institute,
+  republished with page anchors for commentary and research. The source PDFs
+  are not redistributed; each is pinned by URL and SHA-256 in
+  corpus/democracy/MANIFEST.tsv. Cite the survey as the Institute asks: Hall,
+  Matthew E.K., and David E. Campbell. 2022. Notre Dame health of democracy
+  survey. Notre Dame, IN: Rooney Democracy Institute.
+refetch: exact
+refetch_reason: >-
+  Authored here and unchanged since the commit that added it (one commit in
+  git log). Git holds the bytes. `build` re-verifies every row against the
+  pinned PDFs, whose bytes are themselves a saved-bytes pin (see
+  snapshot://gdelt_rooney/2026-11-04/responses_and_reports).
+personal_data: none
+personal_data_note: >-
+  Group-level percents and report prose only; no respondent records. "Trump"
+  appears only in group labels (Trump voters, non-Trump voters) and the quotes
+  that print them.
+files: [corpus/democracy/rooney-transcription.tsv, corpus/democracy/rooney-questionnaire.tsv]
+tables:
+  corpus/democracy/rooney-transcription.tsv:
+    title: "Hand-transcribed percents from Rooney Report text"
+    description: >-
+      One row per percent printed in the text layer of a pinned Rooney Report.
+      Input to `build`, which writes the checked copy to rooney-toplines.tsv.
+      Rules in docs/democracy-proxies.md §3.2.
+    primary_key: [report, page, wave_as_stated, group, item, response, value_text]
+    primary_key_note: "Unique in the 2026-11-04 file (checked); not enforced by the script."
+    columns:
+      "report":
+        type: string
+        description: "Report id R01-R13 (ROONEY_REPORTS in scripts/democracy_proxies.py)."
+      "page":
+        type: integer
+        unit: page (1-based)
+        description: "Page of the pinned PDF on which the quote appears."
+      "wave_as_stated":
+        type: string
+        description: >-
+          Survey wave as the report states it (for example "Fall 2024", "October
+          2025", "not stated"). Kept as printed and not resolved: "Fall 2024"
+          names both the August 2024 and late-November 2024 fieldwork in
+          different reports.
+      "group":
+        type: string
+        description: "Respondent group the percent describes, in the report's terms (Democrats, Republicans, Independents, Trump voters, All respondents, ...)."
+      "item":
+        type: string
+        description: "This repository's slug for the survey item; joins to rooney-questionnaire.tsv item where a stem was copied."
+      "wording_in_report":
+        type: string
+        verbatim: true
+        description: "The report's wording of the item, which may paraphrase the questionnaire stem."
+      "wording_kind":
+        type: string
+        description: "Whether wording_in_report is quoted or only described in the report."
+        values:
+          quoted: "The report quotes the item wording."
+          described: "The report only describes the item."
+      "response":
+        type: string
+        description: >-
+          Hand-entered response label for the percent (agree, support, believe,
+          reject, say, ...). Not checked by `build`, and in 56 of 129 rows not a
+          word of the quote. docs/democracy-proxies.md §3.2 does not list this
+          column.
+      "value_text":
+        type: string
+        verbatim: true
+        description: "The value as printed, including any hedge, bound or range (\"roughly 10%\", \"Over 40%\", \"19-22%\", \"Nearly 1 in 5\"). `build` checks it occurs in the quote."
+      "percent":
+        type: number
+        unit: percent of respondents in the group
+        description: >-
+          The numeric percent as printed. Empty for bounds, ranges and verbal
+          fractions (11 rows): converting them would be an inference. `build`
+          checks it occurs in the quote.
+      "quote":
+        type: string
+        verbatim: true
+        description: "Verbatim quote from the report's text layer containing the value. `build` checks it is on the stated page after normalising whitespace, curly quotes and dashes."
+  corpus/democracy/rooney-questionnaire.tsv:
+    title: "Hand-copied item stems from the pinned Rooney questionnaires"
+    description: >-
+      One row per survey item mapped to its questionnaire block. Input to
+      `build`, which checks each stem against the pinned questionnaire PDF and
+      writes rooney-items.tsv.
+    primary_key: [item]
+    columns:
+      "item":
+        type: string
+        description: "This repository's slug for the survey item (same vocabulary as rooney-transcription.tsv item)."
+      "codebook":
+        type: string
+        description: "Pinned questionnaire the stem was copied from."
+        values:
+          CB_2025_10: "NDHDS October 2025 questionnaire (AmeriSpeak omnibus)."
+          CB_2026_05: "NDHDS May 2026 questionnaire (AmeriSpeak omnibus)."
+      "block":
+        type: string
+        description: "Questionnaire block name as printed (SUPPDEMO, MCCLDEMO, CHRISTNA, CIVILWAR, ...)."
+      "letter":
+        type: string
+        description: "Sub-item letter within the block; empty for single-item blocks (LSTLIKED, DEMOPROB)."
+      "stem_quote":
+        type: string
+        verbatim: true
+        description: "The item stem copied from the questionnaire PDF."
+      "note":
+        type: string
+        description: "Hand-written note: response scale, piped wording, or how a report paraphrases the item."

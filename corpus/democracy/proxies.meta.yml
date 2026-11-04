@@ -1,0 +1,316 @@
+# Metadata for data://garden/democracy/2026-11-04/proxies (schema/metadata.schema.yml)
+title: Health-of-democracy proxies, GDELT phrase timelines and Rooney Report toplines, as of 2026-11-04
+description: >-
+  Two kinds of proxy for "health of democracy". GDELT timelines measure
+  attention: the share of monitored online news (DOC 2.0) and of national TV
+  caption airtime (TV 2.0) that contains a phrase, including Anthropic
+  co-mention queries. Rooney toplines are stated attitudes: percents of US
+  respondents printed in the text of the Notre Dame Health of Democracy Survey's
+  Rooney Reports, each checked against the pinned PDF. None of these series
+  measures any effect of Anthropic on democracy. Method and limits in
+  docs/democracy-proxies.md.
+processing: >-
+  `build` reads only saved bytes (no network) and fails if any saved file's
+  size, SHA-256 or BLAKE3 differs from MANIFEST.tsv. GDELT: for each of the 24
+  planned requests, every timeline point becomes one row of gdelt-timelines.tsv
+  (date truncated to YYYYMMDD; value formatted to at most 6 decimals) and each
+  series one row of gdelt-summary.tsv; a request never received is kept as a
+  NOT PINNED summary row, not dropped, and a `{}` response (no matching clip)
+  as an empty-series row. DOC timelinevolraw rows would carry a "(norm)"
+  series (GDELT's daily total), but none were pinned. Rooney: each pinned
+  report PDF is re-extracted page by page with pypdf 5.4.0 and normalised (NFKC,
+  curly quotes, dashes, soft hyphens, whitespace); rooney-reports.tsv records
+  page and embedded-image counts and any "AI transparency statement".
+  Each hand-transcribed row is checked: the quote must be on its stated page,
+  value_text in the quote, and percent in the quote; each hand-copied stem must
+  occur in its pinned questionnaire. Any failure stops the build, so the
+  toplines and items hold every input row. Drops: chart images (counted, never
+  read or estimated), GDELT article and clip text (never requested; no artlist
+  mode), and the 7 GDELT requests that returned HTTP 429 (no data, reported as
+  NOT PINNED).
+unit_of_analysis: >-
+  gdelt-timelines.tsv: one (source, query, mode, series, period) value;
+  gdelt-summary.tsv: one planned GDELT request and series; rooney-reports.tsv:
+  one Rooney Report; rooney-toplines.tsv: one percent printed in report text;
+  rooney-items.tsv: one questionnaire item stem.
+denominator: >-
+  corpus/democracy/gdelt-summary.tsv (all 24 planned GDELT requests, 7 marked
+  NOT PINNED); corpus/democracy/rooney-reports.tsv (all 13 reports linked from
+  the pinned listing page); corpus/democracy/rooney-transcription.tsv and
+  corpus/democracy/rooney-questionnaire.tsv for toplines and items (every input
+  row passes or the build fails).
+coverage: >-
+  GDELT DOC 2.0: daily, 2017-01-01 to 2026-11-03, 3,547 days returned per
+  pinned query (days missing from GDELT's response are absent, not zero); 5 of
+  12 DOC requests pinned, none of them raw counts, so no DOC article counts or
+  daily totals. GDELT TV 2.0: monthly, 2009-07 to 2024-10, 184 months,
+  national stations combined; all 12 requests pinned; nothing after October
+  2024 is returned. Rooney: 13 reports, October 2024 to May 2026, 129 printed
+  values (text layer only; chart figures not extracted); 30 questionnaire stems
+  (29 October 2025, 1 May 2026). Earlier waves' questionnaires were not pinned.
+  As of 2026-11-04.
+does_not_answer:
+  - "Whether democracy is healthy: attention is not health. More articles saying \"health of democracy\" can mean more threat, more advocacy, or one viral op-ed. These series count words."
+  - "Democratic conditions: Rooney measures what respondents say about norms, not institutions, elections or rights. Stated attitudes are not conditions."
+  - "Anything about Anthropic specifically: no series isolates Anthropic. A co-mention count cannot tell praise from criticism, or Anthropic's work on democracy from a reporter's list of AI companies."
+  - "Public attitudes to AI or technology companies: Rooney asks nothing about them. Neither pinned questionnaire mentions artificial intelligence, and no pinned report prints the May 2026 DEMOPROB result (the only technology option, \"Social media and misinformation\")."
+  - "Causality: even a perfect Anthropic-specific series would show association with attention, not an effect on democratic health."
+license:
+  name: >-
+    Per table: gdelt-*.tsv derive from GDELT data (GDELT terms of use: free use,
+    citation and link required); rooney-*.tsv carry short verbatim quotes
+    (c) University of Notre Dame, no licence stated. Not CC0.
+  url: null
+  url_reason: >-
+    unknown: GDELT's terms are at https://www.gdeltproject.org/about.html, but
+    no licence is stated for the Rooney material or for this folder's derived
+    tables (corpus/democracy/README.md). A licence statement from the
+    repository owner and the Rooney Democracy Institute would settle it.
+status: held
+tables:
+  corpus/democracy/gdelt-timelines.tsv:
+    title: "GDELT phrase timelines, one row per period"
+    description: "Every point of every pinned GDELT timeline. Sorted by source, query_id, mode, series, date."
+    primary_key: [source, query_id, mode, series, date]
+    columns:
+      "source":
+        type: string
+        description: "GDELT API."
+        values:
+          doc: "DOC 2.0 API, online news."
+          tv: "TV 2.0 API, national-network captions (Internet Archive TV News Archive)."
+      "query_id":
+        type: string
+        description: "Query id; definitions in docs/democracy-proxies.md §2.1."
+        values:
+          hod: "\"health of democracy\"."
+          anthropic_hod: "anthropic AND \"health of democracy\" (DOC: one article; TV: one 15-second clip)."
+          anthropic_near20_democracy: "DOC only: near20:\"anthropic democracy\" (within 20 words)."
+          claude_near20_democracy: "DOC only: near20:\"claude democracy\" (unusable without disambiguation: mostly people named Claude)."
+          anthropic_democracy_clip: "TV only: anthropic AND democracy in one 15-second clip."
+          claude_democracy_clip: "TV only: claude AND democracy in one 15-second clip."
+          democracy: "Control: democracy."
+          anthropic: "Control: anthropic (mostly the anthropic principle before 2021)."
+      "query":
+        type: string
+        description: "The query string sent to the API; TV queries carry market:\"National\" appended."
+      "mode":
+        type: string
+        description: "GDELT mode."
+        values:
+          timelinevol: "DOC: percent of all monitored articles."
+          timelinevolraw: "DOC: article count, with a (norm) series of all articles monitored that day. None pinned on 2026-11-04."
+          timelinevol/percent: "TV: timelinevol, datacomb=combined, percent of monitored airtime."
+          timelinevol/raw: "TV: timelinevol, datacomb=combined, datanorm=raw (clip counts)."
+      "series":
+        type: string
+        description: "Series name as GDELT returns it; a \" (norm)\" suffix marks the DOC daily-total series."
+        values:
+          Volume Intensity: "DOC series name."
+          Combined: "TV, all national stations as one series (datacomb=combined)."
+      "date":
+        type: string
+        unit: YYYYMMDD
+        description: "Period start, the first 8 characters of GDELT's date. DOC: one day. TV: one month, dated the 1st."
+      "value":
+        type: number
+        description: "The period's value, in the row's unit; at most 6 decimals, trailing zeros removed."
+      "unit":
+        type: string
+        description: "Unit of value."
+        values:
+          pct_of_monitored_articles: "Percent of all online news articles GDELT monitored that day."
+          articles: "Article count (DOC timelinevolraw; none pinned)."
+          articles_monitored_total: "All articles GDELT monitored that day ((norm) series; none pinned)."
+          pct_of_monitored_airtime: "Percent of all monitored 15-second caption clips from the stations in the period."
+          caption_clips_15s: "Count of matching 15-second caption clips."
+  corpus/democracy/gdelt-summary.tsv:
+    title: "GDELT timeline summary, one row per planned request and series"
+    description: "All 24 planned requests, including the 7 not received (series NOT PINNED). Sorted by source, query_id, mode, series."
+    primary_key: [source, query_id, mode]
+    primary_key_note: "Each pinned response holds one series, so (source, query_id, mode) is unique; checked in the 2026-11-04 file."
+    columns:
+      "source":
+        type: string
+        description: "GDELT API: doc or tv (as in gdelt-timelines.tsv)."
+      "query_id":
+        type: string
+        description: "Query id (as in gdelt-timelines.tsv)."
+      "query":
+        type: string
+        description: "The query string sent to the API."
+      "mode":
+        type: string
+        description: "GDELT mode (as in gdelt-timelines.tsv)."
+      "series":
+        type: string
+        description: "GDELT series name; NOT PINNED when the request was never received (HTTP 429); empty when the response was `{}`."
+      "unit":
+        type: string
+        description: "Unit of the series' values (as in gdelt-timelines.tsv); empty for NOT PINNED rows."
+      "resolution":
+        type: string
+        description: "GDELT's query_details.date_resolution (day for DOC, month for TV); empty when not pinned or the response was `{}`."
+      "first_period":
+        type: string
+        unit: YYYYMMDD
+        description: "First period returned; empty if none."
+      "last_period":
+        type: string
+        unit: YYYYMMDD
+        description: "Last period returned; empty if none."
+      "n_periods":
+        type: integer
+        unit: periods
+        description: "Periods returned (days or months)."
+      "n_nonzero":
+        type: integer
+        unit: periods
+        description: "Periods with a value above zero."
+      "first_nonzero":
+        type: string
+        unit: YYYYMMDD
+        description: "First period with a non-zero value; empty if none."
+      "last_nonzero":
+        type: string
+        unit: YYYYMMDD
+        description: "Last period with a non-zero value; empty if none."
+      "peak_period":
+        type: string
+        unit: YYYYMMDD
+        description: "Period with the highest value (latest wins a tie); empty if every value is zero."
+      "peak_value":
+        type: number
+        description: "Highest value, in the row's unit; 0 when every value is zero; empty for NOT PINNED rows."
+      "sum_value":
+        type: number
+        description: "Sum of values over all periods, in the row's unit (a clip total for TV raw; a sum of daily or monthly shares otherwise); empty for NOT PINNED rows."
+  corpus/democracy/rooney-reports.tsv:
+    title: "Rooney Reports pinned from the listing page"
+    description: "One row per report R01-R13: listing metadata, PDF hash, page and image counts, and any AI-use disclosure."
+    primary_key: [report]
+    columns:
+      "report":
+        type: string
+        description: "Report id R01-R13, in listing order."
+      "date_listed":
+        type: string
+        unit: Month YYYY
+        description: "Date as the listing page gives it."
+      "title_listed":
+        type: string
+        verbatim: true
+        description: "Title as the listing page gives it (source typos kept)."
+      "url":
+        type: string
+        description: "PDF URL on rooneyinstitute.nd.edu."
+      "pdf_sha256":
+        type: string
+        description: "SHA-256 of the pinned PDF, hex (matches MANIFEST.tsv)."
+        hash_of: "the raw PDF bytes"
+      "pages":
+        type: integer
+        unit: pages
+        description: "Page count, from pypdf 5.4.0."
+      "images_per_page":
+        type: string
+        unit: images
+        description: "Semicolon-separated count of embedded images per page (charts and logos, not extracted), from pypdf; -1 where pypdf could not count."
+      "ai_disclosure_page":
+        type: integer
+        unit: page (1-based)
+        description: "Page holding the \"AI transparency statement\"; empty if the report has none."
+      "ai_disclosure_verbatim":
+        type: string
+        verbatim: true
+        description: "The AI transparency statement as extracted, after text normalisation (NFKC, curly quotes, dashes, whitespace); empty if none. Present in R08, R09, R10."
+  corpus/democracy/rooney-toplines.tsv:
+    title: "Rooney Report toplines, verified against the pinned PDFs"
+    description: >-
+      The 129 rows of rooney-transcription.tsv after `build` has checked each
+      quote against the page text and each value against its quote, with the
+      normalised quote and its BLAKE3. Sorted by report order, page, item,
+      group, wave.
+    primary_key: [report, page, wave_as_stated, group, item, response, value_text]
+    primary_key_note: "Unique in the 2026-11-04 file (checked); not enforced by the script."
+    columns:
+      "report":
+        type: string
+        description: "Report id R01-R13."
+      "page":
+        type: integer
+        unit: page (1-based)
+        description: "Page of the pinned PDF holding the quote."
+      "wave_as_stated":
+        type: string
+        description: "Survey wave as the report states it; not resolved (\"Fall 2024\" names two different fieldwork periods across reports)."
+      "group":
+        type: string
+        description: "Respondent group, in the report's terms."
+      "item":
+        type: string
+        description: "This repository's item slug; joins to rooney-items.tsv item where a stem was found."
+      "wording_in_report":
+        type: string
+        verbatim: true
+        description: "The report's wording of the item (may paraphrase the questionnaire)."
+      "wording_kind":
+        type: string
+        description: "Whether the wording is quoted or only described in the report."
+        values:
+          quoted: "The report quotes the item wording."
+          described: "The report only describes the item."
+      "response":
+        type: string
+        description: "Hand-entered response label (agree, support, believe, reject, ...); copied from the transcription and not checked by `build`."
+      "value_text":
+        type: string
+        verbatim: true
+        description: "The value as printed, with any hedge, bound or range; checked to occur in the quote."
+      "percent":
+        type: number
+        unit: percent of respondents in the group
+        description: "Numeric percent as printed; empty for bounds, ranges and verbal fractions (11 rows); checked to occur in the quote."
+      "quote_normalised":
+        type: string
+        verbatim: true
+        description: "The quote after normalisation (NFKC, curly quotes, dashes, soft hyphens, whitespace), as found on the stated page."
+      "quote_blake3":
+        type: string
+        description: "BLAKE3 of quote_normalised, hex."
+        hash_of: "quote_normalised encoded as UTF-8"
+  corpus/democracy/rooney-items.tsv:
+    title: "Questionnaire item stems, located in the pinned questionnaires"
+    description: "The 30 rows of rooney-questionnaire.tsv after `build` has found each normalised stem in its pinned questionnaire PDF, with the pages."
+    primary_key: [item]
+    columns:
+      "item":
+        type: string
+        description: "This repository's item slug."
+      "codebook":
+        type: string
+        description: "Pinned questionnaire."
+        values:
+          CB_2025_10: "NDHDS October 2025 questionnaire."
+          CB_2026_05: "NDHDS May 2026 questionnaire."
+      "block":
+        type: string
+        description: "Questionnaire block name as printed."
+      "letter":
+        type: string
+        description: "Sub-item letter within the block; empty for single-item blocks."
+      "pages":
+        type: string
+        unit: page (1-based)
+        description: "Semicolon-separated pages of the questionnaire PDF on which the normalised stem occurs."
+      "stem_normalised":
+        type: string
+        verbatim: true
+        description: "The hand-copied stem after normalisation, as found in the questionnaire text."
+      "stem_blake3":
+        type: string
+        description: "BLAKE3 of stem_normalised, hex."
+        hash_of: "stem_normalised encoded as UTF-8"
+      "note":
+        type: string
+        description: "Hand-written note copied from rooney-questionnaire.tsv (scale, piping, report paraphrase)."

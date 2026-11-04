@@ -1,0 +1,175 @@
+# Metadata for snapshot://gdelt_rooney/2026-11-04/responses_and_reports (schema/metadata.schema.yml)
+producer: The GDELT Project; Rooney Democracy Institute, University of Notre Dame
+title: GDELT DOC 2.0 and TV 2.0 phrase timelines and Notre Dame Rooney Reports, pinned 2026-11-04
+description: >-
+  Two producers in one snapshot, each pinned by the bytes actually received on
+  2026-11-04. GDELT: 17 of 24 planned API responses (6 queries x 2 modes x 2
+  APIs): all 12 TV 2.0 responses and 5 DOC 2.0 timelinevol responses; the DOC
+  democracy control and all 6 DOC timelinevolraw requests were rate-limited
+  (HTTP 429) and are not pinned. Rooney: the Health of Democracy Survey listing
+  page and survey page, the 13 Rooney Report PDFs the listing links (October
+  2024 to May 2026), and the two questionnaire PDFs the Institute publishes
+  (October 2025 and May 2026 AmeriSpeak omnibus). 34 pins in all. The bytes
+  live in the gitignored .democorpus/; corpus/democracy/MANIFEST.tsv records
+  each one's URL, size, SHA-256, BLAKE3 and as-of date.
+citation_full: >-
+  The GDELT Project, DOC 2.0 and TV 2.0 APIs, https://www.gdeltproject.org/,
+  17 responses requested 2026-11-04 (TV captions from the Internet Archive
+  Television News Archive, https://archive.org/details/tv); and Rooney Democracy
+  Institute, University of Notre Dame, Rooney Reports 1-13 and the October 2025
+  and May 2026 Health of Democracy Survey questionnaires,
+  https://rooneyinstitute.nd.edu/research/health-of-democracy-survey/rooney-reports/,
+  accessed 2026-11-04. Cite the survey as the Institute asks (under `sources:`).
+attribution_short: GDELT Project; Rooney Democracy Institute (Notre Dame)
+url_main: >-
+  https://www.gdeltproject.org/ (GDELT);
+  https://rooneyinstitute.nd.edu/research/health-of-democracy-survey/ (Rooney)
+url_download: >-
+  One URL per pinned response or file, in the url column of
+  corpus/democracy/MANIFEST.tsv (GDELT API requests as built by gdelt_requests()
+  in scripts/democracy_proxies.py; Rooney asset paths as linked from the listing
+  page).
+date_published: null
+date_published_reason: >-
+  unknown: no single date applies. GDELT API responses are computed at request
+  time and carry no publication date. Rooney Reports carry only the month the
+  listing page gives (October 2024 to May 2026, date_listed in
+  corpus/democracy/rooney-reports.tsv); the questionnaires' publication dates are
+  not stated on the pinned pages. A dated release from each producer would
+  settle it.
+date_accessed: 2026-11-04
+date_accessed_note: "The as_of column of corpus/democracy/MANIFEST.tsv; one value for all 34 pins."
+version_producer: null
+version_producer_reason: >-
+  unknown: GDELT names its APIs DOC 2.0 and TV 2.0 but does not version the
+  responses (it recomputes them); the Rooney PDFs and pages carry no version.
+  The SHA-256 and BLAKE3 in MANIFEST.tsv identify the bytes. A producer-issued
+  version identifier would settle it.
+license:
+  name: >-
+    Per source (see `sources:`): GDELT terms of use for the GDELT responses;
+    (c) University of Notre Dame, no licence stated, for the Rooney pages and PDFs
+  url: null
+  url_reason: >-
+    unknown: GDELT's terms are at https://www.gdeltproject.org/about.html, but
+    the pinned Rooney listing and survey pages state no licence (only
+    "(c) 2026 University of Notre Dame"). A licence statement from the Rooney
+    Democracy Institute would settle it.
+terms_notes: >-
+  corpus/democracy/ is not covered by the repository's CC0 dedication
+  (corpus/democracy/README.md). GDELT: its terms of use
+  (https://www.gdeltproject.org/about.html) make its datasets "available for
+  unlimited and unrestricted use for any academic, commercial, or governmental
+  use of any kind without fee", and require that "any use or redistribution of
+  the data must include a citation to the GDELT Project and a link to this
+  website"; the README is that citation. TV results come from captions in the
+  Internet Archive's Television News Archive, credited as the underlying
+  source. The raw GDELT responses stay in .democorpus/ and are not
+  redistributed; each is pinned by hash in MANIFEST.tsv. Rooney: (c) University
+  of Notre Dame, Rooney Democracy Institute. The PDFs are not redistributed;
+  each is pinned by URL and SHA-256. The folder republishes only short verbatim
+  quotes and the numbers in them, with page anchors, for commentary and
+  research. The survey page offers microdata on request through a Google Form
+  and states no licence (docs/democracy-proxies.md §3.4); no microdata is
+  pinned.
+refetch: saved_bytes_are_pin
+refetch_reason: >-
+  GDELT recomputes API responses, so a later request returns different bytes:
+  "The saved bytes in .democorpus/gdelt/, hashed in MANIFEST.tsv, are the only
+  pin. A later fetch is a new observation, not a check"
+  (docs/democracy-proxies.md §2.3). fetch-gdelt never overwrites a saved
+  response and resumes the 7 unpinned requests, but anything it adds is a later
+  observation. Whether the Rooney asset URLs still return byte-identical PDFs
+  was not tested; `verify` re-hashes the saved copies only.
+personal_data: none
+personal_data_note: >-
+  GDELT responses are aggregate timelines (dates and values; no article or clip
+  text). The Rooney PDFs hold survey toplines, not respondent records. Nothing
+  committed from this step holds more than URLs and hashes.
+files: corpus/democracy/MANIFEST.tsv
+sources:
+  - id: gdelt
+    producer: The GDELT Project
+    citation: >-
+      Data from the GDELT Project (https://www.gdeltproject.org/), DOC 2.0 and
+      TV 2.0 APIs. TV results from captions in the Internet Archive's Television
+      News Archive (https://archive.org/details/tv).
+    url: https://www.gdeltproject.org/
+    api_endpoints: [https://api.gdeltproject.org/api/v2/doc/doc, https://api.gdeltproject.org/api/v2/tv/tv]
+    license:
+      name: GDELT terms of use
+      url: https://www.gdeltproject.org/about.html
+    terms: >-
+      "available for unlimited and unrestricted use for any academic,
+      commercial, or governmental use of any kind without fee"; "any use or
+      redistribution of the data must include a citation to the GDELT Project
+      and a link to this website". Raw responses pinned by hash, not
+      redistributed.
+    date_accessed: 2026-11-04
+    pinned: "17 of 24 planned requests (MANIFEST.tsv rows with source gdelt)"
+    refetch: saved_bytes_are_pin
+  - id: rooney
+    producer: Rooney Democracy Institute, University of Notre Dame
+    citation: >-
+      Hall, Matthew E.K., and David E. Campbell. 2022. Notre Dame health of
+      democracy survey. Notre Dame, IN: Rooney Democracy Institute.
+      https://rooneyinstitute.nd.edu/research/health-of-democracy-survey/
+    citation_note: "The citation the Institute asks for on the pinned survey page, as given in corpus/democracy/README.md."
+    url: https://rooneyinstitute.nd.edu/research/health-of-democracy-survey/rooney-reports/
+    license:
+      name: (c) University of Notre Dame; no licence stated
+      url: null
+      url_reason: >-
+        unknown: the pinned listing and survey pages show only "(c) 2026
+        University of Notre Dame". A licence statement from the Institute
+        would settle it.
+    terms: >-
+      Not redistributed: the 13 report PDFs, 2 questionnaire PDFs and 2 HTML
+      pages are pinned by URL and SHA-256 only. Short verbatim quotes and the
+      numbers in them are republished with page anchors for commentary and
+      research.
+    date_accessed: 2026-11-04
+    pinned: "17 files: listing page, survey page, R01-R13, CB_2025_10, CB_2026_05 (MANIFEST.tsv rows with source rooney)"
+    refetch: null
+    refetch_reason: >-
+      unknown: re-downloading the asset URLs and comparing SHA-256 against
+      MANIFEST.tsv would settle whether the saved bytes are exact.
+tables:
+  corpus/democracy/MANIFEST.tsv:
+    title: "Pins for every saved GDELT response and Rooney page or PDF"
+    description: "One row per saved file in .democorpus/, sorted by source then item. Written by pin() in scripts/democracy_proxies.py."
+    primary_key: [source, item]
+    columns:
+      "source":
+        type: string
+        description: "Producer of the pinned file."
+        values:
+          gdelt: "A GDELT DOC 2.0 or TV 2.0 API response (JSON)."
+          rooney: "A Rooney Democracy Institute HTML page or PDF."
+      "item":
+        type: string
+        description: >-
+          Pin id. GDELT: doc_<query_id>_<mode> or tv_<query_id>_timelinevol_<percent|raw>.
+          Rooney: listing, survey_page, R01-R13 (reports), CB_2025_10 and CB_2026_05 (questionnaires).
+      "path":
+        type: string
+        description: "Path of the saved bytes relative to the gitignored .democorpus/."
+      "url":
+        type: string
+        description: "Exact URL requested (GDELT: full API query string, including start and end datetimes)."
+      "bytes":
+        type: integer
+        unit: bytes
+        description: "Size of the saved response. A 2-byte GDELT TV response is `{}`: no matching clip in the whole span."
+      "sha256":
+        type: string
+        description: "SHA-256 of the saved bytes, hex."
+        hash_of: "the raw saved file bytes"
+      "blake3":
+        type: string
+        description: "BLAKE3 of the saved bytes, hex."
+        hash_of: "the raw saved file bytes"
+      "as_of":
+        type: date
+        unit: YYYY-MM-DD
+        description: "The --as-of argument recorded at fetch time (also the GDELT end date); not read from a clock."
