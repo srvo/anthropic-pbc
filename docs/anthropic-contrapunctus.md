@@ -44,6 +44,37 @@ filed under securities law, compel — and what they conspicuously do not.
 
 ---
 
+## 0. The argument
+
+Anthropic, the company that makes the Claude AI models, has filed to sell
+its shares to the public, and it does so as a public benefit corporation.
+That label is a promise: the company is built, at its core, to do what it
+says. Anthropic's best case that it keeps the promise is strong. Its
+purpose is written into its charter. A Delaware court has held that a
+public benefit corporation's directors need not maximise shareholder
+value. An independent trust elects four of its seven directors. And it
+discloses more about its models' risks than its peers do, including its
+own failures. But the law gives directors no duty to any person on account
+of that purpose, and lets only holders of 2% (or, once listed, the lesser
+of 2% and $2 million) sue to enforce it. The public the charter names
+cannot. The trust can be amended away by the shareholders it is meant to
+check, and seven founders hold 50.1% of the vote. If only a few people can
+steer this technology safely, the governance must survive them; this one
+depends on them. So the promise rests on
+Anthropic's word, and we take Anthropic at the deepest word it has given:
+the Constitution it wrote to set Claude's values. That document counts
+selective emphasis as deception and names Anthropic itself as a possible
+violator. Anthropic's Public Benefit Report does what it forbids: it
+reports inputs as outcomes and grades itself, and its own trust says so.
+On a like-for-like standard of proof, its harms are documented and priced;
+its benefits are mostly anecdote. Therefore Anthropic is a public benefit
+corporation in law, and not in the sense the category promises: no one it
+names can make it act like one. The remedy is not a better report. It is
+governance that someone Anthropic does not appoint, pay or outvote can
+invoke.
+
+---
+
 ## 1. Why we are asking
 
 > Governance exists so that systems can survive individuals.
