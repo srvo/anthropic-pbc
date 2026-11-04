@@ -1,7 +1,25 @@
 # Corpus roadmap
 
-Planned sources and open questions for the public-data corpora. Nothing here is
-built yet unless it links to a method doc.
+Planned sources and open questions for the public-data corpora. The built
+corpora are listed first; everything after "Planned" is not built.
+
+## Built
+
+Each of these has a method doc, `dag.yml` steps and a pinned `MANIFEST.tsv`.
+`DATASETS.md` is the full catalog.
+
+| Corpus | Method doc | Data |
+|---|---|---|
+| S&P 500 earnings calls | [`earnings-call-ai-corpus.md`](earnings-call-ai-corpus.md) | `corpus/earnings-calls/` |
+| Hacker News | [`hacker-news-corpus.md`](hacker-news-corpus.md) | `corpus/hacker-news/` |
+| Wikipedia AI-risk articles | [`wikipedia-ai-risk-corpus.md`](wikipedia-ai-risk-corpus.md) | `corpus/wikipedia-ai-risk/` |
+| Monthly CVE series | [`cve-series.md`](cve-series.md) | `corpus/cve/` |
+| Epoch AI datasets snapshot | [`corpus/epoch/README.md`](../corpus/epoch/README.md) | `corpus/epoch/` |
+| Health-of-democracy proxies | [`democracy-proxies.md`](democracy-proxies.md) | `corpus/democracy/` |
+
+Not rebuildable yet: the 10-K risk-factor corpus
+([`risk-factor-corpus.md`](risk-factor-corpus.md)) has a method doc and
+scripts but no `dag.yml` step and no `MANIFEST.tsv`; its store is local only.
 
 ## Source policy (Sloane, 2026-11-04)
 
@@ -12,8 +30,8 @@ built yet unless it links to a method doc.
   ([`hacker-news-corpus.md`](hacker-news-corpus.md)) is the social voice. No
   other social media.
 - **Prefer structured research datasets.** Epoch AI (epoch.ai/data, CC BY) is
-  the model; its CVE series is already rebuilt in [`cve-series.md`](cve-series.md).
-  A snapshot of every Epoch dataset is in progress in `corpus/epoch/`.
+  the model; its CVE series is rebuilt in [`cve-series.md`](cve-series.md), and
+  every other public Epoch dataset is pinned in `corpus/epoch/` (built).
 - Every source is pinned (MANIFEST plus hashes), with coverage and
   denominators reported beside any finding.
 
@@ -26,7 +44,9 @@ draft until Sloane approves the wording. Motive: scoring Wikipedia with v0.1
 left 51% of its AI-risk passages with no specific type
 ([`wikipedia-ai-risk-corpus.md`](wikipedia-ai-risk-corpus.md)).
 
-## Open question: what have AI agents and scraping done to the open web?
+## Planned
+
+### Open question: what have AI agents and scraping done to the open web?
 
 Wikipedia names this dimension ("Ethics of artificial intelligence",
 Challenges > Strain on open knowledge platforms; v0.2 hypothesis `open_web`).
@@ -49,9 +69,10 @@ license and pinnability before use:
   It is a single small vendor whose incidents are ML-classified, so treat it as
   one witness, not ground truth.
 
-## Health of democracy
+### Health of democracy: beyond the built proxies
 
-In progress: GDELT phrase timelines, Rooney Institute survey toplines, and
-feasibility notes on the Trust Project and the BCG Trust Index (`docs/democracy-proxies.md`
-when it lands). None of these measures Anthropic's effect on democracy; they
-measure attention and conditions.
+Built: GDELT phrase timelines and Rooney Institute survey toplines
+([`democracy-proxies.md`](democracy-proxies.md), `corpus/democracy/`). Still
+planned: the Trust Project and the BCG Trust Index, for which only feasibility
+notes exist (in `democracy-proxies.md`). None of these measures Anthropic's
+effect on democracy; they measure attention and conditions.
