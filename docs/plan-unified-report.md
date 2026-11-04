@@ -79,22 +79,22 @@ Paper sections in brackets are what each step draws on.
      - **Quote.** Serge Bushman, co-founder and CEO of Woodcache PBC
        (woodcache.org/team), in conversation with Sloane, 2026-11-04: the
        only thing that can go wrong is that the good things do not happen.
-       Kind: personal communication, attested by Sloane, not byte-verifiable.
-       *Needs Sloane:* his exact words, and his consent to be quoted.
+       He has agreed to be quoted by name (Sloane, 2026-11-04). Kind:
+       personal communication, attested by Sloane, not byte-verifiable;
+       printed as a paraphrase unless Sloane supplies his exact words.
      - **Disclosure, stated where Woodcache first appears, not in a
-       footnote.** Sloane has a direct relationship to Woodcache. A public
-       source (4 Corners Carbon, 2025-06-24) lists her among its founders.
-       *Needs Sloane:* the exact current relationship (founder, equity,
-       board, adviser, compensation), in her words. Until then the report
-       uses the paper's own phrase, "a public benefit corporation I'm
-       directly involved in".
-     - **Figure: "Who gets checked."** A small two-row figure. Woodcache:
-       worst case, the good things do not happen; checked by an external
-       verification standard (Puro.earth) and state landfill regulation.
-       Anthropic: worst case, the serious risks it discloses itself (S-1
-       risk factors); checked by its own Public Benefit Report, which its
-       own trust says describes inputs. Every cell is a claim with an id and
-       a source; the figure draws only claims already in the registry.
+       footnote** (Sloane's words, 2026-11-04): *Sloane Ortel is a
+       co-founder of Woodcache PBC. She is no longer active in the company
+       and retains equity in it.* The paper's own phrase, "a public benefit
+       corporation I'm directly involved in", is replaced by this.
+     - **Figure F0001, "Who gets checked."** A Mermaid diagram,
+       `edition/figures/F0001-who-gets-checked.mmd`. Woodcache: worst case,
+       the good things do not happen; checked by Puro.earth verification and
+       Colorado landfill regulation. Anthropic: worst case, the serious risks
+       it discloses itself (S-1 risk factors); checked by its own Public
+       Benefit Report, which its own trust says largely describes inputs.
+       Every box is a claim already in the paper. The web renders the
+       Mermaid source; the PDF needs a renderer (open decision below).
      [Opening, Wood Cache] *Needs a source:* any "first to complete"
      claim about Woodcache's audit is not in the paper and stays out until
      one is cited.
