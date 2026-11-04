@@ -1,4 +1,4 @@
-# Metadata for data://garden/cve/2026-11-04/monthly_series (schema/metadata.schema.yml)
+# Metadata for data://garden/cve/2026-11-04/monthly_series (praxis/datasets/metadata.schema.yml)
 title: Monthly CVE series with AI-related flags, 2020-01 to 2026-10
 description: >-
   Monthly counts of published CVE records by severity and by reporting

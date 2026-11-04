@@ -1,4 +1,4 @@
-# Metadata for data://meadow/earnings_calls/2026-11-04/ai_questions (schema/metadata.schema.yml)
+# Metadata for data://meadow/earnings_calls/2026-11-04/ai_questions (praxis/datasets/metadata.schema.yml)
 title: AI questions asked by outside questioners on S&P 500 earnings calls
 description: >-
   Every AI question an outside questioner (the method doc's analysts) asked in the Q&A of a unique, non-stub S&P 500 call: the full turn,

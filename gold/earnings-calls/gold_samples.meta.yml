@@ -1,4 +1,4 @@
-# Metadata for data://garden/earnings_calls/2026-11-04/gold_samples (schema/metadata.schema.yml)
+# Metadata for data://garden/earnings_calls/2026-11-04/gold_samples (praxis/datasets/metadata.schema.yml)
 title: Stratified samples for the human gold sets (AI windows and analyst questions)
 description: >-
   Two deterministic, stratified samples for human coding: 240 AI windows for

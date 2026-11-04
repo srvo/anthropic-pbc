@@ -1,4 +1,4 @@
-# Metadata for snapshot://wikipedia/2026-10-27/sp500_constituents (schema/metadata.schema.yml)
+# Metadata for snapshot://wikipedia/2026-10-27/sp500_constituents (praxis/datasets/metadata.schema.yml)
 producer: Wikipedia contributors (English Wikipedia)
 title: S&P 500 constituents from Wikipedia "List of S&P 500 companies", revision 1382178819
 description: >-

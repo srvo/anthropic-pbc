@@ -1,4 +1,4 @@
-# Metadata for data://meadow/epoch/2026-11-04/inventory (schema/metadata.schema.yml)
+# Metadata for data://meadow/epoch/2026-11-04/inventory (praxis/datasets/metadata.schema.yml)
 #
 # Column meanings come only from Epoch's own documents, named per table in
 # `columns_source`. Where Epoch does not define a column, `description` is null

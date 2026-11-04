@@ -1,4 +1,4 @@
-# Metadata for data://meadow/earnings_calls/2026-11-04/ai_windows (schema/metadata.schema.yml)
+# Metadata for data://meadow/earnings_calls/2026-11-04/ai_windows (praxis/datasets/metadata.schema.yml)
 title: S&P 500 earnings-call AI windows, with the all-calls denominator
 description: >-
   Every passage in which a current S&P 500 company's earnings call mentions AI,

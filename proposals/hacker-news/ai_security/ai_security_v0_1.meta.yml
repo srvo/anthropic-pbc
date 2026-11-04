@@ -1,4 +1,4 @@
-# Metadata for data://witness/hacker_news/2026-08-31/ai_security_v0_1 (schema/metadata.schema.yml)
+# Metadata for data://witness/hacker_news/2026-08-31/ai_security_v0_1 (praxis/datasets/metadata.schema.yml)
 title: "Hacker News ai_security windows scored against codebook v0.1 by two NLI witnesses"
 description: >-
   Every window of the ai_security set (comments about AI security incidents) scored against each of the 16

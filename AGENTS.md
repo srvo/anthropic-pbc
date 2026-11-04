@@ -15,18 +15,21 @@ its own attribution README.
 - **`DATASETS.md`** is the catalog of every corpus: source, license, pin date,
   how often the source changes, refresh commands, and witness runs. It is a
   Marp deck generated from `corpus/datasets.tsv` and each corpus's
-  `MANIFEST.tsv` by `uv run scripts/datasets_md.py`. Never edit it by hand.
+  `MANIFEST.tsv` by Praxis's `datasets_md.py`. Never edit it by hand.
 - **`docs/corpus-roadmap.md`** lists what is planned. Pick up work there.
 - **`dag.yml`** is the compute graph, modelled on Our World in Data's ETL. Every
   step has a URI: `snapshot://namespace/version/name` for an upstream copy, and
   `data://<meadow|garden|witness>/namespace/version/name` for a built dataset.
-  `witness` is our own channel, for model output. `uv run scripts/dag.py status`
-  shows what is stale by content hash, and `uv run scripts/dag.py plan` gives
-  the rebuild commands in order. Cite data in docs by step URI.
-- **`OPENQUESTIONS.md`** holds decisions waiting on someone, with owner and
-  context. Add one whenever your work hits a choice that isn't yours to make.
-- **`PASTEBIN.md`** is a dump for anyone. Ingest it by routing each item to its
-  place and logging where it went (instructions are in the file).
+  `witness` is our own channel, for model output. `dag.py status` shows what
+  is stale by content hash, and `dag.py plan` gives the rebuild commands in
+  order. Cite data in docs by step URI.
+- **The dataset tooling lives in Praxis**, not here: `dag.py`,
+  `datasets_md.py`, `attest_datasets.py`, the metadata schema
+  (`metadata.schema.yml`) and the signing protocol (`signing.md`), all in
+  `praxis/datasets/`. Check Praxis out beside this repository and run the tools
+  from this repository's root, e.g. `uv run ../praxis/datasets/dag.py status`.
+  Open questions and the pastebin are in Praxis too (`OPENQUESTIONS.md`,
+  `PASTEBIN.md`).
 
 ## Collaborating
 
@@ -59,12 +62,14 @@ its own attribution README.
    fetched. Private individuals' text is stored as ids and hashes only (see the
    Hacker News corpus).
 5. Add its steps to `dag.yml` (a snapshot, then meadow/garden, then any witness
-   steps), run `uv run scripts/dag.py check`, and after a verified build run
-   `uv run scripts/dag.py lock`.
-6. Add a row to `corpus/datasets.tsv`, run `uv run scripts/attest_datasets.py record`
-   and `uv run scripts/datasets_md.py`, and commit the records and the deck with
-   the data. A human signs the record (`attestations/README.md`); agents never sign. `uv run scripts/datasets_md.py check` fails
-   if the deck is stale.
+   steps), run `uv run ../praxis/datasets/dag.py check`, and after a verified
+   build run `uv run ../praxis/datasets/dag.py lock`.
+6. Add a row to `corpus/datasets.tsv`, run
+   `uv run ../praxis/datasets/attest_datasets.py record` and
+   `uv run ../praxis/datasets/datasets_md.py`, and commit the records and the
+   deck with the data. A human signs the record (`praxis/datasets/signing.md`);
+   agents never sign. `uv run ../praxis/datasets/datasets_md.py check` fails if
+   the deck is stale.
 
 ## Where to look
 

@@ -3,8 +3,8 @@
 # Modelled on Our World in Data's ETL
 # (https://docs.owid.io/projects/etl/architecture/design/compute-graph/): each
 # step is a node named by a URI, and an edge means "depends on". When a node
-# changes, every node downstream of it is stale. `uv run scripts/dag.py status`
-# computes that from content hashes; nothing here reads a clock.
+# changes, every node downstream of it is stale. Praxis's `dag.py status`
+# (praxis/datasets/) computes that from content hashes; nothing here reads a clock.
 #
 # URIs follow OWID's convention:
 #   snapshot://<namespace>/<version>/<name>          an upstream copy, pinned in a MANIFEST

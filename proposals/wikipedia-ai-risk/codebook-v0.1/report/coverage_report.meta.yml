@@ -1,4 +1,4 @@
-# Metadata for data://witness/wikipedia/2026-11-04/coverage_report (schema/metadata.schema.yml)
+# Metadata for data://witness/wikipedia/2026-11-04/coverage_report (praxis/datasets/metadata.schema.yml)
 title: "How much of Wikipedia's AI-risk discourse codebook v0.1's risk types can name"
 description: >-
   codebook-v0.1 was written for company speech. This report counts the

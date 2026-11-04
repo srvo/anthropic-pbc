@@ -1,4 +1,4 @@
-# Metadata for snapshot://defeatbeta/2026-11-04/stock_earning_call_transcripts (schema/metadata.schema.yml)
+# Metadata for snapshot://defeatbeta/2026-11-04/stock_earning_call_transcripts (praxis/datasets/metadata.schema.yml)
 producer: defeatbeta (defeatbeta/yahoo-finance-data on Hugging Face)
 title: defeatbeta/yahoo-finance-data, table stock_earning_call_transcripts, dataset commit 31ee0261
 description: >-

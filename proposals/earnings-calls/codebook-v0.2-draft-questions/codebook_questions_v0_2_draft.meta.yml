@@ -1,4 +1,4 @@
-# Metadata for data://witness/earnings_calls/2026-11-04/codebook_questions_v0_2_draft (schema/metadata.schema.yml)
+# Metadata for data://witness/earnings_calls/2026-11-04/codebook_questions_v0_2_draft (praxis/datasets/metadata.schema.yml)
 title: "[DRAFT v0.2] NLI witness scores for every AI analyst question against the question codebook v0.2-draft"
 description: >-
   The same two zero-shot NLI cross-encoders as the window witnesses

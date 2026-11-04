@@ -1,4 +1,4 @@
-# Metadata for snapshot://open_index/2026-08-31/hacker_news (schema/metadata.schema.yml)
+# Metadata for snapshot://open_index/2026-08-31/hacker_news (praxis/datasets/metadata.schema.yml)
 producer: open-index (Hugging Face dataset open-index/hacker-news), mirroring the public Hacker News API
 title: open-index/hacker-news monthly item files, 2021-01 to 2026-08, at dataset commit c54ced59
 description: >-

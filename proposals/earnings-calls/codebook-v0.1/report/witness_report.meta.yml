@@ -1,4 +1,4 @@
-# Metadata for data://witness/earnings_calls/2026-11-04/witness_report (schema/metadata.schema.yml)
+# Metadata for data://witness/earnings_calls/2026-11-04/witness_report (praxis/datasets/metadata.schema.yml)
 title: Witness agreement and both-agree counts for AI windows (codebook v0.1)
 description: >-
   Deterministic tables over the two NLI witnesses: per-hypothesis agreement

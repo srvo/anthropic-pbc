@@ -1,4 +1,4 @@
-# Metadata for data://witness/earnings_calls/2026-11-04/topics_v0_1 (schema/metadata.schema.yml)
+# Metadata for data://witness/earnings_calls/2026-11-04/topics_v0_1 (praxis/datasets/metadata.schema.yml)
 title: Exploratory BERTopic map of the earnings-call AI windows
 description: >-
   An unsupervised topic map of the 38,600 AI windows: 93 topics plus an

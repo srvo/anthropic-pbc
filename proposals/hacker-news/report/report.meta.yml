@@ -1,4 +1,4 @@
-# Metadata for data://witness/hacker_news/2026-08-31/report (schema/metadata.schema.yml)
+# Metadata for data://witness/hacker_news/2026-08-31/report (praxis/datasets/metadata.schema.yml)
 title: "Hacker News witness report: agreement, AI-risk share by month, and the 12-month risk-type ranking"
 description: >-
   Reports built from the two witnesses' scores on the anthropic and

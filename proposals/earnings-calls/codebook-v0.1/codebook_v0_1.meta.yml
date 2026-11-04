@@ -1,4 +1,4 @@
-# Metadata for data://witness/earnings_calls/2026-11-04/codebook_v0_1 (schema/metadata.schema.yml)
+# Metadata for data://witness/earnings_calls/2026-11-04/codebook_v0_1 (praxis/datasets/metadata.schema.yml)
 title: NLI witness scores for every AI window against codebook v0.1
 description: >-
   Two zero-shot NLI cross-encoders of different architecture, DeBERTa-v3-large

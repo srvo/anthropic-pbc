@@ -1,4 +1,4 @@
-# Metadata for data://witness/earnings_calls/2026-11-04/question_report (schema/metadata.schema.yml)
+# Metadata for data://witness/earnings_calls/2026-11-04/question_report (praxis/datasets/metadata.schema.yml)
 title: What analysts ask S&P 500 companies about AI, by intent
 description: >-
   Deterministic tables over the two NLI witnesses' question-intent scores:

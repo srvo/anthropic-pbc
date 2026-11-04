@@ -1,4 +1,4 @@
-# Metadata for data://witness/earnings_calls/2026-11-04/ai_risk_series (schema/metadata.schema.yml)
+# Metadata for data://witness/earnings_calls/2026-11-04/ai_risk_series (praxis/datasets/metadata.schema.yml)
 title: AI as a risk on S&P 500 earnings calls, by year and over the trailing 12 months
 description: >-
   Two measures side by side, because neither is clean alone: a lexical one (an

@@ -1,4 +1,4 @@
-# Metadata for data://witness/wikipedia/2026-11-04/codebook_v0_2_draft (schema/metadata.schema.yml)
+# Metadata for data://witness/wikipedia/2026-11-04/codebook_v0_2_draft (praxis/datasets/metadata.schema.yml)
 title: "[DRAFT v0.2] Wikipedia AI-risk windows scored against codebook v0.2-draft by two NLI witnesses"
 description: >-
   Every window of the Wikipedia AI-risk corpus scored against each of the 30

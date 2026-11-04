@@ -1,4 +1,4 @@
-# Metadata for data://meadow/hacker_news/2026-08-31/ai_windows (schema/metadata.schema.yml)
+# Metadata for data://meadow/hacker_news/2026-08-31/ai_windows (praxis/datasets/metadata.schema.yml)
 title: Hacker News comment windows on Anthropic and on AI security, 2021-01 to 2026-08 (ids only)
 description: >-
   Two focused sets of Hacker News comments, found by published regexes: those
