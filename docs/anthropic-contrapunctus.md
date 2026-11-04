@@ -1239,7 +1239,7 @@ Scoring: ● held/verifiable today · ◐ partial/revocable · ○ absent.
 |---|---|---|
 | Mission lock durability | ◐ LTBT elects 4/7; Class T amendable/redeemable; Founder F 50.1% | ● Purpose trust holds votes+economics or golden veto; sunset deleted (GOV-8) |
 | Standing of the affected | ○ §365(b) no duty; §367 2% gate | ● Enforcer + affected-class contest (GOV-4) |
-| Independent verification | ◐ Voluntary red-teams/evals; "no mandatory independent check" | ● Accredited replication gate with blockade (GOV-1) |
+| Independent verification | ◐ Voluntary red-teams/evals; "As of now, there is no mandatory independent check" | ● Accredited replication gate with blockade (GOV-1) |
 | Claim discipline | ○ Self-estimated benefits; unaudited counts | ● Existence/entailment registry; circle tags (GOV-2/3) |
 | Framework pluralism | ○ One constitution, one scaler (RSP) | ● ≥3 external frameworks, divergence public (GOV-5) |
 | Corpus rights | ◐ Bartz paid for pirated slice; rest asserted | ● Provenance ledger + exit-with-proof (GOV-6/7) |
