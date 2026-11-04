@@ -29,6 +29,19 @@ Phases 1–3 below were built under the old edition model (claims registry,
 excerpts, paper claims at `1afb042`). Their registry and checks carry over;
 the pin to `1afb042` and the generated report do not.
 
+**The seal (Sloane, 2026-11-04).** The paper is sealable against an empirical
+standard of one sentence, which lives in Descartes, not here; the paper links
+out to that Descartes step. The candidate sentence (wording Sloane's to settle):
+*every quotation occurs exactly once, byte for byte, in its pinned source, or
+in text derived from it by a recorded general recipe.* A failing quote is a
+finding and is re-quoted or dropped by editorial judgement; nothing is fitted
+to pass (AGENTS.md, "Checks are not beaten"). The sealed version is a
+**bundle**, complete rather than minimal, in the Descartes artifact format
+(see the 2026-11-03 artifact): the paper, every pinned source verbatim, the
+claims file, `MANIFEST.tsv` of sizes and SHA-256, and the POSIX `verify.sh`.
+It is built outside the repository and attached to the release. Open: Descartes
+has no public home yet, so the paper links the in-repo copy of its spec.
+
 The original plan text follows for the record.
 
 ---

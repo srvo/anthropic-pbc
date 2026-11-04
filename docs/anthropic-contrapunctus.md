@@ -471,6 +471,13 @@ now flagged in-line; and five "quotes" that are compressions, to be expanded
 to the filing's exact words or stripped of quotation marks before release.
 Finding our own error is the method working, not failing.
 
+**The seal.** This paper is sealed by the Descartes check, not by a standard
+of its own: every quotation occurs exactly once, byte for byte, in its pinned
+source ([Descartes, "From sources to claims"](descartes-spec.md#8-from-sources-to-claims)).
+The sealed version is released as one bundle: this paper, every pinned source
+verbatim, the claims file, a manifest of sizes and hashes, and a POSIX
+verifier, so a reader can check it with nothing else.
+
 ---
 
 ## 6. What the record shows
