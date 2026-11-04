@@ -184,8 +184,8 @@ def plot_earnings(series, ranking, b: dict, codebook: str) -> None:
     ax.set_xticks([])
     ax.tick_params(length=0, labelsize=9.5, labelcolor=S.INK)
     ax.set_title(f"AI risks raised on S&P 500 calls, 12 months to {b['as_of']}", loc="left",
-                 color=S.INK, fontsize=12, fontweight="bold", pad=18)
-    ax.text(0, 1.01, f"Number of companies; both models must propose the window. Risk codebook {codebook}; * = new in v0.2.",
+                 color=S.INK, fontsize=12, fontweight="bold", pad=30)
+    ax.text(0, 1.01, f"Number of companies; both models must propose the window.\nRisk codebook {codebook}; * = new in v0.2.",
             transform=ax.transAxes, color=S.INK2, fontsize=8.5)
     fig.tight_layout()
     fig.savefig(OUT_DIR / "risk-ranking-ttm.svg", facecolor=S.SURFACE, metadata={"Date": None, "Creator": None})
