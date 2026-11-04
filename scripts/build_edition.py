@@ -101,6 +101,7 @@ QUOTED = re.compile(r'"([^"\n]*)"|\u201c([^\u201d\n]*)\u201d'           # straig
 QUOTE_BINDING = re.compile(r"\{\{q_\w+\}\}")
 STATIC_NAMES = re.compile(r"S&P 500|CVEProject/cvelistV5")   # names, not quantities: removed before numerals are read
 FM_CHECKED = re.compile(r"^(title|description|header|footer|author|keywords|lang)\s*:")   # front-matter text that ships
+MARP_ALT_KEYWORD = re.compile(r"[\d.]+%|(?:w|h|width|height):\S+")   # alt tokens Marp consumes
 MARP_SIZE = re.compile(r"(?<!\S)(?:w|h|width|height):\d+(?:px|%)?(?!\S)")   # image-size keywords in alt text: layout
 DIALOGUE_SOURCES = [("executives", "Executives (calls)"), ("analysts", "Analyst questions"),
                     ("hn_anthropic", "HN: Anthropic"), ("hn_security", "HN: AI security"), ("wikipedia", "Wikipedia")]
@@ -210,7 +211,12 @@ class Build:
 
     def compose(self, key: str, fmt: str, *, source: str, how: str) -> str:
         """Register a value built from other bindings; its numerals must all come from them."""
+        if key.startswith("alt_"):
+            # Marp reads a bare "12.2%" in image alt text as a size keyword and drops it.
+            fmt = fmt.replace("}%", "} per cent")
         s = self.say(fmt)
+        if key.startswith("alt_") and (bad := [t for t in s.split() if MARP_ALT_KEYWORD.fullmatch(t)]):
+            self.errs.append(f"binding {key}: Marp would drop {bad} from the alt text")
         parts = sorted(self.bound[s])
         self.reg.put(key, s, source=source, how=how)
         self.reg.values[key]["parts"] = parts

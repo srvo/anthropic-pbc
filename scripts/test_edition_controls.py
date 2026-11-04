@@ -269,5 +269,15 @@ with tempfile.TemporaryDirectory() as d:
     src2 = commit("input.txt", "c")
     expect("committing an input moves the source commit", be.source_commit(["input.txt"], cwd=g) == src2)
 
+# Alt text: Marp drops a bare "12.2%" token from image alt text as a size keyword
+b = be.Build("v0.2-draft")
+b.reg.put("p", "12.2", source="t", how="t")
+alt = b.compose("alt_t", "share {p}% of calls", source="t", how="t")
+expect("alt text writes a bound percentage as 'per cent'", alt == "share 12.2 per cent of calls" and not b.errs)
+b = be.Build("v0.2-draft")
+b.reg.put("p", "12.2", source="t", how="t")
+b.compose("alt_t", "share {p}%, then w:900 here", source="t", how="t")
+expect("alt text carrying a Marp keyword token fails", any("Marp would drop" in e for e in b.errs))
+
 print(f"\n{len(FAILS)} failure(s)")
 sys.exit(1 if FAILS else 0)
