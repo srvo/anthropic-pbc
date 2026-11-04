@@ -349,6 +349,17 @@ pension reports; DGCL §§220/365/367) and will be loop-sealed before this secti
 is cited as settled fact. Until then it states the chain and the named
 candidates, not a cap table.
 
+**Only we can save us. [OPINION]** Anthropic's case rests on being the
+safety-focused lab at the frontier. If it is true that only a few people can
+steer this technology safely, the governance has to be far stronger, not
+weaker, because it must survive those people. Here it depends on them: seven
+co-founders hold 50.1% of the vote, and the trust that elects the board can be
+amended away by the classes it checks (§4.1). *[NEEDS SOURCE: Anthropic's own
+words for the "only we" stance, quoted and verified; until then this paragraph
+stays marked as opinion.]*
+
+*Therefore* the promise rests on Anthropic's word.
+
 ---
 
 ## 5. How we check its word
