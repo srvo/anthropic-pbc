@@ -1,11 +1,37 @@
 # Plan: one report, paper and data linked
 
-Status: PLAN, 2026-11-04. Nothing here is built. Today `edition/REPORT.md`
-holds the data findings only (C0001–C0008, S001–S008, positional ids in
-`build_edition.CLAIMS`). This plan folds the paper's argument into the same
-report as its spine, with every corpus finding linked to the paper claim it
-bears on. Paper text is read only from a pinned commit
-(`git show 1afb042:docs/anthropic-contrapunctus.md`; HEAD is identical).
+**Direction changed (Sloane, 2026-11-04): one versioned working paper, not a
+series.** The report is `docs/anthropic-contrapunctus.md` itself. It changes
+by tracked revision (its git history is the track changes) until it is
+publishable; there are no editions, no pins of the paper to an old commit and
+no second report regenerated beside it. Baseline: `40f3771`.
+
+What that changes in this plan:
+
+- **The paper is the source.** The question-first outline (§2) is a
+  restructure of the paper, done as reviewable commits: moves first (pure
+  reordering, `git diff --color-moved`), then prose.
+- **Data findings go into the paper**, each attached to the step of the
+  argument it bears on, with its claim id.
+- **The build checks; it does not write a report.** `build_edition.py` and its
+  controls (bindings, numerals against their keys, hashed excerpts, claim ids
+  and addresses) are retargeted to check the paper's numbers, quotes and
+  claims and to emit the claims index and figures registry. `edition/REPORT.md`
+  and `edition/report.template.md` retire once the paper carries their
+  content.
+- **Emitted files are never committed** (Sloane, 2026-11-04): the PDF and web
+  page are rendered from the paper outside the repository and attached to a
+  release (`scripts/render_report.py`).
+- **Quotes** are still hash-checked, now against the filings and the paper's
+  own current text rather than a pinned paper commit.
+
+Phases 1–3 below were built under the old edition model (claims registry,
+excerpts, paper claims at `1afb042`). Their registry and checks carry over;
+the pin to `1afb042` and the generated report do not.
+
+The original plan text follows for the record.
+
+---
 
 ## 1. Inventory
 
