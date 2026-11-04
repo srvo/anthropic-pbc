@@ -163,8 +163,10 @@ class Build:
     def save_fig(self, fig, name: str) -> None:
         import matplotlib
         import matplotlib.pyplot as plt
-        fig.canvas.draw()
-        r = fig.canvas.get_renderer()
+        from matplotlib.backends.backend_agg import FigureCanvasAgg   # SVG canvas cannot measure text
+        canvas = FigureCanvasAgg(fig)
+        canvas.draw()
+        r = canvas.get_renderer()
         box = fig.bbox
         ticks = set()
         for ax in fig.axes:
