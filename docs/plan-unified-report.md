@@ -34,20 +34,95 @@ any `sources/` filing copies (uncommitted).
 
 ## 2. Outline
 
-**Superseded order (Sloane, 2026-11-04):** the open question organises the
-report, not the Praxis research template. Sections run in the order they
-answer *is Anthropic a public benefit corporation?*:
+**Decided (Sloane, 2026-11-04):** the open question organises the report, not
+the Praxis research template. Sections run in the order they answer *is
+Anthropic a public benefit corporation?*
 
-1. **Why we are asking.** What makes the question worth asking.
-2. **What Anthropic says it is.** Its own specifications: the PBC charter and
-   stated public benefit, and its governance as Anthropic describes it.
-3. **So what …** *(Sloane's dictation broke off here; the rest of the order
-   is hers to give.)*
+**The paper is the linear version of a platform.** On the web, a reader
+branches: what we think about governance, how the method works, a single
+corpus. On paper there is one line, so it makes the strongest single case and
+marks each branch with a short callout at the top of its section ("On the
+web: …") linking to the page that would carry it. The callouts are pointers,
+not summaries; the case reads complete without them.
 
-The template sections that do not answer the question (methods, claims and
-sources indexes, review record) follow the answer as back matter. The list
-below is the earlier template-order draft, kept until the new order is
-complete.
+### Draft order (Claude's first pass, 2026-11-04, for Sloane to edit)
+
+Each step follows from the one before (`therefore`) or turns it (`but`).
+Paper sections in brackets are what each step draws on.
+
+0. **The argument, at the top.** The whole chain in one paragraph, below.
+   The answer comes first; the report then earns it.
+1. **Why we are asking.** A public benefit corporation is a promise that a
+   company is built, at its core, to do what it says. Values-based investing
+   looks for exactly that, and Wood Cache shows what a checked public benefit
+   looks like. [Sloane: why the category is the firm's own.] Anthropic's listing is about to make
+   the category much larger, and Anthropic holds itself out as one.
+   *Therefore* the label is a claim, and a claim can be checked. [Opening,
+   Wood Cache, "category is about to balloon"] Callout: what we think about
+   governance.
+2. **What Anthropic says it is.** The charter's purpose and five pillars, the
+   Long-Term Benefit Trust, the Public Benefit Fund, the 2026 Report. These
+   are the given line, accepted as the governing text. [§1 cantus firmus, §2,
+   §2a]
+3. **What the law makes of it.** *But* the purpose binds nobody outside:
+   §365(b) gives directors no duty to any person on account of it, and §367
+   lets only 2% or $2M holders sue. The label is legally real and legally
+   toothless. [Verdict 1, §2] *Therefore* the label rests on Anthropic's word.
+4. **How we check its word.** Against the strictest standard Anthropic has
+   published: Claude's Constitution, which Anthropic wrote for its own model
+   and which names Anthropic as a possible violator. This is the paper's
+   novel move. Every quote is verified byte-exact (Descartes), and we hold
+   ourselves to the same rubric. [§0, §1, Verification status] Callout: the
+   method; Praxis and Descartes.
+5. **What the record shows.** *But* by that standard the record diverges
+   from the word: the Report grades its own homework, and its own Trust says
+   so; documented harm is priced while documented benefit is mostly
+   anecdote; what is documented at scale is exposure, not victims; Anthropic
+   acts at leverage points 12 and 6 and declines 5, 4 and 3; the
+   people most affected have no standing. Our outside data (C0001–C0008)
+   attaches here, each finding to the step it bears on. [Verdicts 2–4, §1a,
+   §3, §4, §4b, §5, §6] Callouts: each corpus.
+6. **The answer.** *Therefore* Anthropic is a public benefit corporation in
+   law and not in the sense the category promises: nobody it names can make
+   it act like one. The remedy is not a better report or a bigger settlement
+   but governance that someone Anthropic does not appoint, pay or outvote can
+   invoke: ten mechanisms, and what Praxis builds instead. [Verdict 5, §7,
+   §7a, Appendix A]
+7. **What would change our mind.** The falsifiers and the open questions,
+   led by the one that governs them: what lever can an affected community
+   pull? [§8, §9]
+8. **Back matter.** Methods and limitations, claims index, sources index,
+   revision and review record (the Praxis research sections that do not
+   answer the question).
+
+### Draft opening argument (step 0)
+
+> Anthropic holds itself out as a public benefit corporation. We read that
+> label as a promise: the company is built, at its core, to do what it says.
+> Delaware makes the promise real on paper. The purpose sits in the charter,
+> and directors must balance it against stockholders' interests and those
+> materially affected. But Delaware gives directors no duty to any person on
+> account of that purpose, and lets only holders of 2% (or, once listed, the
+> lesser of 2% and $2 million) sue to enforce it. The public the charter names
+> cannot. So the label rests on Anthropic's word, and we take Anthropic at
+> the deepest word it has given: the Constitution it wrote for Claude. That
+> Constitution counts selective emphasis as deception and names Anthropic
+> itself as a possible violator. Anthropic's Public Benefit Report does what
+> it forbids. It reports inputs as outcomes and grades itself, and its own
+> Trust says so. On a like-for-like standard of proof, its harms are
+> documented and priced; its benefits are mostly anecdote. Therefore Anthropic
+> is a public benefit corporation in law, and not in the sense the category
+> promises: no one it names can make it act like one. The remedy is not a
+> better report. It is governance that someone Anthropic does not appoint,
+> pay or outvote can invoke.
+
+**Slot for Sloane (step 1):** why the category is personal to the firm. Your
+line was "my culture is not your costume". The draft says only what the paper
+already establishes (values-based investing, Wood Cache); anything about the
+firm's own standing is yours to write.
+
+The template-order list below is the earlier draft, kept until this order is
+approved.
 
 1. **Bottom line.** Paper Verdict 1 excerpt (charter real, toothless) +
    H synthesis: what the outward data adds and does not.
