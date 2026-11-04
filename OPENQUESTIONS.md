@@ -99,6 +99,15 @@ New questions come from the work itself and from `PASTEBIN.md`.
   and confidence scores, from one small vendor. It fits the democracy thread as
   one witness among several, not as ground truth (`docs/corpus-roadmap.md`).
 
+### Q12 · Regroup details
+- **Owner:** Sloane
+- **Context:** `docs/plan-owid-regroup.md`. The regroup and strict metadata are
+  decided. Two details are not: whether `snapshots/` keeps a generated TSV
+  MANIFEST beside each YAML (proposed: yes), and whether scripts split into
+  per-step files now or later (proposed: later).
+- **Also:** signing waits until the layout is final, because signatures taken
+  before the move would go stale.
+
 ## Answered
 
 | # | Question | Answer | By | Commit |
