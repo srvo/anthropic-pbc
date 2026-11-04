@@ -17,6 +17,12 @@ its own attribution README.
   Marp deck generated from `corpus/datasets.tsv` and each corpus's
   `MANIFEST.tsv` by `uv run scripts/datasets_md.py`. Never edit it by hand.
 - **`docs/corpus-roadmap.md`** lists what is planned. Pick up work there.
+- **`dag.yml`** is the compute graph, modelled on Our World in Data's ETL. Every
+  step has a URI: `snapshot://namespace/version/name` for an upstream copy, and
+  `data://<meadow|garden|witness>/namespace/version/name` for a built dataset.
+  `witness` is our own channel, for model output. `uv run scripts/dag.py status`
+  shows what is stale by content hash, and `uv run scripts/dag.py plan` gives
+  the rebuild commands in order. Cite data in docs by step URI.
 - **`OPENQUESTIONS.md`** holds decisions waiting on someone, with owner and
   context. Add one whenever your work hits a choice that isn't yours to make.
 - **`PASTEBIN.md`** is a dump for anyone. Ingest it by routing each item to its
@@ -52,7 +58,10 @@ its own attribution README.
 4. Respect source terms. A dataset whose terms bar AI ingestion is not
    fetched. Private individuals' text is stored as ids and hashes only (see the
    Hacker News corpus).
-5. Add a row to `corpus/datasets.tsv`, run `uv run scripts/attest_datasets.py record`
+5. Add its steps to `dag.yml` (a snapshot, then meadow/garden, then any witness
+   steps), run `uv run scripts/dag.py check`, and after a verified build run
+   `uv run scripts/dag.py lock`.
+6. Add a row to `corpus/datasets.tsv`, run `uv run scripts/attest_datasets.py record`
    and `uv run scripts/datasets_md.py`, and commit the records and the deck with
    the data. A human signs the record (`attestations/README.md`); agents never sign. `uv run scripts/datasets_md.py check` fails
    if the deck is stale.

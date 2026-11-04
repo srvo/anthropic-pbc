@@ -56,6 +56,21 @@ Refresh:
 
     uv run scripts/ec_extract.py fetch && uv run scripts/ec_extract.py build && uv run scripts/ec_questions.py build
 
+| Step (dag.yml) | Status |
+|---|---|
+| `snapshot://defeatbeta/2026-11-04/stock_earning_call_transcripts` | ok |
+| `snapshot://wikipedia/2026-10-27/sp500_constituents` | ok |
+| `data://meadow/earnings_calls/2026-11-04/ai_windows` | ok |
+| `data://meadow/earnings_calls/2026-11-04/ai_questions` | ok |
+| `snapshot://ethicalcapital/v0.1/codebook_questions` | ok |
+| `data://witness/earnings_calls/2026-11-04/codebook_questions_v0_1` | ok |
+| `snapshot://ethicalcapital/v0.1/codebook` | ok |
+| `data://witness/earnings_calls/2026-11-04/codebook_v0_1` | ok |
+| `data://witness/earnings_calls/2026-11-04/ai_risk_series` | ok |
+| `data://witness/earnings_calls/2026-11-04/question_report` | ok |
+| `data://witness/earnings_calls/2026-11-04/topics_v0_1` | ok |
+| `data://witness/earnings_calls/2026-11-04/witness_report` | ok |
+
 | Witness output | Model | Scores |
 |---|---|---:|
 | `proposals/earnings-calls/codebook-questions-v0.1` | deberta | 42880 |
@@ -111,12 +126,21 @@ Refresh:
 
     uv run scripts/hn_extract.py pin && uv run scripts/hn_extract.py fetch && uv run scripts/hn_extract.py build
 
+| Step (dag.yml) | Status |
+|---|---|
+| `snapshot://open_index/2026-08-31/hacker_news` | ok |
+| `data://meadow/hacker_news/2026-08-31/ai_windows` | ok |
+| `data://witness/hacker_news/2026-08-31/ai_security_v0_1` | ok |
+| `data://witness/hacker_news/2026-08-31/anthropic_v0_1` | ok |
+| `data://witness/hacker_news/2026-08-31/report` | ok |
+
 | Witness output | Model | Scores |
 |---|---|---:|
 | `proposals/hacker-news/ai_security` | deberta | 204192 |
 | `proposals/hacker-news/ai_security` | modernbert | 204192 |
 | `proposals/hacker-news/anthropic` | deberta | 1688944 |
 | `proposals/hacker-news/anthropic` | modernbert | 1688944 |
+| `proposals/hacker-news/anthropic-v0.2-draft` | deberta | 3166770 |
 | `proposals/hacker-news/anthropic-v0.2-draft` | modernbert | 3166770 |
 
 ---
@@ -140,6 +164,13 @@ Refresh:
 Refresh:
 
     uv run scripts/wp_extract.py pin --as-of YYYY-MM-DD && uv run scripts/wp_extract.py build
+
+| Step (dag.yml) | Status |
+|---|---|
+| `snapshot://wikipedia/2026-11-04/ai_risk_articles` | ok |
+| `data://meadow/wikipedia/2026-11-04/ai_risk_articles` | ok |
+| `data://witness/wikipedia/2026-11-04/codebook_v0_1` | ok |
+| `data://witness/wikipedia/2026-11-04/coverage_report` | ok |
 
 | Witness output | Model | Scores |
 |---|---|---:|
@@ -168,6 +199,11 @@ Refresh:
 
     uv run scripts/cve_series.py pin --as-of YYYY-MM-DD && uv run scripts/cve_series.py fetch && uv run scripts/cve_series.py build
 
+| Step (dag.yml) | Status |
+|---|---|
+| `snapshot://cvelistv5/2026-11-04/baseline` | ok |
+| `data://garden/cve/2026-11-04/monthly_series` | ok |
+
 ---
 
 <a id="epoch"></a>
@@ -189,6 +225,11 @@ Refresh:
 Refresh:
 
     uv run scripts/epoch_data.py pin --as-of YYYY-MM-DD && uv run scripts/epoch_data.py build
+
+| Step (dag.yml) | Status |
+|---|---|
+| `snapshot://epoch/2026-11-04/all_datasets` | ok |
+| `data://meadow/epoch/2026-11-04/inventory` | ok |
 
 ---
 
@@ -233,3 +274,40 @@ Refresh:
 Refresh:
 
     —
+
+---
+
+## Compute graph
+
+Every step, in dependency order, from `dag.yml` (OWID-style URIs). Status compares content
+hashes with `dag.lock.tsv`: `inputs` means rebuild, `rebuilt`/`upstream` mean refresh downstream.
+`uv run scripts/dag.py plan` prints the commands; `uv run scripts/dag.py mermaid` draws the graph.
+
+| Step | Status | Depends on |
+|---|---|---|
+| `snapshot://cvelistv5/2026-11-04/baseline` | ok | 0 |
+| `data://garden/cve/2026-11-04/monthly_series` | ok | 1 |
+| `snapshot://defeatbeta/2026-11-04/stock_earning_call_transcripts` | ok | 0 |
+| `snapshot://wikipedia/2026-10-27/sp500_constituents` | ok | 1 |
+| `data://meadow/earnings_calls/2026-11-04/ai_windows` | ok | 2 |
+| `data://meadow/earnings_calls/2026-11-04/ai_questions` | ok | 2 |
+| `snapshot://ethicalcapital/v0.1/codebook_questions` | ok | 0 |
+| `data://witness/earnings_calls/2026-11-04/codebook_questions_v0_1` | ok | 2 |
+| `snapshot://ethicalcapital/v0.1/codebook` | ok | 0 |
+| `data://witness/earnings_calls/2026-11-04/codebook_v0_1` | ok | 2 |
+| `data://garden/earnings_calls/2026-11-04/gold_samples` | ok | 2 |
+| `snapshot://epoch/2026-11-04/all_datasets` | ok | 0 |
+| `data://meadow/epoch/2026-11-04/inventory` | ok | 1 |
+| `snapshot://open_index/2026-08-31/hacker_news` | ok | 0 |
+| `data://meadow/hacker_news/2026-08-31/ai_windows` | ok | 1 |
+| `snapshot://wikipedia/2026-11-04/ai_risk_articles` | ok | 0 |
+| `data://meadow/wikipedia/2026-11-04/ai_risk_articles` | ok | 1 |
+| `data://witness/earnings_calls/2026-11-04/ai_risk_series` | ok | 2 |
+| `data://witness/earnings_calls/2026-11-04/question_report` | ok | 2 |
+| `data://witness/earnings_calls/2026-11-04/topics_v0_1` | ok | 1 |
+| `data://witness/earnings_calls/2026-11-04/witness_report` | ok | 2 |
+| `data://witness/hacker_news/2026-08-31/ai_security_v0_1` | ok | 2 |
+| `data://witness/hacker_news/2026-08-31/anthropic_v0_1` | ok | 2 |
+| `data://witness/hacker_news/2026-08-31/report` | ok | 4 |
+| `data://witness/wikipedia/2026-11-04/codebook_v0_1` | ok | 2 |
+| `data://witness/wikipedia/2026-11-04/coverage_report` | ok | 2 |

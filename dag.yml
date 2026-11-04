@@ -1,0 +1,158 @@
+# Compute graph of every dataset step in this repository.
+#
+# Modelled on Our World in Data's ETL
+# (https://docs.owid.io/projects/etl/architecture/design/compute-graph/): each
+# step is a node named by a URI, and an edge means "depends on". When a node
+# changes, every node downstream of it is stale. `uv run scripts/dag.py status`
+# computes that from content hashes; nothing here reads a clock.
+#
+# URIs follow OWID's convention:
+#   snapshot://<namespace>/<version>/<name>          an upstream copy, pinned in a MANIFEST
+#   data://<channel>/<namespace>/<version>/<name>    a dataset built from other steps
+#   viz://static/<namespace>/<version>/<name>        a chart
+# version is the pin date (YYYY-MM-DD), or the codebook version for hand-written codebooks.
+#
+# Channels:
+#   meadow   OWID's: the source in a common format. Here, the verbatim, byte-anchored
+#            extraction (windows, questions, ids, inventories).
+#   garden   OWID's: processed and harmonised. Here, counts and joins built
+#            deterministically from meadow (no model).
+#   witness  OUR EXTENSION, not in OWID: model output (NLI scores, topics). A
+#            proposal under docs/bert-enrichment-spec.md §5, never a finding. Steps that
+#            read witness output stay proposals too.
+#
+# Paths are unchanged from before the graph existed; the URI names a step and
+# `outputs` says where it writes. `cmd` documents how to rebuild; any compute
+# backend may run witness steps (see AGENTS.md "Compute").
+
+steps:
+  # ---------------------------------------------------------------- snapshots
+  snapshot://defeatbeta/2026-11-04/stock_earning_call_transcripts:
+    cmd: uv run scripts/ec_extract.py fetch
+    outputs: [corpus/earnings-calls/MANIFEST.tsv]
+  snapshot://wikipedia/2026-10-27/sp500_constituents:
+    cmd: uv run scripts/ec_extract.py constituents
+    deps: [snapshot://defeatbeta/2026-11-04/stock_earning_call_transcripts]   # shares MANIFEST.tsv
+    outputs: [corpus/earnings-calls/sp500-constituents.tsv]
+  snapshot://open_index/2026-08-31/hacker_news:
+    cmd: uv run scripts/hn_extract.py pin && uv run scripts/hn_extract.py fetch
+    outputs: [corpus/hacker-news/MANIFEST.tsv]
+  snapshot://wikipedia/2026-11-04/ai_risk_articles:
+    cmd: uv run scripts/wp_extract.py pin --as-of 2026-11-04 && uv run scripts/wp_extract.py fetch
+    outputs: [corpus/wikipedia-ai-risk/MANIFEST.tsv, corpus/wikipedia-ai-risk/seeds.tsv]
+  snapshot://cvelistv5/2026-11-04/baseline:
+    cmd: uv run scripts/cve_series.py pin --as-of 2026-11-04 && uv run scripts/cve_series.py fetch
+    outputs: [corpus/cve/MANIFEST.tsv]
+  snapshot://epoch/2026-11-04/all_datasets:
+    cmd: uv run scripts/epoch_data.py pin --as-of 2026-11-04
+    outputs: [corpus/epoch/MANIFEST.tsv, corpus/epoch/CITATIONS.tsv]
+  # hand-written codebooks: authored in-repo, so "upstream" is a human review
+  snapshot://ethicalcapital/v0.1/codebook:
+    outputs: [corpus/earnings-calls/codebook-v0.1.tsv]
+  snapshot://ethicalcapital/v0.1/codebook_questions:
+    outputs: [corpus/earnings-calls/codebook-questions-v0.1.tsv]
+
+  # ---------------------------------------------------------------- earnings calls
+  data://meadow/earnings_calls/2026-11-04/ai_windows:
+    cmd: uv run scripts/ec_extract.py build
+    deps: [snapshot://defeatbeta/2026-11-04/stock_earning_call_transcripts, snapshot://wikipedia/2026-10-27/sp500_constituents]
+    outputs: [corpus/earnings-calls/calls.tsv, corpus/earnings-calls/ai-paragraphs.parquet, corpus/earnings-calls/ai-windows.parquet]
+  data://meadow/earnings_calls/2026-11-04/ai_questions:
+    cmd: uv run scripts/ec_questions.py build
+    deps: [snapshot://defeatbeta/2026-11-04/stock_earning_call_transcripts, data://meadow/earnings_calls/2026-11-04/ai_windows]
+    outputs: [corpus/earnings-calls/ai-questions.parquet, corpus/earnings-calls/question-calls.tsv]
+  data://witness/earnings_calls/2026-11-04/codebook_v0_1:
+    cmd: uv run scripts/ec_classify.py --model deberta && uv run scripts/ec_classify.py --model modernbert
+    deps: [data://meadow/earnings_calls/2026-11-04/ai_windows, snapshot://ethicalcapital/v0.1/codebook]
+    inputs: [scripts/ec_classify.py]
+    outputs: [proposals/earnings-calls/codebook-v0.1/deberta.parquet, proposals/earnings-calls/codebook-v0.1/modernbert.parquet,
+              proposals/earnings-calls/codebook-v0.1/run-deberta.json, proposals/earnings-calls/codebook-v0.1/run-modernbert.json]
+  data://witness/earnings_calls/2026-11-04/codebook_questions_v0_1:
+    cmd: uv run scripts/ec_classify.py --model deberta --units corpus/earnings-calls/ai-questions.parquet --codebook corpus/earnings-calls/codebook-questions-v0.1.tsv --id-col question_id && uv run scripts/ec_classify.py --model modernbert --units corpus/earnings-calls/ai-questions.parquet --codebook corpus/earnings-calls/codebook-questions-v0.1.tsv --id-col question_id
+    deps: [data://meadow/earnings_calls/2026-11-04/ai_questions, snapshot://ethicalcapital/v0.1/codebook_questions]
+    inputs: [scripts/ec_classify.py]
+    outputs: [proposals/earnings-calls/codebook-questions-v0.1/deberta.parquet, proposals/earnings-calls/codebook-questions-v0.1/modernbert.parquet,
+              proposals/earnings-calls/codebook-questions-v0.1/run-deberta.json, proposals/earnings-calls/codebook-questions-v0.1/run-modernbert.json]
+  data://witness/earnings_calls/2026-11-04/topics_v0_1:
+    cmd: uv run scripts/ec_topics.py
+    deps: [data://meadow/earnings_calls/2026-11-04/ai_windows]
+    outputs: [proposals/earnings-calls/topics-v0.1/assignments.parquet, proposals/earnings-calls/topics-v0.1/by-year.tsv,
+              proposals/earnings-calls/topics-v0.1/run.json, proposals/earnings-calls/topics-v0.1/topics.tsv]
+  data://witness/earnings_calls/2026-11-04/witness_report:
+    cmd: uv run scripts/ec_report.py
+    deps: [data://witness/earnings_calls/2026-11-04/codebook_v0_1, data://meadow/earnings_calls/2026-11-04/ai_windows]
+    outputs: [proposals/earnings-calls/codebook-v0.1/report/agreement.tsv, proposals/earnings-calls/codebook-v0.1/report/by-year.tsv,
+              proposals/earnings-calls/codebook-v0.1/report/risk-types-by-year.tsv, proposals/earnings-calls/codebook-v0.1/report/by-role.tsv,
+              proposals/earnings-calls/codebook-v0.1/report/by-firm.tsv, proposals/earnings-calls/codebook-v0.1/report/window-flags.tsv]
+  data://witness/earnings_calls/2026-11-04/ai_risk_series:
+    cmd: uv run scripts/ec_risk_series.py
+    deps: [data://witness/earnings_calls/2026-11-04/codebook_v0_1, data://meadow/earnings_calls/2026-11-04/ai_windows]
+    outputs: [proposals/earnings-calls/codebook-v0.1/report/ai-risk-by-year.tsv, proposals/earnings-calls/codebook-v0.1/report/ai-risk-by-year.svg,
+              proposals/earnings-calls/codebook-v0.1/report/risk-ranking-ttm.tsv, proposals/earnings-calls/codebook-v0.1/report/risk-ranking-ttm.svg,
+              proposals/earnings-calls/codebook-v0.1/report/risk-quotes-ttm.tsv]
+  data://witness/earnings_calls/2026-11-04/question_report:
+    cmd: uv run scripts/ec_question_report.py
+    deps: [data://witness/earnings_calls/2026-11-04/codebook_questions_v0_1, data://meadow/earnings_calls/2026-11-04/ai_questions]
+    outputs: [proposals/earnings-calls/codebook-questions-v0.1/report/agreement.tsv, proposals/earnings-calls/codebook-questions-v0.1/report/by-year.tsv,
+              proposals/earnings-calls/codebook-questions-v0.1/report/ttm.tsv, proposals/earnings-calls/codebook-questions-v0.1/report/oversight-questions.tsv,
+              proposals/earnings-calls/codebook-questions-v0.1/report/intent-ttm.svg]
+  data://garden/earnings_calls/2026-11-04/gold_samples:
+    cmd: uv run scripts/ec_gold.py sample && uv run scripts/ec_gold.py --set questions sample
+    deps: [data://witness/earnings_calls/2026-11-04/codebook_v0_1, data://witness/earnings_calls/2026-11-04/codebook_questions_v0_1]
+    outputs: [gold/earnings-calls/codebook-v0.1/sample.tsv, gold/earnings-calls/codebook-questions-v0.1/sample.tsv]
+
+  # ---------------------------------------------------------------- hacker news
+  data://meadow/hacker_news/2026-08-31/ai_windows:
+    cmd: uv run scripts/hn_extract.py build
+    deps: [snapshot://open_index/2026-08-31/hacker_news]
+    outputs: [corpus/hacker-news/months.tsv, corpus/hacker-news/windows.parquet]
+  data://witness/hacker_news/2026-08-31/anthropic_v0_1:
+    cmd: uv run scripts/ec_classify.py --model deberta --units .hncorpus/units-anthropic.parquet --out proposals/hacker-news/anthropic && uv run scripts/ec_classify.py --model modernbert --units .hncorpus/units-anthropic.parquet --out proposals/hacker-news/anthropic
+    deps: [data://meadow/hacker_news/2026-08-31/ai_windows, snapshot://ethicalcapital/v0.1/codebook]
+    inputs: [scripts/ec_classify.py]
+    outputs: [proposals/hacker-news/anthropic/deberta.parquet, proposals/hacker-news/anthropic/modernbert.parquet,
+              proposals/hacker-news/anthropic/run-deberta.json, proposals/hacker-news/anthropic/run-modernbert.json]
+  data://witness/hacker_news/2026-08-31/ai_security_v0_1:
+    cmd: uv run scripts/ec_classify.py --model deberta --units .hncorpus/units-ai_security.parquet --out proposals/hacker-news/ai_security && uv run scripts/ec_classify.py --model modernbert --units .hncorpus/units-ai_security.parquet --out proposals/hacker-news/ai_security
+    deps: [data://meadow/hacker_news/2026-08-31/ai_windows, snapshot://ethicalcapital/v0.1/codebook]
+    inputs: [scripts/ec_classify.py]
+    outputs: [proposals/hacker-news/ai_security/deberta.parquet, proposals/hacker-news/ai_security/modernbert.parquet,
+              proposals/hacker-news/ai_security/run-deberta.json, proposals/hacker-news/ai_security/run-modernbert.json]
+  data://witness/hacker_news/2026-08-31/report:
+    cmd: uv run scripts/hn_report.py
+    deps: [data://witness/hacker_news/2026-08-31/anthropic_v0_1, data://witness/hacker_news/2026-08-31/ai_security_v0_1,
+           data://meadow/hacker_news/2026-08-31/ai_windows, data://witness/earnings_calls/2026-11-04/ai_risk_series]
+    inputs: [scripts/ec_risk_series.py]
+    outputs: [proposals/hacker-news/report/agreement.tsv, proposals/hacker-news/report/by-month.tsv, proposals/hacker-news/report/examples-ttm.tsv,
+              proposals/hacker-news/report/risk-ranking-ttm.tsv, proposals/hacker-news/report/risk-ranking-ttm.svg]
+
+  # ---------------------------------------------------------------- wikipedia
+  data://meadow/wikipedia/2026-11-04/ai_risk_articles:
+    cmd: uv run scripts/wp_extract.py build
+    deps: [snapshot://wikipedia/2026-11-04/ai_risk_articles]
+    outputs: [corpus/wikipedia-ai-risk/articles.parquet, corpus/wikipedia-ai-risk/sections.tsv, corpus/wikipedia-ai-risk/windows.parquet,
+              corpus/wikipedia-ai-risk/dimensions-candidate.tsv]
+  data://witness/wikipedia/2026-11-04/codebook_v0_1:
+    cmd: uv run scripts/ec_classify.py --model deberta --units corpus/wikipedia-ai-risk/windows.parquet --out proposals/wikipedia-ai-risk/codebook-v0.1 && uv run scripts/ec_classify.py --model modernbert --units corpus/wikipedia-ai-risk/windows.parquet --out proposals/wikipedia-ai-risk/codebook-v0.1
+    deps: [data://meadow/wikipedia/2026-11-04/ai_risk_articles, snapshot://ethicalcapital/v0.1/codebook]
+    inputs: [scripts/ec_classify.py]
+    outputs: [proposals/wikipedia-ai-risk/codebook-v0.1/deberta.parquet, proposals/wikipedia-ai-risk/codebook-v0.1/modernbert.parquet,
+              proposals/wikipedia-ai-risk/codebook-v0.1/run-deberta.json, proposals/wikipedia-ai-risk/codebook-v0.1/run-modernbert.json]
+  data://witness/wikipedia/2026-11-04/coverage_report:
+    cmd: uv run scripts/wp_report.py
+    deps: [data://witness/wikipedia/2026-11-04/codebook_v0_1, data://meadow/wikipedia/2026-11-04/ai_risk_articles]
+    outputs: [proposals/wikipedia-ai-risk/codebook-v0.1/report/hypotheses.tsv, proposals/wikipedia-ai-risk/codebook-v0.1/report/summary.tsv,
+              proposals/wikipedia-ai-risk/codebook-v0.1/report/untyped-by-article.tsv]
+
+  # ---------------------------------------------------------------- cve
+  data://garden/cve/2026-11-04/monthly_series:
+    cmd: uv run scripts/cve_series.py build
+    deps: [snapshot://cvelistv5/2026-11-04/baseline]
+    inputs: [scripts/ec_extract.py]   # reuses its AI term regex
+    outputs: [corpus/cve/monthly.tsv, corpus/cve/monthly-by-cna.tsv, corpus/cve/ai-related.tsv, corpus/cve/monthly-ai.tsv]
+
+  # ---------------------------------------------------------------- epoch
+  data://meadow/epoch/2026-11-04/inventory:
+    cmd: uv run scripts/epoch_data.py build
+    deps: [snapshot://epoch/2026-11-04/all_datasets]
+    outputs: [corpus/epoch/inventory.tsv, "corpus/epoch/*/**/*.csv"]

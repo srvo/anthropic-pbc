@@ -1,7 +1,7 @@
 #!/usr/bin/env -S uv run --script
 # /// script
 # requires-python = ">=3.10"
-# dependencies = ["blake3==1.0.11"]
+# dependencies = ["blake3==1.0.11", "pyyaml==6.0.2"]
 # ///
 """Write DATASETS.md, the central catalog of every corpus, as a Marp deck.
 
@@ -28,6 +28,7 @@ import blake3
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import attest_datasets  # noqa: E402
+import dag  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 REGISTRY = ROOT / "corpus" / "datasets.tsv"
@@ -105,6 +106,8 @@ def epoch_table() -> list[str]:
 def render() -> str:
     reg = list(csv.DictReader(REGISTRY.open(), delimiter="\t"))
     sig = dict(attest_datasets.status())
+    steps = dag.load()
+    st = dag.statuses(steps)
     o = [HEAD, "---", "", "## Overview", "",
          "| Dataset | Pinned as of | Source cadence | Manifest rows | Signature |", "|---|---|---|---:|---|"]
     for r in reg:
@@ -127,12 +130,23 @@ def render() -> str:
               f"| Method | [`{r['doc']}`]({r['doc']}) |",
               f"| Signature | {sig.get(r['id'], 'no corpus folder')} (`attestations/datasets/`) |",
               "", "Refresh:", "", f"    {r['refresh']}"]
+        mine = [u for u in dag.topo(steps) if any(o.startswith(r["corpus_dir"] + "/") or o.startswith(f"proposals/{r['id']}/")
+                                                  for o in steps[u]["outputs"])] if d else []
+        if mine:
+            o += ["", "| Step (dag.yml) | Status |", "|---|---|"] + [f"| `{u}` | {st[u]} |" for u in mine]
         rs = runs(r["id"])
         if rs:
             o += ["", "| Witness output | Model | Scores |", "|---|---|---:|"]
             o += [f"| `{a}` | {b} | {c} |" for a, b, c, _ in rs]
         if r["id"] == "epoch":
             o += ["", "---", "", "## Epoch AI: per-dataset update dates", ""] + epoch_table()
+    o += ["", "---", "", "## Compute graph", "",
+          "Every step, in dependency order, from `dag.yml` (OWID-style URIs). Status compares content",
+          "hashes with `dag.lock.tsv`: `inputs` means rebuild, `rebuilt`/`upstream` mean refresh downstream.",
+          "`uv run scripts/dag.py plan` prints the commands; `uv run scripts/dag.py mermaid` draws the graph.", "",
+          "| Step | Status | Depends on |", "|---|---|---|"]
+    for u in dag.topo(steps):
+        o.append(f"| `{u}` | {st[u]} | {len(steps[u]['deps'])} |")
     return "\n".join(o) + "\n"
 
 
