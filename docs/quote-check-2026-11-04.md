@@ -131,7 +131,7 @@ Summary line: `72 claims ok	44 problems` (22 failing claims).
 
 | Cause | Claims |
 |---|---|
-| Printed line breaks in PDF-derived text (Constitution 11, Report 7, RSP 1) | Q001 Q022a Q025 Q026a Q026b Q027 Q028 Q029 Q030 Q031 Q032a Q032b Q050 Q052 Q062 Q064 Q066 Q070 |
+| Printed line breaks in PDF-derived text (Constitution 11, Report 6, RSP 1) | Q001 Q022a Q025 Q026a Q026b Q027 Q028 Q029 Q030 Q031 Q032a Q032b Q050 Q052 Q062 Q064 Q066 Q070 |
 | The S-1 itself states the passage twice | Q010 Q013 |
 | Web page refused by the recipe (external stylesheet: needs a rendered capture) and still checked against raw bytes, where its text occurs twice | Q048 Q084 |
 
