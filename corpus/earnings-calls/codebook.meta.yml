@@ -1,5 +1,5 @@
 # Metadata for snapshot://ethicalcapital/v0.1/codebook (praxis/datasets/metadata.schema.yml)
-producer: Ethical Capital (this repository)
+producer: Sloane Ortell (this repository; personal working paper)
 title: Earnings-call AI codebook v0.1
 description: >-
   Sixteen hand-written natural-language hypotheses that the NLI witnesses score
@@ -9,11 +9,11 @@ description: >-
   Index. Authored in this repository; the gold-set coder shows the same text
   to human coders as label definitions.
 citation_full: >-
-  Ethical Capital, earnings-call AI codebook v0.1,
+  Sloane Ortell, earnings-call AI codebook v0.1,
   corpus/earnings-calls/codebook-v0.1.tsv, added in commit
   c64b7f377f1081936accddba4aaef581acb508d0 (2026-11-04) of the anthropic-pbc
   repository.
-attribution_short: Ethical Capital
+attribution_short: Sloane Ortell
 url_main: null
 url_main_reason: >-
   unknown: scripts/ec_extract.py's user agent names
