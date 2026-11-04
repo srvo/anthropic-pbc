@@ -1,7 +1,7 @@
 # The report as a build product
 
-Status: plan, 2026-11-04. Nothing below is built yet except the first deck
-(`DECK.md`, hand-assembled).
+Status, 2026-11-04: the deck is built (`scripts/build_edition.py`); the paper
+template is not.
 
 ## Principle
 
@@ -65,18 +65,15 @@ the build writes the deck with its stamp. The paper template comes later.
 
 ## Open decisions
 
-1. **Codebook for the first built edition**: v0.1 (reviewed; analysts'
-   questions were never scored against it, so the cross-source chart loses
-   them) or v0.2 (all five sources; every chart says DRAFT until its wording is
-   approved, OPENQUESTIONS Q2).
-2. **Where editions live**: a folder per edition in this repository, git tags
-   with release assets, or both.
-3. ~~Whether the build commits by itself~~ Decided 2026-11-04: the build is the
-   review step. It writes the working tree; a person reviews the diff and commits.
-4. **How bindings and Descartes claims meet**: whether every binding becomes a
-   Descartes claim, or only quotes from outside documents do.
-5. **Where the data lives** when this runs: here, or the Praxis catalog
-   (paused, pending the other session's registry work).
+Decided 2026-11-04: the build is the review step. It writes the working tree;
+a person reviews the diff and commits.
+
+Everything still open about the report and its PDF is in Praxis
+`OPENQUESTIONS.md`, Q15–Q23, so it can be discussed in one place: the codebook
+(Q15), witness rates before a gold set (Q16), where editions live (Q17), what
+is signed when the PDF does not render reproducibly (Q18), the chart inclusion
+rule (Q19), outside review (Q20), bindings and Descartes claims (Q21), the data
+source (Q22) and accessibility (Q23).
 
 ## Display controls (built, 2026-11-04)
 
@@ -105,8 +102,5 @@ build (`scripts/build_edition.py`) fails on any breach:
 confirms it fails (14 cases).
 
 Moving the cross-source chart onto this path changed none of its 125 cell
-values. The corpus report scripts outside the deck (`ec_risk_series.py`,
-`ec_question_report.py`, `hn_report.py`, `v02_map.py`) still format numbers
-themselves. `ec_question_report.py` rounds a column that was already rounded
-to two places before printing it to one. Those outputs are not shown in any
-edition until they move onto `display.py`.
+values. The corpus report scripts moved onto `display.py` at `23a4bb6`: no
+value changed; 113 cells changed format only (fixed decimal places).
