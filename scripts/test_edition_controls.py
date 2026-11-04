@@ -152,6 +152,38 @@ b = build_with(FM + 'They said "a paraphrase".\n')
 expect("quoted text that is not a quote binding fails", any("quote binding" in e for e in b.errs))
 b = build_with(FM + 'The headline "{{q_ok}}" stands.\n')
 expect("quote binding passes", not b.errs)
+for line, what in (("They said \u201ca paraphrase\u201d.", "curly double quotes"),
+                   ("They said 'a paraphrase'.", "straight single quotes"),
+                   ("They said \u2018a paraphrase\u2019.", "curly single quotes"),
+                   ("> a paraphrase set as a blockquote", "a markdown blockquote"),
+                   ("<blockquote>a paraphrase</blockquote>", "an HTML blockquote")):
+    b = build_with(FM + line + "\n")
+    expect(f"quoted text in {what} that is not a quote binding fails", any("quote binding" in e for e in b.errs))
+b = build_with(FM + "Anthropic's charter and the executives' passages, in \u2018{{q_ok}}\u2019.\n> {{q_ok}}\n")
+expect("apostrophes, a bound single quote and a bound blockquote pass", not b.errs)
+b = be.Build("v0.2-draft")
+old_quotes = be.QUOTES
+be.QUOTES = {**old_quotes, "q_fake": "words edition v0 never printed"}
+try:
+    b.register_static("0" * 40)
+finally:
+    be.QUOTES = old_quotes
+expect("a quote not verbatim in edition v0 fails", any("q_fake" in e for e in b.errs))
+expect("q_33k carries the status the paper gives it", b.reg.values["q_33k_status"]["text"].startswith("UNVERIFIED"))
+
+# 4 (M4). a binding that copies another carries its n and d
+reg = display.Registry()
+reg.pct("src", 214, 1760, 1, source="t", how="t")
+reg.copy("dup", "src")
+expect("copied binding carries n/d", (reg.values["dup"].get("n"), reg.values["dup"].get("d")) == (214, 1760))
+
+# M6. the CVE baseline date comes from the CVE manifest, never from another source's as-of
+with tempfile.TemporaryDirectory() as d:
+    m = Path(d) / "MANIFEST.tsv"
+    m.write_text("id\trole\tpinned\nother\tsource\t2026-01-01\n")
+    expect("CVE manifest without a baseline row fails", raises(lambda: be.cve_baseline(m), ValueError))
+expect("CVE baseline read from the committed manifest",
+       bool(__import__("re").fullmatch(r"\d{4}-\d{2}-\d{2}", be.cve_baseline(be.ROOT / be.CVE_MANIFEST))))
 
 # 7. clipping and XML
 with tempfile.TemporaryDirectory() as d:

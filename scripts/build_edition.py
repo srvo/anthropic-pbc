@@ -34,8 +34,11 @@ Display controls (docs/report-build.md; every one fails the build):
      Checked channels: body, HTML comments (presenter notes), image alt text,
      front-matter title/description/header/footer, SVG text/tspan/tail/
      comments/aria-label, and fixed tick labels (scale ticks excepted).
-  6. Quotes. Text in double quotes in the template must be a single quote
-     binding, and every quote binding must occur verbatim in edition v0.
+  6. Quotes. Quoted text in the template (straight or curly, double or single
+     quotes, markdown or HTML blockquotes) must be a single quote binding, and
+     every quote binding must occur verbatim in edition v0. A quote from the
+     paper's claims table also binds the status the paper gives it. A binding
+     that copies another (Registry.copy) carries its n and d.
   7. Nothing clipped. Every text element of a matplotlib chart lies inside the
      figure. Every SVG parses as XML.
   8. One codebook. Every risk chart and number uses the --codebook given.
@@ -81,12 +84,16 @@ CODEBOOKS = {
 }
 QUESTIONS = {"codebook": "v0.1", "file": "corpus/earnings-calls/codebook-questions-v0.1.tsv",
              "ttm": "proposals/earnings-calls/codebook-questions-v0.1/report/ttm.tsv"}
-CVE = "corpus/cve/monthly-ai.tsv"
+CVE, CVE_MANIFEST = "corpus/cve/monthly-ai.tsv", "corpus/cve/MANIFEST.tsv"
 QUOTES = {  # binding -> exact text in edition v0 (markdown emphasis and line breaks removed before matching)
     "q_toothless": "Anthropic's charter is legally real and legally toothless.",
     "q_365b": "§365(b) gives directors no duty to any person on account of a public-benefit interest",
-    "q_33k": "33,000+",
+    "q_33k": ">33,000 critical- and high-severity flaws",
 }
+QUOTE_STATUS = {"q_33k"}   # quotes from the paper's claims table: also bind the status the paper gives them
+QUOTED = re.compile(r'"([^"\n]*)"|\u201c([^\u201d\n]*)\u201d'           # straight and curly double quotes
+                    r"|(?<!\w)['\u2018]([^'\u2019\n]+?)['\u2019](?!\w)")    # single quotes; apostrophes sit inside words
+QUOTE_BINDING = re.compile(r"\{\{q_\w+\}\}")
 STATIC_NAMES = re.compile(r"S&P 500|CVEProject/cvelistV5")   # names, not quantities: removed before numerals are read
 FM_CHECKED = re.compile(r"^(title|description|header|footer|author|keywords|lang)\s*:")   # front-matter text that ships
 MARP_SIZE = re.compile(r"(?<!\S)(?:w|h|width|height):\d+(?:px|%)?(?!\S)")   # image-size keywords in alt text: layout
@@ -138,6 +145,15 @@ def table(path: str) -> tuple[list[str], list[dict]]:
     return comments, list(csv.DictReader([l for l in lines if not l.startswith("#")], delimiter="\t"))
 
 
+def cve_baseline(manifest: Path) -> str:
+    """The CVE snapshot's own date: the `pinned` column of the manifest's baseline row."""
+    with manifest.open() as f:
+        rows = [r for r in csv.DictReader(f, delimiter="\t") if r["id"] == "baseline"]
+    if len(rows) != 1 or not re.fullmatch(r"\d{4}-\d{2}-\d{2}", rows[0].get("pinned") or ""):
+        raise ValueError(f"{manifest}: need exactly one baseline row with a pinned date")
+    return rows[0]["pinned"]
+
+
 class Build:
     def __init__(self, codebook: str) -> None:
         self.codebook, self.cb = codebook, CODEBOOKS[codebook]
@@ -151,7 +167,7 @@ class Build:
         return [self.cb["file"], self.cb["ec_scores"], self.cb["dialogue"], QUESTIONS["file"], QUESTIONS["ttm"], CVE,
                 "corpus/earnings-calls/calls.tsv", "corpus/earnings-calls/ai-windows.parquet",
                 "deck/deck.template.md", "scripts/build_edition.py", "scripts/display.py",
-                "scripts/ec_question_report.py", "dag.lock.tsv"]
+                "scripts/ec_question_report.py", "dag.lock.tsv", CVE_MANIFEST]
 
     def preflight(self) -> bool:
         r = subprocess.run(["uv", "run", "--quiet", str(DAG_TOOL), "status"], cwd=ROOT, capture_output=True, text=True)
@@ -261,11 +277,19 @@ class Build:
         new = {r["status"].split()[0] for r in table(self.cb["file"])[1] if r["status"].startswith("v0.2")}
         for i, v in enumerate(sorted(new)):
             R.put(f"new_tag_{i}", v, source=self.cb["file"], how="status column of hypotheses new in this codebook")
-        text = re.sub(r"\s+", " ", git("show", f"{PAPER_V0}:{PAPER}").replace("**", "").replace("*", ""))
+        raw = git("show", f"{PAPER_V0}:{PAPER}")
+        text = re.sub(r"\s+", " ", raw.replace("**", "").replace("*", ""))
         for k, q in QUOTES.items():
             if q not in text:
                 self.errs.append(f"quote {k} not found verbatim in {PAPER}@{PAPER_V0}: {q!r}")
             R.put(k, q, source=f"{PAPER}@{PAPER_V0}", how="verbatim quote (emphasis and line breaks removed)")
+            if k in QUOTE_STATUS:
+                row = [l for l in raw.splitlines() if l.startswith("|") and q in l.replace("**", "")]
+                status = row[0].split("|")[2].strip() if len(row) == 1 else ""
+                if not status:
+                    self.errs.append(f"quote {k}: no single claims-table row with a status in {PAPER}@{PAPER_V0}")
+                R.put(f"{k}_status", status, source=f"{PAPER}@{PAPER_V0}",
+                      how=f"status column of the claims-table row quoting {k}")
 
     # ------------------------------------------------------------ earnings calls
     def earnings(self) -> None:
@@ -302,10 +326,9 @@ class Build:
             R.pct(f"ec_nli_{y}", nli, n, 1, source=src, how=f"{y}: calls with an ai_risk window (both witnesses) / calls")
         last = series[-1]
         R.put("ec_year_last", str(last[0]), source=src, how="last calendar year in the series")
-        R.put("ec_pct_witness_last", R.values[f"ec_nli_{last[0]}"]["text"], source=src, how="= ec_nli_<last year>")
+        R.copy("ec_pct_witness_last", f"ec_nli_{last[0]}", how="last year")
         pre = max((r for r in series if r[0] < CUTOFF_YEAR), key=lambda r: Fraction(r[3], r[1]))
-        R.put("ec_pre2023_max", R.values[f"ec_nli_{pre[0]}"]["text"], source=src,
-              how=f"max over years < {CUTOFF_YEAR} of ec_nli_<year> (attained {pre[0]})")
+        R.copy("ec_pre2023_max", f"ec_nli_{pre[0]}", how=f"max over years < {CUTOFF_YEAR} of ec_nli_<year>")
 
         since = f"DATE '{as_of}' - INTERVAL {TTM_MONTHS} MONTH"
         con.execute(f"CREATE TABLE ttm AS SELECT * FROM w WHERE report_date > {since} AND report_date <= DATE '{as_of}' AND ai_risk")
@@ -451,7 +474,7 @@ class Build:
                 R.count(f"dsn_{k}_{r['risk_type']}", n, source=cb["dialogue"], how=f"{k}: {r['risk_type']} units")
         for key, (src, t) in {"ds_exec_safety": ("executives", "safety_ethics"), "ds_hn_safety": ("hn_anthropic", "safety_ethics"),
                               "ds_wp_safety": ("wikipedia", "safety_ethics"), "ds_sec_cyber": ("hn_security", "cyber")}.items():
-            R.put(key, R.values[f"ds_{src}_{t}"]["text"], source=cb["dialogue"], how=f"= ds_{src}_{t}")
+            R.copy(key, f"ds_{src}_{t}")
         rows_sorted = sorted(types, key=lambda r: (-max(Fraction(int(r[f'{k}_n']), bases[k]) for k, _ in DIALOGUE_SOURCES),
                                                    r["risk_type"]))
         cw, rh, left, top = 128, 24, 210, 108
@@ -500,6 +523,7 @@ class Build:
         _, rows = table(CVE)
         R.count("cve_claude_total", sum(int(r["n_credit_claude"]) for r in rows), source=CVE, how="sum n_credit_claude, all months")
         R.count("cve_ai_total", sum(int(r["n_ai_credited"]) for r in rows), source=CVE, how="sum n_ai_credited, all months")
+        R.put("cve_baseline", cve_baseline(ROOT / CVE_MANIFEST), source=CVE_MANIFEST, how="pinned date of the baseline row")
         R.put("cve_first", rows[0]["month"], source=CVE, how="first month")
         R.put("cve_last", rows[-1]["month"], source=CVE, how="last month")
         r = [x for x in rows if x["month"] >= "2023-01"]
@@ -534,7 +558,7 @@ class Build:
         a2.set_xticks(ticks, [self.say("{" + f"cve_year_{months[i][:4]}" + "}") for i in ticks])
         fig.suptitle("Vulnerability disclosures, and the share credited to AI", x=0.01, ha="left",
                      color=INK, fontsize=13, fontweight="bold")
-        fig.text(0.01, 0.01, self.say("Source: CVEProject/cvelistV5 baseline {as_of} (corpus/cve), "
+        fig.text(0.01, 0.01, self.say("Source: CVEProject/cvelistV5 baseline {cve_baseline} (corpus/cve), "
                  "{cve_chart_first} to {cve_last}.\n"
                  "Credit = the CNA credits field only, matched to named AI systems. Method credit: Epoch AI (CC BY)."),
                  color=INK2, fontsize=7)
@@ -570,8 +594,15 @@ class Build:
                 self.check_text(f"DECK.md:{i}", shown(fill(line)), keys_in(line))
             if in_fm:
                 continue
-            for q in re.findall(r'"([^"]*)"', re.sub(r"<[^>]+>", "", line)):
-                if not re.fullmatch(r"\{\{q_\w+\}\}", q):
+            plain = re.sub(r"<[^>]+>", "", line)
+            quoted = [next(g for g in m.groups() if g is not None) for m in QUOTED.finditer(plain)]
+            bq = re.match(r"\s*>\s?(.*)", line)
+            if bq:
+                quoted.append(bq.group(1).strip())
+            if re.search(r"(?i)<blockquote|<q[ >]", line):
+                quoted.append(re.sub(r"<[^>]+>", "", re.search(r"(?i)<(blockquote|q)\b[^>]*>(.*)", line).group(2)).strip())
+            for q in quoted:
+                if not QUOTE_BINDING.fullmatch(q):
                     self.errs.append(f"deck.template.md:{i}: quoted text must be one quote binding: \"{q}\"")
         self.outs["DECK.md"] = fill(tpl).encode()
 

@@ -113,8 +113,14 @@ build (`scripts/build_edition.py`) fails on any breach:
    element and `<tspan>` text, tail text, comments and `aria-label`, and
    matplotlib tick labels set from data. Only tick labels that a formatter
    computes from the axis scale are exempt.
-6. **Quotes.** Quoted text in the template must be a single quote binding, and
-   each quote must occur verbatim in edition v0.
+6. **Quotes.** Quoted text in the template must be a single quote binding:
+   straight and curly double quotes, single quotes (an apostrophe inside a
+   word is not a quote), markdown blockquotes and HTML `<blockquote>`/`<q>`.
+   Each quote must occur verbatim in edition v0. A quote taken from the
+   paper's claims table also binds the status that table gives it (`q_33k`
+   is bound with `UNVERIFIED/MED`), so the deck cannot quote a claim without
+   the paper's own verdict on it. A binding that copies another
+   (`Registry.copy`) carries the original's source, numerator and denominator.
 7. **Nothing clipped or malformed.** Chart text must lie inside the figure;
    every SVG must parse.
 8. **One codebook** per edition.

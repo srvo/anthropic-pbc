@@ -122,6 +122,15 @@ class Registry:
     def count(self, key: str, n: int, *, source: str, how: str) -> str:
         return self.put(key, count(n), source=source, how=how, n=n)
 
+    def copy(self, key: str, src: str, *, how: str = "") -> str:
+        """A second name for a registered value. It carries the source's provenance, n and d."""
+        v = self.values[src]
+        out = self.put(key, v["text"], source=v["source"], how=f"= {src}" + (f" ({how})" if how else ""),
+                       n=v.get("n"), d=v.get("d"))
+        if "parts" in v:
+            self.values[key]["parts"] = v["parts"]
+        return out
+
     def texts(self) -> set[str]:
         return {v["text"] for v in self.values.values()}
 

@@ -73,7 +73,7 @@ Edition {{paper_edition}} of the paper (`docs/anthropic-contrapunctus.md` at `{{
 
 ![w:950](deck/cve-ai-credit.svg)
 
-<div class="src">CVE credits name Claude on {{cve_claude_total}} CVEs and any AI system on {{cve_ai_total}} ({{cve_first}} to {{cve_last}}). That cannot confirm or refute "{{q_33k}}": not every flaw becomes a CVE, and credits need not name the tool.</div>
+<div class="src">CVE credits name Claude on {{cve_claude_total}} CVEs and any AI system on {{cve_ai_total}} ({{cve_first}} to {{cve_last}}). That cannot confirm or refute the claim of "{{q_33k}}", which edition {{paper_edition}} of the paper itself marks {{q_33k_status}}: not every flaw becomes a CVE, and credits need not name the tool.</div>
 
 ---
 
