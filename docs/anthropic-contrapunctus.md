@@ -1262,8 +1262,11 @@ disclosure is how controlled issuers stay controlled.
 Class T, remove trustees, and amend the Company Purpose — which classes,
 what consideration? 2) Who appoints successor trustees, and who can block?
 3) What can the LTBT see (board materials, eval raw data, incident logs)
-and what can it compel? 4) Class F transition: who holds Founder LLC votes
-during the 450 days, and who decides a founder is no longer "continuing"?
+and what can it compel? 4) Class F transition: the S-1 says "We refer to
+our seven co-founders and any successors in the Founder LLC as “Continuing
+Founders.”" Who admits successors, who holds Founder LLC votes during the
+450 days that begin after fewer than three Continuing Founders for 90
+consecutive days, and who decides whether a member still counts?
 5) Which Nasdaq controlled-company exemptions will be taken, for how long?
 
 **Safety claims.** 6) One release an external evaluator stopped or delayed —
