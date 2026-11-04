@@ -85,8 +85,16 @@ paper; the Ethical Capital publisher is locked pending verified owner identity
 and is never selected here). Classification: Working paper. It is marked DRAFT
 in the revision line and the bottom line.
 
-Every number is a claim. `build_edition.CLAIMS` lists, in claim-id order
-(C0001, C0002, ...), the bindings each claim rests on. For each binding the
+Every number is a claim. Claim ids live in `edition/claims.tsv` (`id, key,
+kind, statement_ref, status, aliases, upstream, review, address,
+content_id`), assigned once in file order and never reused: the build checks
+the file against every committed version of it, so a reused, dropped or
+renumbered id fails. `address` (`praxis:claim/anthropic-pbc/C0001`) is the
+claim's address across all Praxis-governed repositories; `content_id` is the
+BLAKE3 of its canonical statement (for a data claim, its claims-index heading
+in the template with bindings unfilled), so the same claim in two
+repositories can be matched. `build_edition.CLAIMS` lists the bindings each
+data claim rests on; its order sets no id. For each binding the
 build writes an Evidence line from the registry: the value, the binding it was
 taken from, its numerator and denominator, how it was computed, and its source
 ids. The Sources index (S001, ...) is built from the registry's source paths;

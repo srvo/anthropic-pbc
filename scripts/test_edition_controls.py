@@ -297,6 +297,7 @@ expect("a level-two heading outside the research sections fails", any("Praxis re
 
 # Claims and sources: every Evidence line traces a binding to its numerator, denominator and dag.yml step
 b = be.Build("v0.2-draft")
+b.claim_rows = [{"id": "C0001", "key": "c"}]
 b.reg.pct("ec_x", 214, 1760, 1, source="corpus/earnings-calls/{calls.tsv,ai-windows.parquet}", how="t")
 b.reg.copy("ec_y", "ec_x", how="last year")
 old_c, be.CLAIMS = be.CLAIMS, {"c": [("ec_y", "%")]}
@@ -312,6 +313,40 @@ expect("a source no dag.yml step writes fails",
        raises(lambda: be.describe_source("corpus/nope.tsv", be.dag_steps(be.DAG)), ValueError))
 expect("registry source strings expand to paths",
        be.source_paths("a/{b.tsv,c.parquet} + d/e + git") == ["a/b.tsv", "a/c.parquet", "d/e"])
+
+# Stable claim ids (edition/claims.tsv): append-only, never reused, never a position in CLAIMS
+ecl = be.ecl
+committed = (be.ROOT / ecl.CLAIMS_TSV).read_text()
+rows, errs = ecl.load_claims(committed)
+expect("committed claims.tsv passes its own checks", not errs)
+expect("C0001-C0008 keep their numbers",
+       [r["key"] for r in rows[:8]] == ["ec_rise", "ec_volume", "ec_firms", "q_intent", "ds_safety", "ds_cyber",
+                                        "cve_credit", "paper_33k"])
+lines = committed.splitlines(keepends=True)
+swapped = "".join([lines[0], lines[2], lines[1]] + lines[3:])
+expect("reordered claims.tsv rows fail (ids are file order)", any("want C0001" in e for e in ecl.load_claims(swapped)[1]))
+reused = committed.replace("\tec_rise\t", "\tsomething_else\t", 1)
+expect("an id reused for another key fails against the committed history",
+       any("never reused" in e for e in ecl.history_errs(ecl.load_claims(reused)[0], [("0" * 40, committed)])))
+dropped = "".join(lines[:-1])
+expect("a dropped id fails against the committed history",
+       any("never dropped" in e for e in ecl.history_errs(ecl.load_claims(dropped)[0], [("0" * 40, committed)])))
+dup = committed.replace(ecl.address("C0002"), ecl.address("C0001"), 1)
+expect("two rows cannot share an address", any("share the address" in e for e in ecl.load_claims(dup)[1]))
+b = be.Build("v0.2-draft")
+b.claim_rows = rows
+old_c, be.CLAIMS = be.CLAIMS, dict(reversed(list(be.CLAIMS.items())))
+try:
+    b.reg.values.update({k: {"text": "x", "source": "t", "how": "t"} for k in {k for v in old_c.values() for k, _ in v}})
+    b.claims()
+finally:
+    be.CLAIMS = old_c
+expect("reordering CLAIMS changes no claim id", (b.reg.values["c_ec_rise"]["text"], b.reg.values["c_paper_33k"]["text"])
+       == ("C0001", "C0008"))
+b = be.Build("v0.2-draft")
+b.claim_rows = [dict(rows[0], content_id="blake3:" + "0" * 64)]
+b.check_claim_statements(be.TEMPLATE.read_text())
+expect("a data claim whose content_id is not its template statement fails", any("content_id" in e for e in b.errs))
 
 print(f"\n{len(FAILS)} failure(s)")
 sys.exit(1 if FAILS else 0)

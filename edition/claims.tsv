@@ -1,0 +1,9 @@
+id	key	kind	statement_ref	status	aliases	upstream	review	address	content_id
+C0001	ec_rise	observation	template:ec_rise	witness proposal	-	-	pending	praxis:claim/anthropic-pbc/C0001	blake3:da02b3ac5a061808685e4fd747bd542ac688cdb303d3a0f7cd6ea89eb7fdb5cc
+C0002	ec_volume	observation	template:ec_volume	witness proposal	-	-	pending	praxis:claim/anthropic-pbc/C0002	blake3:5e8f10dce40062895344fd338c75fb14b2688c44659ff2a941c97007b8ae1185
+C0003	ec_firms	observation	template:ec_firms	witness proposal	-	-	pending	praxis:claim/anthropic-pbc/C0003	blake3:a77da9eff001a42c5d2058997056ef2190ab17584301c49a5c37492d90cc6a5c
+C0004	q_intent	observation	template:q_intent	witness proposal	-	-	pending	praxis:claim/anthropic-pbc/C0004	blake3:6bfea07f96069bfae74ef8a6fa094facc7bbdeeaa04f65fc6f55f8823eb243a8
+C0005	ds_safety	observation	template:ds_safety	witness proposal	-	-	pending	praxis:claim/anthropic-pbc/C0005	blake3:92e9a9263072049ecf2196cdee3121918c4dac5b7515feaddc01d1002e98b0b6
+C0006	ds_cyber	observation	template:ds_cyber	witness proposal	-	-	pending	praxis:claim/anthropic-pbc/C0006	blake3:e22051c2dc2b7c0a969c6debd3de1165cef2d9c286205c9c501cd3080ccc2a46
+C0007	cve_credit	observation	template:cve_credit	calculation reproduced	-	-	pending	praxis:claim/anthropic-pbc/C0007	blake3:35f0fca6632a21afbaf3245df8ac21a8fdbf1a0492beba7b7a711205f9bad999
+C0008	paper_33k	observation	template:paper_33k	quote verified	-	-	pending	praxis:claim/anthropic-pbc/C0008	blake3:b5332fdcbf341deaaadcc49e70dea1a54edcd0dd6985ed2c30ef6ac27d5ffab9

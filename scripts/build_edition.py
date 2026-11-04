@@ -73,6 +73,7 @@ import duckdb
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
 import display  # noqa: E402
+import edition_claims as ecl  # noqa: E402  (edition/claims.tsv: stable claim ids)
 import ec_text as ect  # noqa: E402  (window text is local: .eccorpus/, joined on window_id)
 
 TEMPLATE = ROOT / "edition" / "report.template.md"
@@ -83,8 +84,9 @@ DAG = ROOT / "dag.yml"
 # sections, in this order, are all REPORT.md may have. Praxis's `report check` enforces the same list.
 SECTIONS = ("Bottom line", "Decision-relevant facts", "What could change the conclusion", "Analysis",
             "Methods and limitations", "Claims index", "Sources index", "Revision and review record")
-# Report-local claims, in claim-id order (C0001, C0002, ...): each names the bindings its Evidence line
-# traces, with the unit the value is shown in. A composite binding (ec_top3) is traced through its parts.
+# Report-local data claims: each names the bindings its Evidence line traces, with the unit the value is
+# shown in. A composite binding (ec_top3) is traced through its parts. Claim ids are not positions here:
+# they are held in edition/claims.tsv (append-only, never reused), so reordering this dict changes no id.
 CLAIMS = {
     "ec_rise": [("ec_pct_witness_last", "%"), ("ec_pre2023_max", "%")],
     "ec_volume": [("ec_wpc_base", ""), ("ec_wpc_last", ""), ("ec_win_base", "%"), ("ec_win_last", "%")],
@@ -195,6 +197,7 @@ class Build:
         self.errs: list[str] = []
         self.outs: dict[str, bytes] = {}
         self.bound: dict[str, set[str]] = {}   # chart string -> the binding keys it was built from
+        self.claim_rows: list[dict] | None = None   # edition/claims.tsv; tests may set their own
 
     # ------------------------------------------------------------ preconditions
     def inputs(self) -> list[str]:
@@ -202,7 +205,8 @@ class Build:
                 QUESTIONS["scores"], QUESTIONS["units"],
                 "corpus/earnings-calls/calls.tsv", "corpus/earnings-calls/ai-windows.parquet",
                 "edition/report.template.md", "scripts/build_edition.py", "scripts/display.py",
-                "scripts/ec_question_report.py", "dag.lock.tsv", "dag.yml", CVE_MANIFEST]
+                "scripts/ec_question_report.py", "dag.lock.tsv", "dag.yml", CVE_MANIFEST,
+                ecl.CLAIMS_TSV, "scripts/edition_claims.py"]
 
     def preflight(self) -> bool:
         r = subprocess.run(["uv", "run", "--quiet", str(DAG_TOOL), "status"], cwd=ROOT, capture_output=True, text=True)
@@ -690,6 +694,26 @@ class Build:
             "naming Claude."), source=CVE, how="alt text of cve-ai-credit.svg, from the chart's bindings")
 
     # ------------------------------------------------------------ claims and sources
+    def load_claims(self, root: Path = ROOT) -> None:
+        """edition/claims.tsv, checked against its own rules and against every committed version of it."""
+        rows, errs = ecl.load_claims((root / ecl.CLAIMS_TSV).read_text())
+        commits = git("log", "--format=%H", "--", ecl.CLAIMS_TSV, cwd=root).split()
+        errs += ecl.history_errs(rows, [(c, git("show", f"{c}:{ecl.CLAIMS_TSV}", cwd=root)) for c in commits])
+        self.errs += errs
+        self.claim_rows = rows
+
+    def check_claim_statements(self, tpl: str) -> None:
+        """A data claim's content_id is the BLAKE3 of its claims-index heading in the template, bindings
+        unfilled: the claim's form, stable across data refreshes."""
+        for r in self.claim_rows or []:
+            if not r["statement_ref"].startswith("template:"):
+                continue
+            m = re.search(r"^### \{\{c_" + re.escape(r["statement_ref"][9:]) + r"\}\} — (.+)$", tpl, re.M)
+            if not m:
+                self.errs.append(f"{ecl.CLAIMS_TSV}: {r['id']} has no claims-index heading for {r['statement_ref']}")
+            elif ecl.content_id(m.group(1)) != r["content_id"]:
+                self.errs.append(f"{ecl.CLAIMS_TSV}: {r['id']} content_id does not match its statement in the template")
+
     def leaves(self, key: str) -> list[str]:
         """A binding, or the parts of a composite binding."""
         v = self.reg.values[key]
@@ -706,12 +730,18 @@ class Build:
         the registry. Every numeral in them comes from a registered value: the value itself, its numerator
         and denominator (registered as counts), its provenance text, or a dag.yml step."""
         R, steps = self.reg, dag_steps(DAG)
+        if self.claim_rows is None:
+            self.load_claims()
+        ids = {r["key"]: r["id"] for r in self.claim_rows}
         sources: dict[str, list[str]] = {}   # source path -> claim keys citing it
         evid: dict[str, list[tuple[str, str, list[str]]]] = {}
-        for i, (c, keys) in enumerate(CLAIMS.items(), 1):
-            cid = f"C{i:04d}"
-            R.put(f"c_{c}", cid, source="build_edition.CLAIMS", how="report-local claim id: position in CLAIMS")
-            R.put(f"ct_{c}", "{{" + cid + "}}", source="build_edition.CLAIMS", how="claim tag (Praxis report writer)")
+        for c, keys in CLAIMS.items():
+            if c not in ids:
+                self.errs.append(f"claim {c}: no row in {ecl.CLAIMS_TSV}")
+                continue
+            cid = ids[c]
+            R.put(f"c_{c}", cid, source=ecl.CLAIMS_TSV, how="claim id (append-only registry)")
+            R.put(f"ct_{c}", "{{" + cid + "}}", source=ecl.CLAIMS_TSV, how="claim tag (Praxis report writer)")
             evid[c] = []
             for key, unit in keys:
                 if key not in R.values:
@@ -759,6 +789,7 @@ class Build:
         a binding used on that template line."""
         tpl = TEMPLATE.read_text()
         name = TEMPLATE.name
+        self.check_claim_statements(tpl)
         fm_lines = tpl[:tpl.index("\n---\n", 4) + 5].count("\n")
         self.reg.put("generated_notice", f"Generated by `scripts/build_edition.py --codebook {self.codebook}` from source "
                      f"commit `{head}`. Edit `edition/report.template.md`, not this file.", source="build", how="notice")
