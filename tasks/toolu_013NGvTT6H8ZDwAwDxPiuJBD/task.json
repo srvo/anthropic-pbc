@@ -1,0 +1,14 @@
+{
+  "tool_use_id": "toolu_013NGvTT6H8ZDwAwDxPiuJBD",
+  "agent_id": "aa85a8e79aafef837",
+  "task_description": "Review Constitution, RSP, GTG claims",
+  "token_usage": {
+    "input_tokens": 44,
+    "cache_creation_tokens": 106975,
+    "cache_read_tokens": 1836099,
+    "output_tokens": 19652,
+    "api_call_count": 22
+  },
+  "started_at": "2026-11-04T16:21:58.266601-07:00",
+  "completed_at": "2026-11-04T16:25:13.360353-07:00"
+}

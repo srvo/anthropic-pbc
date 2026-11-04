@@ -1,0 +1,14 @@
+{
+  "tool_use_id": "toolu_01NujQHYv3hVoJChhgbV6YCf",
+  "agent_id": "a728c3ad6d1ca0931",
+  "task_description": "Review Report claims Q001-Q045",
+  "token_usage": {
+    "input_tokens": 22,
+    "cache_creation_tokens": 101678,
+    "cache_read_tokens": 869917,
+    "output_tokens": 12357,
+    "api_call_count": 11
+  },
+  "started_at": "2026-11-04T16:21:58.240847-07:00",
+  "completed_at": "2026-11-04T16:24:01.420326-07:00"
+}

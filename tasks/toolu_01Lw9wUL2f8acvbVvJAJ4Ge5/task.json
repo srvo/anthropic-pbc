@@ -1,0 +1,14 @@
+{
+  "tool_use_id": "toolu_01Lw9wUL2f8acvbVvJAJ4Ge5",
+  "agent_id": "a7c3cce106943089d",
+  "task_description": "Research unsourced quotations",
+  "token_usage": {
+    "input_tokens": 44,
+    "cache_creation_tokens": 132943,
+    "cache_read_tokens": 1932873,
+    "output_tokens": 16661,
+    "api_call_count": 21
+  },
+  "started_at": "2026-11-04T16:21:58.260127-07:00",
+  "completed_at": "2026-11-04T16:24:59.322016-07:00"
+}
