@@ -1,5 +1,5 @@
 # Metadata for snapshot://ethicalcapital/v0.1/codebook_questions (praxis/datasets/metadata.schema.yml)
-producer: Sloane Ortell (this repository; personal working paper)
+producer: Sloane Ortel (this repository; personal working paper)
 title: Analyst-question intent codebook v0.1
 description: >-
   Ten hand-written natural-language hypotheses that the NLI witnesses score
@@ -9,11 +9,11 @@ description: >-
   q_security). Authored in this repository; the gold-set coder shows the same
   text to human coders as label definitions.
 citation_full: >-
-  Sloane Ortell, analyst-question intent codebook v0.1,
+  Sloane Ortel, analyst-question intent codebook v0.1,
   corpus/earnings-calls/codebook-questions-v0.1.tsv, added in commit
   8ccfaa4d4689fc0bfbc67a770c39434a624d000d (2026-11-04) of the anthropic-pbc
   repository.
-attribution_short: Sloane Ortell
+attribution_short: Sloane Ortel
 url_main: null
 url_main_reason: >-
   unknown: scripts/ec_extract.py's user agent names

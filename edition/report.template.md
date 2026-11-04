@@ -1,6 +1,6 @@
 ---
 title: "Anthropic PBC: the public record, from outside"
-author: "Sloane Ortell"
+author: "Sloane Ortel"
 date: "{{as_of}}"
 revision: "DRAFT, edition of {{source_commit}}, risk codebook {{codebook}}"
 classification: "Working paper"

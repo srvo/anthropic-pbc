@@ -80,7 +80,7 @@ edition). Agents never sign.
 What could change the conclusion, Analysis, Methods and limitations, Claims
 index, Sources index, Revision and review record. The build requires exactly
 these level-two sections, in this order (Praxis's `report check` requires the
-same). Author: Sloane Ortell. Publisher: `praxis` (this is a personal working
+same). Author: Sloane Ortel. Publisher: `praxis` (this is a personal working
 paper; the Ethical Capital publisher is locked pending verified owner identity
 and is never selected here). Classification: Working paper. It is marked DRAFT
 in the revision line and the bottom line.

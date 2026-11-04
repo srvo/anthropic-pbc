@@ -1,5 +1,5 @@
 # Metadata for snapshot://ethicalcapital/v0.2-draft/codebook (praxis/datasets/metadata.schema.yml)
-producer: Sloane Ortell (this repository; personal working paper)
+producer: Sloane Ortel (this repository; personal working paper)
 title: AI-risk codebook v0.2 DRAFT
 description: >-
   Thirty natural-language NLI hypotheses: the 16 of codebook v0.1 word for
@@ -10,10 +10,10 @@ description: >-
   review (OPENQUESTIONS Q2). The `democracy` row comes from Sloane's
   health-of-democracy question, with the nearest heading cited.
 citation_full: >-
-  Sloane Ortell, AI-risk codebook v0.2 DRAFT,
+  Sloane Ortel, AI-risk codebook v0.2 DRAFT,
   corpus/codebooks/codebook-v0.2-draft.tsv, anthropic-pbc repository,
   commit e934f04 (2026-11-04).
-attribution_short: Sloane Ortell
+attribution_short: Sloane Ortel
 url_main: null
 url_main_reason: >-
   unknown: the repository's public home is unsettled (scripts name

@@ -1,5 +1,5 @@
 # Metadata for snapshot://ethicalcapital/2026-11-04/rooney_transcription (praxis/datasets/metadata.schema.yml)
-producer: Sloane Ortell (this repository; personal working paper)
+producer: Sloane Ortel (this repository; personal working paper)
 title: Hand transcription of Rooney Report percents and questionnaire stems, 2026-11-04
 description: >-
   Two hand-made inputs to the democracy-proxies build. rooney-transcription.tsv
@@ -12,13 +12,13 @@ description: >-
   were not transcribed or estimated. `build` checks every quote and stem
   against the page text of the pinned PDFs and fails on any mismatch.
 citation_full: >-
-  Sloane Ortell, Rooney Report transcription and questionnaire stems,
+  Sloane Ortel, Rooney Report transcription and questionnaire stems,
   corpus/democracy/rooney-transcription.tsv and
   corpus/democracy/rooney-questionnaire.tsv, added in commit
   7fcf0efed7e8ac5725c21a35ddd282fed8995e25 (2026-11-04) of the anthropic-pbc
   repository. Transcribed from Rooney Democracy Institute, University of Notre
   Dame, Rooney Reports 1-13 and the October 2025 and May 2026 questionnaires.
-attribution_short: Sloane Ortell (transcription); Rooney Democracy Institute (source text)
+attribution_short: Sloane Ortel (transcription); Rooney Democracy Institute (source text)
 url_main: null
 url_main_reason: >-
   unknown: other scripts' user agents (e.g. scripts/ec_extract.py) name

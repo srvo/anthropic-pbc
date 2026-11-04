@@ -88,7 +88,7 @@ rewritten by filter-repo; file contents were not.
 | `3e82955` | `b8fb01c` | Adversarial review of the repository at fb63972 |
 | `5121b5a` | `08b6923` | Wire Entire into every agent: Claude, Codex, Cursor, Droid, OpenCode, pi |
 | `ff09880` | `b20f700` | review: buzz-saw pass; correct which finding was re-checked by hand |
-| `479b1b9` | `2bb845c` | Attribute hand-written datasets to Sloane Ortell: personal working paper |
+| `479b1b9` | `2bb845c` | Attribute hand-written datasets to Sloane Ortel: personal working paper |
 | `61ec44d` | `f2a0ba9` | M9: mark built corpora in roadmap; log that spec §7 spike layout is unbuilt |
 | `39e2ac3` | `a0707fb` | M8: mark Praxis/Descartes docs as copies; point links to local copies |
 | `aadfa60` | `20abc61` | M10: say plainly the risk-factor corpus is unpinned and not rebuildable |
