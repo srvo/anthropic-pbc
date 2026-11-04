@@ -105,10 +105,29 @@ id enters a record; the gzip mtime is pinned to 0.
 
 ## 6. Yield, and its honest limit
 
-On the first 200 filings — which are the *oldest* in the window and the messiest —
-165 extracted, 35 failed: 82.5%. Yield is expected to rise with filing year as
-documents standardize, but that is a prediction, not a measurement, until the bulk
-run reports.
+Final state of the run, measured rather than projected:
+
+| | |
+|---|---|
+| Filings in scope | 80,592 |
+| Spans stored | 51,348 (63.7%) |
+| — of which not-applicable | 2,178 |
+| — substantive | 49,170 (61.0%) |
+| Companies | 5,085 |
+| Words of verbatim risk text | 534,834,488 |
+| Refused | 29,244 (36.3%) |
+
+The early estimate of ~80% was wrong twice over: the progress counter over-counted
+duplicate-text collisions, and coverage then fell as the run moved into filings
+whose real sections the heading guard rejected. An invariant on output (below)
+replaced further input patterns.
+
+**Entity type is not the problem, and an earlier claim here was wrong.** Trusts,
+ETFs and grantor trusts are *not* systematically absent: 1,924 fund/trust-like
+issuers are in the corpus, including every Invesco CurrencyShares trust (19k–21k
+characters each). Those filings do carry Item 1A, and they extract fine. What they
+do not carry is a *long* risk section, which is why a vocabulary threshold was
+tried and rejected — it would have deleted them.
 
 **A failed extraction is not an absent risk factor.** The 35 refusals in that
 sample are filings where the section exists but the boundary could not be
@@ -200,3 +219,31 @@ Any claim of the form "risk X named in filing A caused loss L in filing B" must
 cite both filings and both BLAKE3 hashes. A join on CIK alone produces candidates
 for reading, never conclusions. The count of shared CIKs between the two corpora
 is a *work queue*, not a finding.
+
+### Invariants on output, not patterns on input
+
+The heading logic accumulated six regexes, each fixed to one filing (HURC, BDL,
+GNVR, FREVS). That approach does not generalize: it repairs what has been seen and
+is silent about everything else. It is replaced by checks on the produced span that
+need no knowledge of any document:
+
+| Check | Rejects |
+|---|---|
+| `empty` | a slice with no content |
+| `prose` | a fragment that is not running text |
+| `boundary` | a slice that ran into signatures, exhibits or certifications |
+| `heading` | a slice that begins mid-sentence |
+
+Refusals are named and counted, so a regression appears as a labelled number
+rather than a silent bad row.
+
+**What is deliberately not checked: the word "risk."** A count threshold was tried
+and rejected on evidence — PLAB has 7 occurrences, JANL 3, FXB 3, and all three are
+correct extractions. Length and vocabulary are not quality signals; boundaries and
+plausibility are. Overfitting to a vocabulary threshold would have deleted valid
+data while catching nothing real.
+
+On the checker's own bugs: the first version applied prose and length checks to
+`not-applicable` records and produced 2,178 false refusals before being run against
+the stored corpus. That is why these checks are now validated against all 51,348
+spans — currently zero violations — rather than trusted because they looked right.
