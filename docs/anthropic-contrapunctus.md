@@ -1307,17 +1307,17 @@ conversation than one that re-presents the pillars.
 
 | Claim (Report) | Verdict | Basis in one line |
 |---|---|---|
-| "Designed new protein binders… success rate well above industry standard" | NUANCED/HIGH | Independent wet-lab binding confirmed (17/211, one family); neutralization/medicine untested |
-| ">33,000 critical- and high-severity flaws" (129,000 total program) | UNVERIFIED/MED | ~33 partner reports; **"129,000" is not present in the PBC Report text** (loop audit, 2026-11-03); no public CVE-level dedupe/severity audit found |
+| Designed "new protein binders at a success rate well above the industry standard" | NUANCED/HIGH | Independent wet-lab binding confirmed (17/211, one family); neutralization/medicine untested |
+| Found "more than 33,000 critical- and" high-severity security flaws (hyphen lost in the extracted text, so high-severity is left unquoted; 129,000 total program) | UNVERIFIED/MED | ~33 partner reports; **"129,000" is not present in the PBC Report text** (loop audit, 2026-11-03); no public CVE-level dedupe/severity audit found |
 | Ebola sitrep "under an hour instead of up to a full day" | UNVERIFIED/LOW (outcome) | Process claim; no partner outcome evaluation found; Report admits no effect evidence (p.16) |
 | Dashboards "flagged a spike of 25,000 pneumonia cases" | UNVERIFIED/LOW (outcome) | Detection ≠ cases averted; no outcome series |
-| "Claude estimates 80% task-time cut" (research) | MISLEADING as economy claim | Model-estimated, excludes validation/selection; field range −19% to +55% by task |
-| "11.4M accounts banned H1 2026" | CONFIRMED as self-report | Measures abuse throughput and enforcement; not victim or safety-outcome count |
-| "81,000 users in 159 countries" want time back | CONFIRMED as survey-of-users | Users only; cannot speak for the affected non-users the charter names |
-| "No universal jailbreak" (Opus 5.5 cyber) | NUANCED | Scoped claim under stated hours/requests; category rates undisclosed |
-| "First complete computer-checked proof of Fermat's Last Theorem" | UNVERIFIED here | Filed as claim; artifact (checker + proof term) not examined in this pass |
-| "~20% of shares toward public good" | UNVERIFIED (hope) | Sums a subsidiary contribution, personal pledges (voting unchanged), matched pledges, milestones |
-| "$895.4B commitments" (S-1) | CONFIRMED/HIGH, NUANCED | ~$213.8B terminable/contingent; $69.8B/12mo; take-or-pay floors undisclosed by year in extract |
+| "Claude estimates that AI reduces task completion time by 80%" (research) | MISLEADING as economy claim | Model-estimated, excludes validation/selection; field range −19% to +55% by task |
+| Banned "11.4 million accounts across all types of violations" (H1 2026) | CONFIRMED as self-report | Measures abuse throughput and enforcement; not victim or safety-outcome count |
+| Asked 81,000 Claude "users in 159 countries what they wanted from AI, many described wanting to" make more time for life outside work | CONFIRMED as survey-of-users | Many, not all; users only; cannot speak for the affected non-users the charter names |
+| "No one was able to successfully produce a universal jailbreak." (Opus 5.5 cyber) | NUANCED | Scoped claim under stated hours/requests; category rates undisclosed |
+| Produced "the first complete" computer-checked "proof of Fermat’s Last Theorem" (hyphen lost in the extracted text, so computer-checked is left unquoted) | UNVERIFIED here | Filed as claim; artifact (checker + proof term) not examined in this pass |
+| Hopes "that about 20% of Anthropic shares will be put toward the public good" | UNVERIFIED (hope) | Sums the set-aside (subject to stockholder approval), founders' personal pledges (voting unchanged) and matched employee pledges |
+| "approximately $895.4 billion, which may substantially increase our operating expenses" (S-1) | CONFIRMED/HIGH, NUANCED | ~$213.8B terminable/contingent; $69.8B/12mo; take-or-pay floors undisclosed by year in extract |
 | Revenue $41M→$386M→$4,585M (2023–25 audited); $33,242M 9M-2026; Q3-26 $16,956M | CONFIRMED/HIGH | Net losses dominated by fair-value note/SAFE marks; operating loss 9M-26 $1,260M on $18,808M compute/infra opex — read cash, not headline loss |
 
 ### Appendix D. Sources
