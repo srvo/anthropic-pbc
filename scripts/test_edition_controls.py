@@ -202,6 +202,27 @@ kept = duckdb.connect().execute(f"SELECT count(*) FROM (VALUES ('issuer_heuristi
                   f"t(role) WHERE {be.COMPANY_SPEAKERS}").fetchone()[0]
 expect("company-speaker filter drops analysts, the operator and unknown roles", kept == 1)
 
+# M5. the question-group totals must come from the same window as ttm.tsv's header
+with tempfile.TemporaryDirectory() as d:
+    comments, rows = be.table(be.QUESTIONS["ttm"])
+    m = __import__("re").fullmatch(r"# (\d+) months to (\S+): (\d+) AI questions from (.*)", comments[0])
+    bad = Path(d) / "ttm.tsv"
+    lines = (be.ROOT / be.QUESTIONS["ttm"]).read_text().splitlines()
+    lines[0] = f"# {m.group(1)} months to {m.group(2)}: {int(m.group(3)) + 1} AI questions from {m.group(4)}"
+    bad.write_text("\n".join(lines) + "\n")
+    old_q = be.QUESTIONS
+    be.QUESTIONS = {**old_q, "ttm": str(bad)}
+    be.OUT_DIR = Path(d)
+    b = be.Build("v0.2-draft")
+    b.reg.put("as_of", m.group(2), source="t", how="t")
+    b.reg.put("ttm_months", m.group(1), source="t", how="t")
+    b.reg.put("question_codebook", old_q["codebook"], source="t", how="t")
+    try:
+        b.questions()
+    finally:
+        be.QUESTIONS = old_q
+    expect("question total that disagrees with ttm.tsv's header fails", any("AI questions in the window" in e for e in b.errs))
+
 # M1. the source commit is the last commit touching an input, so committing the outputs keeps --check passing
 with tempfile.TemporaryDirectory() as d:
     g = Path(d)

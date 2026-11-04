@@ -57,7 +57,7 @@ Edition {{paper_edition}} of the paper (`docs/anthropic-contrapunctus.md` at `{{
 
 ![h:520](deck/intent-ttm.svg)
 
-<div class="src">Analysts ask how AI sells ({{q_revenue_pct}}% of AI questions) far more than how its risk is controlled ({{q_controls_pct}}%). Question-intent codebook {{question_codebook}}.</div>
+<div class="src">Analysts ask how AI sells or what it costs ({{q_commercial_pct}}% of AI questions) far more than how its risks are governed ({{q_oversight_pct}}%). Each share counts a question once, however many topics in its group it carries. Question-intent codebook {{question_codebook}}.</div>
 
 ---
 
@@ -65,7 +65,7 @@ Edition {{paper_edition}} of the paper (`docs/anthropic-contrapunctus.md` at `{{
 
 ![h:540](deck/dialogue-space.svg)
 
-<div class="src">Safety and ethics: {{ds_exec_safety}}% of executives' AI-risk passages, {{ds_hn_safety}}% on Hacker News about Anthropic, {{ds_wp_safety}}% on Wikipedia. Cyber dominates HN's AI-security set ({{ds_sec_cyber}}%).</div>
+<div class="src">Safety and ethics: {{ds_exec_safety}}% of executives' AI-risk passages, {{ds_hn_safety}}% on Hacker News about Anthropic, {{ds_wp_safety}}% on Wikipedia. HN's AI-security set is selected on security terms, so its cybersecurity share ({{ds_sec_cyber}}%) is high by construction.</div>
 
 ---
 

@@ -86,7 +86,9 @@ CODEBOOKS = {
     },
 }
 QUESTIONS = {"codebook": "v0.1", "file": "corpus/earnings-calls/codebook-questions-v0.1.tsv",
-             "ttm": "proposals/earnings-calls/codebook-questions-v0.1/report/ttm.tsv"}
+             "ttm": "proposals/earnings-calls/codebook-questions-v0.1/report/ttm.tsv",
+             "scores": "proposals/earnings-calls/codebook-questions-v0.1",
+             "units": "corpus/earnings-calls/ai-questions.parquet"}
 CVE, CVE_MANIFEST = "corpus/cve/monthly-ai.tsv", "corpus/cve/MANIFEST.tsv"
 QUOTES = {  # binding -> exact text in edition v0 (markdown emphasis and line breaks removed before matching)
     "q_toothless": "Anthropic's charter is legally real and legally toothless.",
@@ -168,6 +170,7 @@ class Build:
     # ------------------------------------------------------------ preconditions
     def inputs(self) -> list[str]:
         return [self.cb["file"], self.cb["ec_scores"], self.cb["dialogue"], QUESTIONS["file"], QUESTIONS["ttm"], CVE,
+                QUESTIONS["scores"], QUESTIONS["units"],
                 "corpus/earnings-calls/calls.tsv", "corpus/earnings-calls/ai-windows.parquet",
                 "deck/deck.template.md", "scripts/build_edition.py", "scripts/display.py",
                 "scripts/ec_question_report.py", "dag.lock.tsv", CVE_MANIFEST]
@@ -460,9 +463,27 @@ class Build:
             p = R.pct(f"q_{r['intent'][2:]}_pct", k, n_q, 1, source=QUESTIONS["ttm"], how=f"questions with {r['intent']} / q_n")
             R.count(f"q_{r['intent'][2:]}_n", k, source=QUESTIONS["ttm"], how=f"questions with {r['intent']}")
             out.append((r["intent"], k, Fraction(100 * k, n_q), p))
-        matplotlib, plt = self.mpl()
         group = {h: ("oversight" if h in qr.OVERSIGHT else "commercial" if h in qr.COMMERCIAL + ["q_spend"] else "other")
                  for h, *_ in out}
+        # Group totals for the caption and legend: distinct questions carrying any intent of the group (a question
+        # with two commercial intents counts once), from the same question-level scores, window and rule as ttm.tsv.
+        sc, as_of = ROOT / QUESTIONS["scores"], R.values["as_of"]["text"]
+        con = duckdb.connect()
+        con.execute(f"""CREATE TABLE q AS SELECT question_id FROM '{ROOT / QUESTIONS["units"]}'
+            WHERE report_date > CAST(DATE '{as_of}' - INTERVAL {TTM_MONTHS} MONTH AS VARCHAR) AND report_date <= '{as_of}'""")
+        con.execute(f"""CREATE TABLE s AS SELECT d.question_id, d.hypothesis_id AS h FROM '{sc / 'deberta.parquet'}' d
+            JOIN '{sc / 'modernbert.parquet'}' m USING (question_id, hypothesis_id)
+            WHERE d.p_entail >= {float(THRESHOLD)} AND m.p_entail >= {float(THRESHOLD)} AND question_id IN (SELECT question_id FROM q)""")
+        n_units = con.execute("SELECT count(*)::INT FROM q").fetchone()[0]
+        if n_units != n_q:
+            self.errs.append(f"{QUESTIONS['units']}: {n_units} AI questions in the window, but {QUESTIONS['ttm']} says {n_q}")
+        src = f"{QUESTIONS['units']} + {QUESTIONS['scores']}"
+        for g in ("commercial", "oversight"):
+            hs = ", ".join(f"'{h}'" for h in sorted(h for h in group if group[h] == g))
+            k = con.execute(f"SELECT count(DISTINCT question_id)::INT FROM s WHERE h IN ({hs})").fetchone()[0]
+            R.pct(f"q_{g}_pct", k, n_q, 1, source=src, how=f"questions with any {g} intent ({hs}) / q_n")
+            R.count(f"q_{g}_n", k, source=src, how=f"questions with any {g} intent ({hs})")
+        matplotlib, plt = self.mpl()
         color = {"commercial": S1, "oversight": S2, "other": MUTED}
         shown = out[::-1]
         fig, ax = plt.subplots(figsize=(8, 0.42 * len(shown) + 1.7), facecolor=SURFACE)
@@ -478,7 +499,8 @@ class Build:
         ax.set_xticks([])
         ax.tick_params(length=0, labelsize=9.5, labelcolor=INK)
         from matplotlib.patches import Patch
-        ax.legend(handles=[Patch(color=S1, label="Selling it / spending on it"), Patch(color=S2, label="Governing its risks"),
+        ax.legend(handles=[Patch(color=S1, label=self.say("Selling it / spending on it: {q_commercial_pct}% of questions")),
+                           Patch(color=S2, label=self.say("Governing its risks: {q_oversight_pct}% of questions")),
                            Patch(color=MUTED, label="Other")], loc="lower right", frameon=False, fontsize=9, labelcolor=INK)
         ax.set_title("What analysts ask S&P 500 companies about AI", loc="left", color=INK, fontsize=12,
                      fontweight="bold", pad=20)
