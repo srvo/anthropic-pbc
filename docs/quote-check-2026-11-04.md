@@ -87,3 +87,9 @@ quotation marks. A quote is never trimmed, lengthened or normalised to pass.
 Not yet checkable (comment rows in the claims file): quotations whose source is unpinned or
 ambiguous. The certificate of incorporation and two SEC pages are unpinned because sec.gov refuses
 automated fetches without a contact email in the User-Agent.
+
+## Re-run after pinning the Constitution once (PDF, 70a8866)
+
+Unchanged: 12 of 81 pass. The Constitution quotes no longer fail on duplication; they still fail on
+layout line breaks and typography, which the atomic review addresses quote by quote
+(`claims/anthropic-contrapunctus.review.tsv`).
