@@ -145,6 +145,41 @@ steps:
     outputs: [proposals/wikipedia-ai-risk/codebook-v0.1/report/hypotheses.tsv, proposals/wikipedia-ai-risk/codebook-v0.1/report/summary.tsv,
               proposals/wikipedia-ai-risk/codebook-v0.1/report/untyped-by-article.tsv]
 
+  # ---------------------------------------------------------------- codebook v0.2 (DRAFT)
+  snapshot://ethicalcapital/v0.2-draft/codebook:
+    outputs: [corpus/codebooks/codebook-v0.2-draft.tsv]
+  data://witness/earnings_calls/2026-11-04/codebook_v0_2_draft:
+    cmd: uv run scripts/ec_classify.py --model deberta --codebook corpus/codebooks/codebook-v0.2-draft.tsv --units corpus/earnings-calls/ai-windows.parquet --out proposals/earnings-calls/codebook-v0.2-draft && uv run scripts/ec_classify.py --model modernbert --codebook corpus/codebooks/codebook-v0.2-draft.tsv --units corpus/earnings-calls/ai-windows.parquet --out proposals/earnings-calls/codebook-v0.2-draft
+    deps: [data://meadow/earnings_calls/2026-11-04/ai_windows, snapshot://ethicalcapital/v0.2-draft/codebook]
+    inputs: [scripts/ec_classify.py]
+    outputs: [proposals/earnings-calls/codebook-v0.2-draft/deberta.parquet, proposals/earnings-calls/codebook-v0.2-draft/modernbert.parquet, proposals/earnings-calls/codebook-v0.2-draft/run-deberta.json, proposals/earnings-calls/codebook-v0.2-draft/run-modernbert.json]
+  data://witness/earnings_calls/2026-11-04/codebook_questions_v0_2_draft:
+    cmd: uv run scripts/ec_classify.py --model deberta --codebook corpus/codebooks/codebook-v0.2-draft.tsv --units corpus/earnings-calls/ai-questions.parquet --out proposals/earnings-calls/codebook-v0.2-draft-questions --id-col question_id && uv run scripts/ec_classify.py --model modernbert --codebook corpus/codebooks/codebook-v0.2-draft.tsv --units corpus/earnings-calls/ai-questions.parquet --out proposals/earnings-calls/codebook-v0.2-draft-questions --id-col question_id
+    deps: [data://meadow/earnings_calls/2026-11-04/ai_questions, snapshot://ethicalcapital/v0.2-draft/codebook]
+    inputs: [scripts/ec_classify.py]
+    outputs: [proposals/earnings-calls/codebook-v0.2-draft-questions/deberta.parquet, proposals/earnings-calls/codebook-v0.2-draft-questions/modernbert.parquet, proposals/earnings-calls/codebook-v0.2-draft-questions/run-deberta.json, proposals/earnings-calls/codebook-v0.2-draft-questions/run-modernbert.json]
+  data://witness/hacker_news/2026-08-31/anthropic_v0_2_draft:
+    cmd: uv run scripts/ec_classify.py --model deberta --codebook corpus/codebooks/codebook-v0.2-draft.tsv --units .hncorpus/units-anthropic.parquet --out proposals/hacker-news/anthropic-v0.2-draft && uv run scripts/ec_classify.py --model modernbert --codebook corpus/codebooks/codebook-v0.2-draft.tsv --units .hncorpus/units-anthropic.parquet --out proposals/hacker-news/anthropic-v0.2-draft
+    deps: [data://meadow/hacker_news/2026-08-31/ai_windows, snapshot://ethicalcapital/v0.2-draft/codebook]
+    inputs: [scripts/ec_classify.py]
+    outputs: [proposals/hacker-news/anthropic-v0.2-draft/deberta.parquet, proposals/hacker-news/anthropic-v0.2-draft/modernbert.parquet, proposals/hacker-news/anthropic-v0.2-draft/run-deberta.json, proposals/hacker-news/anthropic-v0.2-draft/run-modernbert.json]
+  data://witness/hacker_news/2026-08-31/ai_security_v0_2_draft:
+    cmd: uv run scripts/ec_classify.py --model deberta --codebook corpus/codebooks/codebook-v0.2-draft.tsv --units .hncorpus/units-ai_security.parquet --out proposals/hacker-news/ai_security-v0.2-draft && uv run scripts/ec_classify.py --model modernbert --codebook corpus/codebooks/codebook-v0.2-draft.tsv --units .hncorpus/units-ai_security.parquet --out proposals/hacker-news/ai_security-v0.2-draft
+    deps: [data://meadow/hacker_news/2026-08-31/ai_windows, snapshot://ethicalcapital/v0.2-draft/codebook]
+    inputs: [scripts/ec_classify.py]
+    outputs: [proposals/hacker-news/ai_security-v0.2-draft/deberta.parquet, proposals/hacker-news/ai_security-v0.2-draft/modernbert.parquet, proposals/hacker-news/ai_security-v0.2-draft/run-deberta.json, proposals/hacker-news/ai_security-v0.2-draft/run-modernbert.json]
+  data://witness/wikipedia/2026-11-04/codebook_v0_2_draft:
+    cmd: uv run scripts/ec_classify.py --model deberta --codebook corpus/codebooks/codebook-v0.2-draft.tsv --units corpus/wikipedia-ai-risk/windows.parquet --out proposals/wikipedia-ai-risk/codebook-v0.2-draft && uv run scripts/ec_classify.py --model modernbert --codebook corpus/codebooks/codebook-v0.2-draft.tsv --units corpus/wikipedia-ai-risk/windows.parquet --out proposals/wikipedia-ai-risk/codebook-v0.2-draft
+    deps: [data://meadow/wikipedia/2026-11-04/ai_risk_articles, snapshot://ethicalcapital/v0.2-draft/codebook]
+    inputs: [scripts/ec_classify.py]
+    outputs: [proposals/wikipedia-ai-risk/codebook-v0.2-draft/deberta.parquet, proposals/wikipedia-ai-risk/codebook-v0.2-draft/modernbert.parquet, proposals/wikipedia-ai-risk/codebook-v0.2-draft/run-deberta.json, proposals/wikipedia-ai-risk/codebook-v0.2-draft/run-modernbert.json]
+  data://witness/cross_source/2026-11-04/dialogue_space_v0_2_draft:
+    cmd: uv run scripts/v02_map.py
+    deps: [data://witness/earnings_calls/2026-11-04/codebook_v0_2_draft, data://witness/earnings_calls/2026-11-04/codebook_questions_v0_2_draft,
+           data://witness/hacker_news/2026-08-31/anthropic_v0_2_draft, data://witness/hacker_news/2026-08-31/ai_security_v0_2_draft,
+           data://witness/wikipedia/2026-11-04/codebook_v0_2_draft]
+    outputs: [proposals/cross-source/codebook-v0.2-draft/report/dialogue-space.tsv, proposals/cross-source/codebook-v0.2-draft/report/dialogue-space.svg]
+
   # ---------------------------------------------------------------- cve
   data://garden/cve/2026-11-04/monthly_series:
     cmd: uv run scripts/cve_series.py build

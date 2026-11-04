@@ -18,6 +18,8 @@ fa5863dce326a8bd8e3f2580377dd9dd6de521525dd6ce9222eb70adc9260c7c  corpus/cve/REA
 fe11744debe42411f7b9f491634c98e176feae699b6710fbd856bf311ee48caf  corpus/cve/monthly-ai.tsv
 ea1a95d5a247e4f4742927f3a27e51aa699627a2f6338ce3279596db6dd4f394  corpus/cve/monthly-by-cna.tsv
 6f7c70bef39fd1f5328f1ab8cf3bf723369bf523914b94845c467b835fe06616  corpus/cve/monthly.tsv
+0dae4acceda81be7ebd9ba102b77ffb10162bf2362187f599890b9380be79af9  corpus/cve/monthly_series.meta.yml
+516ea905171360c0679aef5fc1721a09d7993d750f3b5e1bb4034b12f29b00ad  corpus/cve/snapshot.meta.yml
 
 scripts (BLAKE3, path):
 cb2c6c51dc50b68f31321e258ce09f6a4d0f17f52913ae5d296d0087c0142194  scripts/cve_series.py

@@ -66,6 +66,8 @@ Refresh:
 | `data://witness/earnings_calls/2026-11-04/codebook_questions_v0_1` | ok |
 | `snapshot://ethicalcapital/v0.1/codebook` | ok |
 | `data://witness/earnings_calls/2026-11-04/codebook_v0_1` | ok |
+| `data://witness/earnings_calls/2026-11-04/codebook_questions_v0_2_draft` | ok |
+| `data://witness/earnings_calls/2026-11-04/codebook_v0_2_draft` | ok |
 | `data://witness/earnings_calls/2026-11-04/ai_risk_series` | ok |
 | `data://witness/earnings_calls/2026-11-04/question_report` | ok |
 | `data://witness/earnings_calls/2026-11-04/topics_v0_1` | ok |
@@ -130,6 +132,8 @@ Refresh:
 |---|---|
 | `snapshot://open_index/2026-08-31/hacker_news` | ok |
 | `data://meadow/hacker_news/2026-08-31/ai_windows` | ok |
+| `data://witness/hacker_news/2026-08-31/ai_security_v0_2_draft` | ok |
+| `data://witness/hacker_news/2026-08-31/anthropic_v0_2_draft` | ok |
 | `data://witness/hacker_news/2026-08-31/ai_security_v0_1` | ok |
 | `data://witness/hacker_news/2026-08-31/anthropic_v0_1` | ok |
 | `data://witness/hacker_news/2026-08-31/report` | ok |
@@ -171,6 +175,7 @@ Refresh:
 |---|---|
 | `snapshot://wikipedia/2026-11-04/ai_risk_articles` | ok |
 | `data://meadow/wikipedia/2026-11-04/ai_risk_articles` | ok |
+| `data://witness/wikipedia/2026-11-04/codebook_v0_2_draft` | ok |
 | `data://witness/wikipedia/2026-11-04/codebook_v0_1` | ok |
 | `data://witness/wikipedia/2026-11-04/coverage_report` | ok |
 
@@ -178,6 +183,8 @@ Refresh:
 |---|---|---:|
 | `proposals/wikipedia-ai-risk/codebook-v0.1` | deberta | 59984 |
 | `proposals/wikipedia-ai-risk/codebook-v0.1` | modernbert | 59984 |
+| `proposals/wikipedia-ai-risk/codebook-v0.2-draft` | deberta | 112470 |
+| `proposals/wikipedia-ai-risk/codebook-v0.2-draft` | modernbert | 112470 |
 
 ---
 
@@ -277,6 +284,10 @@ Refresh:
 
     —
 
+| Step (dag.yml) | Status |
+|---|---|
+| `snapshot://ethicalcapital/v0.2-draft/codebook` | ok |
+
 ---
 
 ## Compute graph
@@ -304,6 +315,13 @@ hashes with `dag.lock.tsv`: `inputs` means rebuild, `rebuilt`/`upstream` mean re
 | `data://meadow/hacker_news/2026-08-31/ai_windows` | ok | 1 |
 | `snapshot://wikipedia/2026-11-04/ai_risk_articles` | ok | 0 |
 | `data://meadow/wikipedia/2026-11-04/ai_risk_articles` | ok | 1 |
+| `snapshot://ethicalcapital/v0.2-draft/codebook` | ok | 0 |
+| `data://witness/earnings_calls/2026-11-04/codebook_questions_v0_2_draft` | ok | 2 |
+| `data://witness/earnings_calls/2026-11-04/codebook_v0_2_draft` | ok | 2 |
+| `data://witness/hacker_news/2026-08-31/ai_security_v0_2_draft` | ok | 2 |
+| `data://witness/hacker_news/2026-08-31/anthropic_v0_2_draft` | ok | 2 |
+| `data://witness/wikipedia/2026-11-04/codebook_v0_2_draft` | ok | 2 |
+| `data://witness/cross_source/2026-11-04/dialogue_space_v0_2_draft` | ok | 5 |
 | `data://witness/earnings_calls/2026-11-04/ai_risk_series` | ok | 2 |
 | `data://witness/earnings_calls/2026-11-04/question_report` | ok | 2 |
 | `data://witness/earnings_calls/2026-11-04/topics_v0_1` | ok | 1 |

@@ -497,3 +497,54 @@ offsets and hashes, never comment text.
 
   Accuracy and hallucination is 0 on calls and 3% on HN. IP is 1% on
   calls and 6% on HN.
+
+### 2026-11-04 · Codebook v0.2 DRAFT across five sources; batch-dependence of bf16 scores
+
+**Status: witness proposals on a draft codebook; no gold set; wording awaits
+review (OPENQUESTIONS Q2).**
+
+- **Codebook.** `corpus/codebooks/codebook-v0.2-draft.tsv` keeps the 16 v0.1
+  hypotheses word for word and adds 14. Each new one cites the Wikipedia
+  heading and revision it came from.
+- **Sources scored.** Earnings-call windows, analyst questions, both HN sets,
+  and the Wikipedia windows. Both witnesses ran on Modal L40S in bf16.
+- **Reproducibility finding.** Re-scoring the unchanged v0.1 hypotheses
+  inside the larger codebook did *not* reproduce the v0.1 scores, though the
+  model, GPU type, text and hypothesis were all the same.
+
+  | Run | Max \|Δp\| | Calls flipped at 0.5 |
+  |---|---|---|
+  | Calls, DeBERTa | 0.13 | 244 of 617,600 (0.04%) |
+  | Calls, ModernBERT | 0.05 | 1 |
+  | HN, DeBERTa | 0.19 | 936 of 1,688,944 (0.06%) |
+  | HN, ModernBERT | 0.26 | 292 |
+
+  The likely cause is bf16 arithmetic varying with batch composition: a
+  30-hypothesis codebook groups pairs differently than a 16-hypothesis one.
+  So bf16 scores are reproducible only for the same codebook, batch and
+  hardware. They are not invariant to batch composition. That is a narrower
+  claim than the spec's §5 Route B, which already declines to claim
+  reproducibility across hardware. Rates built on these scores move by about
+  0.05% of decisions. A float32 rerun would show whether precision is the
+  whole cause.
+- **Dialogue space**
+  (`proposals/cross-source/codebook-v0.2-draft/report/dialogue-space.tsv`).
+  This is the share of each source's AI-risk units naming each type. The
+  AI-risk units number 179 for executives, 64 for analysts, 6,281 for HN
+  Anthropic, 3,096 for HN security and 833 for Wikipedia.
+  - Executives and analysts: cyber dominates (40% and 20%), then capex and
+    disruption. Every new v0.2 dimension is at or near 0, except
+    loss_of_control at 5%.
+  - Wikipedia spreads widely: safety/ethics 61%, regulation and
+    loss_of_control 17%, bias 10%, misinformation 7%, weapons 5%, existential
+    4%.
+  - HN Anthropic sits between: transparency 20%, loss_of_control 12%,
+    regulation 12%, capex 10%.
+  - The executive and analyst bases are small; their single-digit cells rest
+    on a handful of passages.
+- **Wording failure: `bio_chem`.** It is near zero everywhere, including
+  Wikipedia's own "Challenges > Biosecurity" section, where most passages
+  score about 0.001. Its wording ("helping to create biological or chemical
+  weapons or dangerous pathogens") is narrower than the discourse
+  ("repurposed or misused in the biological sciences"). It must be reworded
+  before any bio claim.
