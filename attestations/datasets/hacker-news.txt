@@ -20,4 +20,4 @@ d3a5d78ada5c97d362b3a1968a176e78cc5820d31c63ac9ccffffa992f3a88a0  corpus/hacker-
 3a907a70dbe032a0907c4f457c194186408f293b7a2928439b9da92698b26885  corpus/hacker-news/windows.parquet
 
 scripts (BLAKE3, path):
-76e81a59128f79c7913334a53fd33c18adcc52a26af38d50bb7bf50c1cabc167  scripts/hn_extract.py
+249d421878f36763225124ae21da3e29cd6a129ee844f617bca349176393ee53  scripts/hn_extract.py
