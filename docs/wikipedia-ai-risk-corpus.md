@@ -6,7 +6,9 @@
 corpus files are deterministic conversions of pinned Wikipedia revisions that
 `verify` re-checks byte for byte. `dimensions-candidate.tsv` is read from
 Wikipedia's own headings by a published rule. It is not a taxonomy and not a
-codebook. Sloane decides the codebook. No model has scored anything here.
+codebook. Sloane decides the codebook. Model scores of these windows are
+witness proposals in `proposals/wikipedia-ai-risk/` (codebook v0.1 and the
+v0.2 draft), never findings.
 
 Version: v0.1 · 2026-11-04. Companion to
 [`earnings-call-ai-corpus.md`](earnings-call-ai-corpus.md). This file does not
@@ -145,9 +147,9 @@ become dimensions, merging them, and writing hypotheses is Sloane's decision.
   in no seed category.
 - **Silence is not absence.** A risk that has no heading has no heading. It
   is not shown to be unimportant.
-- **No model output yet.** Scoring windows against the codebook is a
-  separate, witnessed step under
-  [`bert-enrichment-spec.md`](bert-enrichment-spec.md) §5.
+- **Model output is a proposal.** The witnesses' scores of these windows
+  (`proposals/wikipedia-ai-risk/`) are proposals under
+  [`bert-enrichment-spec.md`](bert-enrichment-spec.md) §5, with no gold set.
 
 ## 8. Rebuild
 

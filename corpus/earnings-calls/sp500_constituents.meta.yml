@@ -1,0 +1,45 @@
+# Metadata for snapshot://wikipedia/2026-10-27/sp500_constituents (schema/metadata.schema.yml)
+producer: Wikipedia contributors (English Wikipedia)
+title: S&P 500 constituents from Wikipedia "List of S&P 500 companies", revision 1382178819
+description: >-
+  The constituents table of English Wikipedia's "List of S&P 500 companies" at
+  revision 1382178819 (2026-10-27T02:50:28Z): 503 ticker symbols, each with a
+  10-digit SEC CIK. It defines the universe of the earnings-call corpus. It is
+  the index on that date, applied to every earlier year.
+citation_full: >-
+  Wikipedia contributors, "List of S&P 500 companies", English Wikipedia,
+  revision 1382178819 (2026-10-27T02:50:28Z). Retrieved through the MediaWiki
+  API on 2026-11-04.
+attribution_short: Wikipedia, "List of S&P 500 companies"
+url_main: https://en.wikipedia.org/w/index.php?oldid=1382178819
+url_download: https://en.wikipedia.org/w/api.php?action=query&prop=revisions&revids=1382178819&rvprop=ids|content&rvslots=main&format=json&formatversion=2
+date_published: 2026-10-27
+date_accessed: 2026-11-04
+version_producer: revision 1382178819
+license:
+  name: CC BY-SA 4.0
+  url: https://creativecommons.org/licenses/by-sa/4.0/
+terms_notes: >-
+  Attribution and share-alike apply to the derived constituent list
+  (corpus/earnings-calls/README.md). "S&P 500" is a trademark of S&P Dow Jones
+  Indices LLC; the corpus is not affiliated with or endorsed by it.
+refetch: exact
+refetch_reason: >-
+  The API URL names one revision id. `ec_extract.py constituents` refetches it,
+  checks the wikitext's BLAKE3 against MANIFEST.tsv, and fails on a mismatch;
+  the TSV is then parsed from that wikitext by fixed regexes, so it rebuilds
+  byte for byte.
+personal_data: none
+files: corpus/earnings-calls/MANIFEST.tsv
+tables:
+  corpus/earnings-calls/sp500-constituents.tsv:
+    title: "S&P 500 constituents, Wikipedia revision 1382178819"
+    description: "One row per ticker in the article's constituents table, sorted by symbol."
+    primary_key: [symbol]
+    columns:
+      "symbol":
+        type: string
+        description: "Ticker from the row's NyseSymbol, NasdaqSymbol, BZX link or Cboe ticker template, upper-cased, with '.' replaced by '-' (BRK.B -> BRK-B)."
+      "cik":
+        type: string
+        description: "SEC Central Index Key, 10 digits with leading zeros, from the same row; empty if none is found (none empty in this revision)."

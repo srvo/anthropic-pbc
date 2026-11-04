@@ -1,0 +1,82 @@
+# Metadata for data://witness/hacker_news/2026-08-31/anthropic_v0_1 (schema/metadata.schema.yml)
+title: "Hacker News anthropic windows scored against codebook v0.1 by two NLI witnesses"
+description: >-
+  Every window of the anthropic set (comments that mention Anthropic or Claude) scored against each of the 16
+  hypotheses in corpus/earnings-calls/codebook-v0.1.tsv by two zero-shot NLI
+  cross-encoders. A score is P(entailment) with the window as premise. Witness
+  proposals under docs/bert-enrichment-spec.md §5, not findings.
+processing: >-
+  scripts/ec_classify.py functions, run on Modal (L40S, bfloat16, batch 128,
+  per run-*.json), read .hncorpus/units-anthropic.parquet (window_id and window
+  text, built locally by hn_extract.py build and never committed). Each window
+  is paired with every codebook hypothesis, tokenised with truncation of the
+  window only to 512 tokens, and scored; the softmax probability of the
+  entailment label is written to 6 decimals, then stored as FLOAT. Shards are
+  merged only if every window x hypothesis pair is present exactly once. No
+  text, no username and no threshold is written; a proposed positive (both
+  witnesses >= 0.5) is applied downstream in hn_report.py.
+unit_of_analysis: one (window, hypothesis) pair, for windows of the anthropic set
+denominator: >-
+  corpus/hacker-news/windows.parquet rows with set = anthropic (105,559 windows, run-*.json
+  n_windows; each scored on all 16 hypotheses, 1,688,944 rows per model)
+coverage: >-
+  The anthropic set of the meadow step: comments 2021-01 to 2026-08 from
+  open-index/hacker-news at commit c54ced59. Both models scored every window.
+  Derivation determinism across hardware is not claimed (ec_classify.py).
+does_not_answer:
+  - "What the public thinks: HN is a self-selected, English-language audience of developers and practitioners, many of whom build on or compete with these products. It does not fill the gap of workers, users and data-center neighbours."
+  - "What a hypothesis about 'the company' means on a comment: the codebook was written for company speech, so governance and disruption read differently here than on calls."
+  - "Any rate before a hand-coded sample checks it: informal text (sarcasm, quotation, argument) is harder for zero-shot NLI, and there is no gold set."
+  - "How salient a topic is: mention is volume, not salience."
+license:
+  name: Open Data Commons Attribution License (ODC-BY 1.0), from open-index/hacker-news (scores only; the models are MIT and Apache-2.0)
+  url: https://opendatacommons.org/licenses/by/1-0/
+status: witness
+proposal_only: true
+models:
+  - name: MoritzLaurer/deberta-v3-large-zeroshot-v2.0
+    revision: cf44676c28ba7312e5c5f8f8d2c22b3e0c9cdae2
+    license: MIT
+  - name: MoritzLaurer/ModernBERT-large-zeroshot-v2.0
+    revision: a51e07b524299e309dd2b88d48b0cfa2bd9ec598
+    license: Apache-2.0
+codebook:
+  path: corpus/earnings-calls/codebook-v0.1.tsv
+  blake3: 16d1c01230a706e9c789eb22ccf7ced9f92906659d12b7800b69d4bf25e950a3
+tables:
+  proposals/hacker-news/anthropic/deberta.parquet:
+    title: "DeBERTa-v3-large entailment scores, anthropic set"
+    description: "Long format: one row per window and hypothesis, scored by MoritzLaurer/deberta-v3-large-zeroshot-v2.0."
+    primary_key: [window_id, hypothesis_id]
+    columns:
+      "window_id":
+        type: string
+        description: "Window id; joins to corpus/hacker-news/windows.parquet (set = anthropic)."
+      "hypothesis_id":
+        type: string
+        description: "Codebook v0.1 hypothesis id: about_ai (topic); ai_risk, ai_opportunity (stance); regulation, cyber, privacy, accuracy, bias, labor, disruption, capex, energy, supply, ip, safety_ethics (risk_type); governance (mechanism). Text in corpus/earnings-calls/codebook-v0.1.tsv."
+      "p_entail":
+        type: float
+        unit: probability (0-1)
+        description: "Softmax probability of the entailment label for (premise = window text, hypothesis), rounded to 6 decimals, stored as FLOAT."
+  proposals/hacker-news/anthropic/modernbert.parquet:
+    title: "ModernBERT-large entailment scores, anthropic set"
+    description: "Long format: one row per window and hypothesis, scored by MoritzLaurer/ModernBERT-large-zeroshot-v2.0."
+    primary_key: [window_id, hypothesis_id]
+    columns:
+      "window_id":
+        type: string
+        description: "Window id; joins to corpus/hacker-news/windows.parquet (set = anthropic)."
+      "hypothesis_id":
+        type: string
+        description: "Codebook v0.1 hypothesis id: about_ai (topic); ai_risk, ai_opportunity (stance); regulation, cyber, privacy, accuracy, bias, labor, disruption, capex, energy, supply, ip, safety_ethics (risk_type); governance (mechanism). Text in corpus/earnings-calls/codebook-v0.1.tsv."
+      "p_entail":
+        type: float
+        unit: probability (0-1)
+        description: "Softmax probability of the entailment label for (premise = window text, hypothesis), rounded to 6 decimals, stored as FLOAT."
+  proposals/hacker-news/anthropic/run-deberta.json:
+    title: "DeBERTa-v3-large run record, anthropic set"
+    description: "Every pin of the run: model name, revision and licence, codebook and units paths with BLAKE3, counts, max_length 512, truncation only_first, backend modal-L40S, dtype bfloat16, batch 128, software versions, and the output's BLAKE3. No clock."
+  proposals/hacker-news/anthropic/run-modernbert.json:
+    title: "ModernBERT-large run record, anthropic set"
+    description: "Every pin of the run: model name, revision and licence, codebook and units paths with BLAKE3, counts, max_length 512, truncation only_first, backend modal-L40S, dtype bfloat16, batch 128, software versions, and the output's BLAKE3. No clock."

@@ -258,7 +258,7 @@ def meta_gaps(steps) -> dict[str, list[str]]:
                       if not (k == "columns" and columns_of(f) is None)]
                 cols = columns_of(f) if f.exists() else None
                 if cols is not None:
-                    if not t.get("primary_key"):
+                    if not t.get("primary_key") and not t.get("primary_key_reason"):
                         g.append(f"table {rel}: missing primary_key")
                     doc = t.get("columns") or {}
                     g += [f"table {rel}: column {c!r} undocumented" for c in cols if c not in doc]

@@ -1,0 +1,125 @@
+# Metadata for data://meadow/hacker_news/2026-08-31/ai_windows (schema/metadata.schema.yml)
+title: Hacker News comment windows on Anthropic and on AI security, 2021-01 to 2026-08 (ids only)
+description: >-
+  Two focused sets of Hacker News comments, found by published regexes: those
+  that mention Anthropic or Claude, and those about AI security incidents. Each
+  match is stored as a sentence window, given as character offsets into a
+  deterministic normalisation of the comment with BLAKE3 hashes, plus monthly
+  counts of all live comments as the denominator. No comment text and no
+  usernames.
+processing: >-
+  Read comments (type = 2) from each pinned monthly file, excluding deleted and
+  dead comments and null text from numerator and denominator alike. Normalise
+  each comment: <p> becomes a blank line, other tags are dropped, HTML entities
+  are unescaped. Set `anthropic`: "Anthropic" (case-insensitive, not followed
+  by principle, reasoning, argument, bias, selection, shadow or explanation),
+  and "Claude" (case-sensitive) from 2023-03-01 only, not followed by a listed
+  first-name collocation (Shannon, Monet, Debussy and others). Set
+  `ai_security`: a security term (CVE, RCE, 0-day, breach, exfiltration,
+  vulnerability, exploit, malware, supply-chain attack, zero-day, backdoor,
+  security incident/breach/hole/flaw, jailbreak, data leak, leaked
+  weights/keys/prompt and similar) in a window that also holds an earnings-call
+  AI term (ANY_RE in scripts/ec_extract.py), or "prompt injection" on its own.
+  The window is the match sentence +/- 1, merged, and clipped at 1,500
+  characters around the matches. A comment can be in both sets. Only item ids,
+  character offsets and BLAKE3 hashes are committed, never comment text or
+  usernames; comment text and the classifier inputs (units-<set>.parquet) are
+  written to the gitignored .hncorpus/. verify re-normalises, re-slices and
+  re-hashes every window.
+unit_of_analysis: >-
+  one window (match sentence +/- 1, merged, at most 1,500 characters) of one
+  normalised comment, in one set; reports roll windows up to comments
+denominator: corpus/hacker-news/months.tsv (n_comments, every live comment in each monthly file)
+coverage: >-
+  Monthly files 2021-01 to 2026-08 of open-index/hacker-news at commit c54ced59.
+  The last comment is in August 2026 (months.tsv last_comment_utc); September
+  to November 2026 is not covered. 118,321 windows on 111,662 comments
+  (105,559 anthropic, 12,762 ai_security). "Claude" counts only from
+  2023-03-01.
+does_not_answer:
+  - "What the public thinks: HN is a self-selected, English-language audience of developers and practitioners, many of whom build on or compete with these products. It does not fill the gap of workers, users and data-center neighbours."
+  - "How salient a topic is: mention is volume, not salience. A month with a product launch has more Anthropic comments; rates are reported against all comments that month."
+license:
+  name: Open Data Commons Attribution License (ODC-BY 1.0), from open-index/hacker-news
+  url: https://opendatacommons.org/licenses/by/1-0/
+status: held
+tables:
+  corpus/hacker-news/months.tsv:
+    title: "Live comments per month, and comments in each set"
+    description: "Denominator. One row per pinned monthly file."
+    primary_key: [month]
+    columns:
+      "month":
+        type: string
+        unit: YYYY-MM
+        description: "Month of the source file (MANIFEST.tsv month)."
+      "n_comments":
+        type: integer
+        unit: comments
+        description: "Comments (type = 2) in the file that are not deleted, not dead and have text."
+      "n_anthropic_comments":
+        type: integer
+        unit: comments
+        description: "Distinct comments in the file with at least one anthropic-set window."
+      "n_ai_security_comments":
+        type: integer
+        unit: comments
+        description: "Distinct comments in the file with at least one ai_security-set window."
+      "last_comment_utc":
+        type: string
+        unit: YYYY-MM-DD HH:MM:SS
+        description: >-
+          Latest `time` of any comment (type = 2, deleted and dead included) in
+          the file, rendered in UTC (the build pins DuckDB's TimeZone to UTC).
+  corpus/hacker-news/windows.parquet:
+    title: "Windows, as offsets and hashes"
+    description: "One row per window per set. Read the text at https://news.ycombinator.com/item?id=<item_id> or rebuild it locally."
+    primary_key: [window_id]
+    columns:
+      "window_id":
+        type: string
+        hash_of: "the string <item_id>:<set>:<start_char>:<end_char>"
+        description: "First 16 hex characters of the BLAKE3 hash of item id, set and offsets."
+      "set":
+        type: string
+        description: "Which focused set the window belongs to."
+        values:
+          anthropic: "Anthropic or (from 2023-03-01) Claude mentioned"
+          ai_security: "security term with an AI term, or prompt injection"
+      "item_id":
+        type: integer
+        description: "Hacker News item id of the comment."
+      "day":
+        type: date
+        unit: YYYY-MM-DD
+        description: >-
+          Date of the comment's `time`, in UTC (the build pins DuckDB's TimeZone
+          to UTC, so the value does not depend on the build host).
+      "start_char":
+        type: integer
+        unit: characters
+        description: "Start offset (0-based, inclusive) of the window in the normalised comment text."
+      "end_char":
+        type: integer
+        unit: characters
+        description: "End offset (exclusive) of the window in the normalised comment text."
+      "n_chars":
+        type: integer
+        unit: characters
+        description: "end_char minus start_char."
+      "families":
+        type: string
+        description: "Semicolon-separated term families that matched inside the window."
+        values:
+          anthropic: "the Anthropic regex (anthropic set)"
+          claude: "the Claude regex, from 2023-03-01 (anthropic set)"
+          ai_attack: "prompt injection (ai_security set)"
+          security_ai: "a security term and an AI term in the same window (ai_security set)"
+      "window_blake3":
+        type: string
+        hash_of: "the window text, normalised comment [start_char, end_char), UTF-8"
+        description: "BLAKE3 of the window text."
+      "comment_blake3":
+        type: string
+        hash_of: "the whole normalised comment text, UTF-8"
+        description: "BLAKE3 of the normalised comment."

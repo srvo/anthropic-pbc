@@ -1,0 +1,193 @@
+# Metadata for data://witness/hacker_news/2026-08-31/report (schema/metadata.schema.yml)
+title: "Hacker News witness report: agreement, AI-risk share by month, and the 12-month risk-type ranking"
+description: >-
+  Reports built from the two witnesses' scores on the anthropic and
+  ai_security sets: per-hypothesis agreement between the witnesses, monthly
+  counts and shares of comments proposed as AI risk, the trailing-12-month
+  ranking of risk types set beside the earnings-call ranking, and item ids
+  (no text) of the most confidently risk-typed comments. Witness proposals,
+  no gold set.
+processing: >-
+  scripts/hn_report.py joins the DeBERTa and ModernBERT scores on (window_id,
+  hypothesis_id) for each set. A window is a proposed positive for a
+  hypothesis when both witnesses score >= 0.5. A comment carries a hypothesis
+  if any of its windows in the set does. agreement.tsv works at window level;
+  by-month.tsv at comment level against months.tsv; risk-ranking-ttm.tsv
+  counts, for 2025-09-01 to 2026-08-31, comments proposed both ai_risk and a
+  risk type, as a share of comments proposed ai_risk, and copies the
+  earnings-call column from
+  proposals/earnings-calls/codebook-v0.1/report/risk-ranking-ttm.tsv.
+  examples-ttm.tsv keeps, per set and risk type, the 10 comments with the
+  highest min(DeBERTa, ModernBERT) score among windows also proposed ai_risk,
+  in the same 12 months. No comment text or username is written; examples are
+  item ids with their HN URL.
+unit_of_analysis: >-
+  one comment (a comment carries a hypothesis if any of its windows does);
+  one window in agreement.tsv
+denominator: >-
+  corpus/hacker-news/months.tsv (n_comments, every live comment per month);
+  for agreement.tsv, the windows of each set in corpus/hacker-news/windows.parquet
+coverage: >-
+  Comments 2021-01 to 2026-08 (by-month.tsv, agreement.tsv); the ranking and
+  examples cover 2025-09-01 to 2026-08-31, the archive's last 12 months, while
+  the earnings-call column covers the 12 months to 2026-11-04. Comment months
+  in by-month.tsv come from windows.parquet `day`, a UTC date, and so agree
+  with the UTC source-file months that months.tsv counts.
+does_not_answer:
+  - "What the public thinks: HN is a self-selected, English-language audience of developers and practitioners, many of whom build on or compete with these products. It does not fill the gap of workers, users and data-center neighbours."
+  - "What a hypothesis about 'the company' means on a comment: the codebook was written for company speech, so governance and disruption read differently here than on calls."
+  - "Any rate before a hand-coded sample checks it: informal text (sarcasm, quotation, argument) is harder for zero-shot NLI, and there is no gold set."
+  - "How salient a topic is: mention is volume, not salience. A month with a product launch has more Anthropic comments; rates are reported against all comments that month."
+license:
+  name: Open Data Commons Attribution License (ODC-BY 1.0), from open-index/hacker-news (counts and item ids only)
+  url: https://opendatacommons.org/licenses/by/1-0/
+status: witness
+proposal_only: true
+models:
+  - name: MoritzLaurer/deberta-v3-large-zeroshot-v2.0
+    revision: cf44676c28ba7312e5c5f8f8d2c22b3e0c9cdae2
+    license: MIT
+  - name: MoritzLaurer/ModernBERT-large-zeroshot-v2.0
+    revision: a51e07b524299e309dd2b88d48b0cfa2bd9ec598
+    license: Apache-2.0
+codebook:
+  path: corpus/earnings-calls/codebook-v0.1.tsv
+  blake3: 16d1c01230a706e9c789eb22ccf7ced9f92906659d12b7800b69d4bf25e950a3
+tables:
+  proposals/hacker-news/report/agreement.tsv:
+    title: "Witness agreement per set and hypothesis"
+    description: "Window-level counts of each witness's positives (>= 0.5), joint positives, and Cohen's kappa."
+    primary_key: [set, hypothesis]
+    columns:
+      "set":
+        type: string
+        description: "Focused set."
+        values:
+          anthropic: "Anthropic or Claude windows"
+          ai_security: "AI security windows"
+      "hypothesis":
+        type: string
+        description: "Codebook v0.1 hypothesis id (16 ids; corpus/earnings-calls/codebook-v0.1.tsv)."
+      "n_windows":
+        type: integer
+        unit: windows
+        description: "Windows scored by both witnesses."
+      "n_deberta":
+        type: integer
+        unit: windows
+        description: "Windows with DeBERTa p_entail >= 0.5."
+      "n_modernbert":
+        type: integer
+        unit: windows
+        description: "Windows with ModernBERT p_entail >= 0.5."
+      "n_both":
+        type: integer
+        unit: windows
+        description: "Windows with both witnesses >= 0.5 (proposed positives)."
+      "kappa":
+        type: float
+        unit: Cohen's kappa
+        description: "Cohen's kappa between the two witnesses' >= 0.5 calls, 3 decimals; empty when expected agreement is 1."
+  proposals/hacker-news/report/by-month.tsv:
+    title: "Comments in each set, and those proposed AI risk, by month"
+    description: "One row per months.tsv month. A comment is proposed AI risk if any of its windows has both witnesses >= 0.5 on ai_risk."
+    primary_key: [month]
+    columns:
+      "month":
+        type: string
+        unit: YYYY-MM
+        description: "Month, from months.tsv; set counts are joined on the month of windows.parquet `day`."
+      "n_comments":
+        type: integer
+        unit: comments
+        description: "Live comments in the month (months.tsv n_comments)."
+      "n_anthropic":
+        type: integer
+        unit: comments
+        description: "Distinct anthropic-set comments whose `day` falls in the month."
+      "n_anthropic_ai_risk":
+        type: integer
+        unit: comments
+        description: "Of those, comments proposed ai_risk."
+      "pct_comments_anthropic":
+        type: float
+        unit: percent
+        description: "100 x n_anthropic / n_comments, 3 decimals."
+      "pct_anthropic_ai_risk":
+        type: float
+        unit: percent
+        description: "100 x n_anthropic_ai_risk / n_anthropic, 1 decimal; empty when n_anthropic is 0."
+      "n_ai_security":
+        type: integer
+        unit: comments
+        description: "Distinct ai_security-set comments whose `day` falls in the month."
+      "n_ai_security_ai_risk":
+        type: integer
+        unit: comments
+        description: "Of those, comments proposed ai_risk."
+      "pct_comments_ai_security":
+        type: float
+        unit: percent
+        description: "100 x n_ai_security / n_comments, 3 decimals."
+  proposals/hacker-news/report/examples-ttm.tsv:
+    title: "Most confidently risk-typed comments, trailing 12 months (ids only)"
+    description: "Per set and risk type, up to 10 comments, 2025-09-01 to 2026-08-31, among windows also proposed ai_risk."
+    primary_key: [set, risk_type, item_id]
+    columns:
+      "set":
+        type: string
+        description: "Focused set."
+        values:
+          anthropic: "Anthropic or Claude windows"
+          ai_security: "AI security windows"
+      "risk_type":
+        type: string
+        description: "Risk-type hypothesis id: one of the 12 TYPES in scripts/ec_risk_series.py (regulation, cyber, privacy, accuracy, bias, labor, disruption, capex, energy, supply, ip, safety_ethics)."
+      "item_id":
+        type: integer
+        description: "Hacker News item id of the comment."
+      "min_witness_p":
+        type: float
+        unit: probability (0-1)
+        description: "Highest, over the comment's qualifying windows, of the lower of the two witnesses' scores; rounded to 4 decimals on a FLOAT, so the file shows float noise."
+      "url":
+        type: string
+        description: "https://news.ycombinator.com/item?id=<item_id>."
+  proposals/hacker-news/report/risk-ranking-ttm.tsv:
+    title: "Risk-type ranking, trailing 12 months: earnings calls vs HN"
+    description: "One row per risk type: share of AI-risk units naming it (a unit can name several), ordered by anthropic_pct. A leading # line states the windows and bases."
+    primary_key: [risk_type]
+    columns:
+      "risk_type":
+        type: string
+        description: "Risk-type hypothesis id (TYPES in scripts/ec_risk_series.py)."
+      "label":
+        type: string
+        description: "Display label (LABELS in scripts/ec_risk_series.py)."
+      "calls_windows":
+        type: integer
+        unit: windows
+        description: "Earnings-call windows proposed ai_risk and this type, 12 months to 2026-11-04 (copied from the earnings-call ranking)."
+      "calls_pct":
+        type: float
+        unit: percent
+        description: "100 x calls_windows / earnings-call windows proposed ai_risk (379), 1 decimal."
+      "anthropic_comments":
+        type: integer
+        unit: comments
+        description: "anthropic-set comments proposed both ai_risk and this type, 2025-09-01 to 2026-08-31."
+      "anthropic_pct":
+        type: float
+        unit: percent
+        description: "100 x anthropic_comments / anthropic-set comments proposed ai_risk in the window (6,188), 1 decimal."
+      "ai_security_comments":
+        type: integer
+        unit: comments
+        description: "ai_security-set comments proposed both ai_risk and this type, 2025-09-01 to 2026-08-31."
+      "ai_security_pct":
+        type: float
+        unit: percent
+        description: "100 x ai_security_comments / ai_security-set comments proposed ai_risk in the window (3,034), 1 decimal."
+  proposals/hacker-news/report/risk-ranking-ttm.svg:
+    title: "Chart: what kind of AI risk, executives vs Hacker News"
+    description: "Three panels (earnings calls, HN anthropic, HN ai_security), one bar per risk type, from risk-ranking-ttm.tsv, ordered by HN anthropic."

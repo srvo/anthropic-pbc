@@ -548,3 +548,35 @@ review (OPENQUESTIONS Q2).**
   weapons or dangerous pathogens") is narrower than the discourse
   ("repurposed or misused in the biological sciences"). It must be reworded
   before any bio claim.
+
+### 2026-11-04 · What the metadata backfill found
+
+Writing column-level metadata for every step (`dag.py meta`: 33 of 33
+complete, 471 fields declared unknown) meant reading the code that writes each
+column. That reading found these problems:
+
+- **Fixed: HN dates depended on the build host.** `hn_extract.py` formatted
+  the source's zoned timestamps in the host's zone (America/Denver).
+  `hn_report.py`'s monthly counts disagreed with `months.tsv` in 45 of 68
+  months. It is now pinned to UTC, and a rebuild under another zone is
+  byte-identical. Scored text was unchanged, so the witness scores stand
+  (commit 29c344d).
+- **Two definitions of "AI as a risk".** `ec_risk_series.py` (the AI-risk
+  time series, the 12-month ranking and the quotes) uses the `ai_risk` flag
+  alone. `ec_report.py` (by-year, by-firm, risk types by year) requires
+  `about_ai` and `ai_risk` together. Results from the two scripts are not
+  interchangeable; each table's metadata says which rule it uses.
+- **One column name, two definitions.** `calls_mentioning_ai` in
+  `report/by-year.tsv` counts calls with any regex window. In
+  `report/by-firm.tsv` it requires both witnesses to agree on `about_ai`.
+- **Window doc corrected.** Clipped windows can still exceed 1,500
+  characters (856 do), and windows that only touch are merged as well as
+  overlapping ones. `earnings-call-ai-corpus.md` §2 now says so.
+- **"Verbatim" outputs normalise whitespace.** `risk-quotes-ttm.tsv` and
+  `oversight-questions.tsv` replace newlines and tabs with spaces. No unit in
+  this build contains either, so today's files are verbatim; a future build
+  might not be.
+- **Some tables have no primary key.** Three Epoch tables have no unique key:
+  data-center chillers, GPU clusters, and benchmark model metadata, which
+  holds blank and duplicate rows against Epoch's own "one row per model
+  version". Each is declared, not invented.

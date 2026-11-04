@@ -1,0 +1,87 @@
+# Metadata for data://witness/earnings_calls/2026-11-04/codebook_questions_v0_2_draft (schema/metadata.schema.yml)
+title: "[DRAFT v0.2] NLI witness scores for every AI analyst question against the question codebook v0.2-draft"
+description: >-
+  The same two zero-shot NLI cross-encoders as the window witnesses
+  (DeBERTa-v3-large, ModernBERT-large) score every AI question against all 30
+  hypotheses of the AI-risk codebook v0.2-draft (not the question-intent
+  codebook: this run asks which risks a question names). Score = P(entailment).
+  Proposals under docs/bert-enrichment-spec.md §5, never verdicts.
+processing: >-
+  Each question's text (premise) is paired with each hypothesis in
+  codebook v0.2-draft.tsv; the model's softmax probability for its
+  entailment label is the score. Inputs are truncated to 512 tokens, cutting
+  the question, never the hypothesis (truncation only_first). Both runs used
+  Modal L40S GPUs in bfloat16, batch 128 (run-*.json; scripts/ec_classify_modal.py
+  with --units ai-questions.parquet --codebook codebook v0.2-draft.tsv
+  --id-col question_id). Sharding and the merge check are as for codebook_v0_1.
+  Nothing is trained and no label comes from an LLM. Drops nothing: every
+  question gets every hypothesis.
+unit_of_analysis: one (question, hypothesis) pair, scored once per witness
+denominator: >-
+  corpus/earnings-calls/ai-questions.parquet (every question is scored; 4,288 questions x
+  30 hypotheses = 128,640 pairs per witness)
+coverage: >-
+  All 4,288 AI questions of ai-questions.parquet (BLAKE3 recorded as
+  windows_blake3 in run-*.json) against all 30 hypotheses of
+  codebook v0.2-draft.
+codebook_status_note: >-
+  DRAFT codebook: the 14 new hypotheses' wording awaits human review (OPENQUESTIONS Q2), and bio_chem is known to fail on Wikipedia's own Biosecurity section (spec §10, 2026-11-04). bf16 scores are not invariant to batch composition: re-scoring the 16 v0.1 hypotheses in this 30-hypothesis run moved scores by up to 0.26 and flipped 0.04-0.06% of decisions at 0.5 (spec §10).
+does_not_answer:
+  - "How precise either witness is on the risk hypotheses applied to questions: these are witness proposals until the question gold set in gold/earnings-calls/ is coded (method doc §10, §7)."
+  - "Whether a risk an analyst asks about is an exposure, was governed, or materialised (§7)."
+  - "What people who do not speak on calls ask or think (§7)."
+  - "Whether the scores reproduce on other hardware: not claimed (method doc §5; spec §5, Route B)."
+license:
+  name: ODC-BY 1.0 (derived from defeatbeta/yahoo-finance-data transcripts); codebook CC0 1.0; models MIT (DeBERTa) and Apache-2.0 (ModernBERT)
+  url: https://opendatacommons.org/licenses/by/1-0/
+status: witness
+proposal_only: true
+models:
+  - name: MoritzLaurer/deberta-v3-large-zeroshot-v2.0
+    revision: cf44676c28ba7312e5c5f8f8d2c22b3e0c9cdae2
+    license: MIT
+  - name: MoritzLaurer/ModernBERT-large-zeroshot-v2.0
+    revision: a51e07b524299e309dd2b88d48b0cfa2bd9ec598
+    license: Apache-2.0
+codebook: corpus/codebooks/codebook-v0.2-draft.tsv
+tables:
+  proposals/earnings-calls/codebook-v0.2-draft-questions/deberta.parquet:
+    title: "DeBERTa-v3-large scores, question x hypothesis"
+    description: "Long format, one row per question and hypothesis, sorted by question_id, hypothesis_id."
+    primary_key: [question_id, hypothesis_id]
+    columns:
+      "question_id":
+        type: string
+        description: "Question id; joins to corpus/earnings-calls/ai-questions.parquet."
+      "hypothesis_id":
+        type: string
+        description: "Hypothesis id from corpus/codebooks/codebook-v0.2-draft.tsv."
+      "p_entail":
+        type: float
+        unit: probability (0-1)
+        description: "P(entailment | premise = question text, hypothesis), DeBERTa witness."
+  proposals/earnings-calls/codebook-v0.2-draft-questions/modernbert.parquet:
+    title: "ModernBERT-large scores, question x hypothesis"
+    description: "Long format, one row per question and hypothesis, sorted by question_id, hypothesis_id."
+    primary_key: [question_id, hypothesis_id]
+    columns:
+      "question_id":
+        type: string
+        description: "Question id; joins to corpus/earnings-calls/ai-questions.parquet."
+      "hypothesis_id":
+        type: string
+        description: "Hypothesis id from corpus/codebooks/codebook-v0.2-draft.tsv."
+      "p_entail":
+        type: float
+        unit: probability (0-1)
+        description: "P(entailment | premise = question text, hypothesis), ModernBERT witness."
+  proposals/earnings-calls/codebook-v0.2-draft-questions/run-deberta.json:
+    title: "DeBERTa run record"
+    description: >-
+      JSON object pinning the run, keys as in the codebook-v0.1 run records. Its
+      windows, windows_blake3 and n_windows fields name the question file and
+      count questions (the field names are fixed in ec_classify.merge).
+  proposals/earnings-calls/codebook-v0.2-draft-questions/run-modernbert.json:
+    title: "ModernBERT run record"
+    description: >-
+      JSON object pinning the run, with the same keys as run-deberta.json.

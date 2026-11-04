@@ -1,0 +1,180 @@
+# Metadata for data://witness/earnings_calls/2026-11-04/question_report (schema/metadata.schema.yml)
+title: What analysts ask S&P 500 companies about AI, by intent
+description: >-
+  Deterministic tables over the two NLI witnesses' question-intent scores:
+  agreement per hypothesis, intent shares by calendar year with the
+  all-questioner-turns base, intent counts over the trailing 12 months, every
+  question flagged for oversight quoted, and a chart. A deterministic word
+  measure sits beside the witnesses as a cross-check on direction.
+processing: >-
+  as_of defaults to the latest report_date in calls.tsv (2026-11-04 in this
+  build), so no clock enters. Joins DeBERTa and ModernBERT scores on
+  (question_id, hypothesis_id); a question carries an intent when both score
+  >= 0.5. oversight = any of q_risk, q_controls, q_regulation, q_harm,
+  q_security; commercial = q_revenue or q_efficiency. Word measures are regex
+  matches on the question text (OVERSIGHT_WORDS, COMMERCIAL_WORDS in
+  scripts/ec_question_report.py), noisy in both directions (e.g. "regulatory
+  capital" on a bank call). Years are calendar years of report_date; years
+  with no AI question have no row. The 12-month window is report_date in
+  (as_of - 1 year, as_of]. Floats are written to at most 4 decimals with
+  trailing zeros stripped.
+unit_of_analysis: one AI question (ai-questions.parquet), with its both-agree intents
+denominator: >-
+  corpus/earnings-calls/question-calls.tsv (questioner_turns per year in by-year.tsv);
+  pct_* columns are shares of AI questions in corpus/earnings-calls/ai-questions.parquet
+coverage: >-
+  All 4,288 AI questions; years 2006-2026 with at least one AI question (none
+  in 2007, 2008, 2010, 2012). Trailing 12 months to 2026-11-04: 1,645 AI
+  questions from 654 questioners on 293 firms. Universe and survivorship bias
+  as in the ai_windows step.
+does_not_answer:
+  - "Whether any intent count is right: these are witness proposals until the question gold set in gold/earnings-calls/ is coded (method doc §10, §7)."
+  - "Whether a risk an analyst asks about is an exposure, was governed, or materialised (§7)."
+  - "What investors who do not speak on calls ask, or what workers, users or data-center neighbours would say (§7)."
+  - "Anything about calls where no one asks about AI: silence is counted against the denominator, not read as absence of concern (§7)."
+license:
+  name: ODC-BY 1.0 (derived from defeatbeta/yahoo-finance-data transcripts); S&P 500 universe from Wikipedia, CC BY-SA 4.0; codebook CC0 1.0
+  url: https://opendatacommons.org/licenses/by/1-0/
+status: witness
+proposal_only: true
+models:
+  - name: MoritzLaurer/deberta-v3-large-zeroshot-v2.0
+    revision: cf44676c28ba7312e5c5f8f8d2c22b3e0c9cdae2
+    license: MIT
+  - name: MoritzLaurer/ModernBERT-large-zeroshot-v2.0
+    revision: a51e07b524299e309dd2b88d48b0cfa2bd9ec598
+    license: Apache-2.0
+codebook: corpus/earnings-calls/codebook-questions-v0.1.tsv
+tables:
+  proposals/earnings-calls/codebook-questions-v0.1/report/agreement.tsv:
+    title: "Witness agreement per intent hypothesis"
+    description: "One row per hypothesis over all AI questions, sorted by pos_both descending, then hypothesis_id."
+    primary_key: [hypothesis_id]
+    columns:
+      "hypothesis_id":
+        type: string
+        description: "Hypothesis id from codebook-questions-v0.1.tsv."
+      "n_questions":
+        type: integer
+        unit: questions
+        description: "Questions scored by both witnesses on the hypothesis."
+      "pos_deberta":
+        type: integer
+        unit: questions
+        description: "Questions DeBERTa scores >= 0.5."
+      "pos_modernbert":
+        type: integer
+        unit: questions
+        description: "Questions ModernBERT scores >= 0.5."
+      "pos_both":
+        type: integer
+        unit: questions
+        description: "Questions both witnesses score >= 0.5."
+      "cohen_kappa":
+        type: float
+        unit: kappa (-1 to 1)
+        description: "Cohen's kappa between the witnesses' >= 0.5 decisions, rounded to 3 decimals; empty if expected agreement is 1."
+  proposals/earnings-calls/codebook-questions-v0.1/report/by-year.tsv:
+    title: "AI question intents by calendar year"
+    description: "One row per calendar year with at least one AI question, up to as_of; a leading # line states the definitions."
+    primary_key: [year]
+    columns:
+      "year":
+        type: integer
+        description: "Calendar year of the call's report_date."
+      "questioner_turns":
+        type: integer
+        unit: turns
+        description: "Questioner turns, AI or not, on unique non-stub calls in the year (sum of n_questioner_turns in question-calls.tsv)."
+      "ai_questions":
+        type: integer
+        unit: questions
+        description: "AI questions in the year."
+      "pct_commercial":
+        type: float
+        unit: percent
+        description: "Share of AI questions with q_revenue or q_efficiency (both witnesses), x100, 2 decimals."
+      "pct_capital":
+        type: float
+        unit: percent
+        description: "Share of AI questions with q_spend (both witnesses), x100."
+      "pct_threat":
+        type: float
+        unit: percent
+        description: "Share of AI questions with q_competition (both witnesses), x100."
+      "pct_workforce":
+        type: float
+        unit: percent
+        description: "Share of AI questions with q_workforce (both witnesses), x100."
+      "pct_oversight":
+        type: float
+        unit: percent
+        description: "Share of AI questions with any oversight hypothesis (both witnesses), x100."
+      "pct_controls":
+        type: float
+        unit: percent
+        description: "Share of AI questions with q_controls (both witnesses), x100."
+      "n_oversight":
+        type: integer
+        unit: questions
+        description: "AI questions with any oversight hypothesis (both witnesses)."
+      "n_controls":
+        type: integer
+        unit: questions
+        description: "AI questions with q_controls (both witnesses)."
+      "pct_words_commercial":
+        type: float
+        unit: percent
+        description: "Share of AI questions matching COMMERCIAL_WORDS, x100 (deterministic)."
+      "pct_words_oversight":
+        type: float
+        unit: percent
+        description: "Share of AI questions matching OVERSIGHT_WORDS, x100 (deterministic)."
+  proposals/earnings-calls/codebook-questions-v0.1/report/ttm.tsv:
+    title: "AI question intents, trailing 12 months"
+    description: "One row per intent hypothesis, sorted by questions descending, then intent; a leading # line states counts of questions, questioners and firms. A question can carry several intents."
+    primary_key: [intent]
+    columns:
+      "intent":
+        type: string
+        description: "Hypothesis id from codebook-questions-v0.1.tsv."
+      "questions":
+        type: integer
+        unit: questions
+        description: "AI questions in the 12 months both witnesses flag with the intent."
+      "pct_of_ai_questions":
+        type: float
+        unit: percent
+        description: "100 * questions / AI questions in the 12 months, rounded to 2 decimals."
+  proposals/earnings-calls/codebook-questions-v0.1/report/oversight-questions.tsv:
+    title: "Every AI question flagged for oversight, quoted"
+    description: "One row per AI question with any oversight hypothesis (both witnesses), all years, sorted by report_date descending, symbol, question_id."
+    primary_key: [question_id]
+    columns:
+      "report_date":
+        type: string
+        unit: YYYY-MM-DD
+        description: "Call report date."
+      "symbol":
+        type: string
+        description: "Ticker."
+      "speaker":
+        type: string
+        description: "Speaker string as in the source."
+        verbatim: true
+      "oversight_intents":
+        type: string
+        description: "Semicolon-separated oversight hypotheses both witnesses flag (q_risk, q_controls, q_regulation, q_harm, q_security, in that order)."
+      "oversight_words":
+        type: boolean
+        description: "True when the question matches OVERSIGHT_WORDS (deterministic cross-check)."
+      "question_id":
+        type: string
+        description: "Question id; joins to corpus/earnings-calls/ai-questions.parquet."
+      "question":
+        type: string
+        description: "The question text with newlines and tabs replaced by spaces; no question in this build contains either, so it equals the verbatim text."
+        verbatim: true
+  proposals/earnings-calls/codebook-questions-v0.1/report/intent-ttm.svg:
+    title: "Chart: what analysts ask S&P 500 companies about AI, trailing 12 months"
+    description: "Horizontal bar chart of pct_of_ai_questions per intent from ttm.tsv, coloured commercial/capital, oversight, or other."

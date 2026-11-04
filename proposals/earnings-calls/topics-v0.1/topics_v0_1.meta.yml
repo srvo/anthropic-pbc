@@ -1,0 +1,108 @@
+# Metadata for data://witness/earnings_calls/2026-11-04/topics_v0_1 (schema/metadata.schema.yml)
+title: Exploratory BERTopic map of the earnings-call AI windows
+description: >-
+  An unsupervised topic map of the 38,600 AI windows: 93 topics plus an
+  unclustered bucket, with top terms, three representative window ids per
+  topic, and counts by fiscal year. A reading aid for choosing what to
+  hand-code next. Spec §9 bars clusters and embeddings as evidence.
+processing: >-
+  Embeds every window's text with sentence-transformers/all-mpnet-base-v2 at a
+  pinned revision, normalised (cached in the gitignored .eccorpus/, not
+  committed). Reduces with UMAP (15 neighbours, 5 components, min_dist 0,
+  cosine, random_state 42) and clusters with HDBSCAN (min_cluster_size 60,
+  min_samples 10, euclidean, eom). Topic terms are BERTopic's top 10 c-TF-IDF
+  terms from a CountVectorizer (English stop words, 1-2 grams, min_df 5).
+  Representative windows are the 3 whose embeddings have the highest dot
+  product with the topic's mean embedding. Embeddings run on MPS (run.json).
+  Drops nothing: every window is assigned a topic or -1.
+unit_of_analysis: one window, assigned to one topic or to -1 (unclustered)
+denominator: corpus/earnings-calls/ai-windows.parquet (all 38,600 windows are assigned)
+coverage: >-
+  All 38,600 windows (windows_blake3 in run.json); 93 topics, 18,546 windows
+  unclustered. UMAP with a fixed seed is reproducible on one machine and
+  library set, not claimed across hardware (scripts/ec_topics.py).
+does_not_answer:
+  - "Anything as a finding: clusters and embeddings are barred as evidence (spec §9), so no topic is cited (method doc §6)."
+  - "Whether a risk named in a window is an exposure, was governed, or materialised (§7)."
+  - "Anything about silence on a call, or about people who do not speak on calls (§7)."
+license:
+  name: ODC-BY 1.0 (derived from defeatbeta/yahoo-finance-data transcripts); embedding model Apache-2.0
+  url: https://opendatacommons.org/licenses/by/1-0/
+status: witness
+proposal_only: true
+models:
+  - name: sentence-transformers/all-mpnet-base-v2
+    revision: e8c3b32edf5434bc2275fc9bab85f82640a19130
+    license: Apache-2.0
+codebook: null
+codebook_reason: >-
+  not applicable: BERTopic is unsupervised and scores no hypotheses; its
+  parameters are pinned in run.json instead.
+tables:
+  proposals/earnings-calls/topics-v0.1/assignments.parquet:
+    title: "Topic per window"
+    description: "One row per window, sorted by window_id."
+    primary_key: [window_id]
+    columns:
+      "window_id":
+        type: string
+        description: "Window id; joins to corpus/earnings-calls/ai-windows.parquet."
+      "topic":
+        type: integer
+        description: "BERTopic topic number, 0-92; -1 = unclustered (HDBSCAN noise)."
+  proposals/earnings-calls/topics-v0.1/topics.tsv:
+    title: "Topics"
+    description: "One row per topic, including -1, sorted by topic."
+    primary_key: [topic]
+    columns:
+      "topic":
+        type: integer
+        description: "Topic number; -1 = unclustered."
+      "size":
+        type: integer
+        unit: windows
+        description: "Windows assigned to the topic."
+      "terms":
+        type: string
+        description: "Top c-TF-IDF terms (up to 10), comma-separated, highest first."
+      "representative_window_ids":
+        type: string
+        description: "Three comma-separated window ids closest to the topic's mean embedding (dot product), closest first."
+  proposals/earnings-calls/topics-v0.1/by-year.tsv:
+    title: "Topic windows by fiscal year"
+    description: "Pivot: one row per topic, one column per fiscal year present in the windows, cell = window count."
+    primary_key: [topic]
+    columns:
+      "topic":
+        type: integer
+        description: "Topic number; -1 = unclustered."
+      "2006": {type: integer, unit: windows, description: "Windows in the topic with fiscal_year 2006."}
+      "2007": {type: integer, unit: windows, description: "Windows in the topic with fiscal_year 2007."}
+      "2008": {type: integer, unit: windows, description: "Windows in the topic with fiscal_year 2008."}
+      "2009": {type: integer, unit: windows, description: "Windows in the topic with fiscal_year 2009."}
+      "2010": {type: integer, unit: windows, description: "Windows in the topic with fiscal_year 2010."}
+      "2011": {type: integer, unit: windows, description: "Windows in the topic with fiscal_year 2011."}
+      "2012": {type: integer, unit: windows, description: "Windows in the topic with fiscal_year 2012."}
+      "2013": {type: integer, unit: windows, description: "Windows in the topic with fiscal_year 2013."}
+      "2014": {type: integer, unit: windows, description: "Windows in the topic with fiscal_year 2014."}
+      "2015": {type: integer, unit: windows, description: "Windows in the topic with fiscal_year 2015."}
+      "2016": {type: integer, unit: windows, description: "Windows in the topic with fiscal_year 2016."}
+      "2017": {type: integer, unit: windows, description: "Windows in the topic with fiscal_year 2017."}
+      "2018": {type: integer, unit: windows, description: "Windows in the topic with fiscal_year 2018."}
+      "2019": {type: integer, unit: windows, description: "Windows in the topic with fiscal_year 2019."}
+      "2020": {type: integer, unit: windows, description: "Windows in the topic with fiscal_year 2020."}
+      "2021": {type: integer, unit: windows, description: "Windows in the topic with fiscal_year 2021."}
+      "2022": {type: integer, unit: windows, description: "Windows in the topic with fiscal_year 2022."}
+      "2023": {type: integer, unit: windows, description: "Windows in the topic with fiscal_year 2023."}
+      "2024": {type: integer, unit: windows, description: "Windows in the topic with fiscal_year 2024."}
+      "2025": {type: integer, unit: windows, description: "Windows in the topic with fiscal_year 2025."}
+      "2026": {type: integer, unit: windows, description: "Windows in the topic with fiscal_year 2026."}
+      "2027": {type: integer, unit: windows, description: "Windows in the topic with fiscal_year 2027."}
+  proposals/earnings-calls/topics-v0.1/run.json:
+    title: "Topic run record"
+    description: >-
+      JSON object pinning the run: embedding_model, embedding_revision,
+      embedding_license, embedding_device, normalize_embeddings, umap,
+      hdbscan and vectorizer parameters, windows and windows_blake3,
+      n_windows, n_topics, n_unclustered, library versions, machine, BLAKE3
+      of each other output, and a status line. No clock.

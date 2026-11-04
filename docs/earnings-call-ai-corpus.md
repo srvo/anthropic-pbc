@@ -39,9 +39,11 @@ paper or its hash.
 ## 2. Unit
 
 A **window** is the sentence containing an AI term, plus one sentence either
-side. Overlapping windows in the same paragraph are merged. A window longer
-than 1,500 characters (a run-on transcript "sentence") is clipped to 600
-characters around each match and snapped to spaces. Each window is stored as
+side. Windows in the same paragraph that overlap or touch (adjacent sentences)
+are merged. A merged window longer than 1,500 characters (a run-on transcript
+"sentence") is cut into pieces of up to 600 characters either side of each
+match, snapped to spaces. Pieces around nearby matches merge, so a clipped
+window can still exceed 1,500 characters: 856 of 38,600 do, the longest 7,894. Each window is stored as
 `[start_char, end_char)` of its paragraph, with BLAKE3 of both. `verify`
 re-slices every window and re-hashes it.
 

@@ -1,0 +1,92 @@
+# Metadata for data://witness/earnings_calls/2026-11-04/codebook_v0_2_draft (schema/metadata.schema.yml)
+title: "[DRAFT v0.2] NLI witness scores for every AI window against codebook v0.2-draft"
+description: >-
+  Two zero-shot NLI cross-encoders of different architecture, DeBERTa-v3-large
+  and ModernBERT-large, each score every AI window against all 30 hypotheses of
+  codebook v0.2-draft. Score = P(entailment). Proposals under
+  docs/bert-enrichment-spec.md §5, never verdicts.
+processing: >-
+  Each window's text (premise) is paired with each hypothesis in
+  codebook-v0.2-draft.tsv; the model's softmax probability for its entailment label
+  is the score. Inputs are truncated to 512 tokens, cutting the window, never
+  the hypothesis (truncation only_first). Both runs used Modal L40S GPUs in
+  bfloat16, batch 128 (run-*.json; scripts/ec_classify_modal.py calling
+  ec_classify.py's functions). Windows are scored in shards of 2,048, tagged by
+  model, dtype, backend and the first 12 hex of the window-file and codebook
+  BLAKE3; the merge refuses unless every window x hypothesis pair is present
+  exactly once. Shard scores are written to 6 decimals and stored as FLOAT.
+  Nothing is trained and no label comes from an LLM. Drops nothing: every
+  window gets every hypothesis.
+unit_of_analysis: one (window, hypothesis) pair, scored once per witness
+denominator: >-
+  corpus/earnings-calls/ai-windows.parquet (every window is scored; 38,600 windows x 30
+  hypotheses = 1,158,000 pairs per witness)
+coverage: >-
+  All 38,600 windows of ai-windows.parquet (BLAKE3 recorded as windows_blake3 in
+  run-*.json) against all 30 hypotheses of codebook v0.2-draft. On a 200-window check
+  of bfloat16 against float32 (on MPS), the mean absolute difference was
+  0.0013, the maximum 0.036, and 5 of 3,200 scores (0.16%) crossed 0.5 (method
+  doc §5).
+codebook_status_note: >-
+  DRAFT codebook: the 14 new hypotheses' wording awaits human review (OPENQUESTIONS Q2), and bio_chem is known to fail on Wikipedia's own Biosecurity section (spec §10, 2026-11-04). bf16 scores are not invariant to batch composition: re-scoring the 16 v0.1 hypotheses in this 30-hypothesis run moved scores by up to 0.26 and flipped 0.04-0.06% of decisions at 0.5 (spec §10).
+does_not_answer:
+  - "How precise either witness is: no human gold set has been coded for this codebook, so before any rate is cited a stratified hand-coded sample must report precision and recall per hypothesis (method doc §7; spec §7, go criterion a)."
+  - "Whether a risk named in a window is an exposure, was governed, or materialised (§7)."
+  - "Anything about silence on a call, or about people who do not speak on calls (§7)."
+  - "Whether the scores reproduce on other hardware: not claimed (method doc §5; spec §5, Route B)."
+license:
+  name: ODC-BY 1.0 (derived from defeatbeta/yahoo-finance-data transcripts); codebook CC0 1.0; models MIT (DeBERTa) and Apache-2.0 (ModernBERT)
+  url: https://opendatacommons.org/licenses/by/1-0/
+status: witness
+proposal_only: true
+models:
+  - name: MoritzLaurer/deberta-v3-large-zeroshot-v2.0
+    revision: cf44676c28ba7312e5c5f8f8d2c22b3e0c9cdae2
+    license: MIT
+  - name: MoritzLaurer/ModernBERT-large-zeroshot-v2.0
+    revision: a51e07b524299e309dd2b88d48b0cfa2bd9ec598
+    license: Apache-2.0
+codebook: corpus/codebooks/codebook-v0.2-draft.tsv
+tables:
+  proposals/earnings-calls/codebook-v0.2-draft/deberta.parquet:
+    title: "DeBERTa-v3-large scores, window x hypothesis"
+    description: "Long format, one row per window and hypothesis, sorted by window_id, hypothesis_id."
+    primary_key: [window_id, hypothesis_id]
+    columns:
+      "window_id":
+        type: string
+        description: "Window id; joins to corpus/earnings-calls/ai-windows.parquet."
+      "hypothesis_id":
+        type: string
+        description: "Hypothesis id from codebook-v0.2-draft.tsv."
+      "p_entail":
+        type: float
+        unit: probability (0-1)
+        description: "P(entailment | premise = window text, hypothesis), DeBERTa witness."
+  proposals/earnings-calls/codebook-v0.2-draft/modernbert.parquet:
+    title: "ModernBERT-large scores, window x hypothesis"
+    description: "Long format, one row per window and hypothesis, sorted by window_id, hypothesis_id."
+    primary_key: [window_id, hypothesis_id]
+    columns:
+      "window_id":
+        type: string
+        description: "Window id; joins to corpus/earnings-calls/ai-windows.parquet."
+      "hypothesis_id":
+        type: string
+        description: "Hypothesis id from codebook-v0.2-draft.tsv."
+      "p_entail":
+        type: float
+        unit: probability (0-1)
+        description: "P(entailment | premise = window text, hypothesis), ModernBERT witness."
+  proposals/earnings-calls/codebook-v0.2-draft/run-deberta.json:
+    title: "DeBERTa run record"
+    description: >-
+      JSON object pinning the run: model, model_revision, model_license, task,
+      codebook and codebook_blake3, windows and windows_blake3, n_windows,
+      n_hypotheses, n_scores, max_length, truncation, shard_tag, backend,
+      device, gpu, dtype, batch, machine, python, torch, transformers, output
+      and output_blake3, and a status line. No clock.
+  proposals/earnings-calls/codebook-v0.2-draft/run-modernbert.json:
+    title: "ModernBERT run record"
+    description: >-
+      JSON object pinning the run, with the same keys as run-deberta.json.

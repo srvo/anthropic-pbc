@@ -1,0 +1,135 @@
+# Metadata for data://witness/earnings_calls/2026-11-04/ai_risk_series (schema/metadata.schema.yml)
+title: AI as a risk on S&P 500 earnings calls, by year and over the trailing 12 months
+description: >-
+  Two measures side by side, because neither is clean alone: a lexical one (an
+  AI window containing the word "risk") and a witness one (both NLI witnesses
+  propose ai_risk). The share of calls per calendar year carrying each, a
+  ranking of AI risk types by firms over the trailing 12 months, every counted
+  window quoted, and two charts. The citable claim is the shape the two
+  measures share, not either level.
+processing: >-
+  as_of defaults to the latest report_date in calls.tsv (2026-11-04 in this
+  build), so no clock enters. Calls are the unique, non-stub calls of
+  calls.tsv with report_date <= as_of. A window is lexical when its text
+  matches (?i)\brisk(s|y|ier|iest)?\b; its witness flags come from
+  report/window-flags.tsv. A call counts for a measure when any of its windows
+  does. The series keeps calendar years of report_date from 2013. The ranking
+  takes windows with report_date in (as_of - 1 year, as_of] flagged ai_risk by
+  both witnesses, and per risk type counts distinct firms and windows also
+  flagged with that type; it sorts by firms, then windows, then type id. The
+  witness measure here uses the ai_risk flag alone, not about_ai and ai_risk
+  as in report/by-year.tsv. Charts are SVG from matplotlib with a fixed hash
+  salt and no date metadata.
+unit_of_analysis: one call (series); one firm per risk type (ranking); one window (quotes)
+denominator: >-
+  corpus/earnings-calls/calls.tsv (unique, non-stub calls with report_date <= as_of; the
+  calls column of ai-risk-by-year.tsv)
+coverage: >-
+  Calendar years 2013 to 2026; 2026 runs to 2026-11-04. Trailing 12 months to
+  2026-11-04: 496 firms held calls; 137 had at least one window proposed as
+  ai_risk by both witnesses (379 windows). Universe and survivorship bias as in
+  the ai_windows step.
+does_not_answer:
+  - "Whether the witness level is right: no human gold set has been coded, so witness precision is unknown and no rate is citable until a stratified hand-coded sample reports precision and recall (method doc §7)."
+  - "Whether a risk said on a call is an exposure, was governed, or materialised: a mention is not an exposure and an exposure is not a loss (§7)."
+  - "Anything about firms whose calls are silent on AI risk: silence is counted against the denominator, not read as absence of risk (§7)."
+  - "What workers, users or data-center neighbours would say: they do not speak on calls (§7)."
+license:
+  name: ODC-BY 1.0 (derived from defeatbeta/yahoo-finance-data transcripts); S&P 500 universe from Wikipedia, CC BY-SA 4.0; codebook CC0 1.0
+  url: https://opendatacommons.org/licenses/by/1-0/
+status: witness
+proposal_only: true
+models:
+  - name: MoritzLaurer/deberta-v3-large-zeroshot-v2.0
+    revision: cf44676c28ba7312e5c5f8f8d2c22b3e0c9cdae2
+    license: MIT
+  - name: MoritzLaurer/ModernBERT-large-zeroshot-v2.0
+    revision: a51e07b524299e309dd2b88d48b0cfa2bd9ec598
+    license: Apache-2.0
+codebook: corpus/earnings-calls/codebook-v0.1.tsv
+tables:
+  proposals/earnings-calls/codebook-v0.1/report/ai-risk-by-year.tsv:
+    title: "Share of calls with AI as a risk, by calendar year"
+    description: "One row per calendar year of report_date from 2013; a leading # line states as_of and the denominator."
+    primary_key: [year]
+    columns:
+      "year":
+        type: integer
+        description: "Calendar year of the call's report_date."
+      "calls":
+        type: integer
+        unit: calls
+        description: "Unique, non-stub S&P 500 calls in the year, up to as_of."
+      "calls_lexical":
+        type: integer
+        unit: calls
+        description: "Calls with at least one AI window whose text contains risk, risks, risky, riskier or riskiest (case-insensitive)."
+      "calls_witnesses":
+        type: integer
+        unit: calls
+        description: "Calls with at least one window both witnesses score >= 0.5 on ai_risk."
+      "pct_lexical":
+        type: float
+        unit: percent
+        description: "100 * calls_lexical / calls, rounded to 2 decimals."
+      "pct_witnesses":
+        type: float
+        unit: percent
+        description: "100 * calls_witnesses / calls, rounded to 2 decimals."
+  proposals/earnings-calls/codebook-v0.1/report/ai-risk-by-year.svg:
+    title: "Chart: share of S&P 500 calls where AI is discussed as a risk"
+    description: "Line chart of pct_lexical and pct_witnesses by year from ai-risk-by-year.tsv, last values labelled."
+  proposals/earnings-calls/codebook-v0.1/report/risk-ranking-ttm.tsv:
+    title: "AI risk types ranked by firms, trailing 12 months"
+    description: "One row per risk type (12); a leading # line states the window, firms holding calls, and firms and windows proposed as ai_risk."
+    primary_key: [risk_type]
+    columns:
+      "rank":
+        type: integer
+        description: "1-based rank by firms descending, then windows descending, then risk_type."
+      "risk_type":
+        type: string
+        description: "Risk-type hypothesis id from codebook-v0.1.tsv."
+      "label":
+        type: string
+        description: "Display label for the risk type (LABELS in scripts/ec_risk_series.py)."
+      "firms":
+        type: integer
+        unit: firms
+        description: "Distinct symbols with at least one window in the 12 months both witnesses flag as ai_risk and as this type."
+      "windows":
+        type: integer
+        unit: windows
+        description: "Windows in the 12 months flagged as ai_risk and as this type by both witnesses."
+  proposals/earnings-calls/codebook-v0.1/report/risk-ranking-ttm.svg:
+    title: "Chart: AI risks raised on S&P 500 calls, trailing 12 months"
+    description: "Horizontal bar chart of firms per risk type from risk-ranking-ttm.tsv, types with at least one firm."
+  proposals/earnings-calls/codebook-v0.1/report/risk-quotes-ttm.tsv:
+    title: "Every window counted in the 12-month ranking, quoted"
+    description: "One row per window in the trailing 12 months flagged ai_risk by both witnesses, sorted by report_date descending, symbol, window_id."
+    primary_key: [window_id]
+    columns:
+      "report_date":
+        type: date
+        unit: YYYY-MM-DD
+        description: "Call report date."
+      "symbol":
+        type: string
+        description: "Ticker."
+      "speaker":
+        type: string
+        description: "Speaker string as in the source."
+        verbatim: true
+      "role":
+        type: string
+        description: "Heuristic speaker role (operator, analyst_heuristic, issuer_heuristic)."
+      "risk_types":
+        type: string
+        description: "Semicolon-separated risk types both witnesses flag for the window, in TYPES order; empty when none (160 of 379 rows)."
+      "window_id":
+        type: string
+        description: "Window id; joins to corpus/earnings-calls/ai-windows.parquet."
+      "quote":
+        type: string
+        description: "The window text with newlines and tabs replaced by spaces; no window in this build contains either, so it equals the verbatim text."
+        verbatim: true

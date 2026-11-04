@@ -1,0 +1,120 @@
+# Metadata for snapshot://wikipedia/2026-11-04/ai_risk_articles (schema/metadata.schema.yml)
+producer: English Wikipedia contributors (Wikimedia Foundation), through the MediaWiki API
+title: English Wikipedia AI-risk articles, last revision at or before 2026-11-04T00:00:00Z
+description: >-
+  The wikitext of 151 English Wikipedia articles, each pinned to its last
+  revision at or before 2026-11-04T00:00:00Z. Articles are the namespace-0
+  members of four categories (AI safety; Ethics of artificial intelligence;
+  Existential risk from artificial intelligence; Regulation of artificial
+  intelligence), depth 1, plus 18 named seed articles, of which one is missing
+  and one is a redirect.
+citation_full: >-
+  Wikipedia contributors, English Wikipedia, 151 articles at their last
+  revision at or before 2026-11-04T00:00:00Z (revids 1301533223 to 1383632719,
+  listed in corpus/wikipedia-ai-risk/MANIFEST.tsv), retrieved through the
+  MediaWiki API, https://en.wikipedia.org/w/api.php. Licensed CC BY-SA 4.0.
+attribution_short: Wikipedia contributors (English Wikipedia)
+url_main: https://en.wikipedia.org/
+url_download: >-
+  https://en.wikipedia.org/w/api.php?action=query&prop=revisions&revids=<revid>&rvprop=ids|content&rvslots=main&format=json&formatversion=2
+  (one URL per revision, in MANIFEST.tsv `url`)
+date_published: 2025-07-20 to 2026-11-03 (per-revision timestamps in MANIFEST.tsv)
+date_accessed: 2026-11-04
+version_producer: >-
+  one revision per article, the last at or before 2026-11-04T00:00:00Z;
+  revision ids in MANIFEST.tsv `revid`
+license:
+  name: Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
+  url: https://creativecommons.org/licenses/by-sa/4.0/
+terms_notes: >-
+  ShareAlike: adapted text is shared under the same licence, and each
+  article's history and author list is at
+  https://en.wikipedia.org/w/index.php?oldid=<revid>. Wikipedia is a trademark
+  of the Wikimedia Foundation; this corpus is not affiliated with or endorsed
+  by it. corpus/wikipedia-ai-risk/ is not covered by the repository's CC0
+  dedication.
+refetch: exact
+refetch_reason: >-
+  fetch downloads each pinned revision by revid and checks the BLAKE3 of its
+  wikitext against MANIFEST.tsv, on any date. Discovery is not re-runnable:
+  pin reads live category membership, so a later pin can list different
+  articles and overwrites MANIFEST.tsv.
+personal_data: verbatim_public_text
+personal_data_note: >-
+  Article text is published encyclopedic prose, and some category members are
+  biographies. No editor usernames are fetched (pin requests ids, timestamp,
+  sha1, size and content only).
+files: corpus/wikipedia-ai-risk/MANIFEST.tsv
+tables:
+  corpus/wikipedia-ai-risk/MANIFEST.tsv:
+    title: "Pinned revisions"
+    description: "The pin: one row per article."
+    primary_key: [pageid]
+    columns:
+      "title":
+        type: string
+        description: "Article title, after following a redirect."
+      "pageid":
+        type: integer
+        description: "MediaWiki page id."
+      "revid":
+        type: integer
+        description: "Pinned revision id: the last revision at or before as_of."
+      "timestamp":
+        type: string
+        unit: ISO 8601 UTC
+        description: "Timestamp of the pinned revision, from the API."
+      "as_of":
+        type: string
+        unit: ISO 8601 UTC
+        description: "The --as-of argument as a timestamp (2026-11-04T00:00:00Z)."
+      "bytes":
+        type: integer
+        unit: bytes
+        description: "UTF-8 byte length of the wikitext."
+      "sha1":
+        type: string
+        hash_of: "the revision content, as computed by MediaWiki"
+        description: "MediaWiki's own SHA-1 of the revision."
+      "blake3":
+        type: string
+        hash_of: "the wikitext, UTF-8"
+        description: "BLAKE3 of the wikitext; fetch and build check it."
+      "via":
+        type: string
+        description: "How the article entered: '; '-joined seed categories and/or 'seed' (a named seed article)."
+      "url":
+        type: string
+        description: "MediaWiki API URL that returns this revision's content."
+  corpus/wikipedia-ai-risk/seeds.tsv:
+    title: "Seed categories and articles"
+    description: "Every published seed, what it resolved to, and subcategories listed but not entered."
+    primary_key: [kind, seed]
+    columns:
+      "kind":
+        type: string
+        description: "Seed kind."
+        values:
+          category: "a seed category (CATEGORIES in scripts/wp_extract.py)"
+          article: "a named seed article (SEED_ARTICLES)"
+      "seed":
+        type: string
+        description: "The seed as written in scripts/wp_extract.py."
+      "resolved":
+        type: string
+        description: "Category name, or article title after following a redirect; empty if missing."
+      "status":
+        type: string
+        description: "Resolution status."
+        values:
+          ok: "exists, no redirect"
+          redirect: "article redirects to `resolved`"
+          missing: "does not exist on Wikipedia"
+          "no revision at or before as-of": "article exists but has no revision by the as-of time"
+      "n_articles":
+        type: integer
+        unit: articles
+        description: "Namespace-0 members for a category; 1 or 0 for an article."
+      "subcategories_not_entered":
+        type: string
+        description: "'; '-joined subcategories of a category, listed but not entered (depth 1)."

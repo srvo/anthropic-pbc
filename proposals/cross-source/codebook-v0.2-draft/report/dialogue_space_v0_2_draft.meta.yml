@@ -1,0 +1,75 @@
+# Metadata for data://witness/cross_source/2026-11-04/dialogue_space_v0_2_draft (schema/metadata.schema.yml)
+title: "[DRAFT v0.2] Dialogue space: share of each source's AI-risk units naming each risk type"
+description: >-
+  For five sources, the share of units that both witnesses propose as
+  ai_risk which both witnesses also propose as each risk type of codebook
+  v0.2-draft. Built by scripts/v02_map.py. Witness proposals, not findings.
+processing: >-
+  For each source, join the two witnesses' v0.2-draft scores on (unit id,
+  hypothesis_id) and mark a hypothesis positive when both are >= 0.5. Restrict
+  units by source and period: executives are earnings-call windows whose role
+  is not analyst_heuristic or operator, report_date after 2025-11-04 through
+  2026-11-04; analysts are AI questions in the same period; HN sets are
+  windows with day 2025-09-01 to 2026-08-31; Wikipedia is every window. For
+  each risk_type, count units positive on both ai_risk and the type, divided
+  by units positive on ai_risk. Rows are sorted by each type's largest share
+  in any source. The chart draws the same numbers.
+unit_of_analysis: one unit of a source (window or question) proposed as ai_risk
+denominator: >-
+  The ai_risk_units row of dialogue-space.tsv: 179 executive windows, 64
+  analyst questions, 6,281 HN Anthropic windows, 3,096 HN AI-security windows,
+  833 Wikipedia windows.
+coverage: >-
+  Calls and questions: 12 months to 2026-11-04 (S&P 500 as of 2026-10-27,
+  survivorship-biased). HN: 2025-09 to 2026-08 (the archive ends August 2026).
+  Wikipedia: 151 articles at revisions as of 2026-11-04.
+codebook_status_note: >-
+  DRAFT codebook: the 14 new hypotheses' wording awaits human review, and
+  bio_chem fails on Wikipedia's own Biosecurity section (spec §10,
+  2026-11-04). bf16 scores are not invariant to batch composition (spec §10).
+does_not_answer:
+  - "How precise any cell is: there is no gold set, and the executive and analyst denominators are small (179 and 64), so their single-digit cells rest on a handful of units."
+  - "Which risks matter or materialised: a share of talk measures attention, not risk."
+  - "What the public thinks: HN is a self-selected practitioner audience and Wikipedia records editor attention."
+  - "Whether a zero is silence or a wording failure: bio_chem shows a hypothesis can fail where the topic is plainly present."
+license:
+  name: >-
+    Most restrictive of the sources: CC BY-SA 4.0 (Wikipedia); ODC-BY 1.0
+    (HN, transcripts). Counts and shares only; no text.
+  url: https://creativecommons.org/licenses/by-sa/4.0/
+status: witness
+proposal_only: true
+models:
+  - name: MoritzLaurer/deberta-v3-large-zeroshot-v2.0
+    revision: cf44676c28ba7312e5c5f8f8d2c22b3e0c9cdae2
+    license: MIT
+  - name: MoritzLaurer/ModernBERT-large-zeroshot-v2.0
+    revision: a51e07b524299e309dd2b88d48b0cfa2bd9ec598
+    license: Apache-2.0
+codebook:
+  path: corpus/codebooks/codebook-v0.2-draft.tsv
+tables:
+  proposals/cross-source/codebook-v0.2-draft/report/dialogue-space.tsv:
+    title: "Dialogue space table"
+    description: "One row per risk type (plus a first ai_risk_units row giving each source's denominator); a leading # comment states the rule."
+    primary_key: [risk_type]
+    columns:
+      "risk_type":
+        type: string
+        description: "Codebook v0.2-draft risk_type id, or ai_risk_units for the denominator row."
+      "new_in_v0.2":
+        type: string
+        description: "yes if the type is new in v0.2-draft; empty for v0.1 types and the denominator row."
+      "executives_pct": {type: float, unit: percent, description: "Share of executive AI-risk windows naming the type; empty on the denominator row."}
+      "executives_n": {type: integer, unit: units, description: "Executive windows positive on ai_risk and the type; the denominator on the ai_risk_units row."}
+      "analysts_pct": {type: float, unit: percent, description: "Share of analyst AI-risk questions naming the type; empty on the denominator row."}
+      "analysts_n": {type: integer, unit: units, description: "Analyst questions positive on ai_risk and the type; the denominator on the ai_risk_units row."}
+      "hn_anthropic_pct": {type: float, unit: percent, description: "Share of HN Anthropic AI-risk windows naming the type; empty on the denominator row."}
+      "hn_anthropic_n": {type: integer, unit: units, description: "HN Anthropic windows positive on ai_risk and the type; the denominator on the ai_risk_units row."}
+      "hn_security_pct": {type: float, unit: percent, description: "Share of HN AI-security AI-risk windows naming the type; empty on the denominator row."}
+      "hn_security_n": {type: integer, unit: units, description: "HN AI-security windows positive on ai_risk and the type; the denominator on the ai_risk_units row."}
+      "wikipedia_pct": {type: float, unit: percent, description: "Share of Wikipedia AI-risk windows naming the type; empty on the denominator row."}
+      "wikipedia_n": {type: integer, unit: units, description: "Wikipedia windows positive on ai_risk and the type; the denominator on the ai_risk_units row."}
+  proposals/cross-source/codebook-v0.2-draft/report/dialogue-space.svg:
+    title: "Dialogue space heatmap"
+    description: "Risk types by source, cell = the share in dialogue-space.tsv; n per source in the header; hover titles give n of base."

@@ -108,6 +108,25 @@ New questions come from the work itself and from `PASTEBIN.md`.
 - **Also:** signing waits until the layout is final, because signatures taken
   before the move would go stale.
 
+### Q13 · Where is the repository's public home?
+- **Owner:** Sloane
+- **Context:** Script user agents name `github.com/ethicalcapital/anthropic-pbc`;
+  the git remote is `github.com/srvo/anthropic-pbc`. Metadata `url_main` and
+  `url_download` for in-repo artifacts (codebooks) stay null until this is
+  settled and the commits are pushed.
+
+### Q14 · Licences of model output and of files inside corpus/
+- **Owner:** Sloane
+- **Context:** AGENTS.md and the README say everything is CC0 except
+  `corpus/*/`. The metadata instead follows the regroup plan: a dataset's
+  licence follows its most restrictive source. So HN scores are ODC-BY and
+  Wikipedia scores are CC BY-SA, as counts and ids only. The codebooks sit in
+  `corpus/earnings-calls/`, whose README says the folder is not CC0, but they
+  are hand-written and recorded as CC0.
+- **Decide:** the licence rule for `proposals/` (or `data/witness/` after the
+  regroup), and whether hand-written files belong outside licensed corpus
+  folders. The regroup would settle the second.
+
 ## Answered
 
 | # | Question | Answer | By | Commit |

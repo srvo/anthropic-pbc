@@ -1,0 +1,73 @@
+# Metadata for snapshot://open_index/2026-08-31/hacker_news (schema/metadata.schema.yml)
+producer: open-index (Hugging Face dataset open-index/hacker-news), mirroring the public Hacker News API
+title: open-index/hacker-news monthly item files, 2021-01 to 2026-08, at dataset commit c54ced59
+description: >-
+  Every Hacker News item (stories, comments and other types) in 68 monthly
+  parquet files, data/2021/2021-01.parquet to data/2026/2026-08.parquet, as
+  published on Hugging Face by open-index. Its items mirror the public Hacker
+  News API. 5,687,302,927 bytes in all. The archive's last comment is in
+  August 2026; September 2026 onward is not in this pin.
+citation_full: >-
+  open-index, hacker-news (Hugging Face dataset), commit
+  c54ced5973b95d80cd934b8921f44ec8d87c3cd1, files data/2021/2021-01.parquet to
+  data/2026/2026-08.parquet. https://huggingface.co/datasets/open-index/hacker-news.
+  Items mirror the Hacker News API, https://github.com/HackerNewsAPI/HN-API.
+attribution_short: open-index/hacker-news (Hacker News)
+url_main: https://huggingface.co/datasets/open-index/hacker-news
+url_download: >-
+  https://huggingface.co/datasets/open-index/hacker-news/resolve/c54ced5973b95d80cd934b8921f44ec8d87c3cd1/data/<YYYY>/<YYYY-MM>.parquet
+  (one URL per month, listed in corpus/hacker-news/MANIFEST.tsv)
+date_published: 2026-08-23
+date_published_note: "lastModified of dataset revision c54ced59, from the Hugging Face API (api/datasets/open-index/hacker-news/revision/c54ced59...)."
+date_accessed: 2026-11-04
+date_accessed_note: "pin and fetch were run on 2026-11-04 (commit eb52f4c); the scripts record no clock by design."
+version_producer: c54ced5973b95d80cd934b8921f44ec8d87c3cd1
+license:
+  name: Open Data Commons Attribution License (ODC-BY 1.0)
+  url: https://opendatacommons.org/licenses/by/1-0/
+terms_notes: >-
+  The comments belong to their authors; this repository republishes none of
+  their words. Hacker News is operated by Y Combinator; the corpus is not
+  affiliated with or endorsed by it. corpus/hacker-news/ is not covered by the
+  repository's CC0 dedication.
+refetch: exact
+refetch_reason: >-
+  Each monthly file is addressed by dataset commit in its URL and pinned by
+  byte count and SHA-256 (the Hugging Face LFS oid); fetch fails on any
+  mismatch. Selecting a new range or commit needs a new pin.
+personal_data: verbatim_public_text
+personal_data_note: >-
+  The upstream files hold comment text and usernames (column `by`) of mostly
+  private individuals. They stay in the gitignored .hncorpus/ and are never
+  committed.
+processing: >-
+  pin lists the dataset tree at commit c54ced59 and keeps the monthly files
+  from 2021-01 to 2026-08 (2021 is when Anthropic was founded); fetch downloads
+  them to the gitignored .hncorpus/ and checks size and SHA-256. Only item ids,
+  character offsets and BLAKE3 hashes are committed downstream, never comment
+  text or usernames.
+files: corpus/hacker-news/MANIFEST.tsv
+tables:
+  corpus/hacker-news/MANIFEST.tsv:
+    title: "Pinned monthly source files"
+    description: "One row per monthly parquet file of open-index/hacker-news at commit c54ced59."
+    primary_key: [month]
+    columns:
+      "month":
+        type: string
+        unit: YYYY-MM
+        description: "Month of the source file, from its path data/YYYY/YYYY-MM.parquet."
+      "path":
+        type: string
+        description: "Path of the file in the dataset repository."
+      "url":
+        type: string
+        description: "Download URL resolved at the pinned dataset commit."
+      "bytes":
+        type: integer
+        unit: bytes
+        description: "File size, from the Hugging Face LFS record."
+      "sha256":
+        type: string
+        hash_of: "the file's bytes"
+        description: "SHA-256 of the file (the Hugging Face LFS oid); fetch checks it."

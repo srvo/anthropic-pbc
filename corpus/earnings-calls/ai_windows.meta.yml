@@ -1,0 +1,195 @@
+# Metadata for data://meadow/earnings_calls/2026-11-04/ai_windows (schema/metadata.schema.yml)
+title: S&P 500 earnings-call AI windows, with the all-calls denominator
+description: >-
+  Every passage in which a current S&P 500 company's earnings call mentions AI,
+  verbatim and byte-anchored: the AI-mentioning paragraphs, the windows cut
+  from them (match sentence plus one sentence either side), and one row per
+  S&P 500 call, AI or not, as the denominator. No model, no scoring.
+processing: >-
+  Reads the pinned transcript parquet and keeps calls whose symbol is in
+  sp500-constituents.tsv. Counts, over the whole source table (every ticker),
+  how many distinct symbols each exact speaker string appears under. Hashes each
+  S&P call's paragraph text in paragraph order (MD5); calls with more than two
+  paragraphs and identical text in the same fiscal year and quarter are one
+  call listed under several share classes, kept under the alphabetically first
+  symbol and marked duplicate_of on the others. Keeps paragraphs matching the
+  AI term regex (six families in TERMS, scripts/ec_extract.py) and skips
+  duplicate listings. Splits each paragraph into sentences at . ! or ? followed
+  by whitespace; each matching sentence plus one sentence either side is a
+  window, and windows whose sentence ranges overlap or adjoin are merged. A
+  merged window longer than 1,500 characters is cut into pieces running 600
+  characters either side of each match, overlapping pieces merged, ends snapped
+  to spaces. A window whose text no longer contains a term is dropped, and a
+  paragraph with no window is not stored. Role is operator, analyst_heuristic
+  (speaker string seen under 3 or more symbols) or issuer_heuristic. `verify`
+  re-slices every window from its stored paragraph and re-hashes both. Drops
+  non-S&P tickers, all non-AI paragraph text (counted in calls.tsv) and the
+  text of duplicate listings. Stub calls (two paragraphs or fewer) stay in
+  calls.tsv and their windows stay in the parquet; downstream rates exclude
+  them.
+unit_of_analysis: >-
+  one window: a [start_char, end_char) slice of one stored paragraph (ai-windows.parquet);
+  calls.tsv has one row per call
+denominator: >-
+  corpus/earnings-calls/calls.tsv (every S&P 500 call in the source, AI or not; rates use
+  rows with duplicate_of empty and n_paragraphs > 2)
+coverage: >-
+  The 503 tickers of Wikipedia revision 1382178819 (2026-10-27), applied to
+  every earlier year: firms that left the index before then are absent
+  (survivorship bias; no point-in-time membership is built). 499 tickers have
+  transcripts; BRK-B, ED, EXPD and NVR have none in the source, which is not a
+  finding about them. 33,978 calls, report dates 2005-10-13 to 2026-11-04,
+  fiscal years 2005-2027: 203 duplicate share-class listings (GOOGL->GOOG 83,
+  NWSA->NWS 79, FOXA->FOX 40, one COR call identical to an AMT call, a source
+  mis-filing) and 153 stubs, leaving 33,622 unique non-stub calls. 28,602 AI
+  paragraphs and 38,600 windows on 6,427 calls, report dates 2006-02-20 to
+  2026-11-04.
+does_not_answer:
+  - "Whether a risk named on a call is an exposure or a loss: calls are promotional and forward-looking; whether a risk was governed is the Appendix E join to 10-K Item 1A, Item 106 and the 0-5 mechanism test, and whether it materialised needs the 8-K and enforcement joins (method doc §7)."
+  - "Anything about a firm whose call is silent on AI: silence is silence, counted against the denominator, not absence of risk (§7)."
+  - "What workers, users or data-center neighbours say: only executives and the analysts who cover them speak on a call, so their side is unmeasured, never no harm (§7)."
+  - "Whether a window is about AI at all: the term match is a recall filter with expected false positives (Gemini the exchange, Claude as a first name, products called Copilot) (§3)."
+license:
+  name: ODC-BY 1.0 (transcript text, defeatbeta/yahoo-finance-data); S&P 500 universe from Wikipedia, CC BY-SA 4.0
+  url: https://opendatacommons.org/licenses/by/1-0/
+status: held
+tables:
+  corpus/earnings-calls/calls.tsv:
+    title: "Every S&P 500 earnings call in the source (denominator)"
+    description: "One row per call by an S&P 500 ticker, AI or not, sorted by symbol, fiscal_year, fiscal_quarter."
+    primary_key: [symbol, fiscal_year, fiscal_quarter]
+    columns:
+      "symbol":
+        type: string
+        description: "Ticker as in the source and sp500-constituents.tsv."
+      "fiscal_year":
+        type: integer
+        description: "Fiscal year as labelled by the source."
+      "fiscal_quarter":
+        type: integer
+        description: "Fiscal quarter as labelled by the source, 1-4."
+      "report_date":
+        type: date
+        unit: YYYY-MM-DD
+        description: "Call report date from the source."
+      "n_paragraphs":
+        type: integer
+        unit: paragraphs
+        description: "Paragraphs in the source transcript; 2 or fewer marks a stub, excluded from rates."
+      "duplicate_of":
+        type: string
+        description: "Symbol of the listing this call duplicates (same text, same fiscal year and quarter, more than two paragraphs); empty for the canonical listing. Duplicates carry no AI paragraphs or windows."
+      "n_ai_paragraphs":
+        type: integer
+        unit: paragraphs
+        description: "Distinct paragraphs of the call that yielded at least one window."
+      "n_ai_windows":
+        type: integer
+        unit: windows
+        description: "Windows cut from the call."
+  corpus/earnings-calls/ai-paragraphs.parquet:
+    title: "AI-mentioning paragraphs, verbatim"
+    description: "One row per stored paragraph that yielded at least one window, with its BLAKE3; the windows are slices of these."
+    primary_key: [symbol, fiscal_year, fiscal_quarter, paragraph_number]
+    columns:
+      "symbol":
+        type: string
+        description: "Ticker (canonical listing)."
+      "fiscal_year":
+        type: integer
+        description: "Fiscal year as labelled by the source."
+      "fiscal_quarter":
+        type: integer
+        description: "Fiscal quarter as labelled by the source, 1-4."
+      "report_date":
+        type: string
+        unit: YYYY-MM-DD
+        description: "Call report date from the source, as text."
+      "paragraph_number":
+        type: integer
+        description: "The source's paragraph_number within the call."
+      "speaker":
+        type: string
+        description: "Speaker string exactly as in the source."
+        verbatim: true
+      "role":
+        type: string
+        description: "Heuristic speaker role; reported with the name, never as fact."
+        values:
+          operator: "Speaker string is 'Operator' (case-insensitive, trimmed)."
+          analyst_heuristic: "Speaker string appears on calls of 3 or more distinct symbols across the whole source table (sell-side analysts cover many firms; common names and executives who move collide)."
+          issuer_heuristic: "Any other speaker."
+      "speaker_issuers":
+        type: integer
+        unit: symbols
+        description: "Distinct symbols in the whole source table (all 6,592 tickers) whose calls include this exact speaker string; 0 if the speaker is null."
+      "paragraph_blake3":
+        type: string
+        description: "BLAKE3 hex digest of content."
+        hash_of: "content, UTF-8"
+      "content":
+        type: string
+        description: "The paragraph text, verbatim from the source."
+        verbatim: true
+  corpus/earnings-calls/ai-windows.parquet:
+    title: "AI windows, verbatim and byte-anchored"
+    description: "The unit of analysis: one row per window, a [start_char, end_char) slice of a paragraph in ai-paragraphs.parquet, with BLAKE3 of both."
+    primary_key: [window_id]
+    columns:
+      "window_id":
+        type: string
+        description: "First 16 hex characters of a BLAKE3 digest identifying the window."
+        hash_of: "the string symbol|fiscal_year|fiscal_quarter|paragraph_number|start_char|end_char|paragraph_blake3"
+      "symbol":
+        type: string
+        description: "Ticker (canonical listing)."
+      "fiscal_year":
+        type: integer
+        description: "Fiscal year as labelled by the source."
+      "fiscal_quarter":
+        type: integer
+        description: "Fiscal quarter as labelled by the source, 1-4."
+      "report_date":
+        type: string
+        unit: YYYY-MM-DD
+        description: "Call report date from the source, as text."
+      "paragraph_number":
+        type: integer
+        description: "The source's paragraph_number; joins to ai-paragraphs.parquet with symbol, fiscal_year, fiscal_quarter."
+      "speaker":
+        type: string
+        description: "Speaker string exactly as in the source."
+        verbatim: true
+      "role":
+        type: string
+        description: "Heuristic speaker role, as in ai-paragraphs.parquet (operator, analyst_heuristic, issuer_heuristic)."
+      "paragraph_blake3":
+        type: string
+        description: "BLAKE3 of the paragraph the window is cut from."
+        hash_of: "the paragraph content, UTF-8"
+      "start_char":
+        type: integer
+        unit: characters
+        description: "Start offset of the window in the paragraph (inclusive), in Python string characters."
+      "end_char":
+        type: integer
+        unit: characters
+        description: "End offset of the window in the paragraph (exclusive)."
+      "window_blake3":
+        type: string
+        description: "BLAKE3 of text."
+        hash_of: "text, UTF-8"
+      "term_families":
+        type: string
+        description: "Comma-separated, sorted names of the TERMS families matched in the window text."
+        values:
+          ai: "AI, A.I., GenAI, AGI (case-sensitive)."
+          ai_phrase: "artificial intelligence, generative ai, generative model, gen ai (case-insensitive)."
+          ml: "machine learning, deep learning, neural net."
+          llm: "LLM, LLMs, large language model."
+          vendor: "chatgpt, openai, anthropic, claude, gemini, copilot."
+          agentic: "agentic, ai agent(s)."
+      "text":
+        type: string
+        description: "The window: content[start_char:end_char] of its paragraph, verbatim."
+        verbatim: true

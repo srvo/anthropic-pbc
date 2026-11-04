@@ -1,0 +1,80 @@
+# Metadata for snapshot://defeatbeta/2026-11-04/stock_earning_call_transcripts (schema/metadata.schema.yml)
+producer: defeatbeta (defeatbeta/yahoo-finance-data on Hugging Face)
+title: defeatbeta/yahoo-finance-data, table stock_earning_call_transcripts, dataset commit 31ee0261
+description: >-
+  Earnings-call transcripts as one parquet file: one row per call (symbol,
+  fiscal_year, fiscal_quarter, report_date) with a list of paragraphs
+  (paragraph_number, speaker, content). The full table holds 240,536 calls
+  across 6,592 tickers, fiscal 2005-2027. The file is 2,294,997,554 bytes and
+  lives only in the gitignored .eccorpus/; the repository commits its pin, not
+  its bytes.
+citation_full: >-
+  defeatbeta, yahoo-finance-data (Hugging Face dataset), table
+  stock_earning_call_transcripts, file data/US/stock_earning_call_transcripts.parquet
+  at dataset commit 31ee02618c62cfa1dd3cf261c89691ea926de12e.
+  https://huggingface.co/datasets/defeatbeta/yahoo-finance-data. Accessed 2026-11-04.
+attribution_short: defeatbeta/yahoo-finance-data
+url_main: https://huggingface.co/datasets/defeatbeta/yahoo-finance-data
+url_download: https://huggingface.co/datasets/defeatbeta/yahoo-finance-data/resolve/31ee02618c62cfa1dd3cf261c89691ea926de12e/data/US/stock_earning_call_transcripts.parquet
+date_published: 2026-11-03
+date_published_note: "lastModified of dataset revision 31ee02618c62cfa1dd3cf261c89691ea926de12e, from the Hugging Face API."
+date_accessed: 2026-11-04
+version_producer: dataset commit 31ee02618c62cfa1dd3cf261c89691ea926de12e
+license:
+  name: Open Data Commons Attribution License (ODC-BY 1.0)
+  url: https://opendatacommons.org/licenses/by/1-0/
+terms_notes: >-
+  The dataset states its transcripts are sourced from Yahoo Finance
+  earnings-call pages and are intended for research and educational purposes.
+  The words are the speakers'. This repository republishes only AI-mentioning
+  paragraphs, windows and questions, for research (corpus/earnings-calls/README.md).
+  "S&P 500" is a trademark of S&P Dow Jones Indices LLC; the corpus is not
+  affiliated with or endorsed by it.
+refetch: exact
+refetch_reason: >-
+  The download URL resolves a fixed dataset commit. `ec_extract.py fetch` checks
+  the file's size and BLAKE3 against MANIFEST.tsv and fails on any mismatch; the
+  MANIFEST note records that its SHA-256 equals the Git LFS object id Hugging
+  Face publishes. Exact for as long as Hugging Face serves that commit.
+personal_data: verbatim_public_figures
+personal_data_note: >-
+  Speaker names and verbatim words of issuer executives, sell-side analysts and
+  call operators speaking on the record. Committed files carry speaker names and
+  verbatim text only for AI-mentioning paragraphs, windows and questions.
+files: corpus/earnings-calls/MANIFEST.tsv
+tables:
+  corpus/earnings-calls/MANIFEST.tsv:
+    title: "Earnings-call corpus pins"
+    description: "One row per pinned upstream input: the transcript parquet and the Wikipedia revision defining the universe."
+    primary_key: [id]
+    columns:
+      "id":
+        type: string
+        description: "Pin name read by scripts/ec_extract.py: transcripts or sp500."
+        values:
+          transcripts: "The source transcript parquet."
+          sp500: "The Wikipedia revision whose constituents table defines the universe."
+      "role":
+        type: string
+        description: "What the pin is for: source (transcripts) or universe (S&P 500 list)."
+      "pinned":
+        type: date
+        unit: YYYY-MM-DD
+        description: "Date the pin was recorded."
+      "url":
+        type: string
+        description: "URL `fetch` (transcripts) or `constituents` (sp500) downloads; both name a fixed commit or revision id."
+      "path":
+        type: string
+        description: "File name: under .eccorpus/ for transcripts; for sp500, the derived TSV in this folder."
+      "bytes":
+        type: integer
+        unit: bytes
+        description: "Size checked on fetch: of the parquet file (transcripts) or of the revision wikitext (sp500)."
+      "blake3":
+        type: string
+        description: "BLAKE3 hex digest checked on fetch."
+        hash_of: "the parquet file bytes (transcripts); the revision wikitext as UTF-8 (sp500)"
+      "note":
+        type: string
+        description: "Free text: source commit or revision, SHA-256 (transcripts), licence."

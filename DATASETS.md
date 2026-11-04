@@ -47,7 +47,7 @@ Model output is a witness proposal in `proposals/`, never a finding
 | Pinned as of | 2026-11-04 |
 | Source cadence | Source dataset updates as new calls post; universe is today's index (survivorship bias) |
 | Committed | AI windows and analyst questions verbatim with BLAKE3; witness scores in proposals/ |
-| Folder | `corpus/earnings-calls` · 10 files · 35.4 MB |
+| Folder | `corpus/earnings-calls` · 16 files · 35.4 MB |
 | Manifest | 2 rows · BLAKE3 `d2ac999e14259ffa` |
 | Method | [`docs/earnings-call-ai-corpus.md`](docs/earnings-call-ai-corpus.md) |
 | Signature | unsigned (`attestations/datasets/`) |
@@ -119,7 +119,7 @@ Refresh:
 | Pinned as of | 2026-08 (archive end) |
 | Source cadence | Source publishes monthly files plus 5-minute deltas; Sep 2026 onward not yet pinned |
 | Committed | Item ids, offsets and BLAKE3 only; no comment text or usernames |
-| Folder | `corpus/hacker-news` · 4 files · 10.0 MB |
+| Folder | `corpus/hacker-news` · 6 files · 10.1 MB |
 | Manifest | 68 rows · BLAKE3 `215282c839346692` |
 | Method | [`docs/hacker-news-corpus.md`](docs/hacker-news-corpus.md) |
 | Signature | unsigned (`attestations/datasets/`) |
@@ -162,7 +162,7 @@ Refresh:
 | Pinned as of | 2026-11-04 |
 | Source cadence | Articles edited continuously; category membership read on the day pin runs |
 | Committed | Markdown text verbatim with BLAKE3; candidate risk dimensions |
-| Folder | `corpus/wikipedia-ai-risk` · 7 files · 2.1 MB |
+| Folder | `corpus/wikipedia-ai-risk` · 9 files · 2.1 MB |
 | Manifest | 151 rows · BLAKE3 `9872049e49b8e6eb` |
 | Method | [`docs/wikipedia-ai-risk-corpus.md`](docs/wikipedia-ai-risk-corpus.md) |
 | Signature | unsigned (`attestations/datasets/`) |
@@ -226,7 +226,7 @@ Refresh:
 | Pinned as of | 2026-11-04 |
 | Source cadence | Each dataset updates on its own schedule (see the Updated column); bundles are regenerated per request, so saved bytes are the pin |
 | Committed | 68 CC BY tables under 5 MB verbatim; the rest local in .epochcorpus/ |
-| Folder | `corpus/epoch` · 72 files · 17.5 MB |
+| Folder | `corpus/epoch` · 74 files · 18.0 MB |
 | Manifest | 18 rows · BLAKE3 `54ab54813305af7c` |
 | Method | [`corpus/epoch/README.md`](corpus/epoch/README.md) |
 | Signature | unsigned (`attestations/datasets/`) |
@@ -275,7 +275,7 @@ Refresh:
 | Pinned as of | — |
 | Source cadence | Changes by human review only |
 | Committed | codebook-v0.1 (corpus/earnings-calls), codebook-questions-v0.1, codebook-v0.2-draft |
-| Folder | `corpus/codebooks` · 1 files · 0.0 MB |
+| Folder | `corpus/codebooks` · 2 files · 0.0 MB |
 | Manifest | — rows · BLAKE3 `—` |
 | Method | [`docs/bert-enrichment-spec.md`](docs/bert-enrichment-spec.md) |
 | Signature | unsigned (`attestations/datasets/`) |

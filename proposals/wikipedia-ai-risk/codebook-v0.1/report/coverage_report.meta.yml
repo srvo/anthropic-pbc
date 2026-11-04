@@ -1,0 +1,111 @@
+# Metadata for data://witness/wikipedia/2026-11-04/coverage_report (schema/metadata.schema.yml)
+title: "How much of Wikipedia's AI-risk discourse codebook v0.1's risk types can name"
+description: >-
+  codebook-v0.1 was written for company speech. This report counts the
+  Wikipedia AI-risk windows that both witnesses propose as ai_risk but that
+  get no specific risk type other than the catch-all safety_ethics, overall
+  and by article, plus per-hypothesis positive counts. Witness proposals, no
+  gold set.
+processing: >-
+  scripts/wp_report.py joins the DeBERTa and ModernBERT scores on (window_id,
+  hypothesis_id). A window is a proposed positive for a hypothesis when both
+  witnesses score >= 0.5. Among windows proposed ai_risk, a window is
+  "untyped" when none of the 11 specific risk types (regulation, cyber,
+  privacy, accuracy, bias, labor, disruption, capex, energy, supply, ip) is
+  proposed; safety_ethics does not count as specific. Articles with no window
+  proposed ai_risk do not appear in untyped-by-article.tsv. No text is
+  written.
+unit_of_analysis: one window of corpus/wikipedia-ai-risk/windows.parquet
+denominator: >-
+  corpus/wikipedia-ai-risk/windows.parquet (3,749 windows; summary.tsv `windows`);
+  shares are of windows proposed ai_risk
+coverage: >-
+  All 3,749 windows of the 151 articles pinned at 2026-11-04T00:00:00Z; 833
+  proposed ai_risk, from 111 articles.
+does_not_answer:
+  - "How likely or harmful a risk is: Wikipedia records editor attention, not risk. A heading exists because editors wrote one; its size measures how much they wrote."
+  - "Risks felt most outside North America and Europe: English Wikipedia's editors skew towards them, so labelling work, data-centre siting and surveillance in other legal systems can be thin or absent."
+  - "Anything after the pin: the pin is one day's text, and articles on fast-moving subjects are rewritten often."
+  - "Which articles are about risk: category membership mixes risks with the organisations, books and fiction about them, and some relevant articles are in no seed category."
+  - "That an absent risk is unimportant: silence is not absence."
+license:
+  name: Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0), from English Wikipedia (counts and titles only)
+  url: https://creativecommons.org/licenses/by-sa/4.0/
+status: witness
+proposal_only: true
+models:
+  - name: MoritzLaurer/deberta-v3-large-zeroshot-v2.0
+    revision: cf44676c28ba7312e5c5f8f8d2c22b3e0c9cdae2
+    license: MIT
+  - name: MoritzLaurer/ModernBERT-large-zeroshot-v2.0
+    revision: a51e07b524299e309dd2b88d48b0cfa2bd9ec598
+    license: Apache-2.0
+codebook:
+  path: corpus/earnings-calls/codebook-v0.1.tsv
+  blake3: 16d1c01230a706e9c789eb22ccf7ced9f92906659d12b7800b69d4bf25e950a3
+tables:
+  proposals/wikipedia-ai-risk/codebook-v0.1/report/hypotheses.tsv:
+    title: "Positives per hypothesis"
+    description: "Window-level counts of each witness's positives (>= 0.5) and joint positives, ordered by n_both."
+    primary_key: [hypothesis]
+    columns:
+      "hypothesis":
+        type: string
+        description: "Codebook v0.1 hypothesis id (16 ids; corpus/earnings-calls/codebook-v0.1.tsv)."
+      "n_windows":
+        type: integer
+        unit: windows
+        description: "Windows scored by both witnesses."
+      "n_deberta":
+        type: integer
+        unit: windows
+        description: "Windows with DeBERTa p_entail >= 0.5."
+      "n_modernbert":
+        type: integer
+        unit: windows
+        description: "Windows with ModernBERT p_entail >= 0.5."
+      "n_both":
+        type: integer
+        unit: windows
+        description: "Windows with both witnesses >= 0.5 (proposed positives)."
+  proposals/wikipedia-ai-risk/codebook-v0.1/report/summary.tsv:
+    title: "Overall share of AI-risk windows with no specific risk type"
+    description: "A single row."
+    primary_key: [windows]
+    columns:
+      "windows":
+        type: integer
+        unit: windows
+        description: "All windows in windows.parquet."
+      "ai_risk_windows":
+        type: integer
+        unit: windows
+        description: "Windows proposed ai_risk by both witnesses."
+      "no_specific_type":
+        type: integer
+        unit: windows
+        description: "Of those, windows with none of the 11 specific risk types proposed."
+      "pct_no_specific_type":
+        type: float
+        unit: percent
+        description: "100 x no_specific_type / ai_risk_windows, 1 decimal."
+  proposals/wikipedia-ai-risk/codebook-v0.1/report/untyped-by-article.tsv:
+    title: "AI-risk windows with no specific risk type, by article"
+    description: "One row per article with at least one window proposed ai_risk, ordered by n_no_specific_type."
+    primary_key: [title]
+    columns:
+      "title":
+        type: string
+        description: "Article title."
+      "n_ai_risk_windows":
+        type: integer
+        unit: windows
+        description: "The article's windows proposed ai_risk by both witnesses."
+      "n_no_specific_type":
+        type: integer
+        unit: windows
+        description: "Of those, windows with none of the 11 specific risk types proposed."
+      "pct_no_specific_type":
+        type: float
+        unit: percent
+        description: "100 x n_no_specific_type / n_ai_risk_windows, rounded to 1 decimal."
