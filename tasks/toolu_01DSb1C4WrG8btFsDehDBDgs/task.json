@@ -1,0 +1,15 @@
+{
+  "tool_use_id": "toolu_01DSb1C4WrG8btFsDehDBDgs",
+  "agent_id": "a5f3f81710292fb51",
+  "subagent_type": "general-purpose",
+  "task_description": "Structure and docs adversarial review",
+  "token_usage": {
+    "input_tokens": 42,
+    "cache_creation_tokens": 108665,
+    "cache_read_tokens": 1812605,
+    "output_tokens": 12419,
+    "api_call_count": 21
+  },
+  "started_at": "2026-11-04T11:40:08.582237-07:00",
+  "completed_at": "2026-11-04T11:42:30.274436-07:00"
+}

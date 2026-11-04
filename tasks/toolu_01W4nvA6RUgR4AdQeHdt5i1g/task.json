@@ -1,0 +1,15 @@
+{
+  "tool_use_id": "toolu_01W4nvA6RUgR4AdQeHdt5i1g",
+  "agent_id": "aa67f3bebae482949",
+  "subagent_type": "general-purpose",
+  "task_description": "Stranger-rebuild adversarial review",
+  "token_usage": {
+    "input_tokens": 50,
+    "cache_creation_tokens": 98036,
+    "cache_read_tokens": 2020390,
+    "output_tokens": 13557,
+    "api_call_count": 25
+  },
+  "started_at": "2026-11-04T11:40:08.695717-07:00",
+  "completed_at": "2026-11-04T11:42:58.463548-07:00"
+}

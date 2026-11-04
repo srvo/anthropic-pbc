@@ -1,0 +1,15 @@
+{
+  "tool_use_id": "toolu_01SKdq97X1NSfjAnoDRD5wPC",
+  "agent_id": "ad5a7165f910777ec",
+  "subagent_type": "general-purpose",
+  "task_description": "Method and publication-risk review",
+  "token_usage": {
+    "input_tokens": 48,
+    "cache_creation_tokens": 115884,
+    "cache_read_tokens": 2194855,
+    "output_tokens": 15643,
+    "api_call_count": 24
+  },
+  "started_at": "2026-11-04T11:40:08.752038-07:00",
+  "completed_at": "2026-11-04T11:42:58.260439-07:00"
+}

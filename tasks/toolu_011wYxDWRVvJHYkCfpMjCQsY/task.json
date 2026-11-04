@@ -1,0 +1,15 @@
+{
+  "tool_use_id": "toolu_011wYxDWRVvJHYkCfpMjCQsY",
+  "agent_id": "a191613fe79d226b6",
+  "subagent_type": "general-purpose",
+  "task_description": "Number-integrity adversarial review",
+  "token_usage": {
+    "input_tokens": 38,
+    "cache_creation_tokens": 134098,
+    "cache_read_tokens": 1960269,
+    "output_tokens": 24738,
+    "api_call_count": 19
+  },
+  "started_at": "2026-11-04T11:40:08.56698-07:00",
+  "completed_at": "2026-11-04T11:44:25.692463-07:00"
+}
