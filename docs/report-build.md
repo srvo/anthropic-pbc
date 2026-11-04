@@ -115,25 +115,53 @@ its BLAKE3 (directories of witness scores point to `dag.lock.tsv`). The claims
 index adds no assertion the registry does not hold; its prose repeats the
 retired deck's sentences or describes method.
 
-### Render the report PDF
+### Render the report: one version, PDF and web page
+
+The report has one source, `edition/REPORT.md`, and one version (Sloane,
+2026-11-04). The PDF and the web page at the repository root (`index.html`)
+are two renderings of it; neither is edited by hand.
 
     uv run scripts/build_edition.py --codebook v0.2-draft
+    uv run scripts/render_report.py --bundle /absolute/path/outside/the/repo/site --publish
+
+`--bundle` runs `./praxis report bundle edition/REPORT.md --publisher praxis`
+from the Praxis checkout beside this repository (`../praxis`): the Praxis web
+page and the PDF in one directory, with a manifest of SHA-256 hashes. Praxis
+refuses to write a bundle inside a repository, so the directory is outside it;
+`--publish` then copies every file the manifest lists, and the manifest, into
+the repository root (`index.html`, `report.pdf`, `styles.css`, `assets/`,
+`archive.html`, `sustainability.html`, `carbon.txt`, `manifest.json`). Review
+`git diff` and commit them with the edition outputs. For the PDF alone:
+
     uv run scripts/render_report.py -o /absolute/path/outside/the/repo/anthropic-pbc-report.pdf
 
-`render_report.py` is `./praxis report from-md edition/REPORT.md --template
-research --publisher praxis -o OUT` run from the Praxis checkout beside this
-repository (`../praxis`), with one addition. `from-md` compiles with Typst's
-root at `praxis/report_writer`, and Typst cannot read a file outside its root,
-so the plain command fails on the charts ("file not found"). The wrapper hands
-Typst each chart's SVG bytes instead of its path and sets the image's `alt` to
-the alt text binding; everything else (the eight-section check, the publisher
-lock, fonts, design tokens) is Praxis's own code, unchanged. The fix belongs in
+Two additions to Praxis's own code, both in the wrapper:
+
+- **PDF charts.** `from-md` compiles with Typst's root at
+  `praxis/report_writer`, and Typst cannot read a file outside its root, so the
+  plain command fails on the charts ("file not found"). The wrapper hands Typst
+  each chart's SVG bytes instead of its path and sets the image's `alt` to the
+  alt text binding.
+- **Web charts.** The Praxis web writer shows only the caption for a local
+  image ("phase 2" in Praxis). The wrapper links each chart by its path from
+  the repository root (`edition/*.svg`) with its alt text, so the published
+  page shows the committed SVGs and nothing is copied (P1). The staging bundle
+  outside the repository therefore shows captions only.
+
+Everything else (the eight-section check, the publisher lock, fonts, design
+tokens, the page layout) is Praxis's own code, unchanged. Both fixes belong in
 Praxis: resolve local images against the report's directory. Python 3.14 or
 later and Typst are needed (Praxis's requirements); the build itself is not.
 
-`./praxis report bundle` is not better here: its PDF is the same `from-md`
-call (same image failure), its HTML shows only the caption for a local image,
-and it refuses an output directory inside a Git repository.
+**The old `index.html`.** Before 2026-11-04 the root page embedded the whole
+paper and was rewritten by `scripts/seal.py sync` (an uncommitted draft from a
+design session). That page is replaced by the edition's; `seal.py sync` would
+overwrite it and must not be run until it is pointed at the edition. The design
+draft is kept at `refs/drafts/index-html-design-2026-11-04`
+(`git show refs/drafts/index-html-design-2026-11-04`).
+
+Determinism: two bundles of the same `REPORT.md` gave byte-identical files
+(every file's SHA-256 equal, 2026-11-04).
 
 **Determinism.** Two renders of the same `REPORT.md` with Typst 0.15.1 and the
 same Praxis checkout gave byte-identical PDFs (SHA-256 equal, 2026-11-04):
