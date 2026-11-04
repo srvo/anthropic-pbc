@@ -11,8 +11,19 @@ of one source commit and a few recorded parameters:
     edition = build(source commit, codebook version)
 
 Rerunning the build at the same commit with the same parameters gives the same
-bytes. Building produces a **new commit** whose parent is the source commit, so
-every edition names exactly the code, data, codebook and prose it came from.
+bytes. The edition is then committed on top, so every edition names exactly the
+code, data, codebook and prose it came from.
+
+The **source commit** is the last commit that touched any build input (the
+template, the build scripts, the codebook, `dag.lock.tsv` and every table the
+build reads; `Build.inputs()` lists them), not HEAD. Committing the edition's
+own outputs moves HEAD but changes no input, so the stamp and the generated
+notice stay the same and `build_edition.py --check` passes on the edition
+commit, in CI or anywhere else. The build already refuses to run when an input
+is uncommitted or modified, so the source commit always describes the bytes the
+build read. Any commit that changes an input (including a relock of unrelated
+data, since `dag.lock.tsv` is an input) makes a new source commit, and
+`--check` then fails until the edition is rebuilt.
 
 `docs/anthropic-contrapunctus.md` at `1afb042` ("v0, finalized") is **edition
 v0**. It was written by hand and stays frozen as it is. Editions from v1 on are
@@ -89,17 +100,37 @@ build (`scripts/build_edition.py`) fails on any breach:
    from the same registered values as the captions.
 4. **Provenance.** Each value is registered with its source file, computation,
    numerator and denominator. `deck/STAMP.json` lists them all.
-5. **No unbound numerals.** The template may contain no digit outside a
-   `{{binding}}`. Every numeral in the built deck, and in chart text (axis tick
-   labels aside), must be a registered value.
-6. **Quotes.** Quoted text in the template must be a single quote binding, and
-   each quote must occur verbatim in edition v0.
+5. **No unbound numerals, by identity.** The template may contain no digit
+   outside a `{{binding}}`. A numeral in a built deck line must be supplied by
+   a binding used on that same template line; a numeral in chart text must be
+   supplied by the bindings that string was built from (`Build.say`, which
+   records the keys). A composite binding (`Build.compose`, e.g. `ec_top3`)
+   supplies only its parts' numerals. Matching any registered value is not
+   enough. Minus signs are part of a numeral, and "500" passes only inside the
+   name "S&P 500". The check covers every channel that ships: body text, HTML
+   comments (Marp presenter notes), image alt text (Marp size keywords
+   aside), the front-matter `title`/`description`/`header`/`footer`, SVG
+   element and `<tspan>` text, tail text, comments and `aria-label`, and
+   matplotlib tick labels set from data. Only tick labels that a formatter
+   computes from the axis scale are exempt.
+6. **Quotes.** Quoted text in the template must be a single quote binding:
+   straight and curly double quotes, single quotes (an apostrophe inside a
+   word is not a quote), markdown blockquotes and HTML `<blockquote>`/`<q>`.
+   Each quote must occur verbatim in edition v0. A quote taken from the
+   paper's claims table also binds the status that table gives it (`q_33k`
+   is bound with `UNVERIFIED/MED`), so the deck cannot quote a claim without
+   the paper's own verdict on it. A binding that copies another
+   (`Registry.copy`) carries the original's source, numerator and denominator.
 7. **Nothing clipped or malformed.** Chart text must lie inside the figure;
    every SVG must parse.
 8. **One codebook** per edition.
+9. **Alt text.** Every image in the template carries exactly one `{{alt_*}}`
+   binding (Marp size keywords aside). Each alt text is composed from the
+   same registered values as its chart and caption, so the numbers a screen
+   reader hears are the numbers on the slide (Praxis Q23).
 
 `uv run scripts/test_edition_controls.py` feeds each control a bad input and
-confirms it fails (14 cases).
+confirms it fails (52 cases at the 2026-11-04 review fixes).
 
 Moving the cross-source chart onto this path changed none of its 125 cell
 values. The corpus report scripts moved onto `display.py` at `23a4bb6`: no

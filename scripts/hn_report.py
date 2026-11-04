@@ -133,11 +133,12 @@ def examples(con) -> None:
           WHERE s.h IN ({", ".join(f"'{t}'" for t in TYPES)}) AND s.pd >= .5 AND s.pm >= .5
             AND w.day BETWEEN '{TTM[0]}' AND '{TTM[1]}'
             AND (s."set", s.window_id) IN (SELECT "set", window_id FROM f WHERE h = 'ai_risk' AND b))
-        SELECT "set", h, item_id, max(p)::DOUBLE p FROM x GROUP BY 1, 2, 3
+        SELECT "set", h, item_id, max(p) p FROM x GROUP BY 1, 2, 3
         QUALIFY row_number() OVER (PARTITION BY "set", h ORDER BY max(p) DESC, item_id) <= 10
         ORDER BY 1, 2, 4 DESC, 3""").fetchall()
     tsv(REPORT / "examples-ttm.tsv", "set\trisk_type\titem_id\tmin_witness_p\turl",
-        [(st, h, item, display.score(p, 4), f"https://news.ycombinator.com/item?id={item}") for st, h, item, p in rows])
+        [(st, h, item, display.score(p, 4, float32=True), f"https://news.ycombinator.com/item?id={item}")
+         for st, h, item, p in rows])
 
 
 def plot(rank: list[tuple]) -> None:
@@ -167,9 +168,9 @@ def plot(rank: list[tuple]) -> None:
             v = exact(r, idx, key)
             bw = max(pw * float(v) / vmax, 0.0)
             d = r[-1][key]
-            t1 = display.pct(r[idx - 1], d, 1) if d else "0.0"
-            t0 = display.pct(r[idx - 1], d, 0) if d else "0"
-            o.append(f'<g><title>{name}: {escape(r[1])}, {t1}% ({display.count(r[idx - 1])} units)</title>'
+            t1 = display.pct(r[idx - 1], d, 1) + "%" if d else "\u2014"   # d = 0: the share is undefined, not zero
+            t0 = display.pct(r[idx - 1], d, 0) if d else "\u2014"
+            o.append(f'<g><title>{name}: {escape(r[1])}, {t1} ({display.count(r[idx - 1])} units)</title>'
                      f'<rect x="{x0}" y="{y + 5}" width="{bw:.1f}" height="{rowh - 10}" rx="2" class="b"/>'
                      f'<text x="{x0 + bw + 4:.1f}" y="{y + rowh / 2 + 4}" font-size="11" class="m">{t0}</text></g>')
     for j, r in enumerate(rank):
