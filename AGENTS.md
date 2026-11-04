@@ -122,6 +122,10 @@ codebook, pass `--units`, `--codebook`, `--id-col` and `--out`.
   it is not in quotation marks. Nothing in between: no paraphrase in quotation
   marks, no "approximately quoted", no unpinned source quoted as if checked.
   (Sloane, 2026-11-04.)
+- **Atomic review.** Every claim is reviewed on its own against four
+  questions: pinned, present, faithful to its context, breadcrumbed. A claim
+  with no source goes to research and, failing that, an open question.
+  `docs/atomic-review.md`.
 - **Deterministic.** No clock, host or random id enters any output; time is a
   recorded argument. A rebuild must be byte-identical, so check that by
   re-hashing.
