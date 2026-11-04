@@ -70,16 +70,34 @@ Paper sections in brackets are what each step draws on.
      unambiguous positive impact and aligns capital with them. A public
      benefit corporation is the legal form of that promise, so the category
      is ours to care about.
-   - **What the form should look like: Wood Cache.** Its front page tells
-     you in a minute what it does. It buries dead trees that would otherwise
-     burn and verifies the stored carbon end to end, and Colorado regulates
-     its burial sites as landfills. It is low-key: it does not advertise how
-     hard its verification was. Its CEO's view of its risk, in conversation
-     with Sloane: the only thing that can go wrong is that the good things do
-     not happen. The scrutiny on it is immense, like regulating a lemonade
-     stand like crazy. [Opening, Wood Cache] *Needs Sloane:* whether to
-     quote the CEO, and a source for any "first to complete" claim about its
-     audit (not in the paper; Descartes will need one).
+   - **What the form should look like: Woodcache PBC.** Its front page
+     tells you in a minute what it does. It buries dead trees that would
+     otherwise burn and verifies the stored carbon end to end, and Colorado
+     regulates its burial sites as landfills. It is low-key: it does not
+     advertise how hard its verification was. The scrutiny on it is immense,
+     "like regulating a lemonade stand like crazy" (Sloane).
+     - **Quote.** Serge Bushman, co-founder and CEO of Woodcache PBC
+       (woodcache.org/team), in conversation with Sloane, 2026-11-04: the
+       only thing that can go wrong is that the good things do not happen.
+       Kind: personal communication, attested by Sloane, not byte-verifiable.
+       *Needs Sloane:* his exact words, and his consent to be quoted.
+     - **Disclosure, stated where Woodcache first appears, not in a
+       footnote.** Sloane has a direct relationship to Woodcache. A public
+       source (4 Corners Carbon, 2025-06-24) lists her among its founders.
+       *Needs Sloane:* the exact current relationship (founder, equity,
+       board, adviser, compensation), in her words. Until then the report
+       uses the paper's own phrase, "a public benefit corporation I'm
+       directly involved in".
+     - **Figure: "Who gets checked."** A small two-row figure. Woodcache:
+       worst case, the good things do not happen; checked by an external
+       verification standard (Puro.earth) and state landfill regulation.
+       Anthropic: worst case, the serious risks it discloses itself (S-1
+       risk factors); checked by its own Public Benefit Report, which its
+       own trust says describes inputs. Every cell is a claim with an id and
+       a source; the figure draws only claims already in the registry.
+     [Opening, Wood Cache] *Needs a source:* any "first to complete"
+     claim about Woodcache's audit is not in the paper and stays out until
+     one is cited.
    - **The missed risk.** Scrutiny runs backwards: the small, observable
      benefit whose worst case is "nothing good happens" is checked hard; the
      company whose worst case is the serious risks it discloses is checked by
@@ -180,6 +198,15 @@ see exactly which of Anthropic's points we accept and which we contest.
 > names can make it act like one. The remedy is not a better report. It is
 > governance that someone Anthropic does not appoint, pay or outvote can
 > invoke.
+
+**Figures are quotable across reports (Sloane, 2026-11-04).** A figure is
+an addressable object like a claim: `edition/figures.tsv` gives each one a
+stable id and a global address (`praxis:figure/anthropic-pbc/F0001`), a
+`content_id` (BLAKE3 of the SVG bytes) and a `source_id` (BLAKE3 of the data
+and claims it draws), its alt text, and the claim ids it depicts. Another
+report embeds a figure by address and pinned `content_id`; the build refuses
+a figure whose bytes no longer match. Figures join the Praxis aggregate index
+with claims (Praxis Q27, Q28).
 
 **Separate paper (Praxis):** the premise that governance is effective control
 over your surroundings. This report carries one paragraph of it and links out.
