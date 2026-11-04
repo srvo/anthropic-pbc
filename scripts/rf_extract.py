@@ -127,7 +127,9 @@ def extract_item_1a(text: str) -> tuple[str, str] | None:
     # an extraction failure: "Item 1A. Risk Factors. Not applicable." is
     # common among small filers (JOB, CLRI) and must be recorded as such.
     NOT_APPLICABLE = re.compile(
-        r"(?i)^[\s\u201d\"]*\.?\s*(not\s+applicable|none\.?|not\s+required)")
+        r"^[\s\u201d\"]*\.?\s*(not\s+applicable|none\.?|not\s+required)|"
+        r"^[\s\u201d\".]{0,40}(as\s+a\s+)?smaller\s+reporting\s+company\b[^.]{0,200}"
+        r"(not\s+required|are\s+not\s+required|is\s+not\s+required)", re.IGNORECASE)
 
     cands: list[tuple[str, int, int]] = []
     for m in HEAD.finditer(text):
@@ -136,9 +138,19 @@ def extract_item_1a(text: str) -> tuple[str, str] | None:
         if text[ls:s].strip():        # not at a line start: mid-sentence mention
             continue
         tail = text[m.end():m.end() + 140]
-        # A cross-reference continues with "of/in this report", and a TOC row
-        # leads with dots or a page number. Either way it is not the section.
-        if re.match(r"(?i)[\s\u201d\"]*\.?\s*(of|in|and\s+in|hereof|section|on\s+form)\b", tail):
+        # A cross-reference reads "Item 1A in this report" / "of this Annual
+        # Report"; the real heading is followed by prose. Matching a bare "in"
+        # rejected every heading followed by "In this section, ..." (HURC and
+        # most of the 41% loss). The phrase must be a genuine continuation.
+        if re.match(r"(?i)[\s\u201d\"]*\.?\s*(of|and\s+in|hereof|on\s+form)\b",
+                    tail.split("\n", 1)[0]):
+            continue
+        # A cross-reference continues on the SAME line as the heading. A real
+        # heading ends its line and starts fresh prose below. Testing this
+        # structurally avoids having to enumerate continuation phrasings.
+        same_line = tail.split("\n", 1)[0]
+        if re.match(r"(?i)[\s\u201d\"]*\.?\s*in\s+(this|our|the|part|item|section|accordance)\b",
+                    same_line):
             continue
         if re.match(r"[\s.]*\.\s*\.", tail):
             continue
