@@ -39,8 +39,27 @@ to pass (AGENTS.md, "Checks are not beaten"). The sealed version is a
 **bundle**, complete rather than minimal, in the Descartes artifact format
 (see the 2026-11-03 artifact): the paper, every pinned source verbatim, the
 claims file, `MANIFEST.tsv` of sizes and SHA-256, and the POSIX `verify.sh`.
-It is built outside the repository and attached to the release. Open: Descartes
-has no public home yet, so the paper links the in-repo copy of its spec.
+It is built outside the repository and attached to the release.
+
+Status (2026-11-04, from `descartes/docs/public-mirror/integration-status.md`):
+**no paper seal is verified and no quote-failure list exists yet.** Descartes's
+origin is Entire; a public mirror (github.com/ethicalcapital/descartes) is
+pending review, and its stable specification URL is published only once the
+specification is actually there, so the paper links the in-repo copy until
+then. Before `descartes check` means anything here:
+
+- **Claims in Descartes's format.** Descartes reads six tab-separated columns
+  (label, rests_on, witness, statement, path, quote); the edition registry has
+  ten and addresses excerpts by commit. Under the one-paper model the registry
+  retires, so the paper's quotations are written directly as a six-column
+  claims file, by editorial selection, rather than converted by a Python
+  adapter (AGENTS.md, "Checks are not beaten"). Any adapter that is needed
+  belongs in Descartes, in Rust.
+- **Pinned source materialisation.** Each source the claims file cites is a
+  file at a path inside the checkout, matching its row in
+  `sources/MANIFEST.tsv`; derived text counts as evidence only with a
+  separately verified derivation (Descartes's recorded recipes).
+- Then the unedited check, the editorial pass on its failures, and the bundle.
 
 The original plan text follows for the record.
 
