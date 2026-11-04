@@ -228,3 +228,16 @@ steps:
     cmd: uv run scripts/epoch_data.py build
     deps: [snapshot://epoch/2026-11-04/all_datasets]
     outputs: [corpus/epoch/inventory.tsv, "corpus/epoch/*/**/*.csv"]
+
+  # ---------------------------------------------------------------- democracy proxies
+  snapshot://gdelt_rooney/2026-11-04/responses_and_reports:
+    cmd: uv run scripts/democracy_proxies.py fetch-gdelt --as-of 2026-11-04 && uv run scripts/democracy_proxies.py fetch-rooney --as-of 2026-11-04
+    outputs: [corpus/democracy/MANIFEST.tsv]
+  snapshot://ethicalcapital/2026-11-04/rooney_transcription:
+    # hand-transcribed from the pinned PDFs; `build` checks every quote and number against the page text
+    outputs: [corpus/democracy/rooney-transcription.tsv, corpus/democracy/rooney-questionnaire.tsv]
+  data://garden/democracy/2026-11-04/proxies:
+    cmd: uv run scripts/democracy_proxies.py build
+    deps: [snapshot://gdelt_rooney/2026-11-04/responses_and_reports, snapshot://ethicalcapital/2026-11-04/rooney_transcription]
+    outputs: [corpus/democracy/gdelt-timelines.tsv, corpus/democracy/gdelt-summary.tsv, corpus/democracy/rooney-reports.tsv,
+              corpus/democracy/rooney-toplines.tsv, corpus/democracy/rooney-items.tsv]

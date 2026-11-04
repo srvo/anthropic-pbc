@@ -12,6 +12,7 @@ any finding drawn from the dataset is true, and it says nothing about model
 output in proposals/.
 
 files (BLAKE3, path):
+73d7ae1984e74275badce0976e72d96991782ac263e3dbcc474eecaa4349e883  corpus/codebooks/codebook-v0.2-draft.meta.yml
 4ce819481c7be7333b725b047e00ce54035e73d4ab9c5b6a2325b13bb09598a0  corpus/codebooks/codebook-v0.2-draft.tsv
 
 scripts (BLAKE3, path):

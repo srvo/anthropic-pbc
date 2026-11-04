@@ -20,3 +20,6 @@ docs/_pending-*.md
 
 # Epoch AI snapshot bytes (large tables) -- pinned in corpus/epoch/MANIFEST.tsv
 .epochcorpus/
+
+# Democracy proxies: saved GDELT responses and Rooney PDFs -- pinned in corpus/democracy/MANIFEST.tsv
+.democorpus/

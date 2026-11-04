@@ -14,10 +14,12 @@ output in proposals/.
 files (BLAKE3, path):
 9872049e49b8e6eb3da8bd0205c59b50cae71f4ff60ddae8f66aee55634dee36  corpus/wikipedia-ai-risk/MANIFEST.tsv
 30fe4a895574de185ba3ad0715a80058875d05668f76ef8a20645d860613528d  corpus/wikipedia-ai-risk/README.md
+d2ebf8ac09b6a6cf4ebdcba9c70517341cd4981f66b96fa0e44fd9241e0fafce  corpus/wikipedia-ai-risk/ai_risk_articles.meta.yml
 1dc0fc66095467834752b2280755b778702726dcdb2e1bf7b0d9166f9faa76e1  corpus/wikipedia-ai-risk/articles.parquet
 282c647a249a6d30e6a0ddc50ccbf60dc0b54f4567b6f5a143fbed4c55c15e6c  corpus/wikipedia-ai-risk/dimensions-candidate.tsv
 b3ae691ef0bc10d5153c1902c1252a674a4b5e09442048d1332f2b69b45a6642  corpus/wikipedia-ai-risk/sections.tsv
 e2e1ca99167d58f47e71cd350f84e33873712f0e51d8bc220326d5e98d4bdf89  corpus/wikipedia-ai-risk/seeds.tsv
+ff017216776f421f76d641e83a668a59e6d618fb09de052277e6ed4556439221  corpus/wikipedia-ai-risk/snapshot.meta.yml
 ea0b8df7ef366ac5b63f2c0376539845767c2b6d71fc7ca1efc1206ec9dd5b8c  corpus/wikipedia-ai-risk/windows.parquet
 
 scripts (BLAKE3, path):

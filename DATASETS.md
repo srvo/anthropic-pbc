@@ -33,6 +33,7 @@ Model output is a witness proposal in `proposals/`, never a finding
 | [Monthly CVE series](#cve) | 2026-11-04 | Baseline published daily; GitHub keeps release assets about six weeks | 2 | unsigned |
 | [Epoch AI datasets snapshot](#epoch) | 2026-11-04 | Each dataset updates on its own schedule (see the Updated column); bundles are regenerated per request, so saved bytes are the pin | 18 | unsigned |
 | [NLI codebooks](#codebooks) | — | Changes by human review only | — | unsigned |
+| [Health-of-democracy proxies](#democracy) | 2026-11-04 | GDELT updates every 15 minutes (TV archive ends 2024-10); Rooney: 13 reports from 2024-10 to 2026-05; API responses are not reproducible, so saved bytes are the pin | 34 | unsigned |
 
 ---
 
@@ -290,6 +291,34 @@ Refresh:
 
 ---
 
+<a id="democracy"></a>
+
+## Health-of-democracy proxies
+
+| | |
+|---|---|
+| Source | GDELT TV 2.0 and DOC 2.0 API responses (phrase timelines); Notre Dame Rooney Democracy Institute Rooney Reports R01-R13 and two questionnaires |
+| License | GDELT: open use with citation; Rooney: PDFs pinned by hash, not redistributed (see corpus/democracy/README.md) |
+| Pinned as of | 2026-11-04 |
+| Source cadence | GDELT updates every 15 minutes (TV archive ends 2024-10); Rooney: 13 reports from 2024-10 to 2026-05; API responses are not reproducible, so saved bytes are the pin |
+| Committed | Timelines and hand-transcribed survey toplines with page-anchored quotes; raw responses and PDFs local only; 7 of 24 GDELT responses not pinned (rate limit) |
+| Folder | `corpus/democracy` · 9 files · 2.2 MB |
+| Manifest | 34 rows · BLAKE3 `107c7d74e31d3aab` |
+| Method | [`docs/democracy-proxies.md`](docs/democracy-proxies.md) |
+| Signature | unsigned (`attestations/datasets/`) |
+
+Refresh:
+
+    uv run scripts/democracy_proxies.py fetch-gdelt --as-of YYYY-MM-DD && uv run scripts/democracy_proxies.py fetch-rooney --as-of YYYY-MM-DD && uv run scripts/democracy_proxies.py build
+
+| Step (dag.yml) | Status |
+|---|---|
+| `snapshot://ethicalcapital/2026-11-04/rooney_transcription` | ok |
+| `snapshot://gdelt_rooney/2026-11-04/responses_and_reports` | ok |
+| `data://garden/democracy/2026-11-04/proxies` | ok |
+
+---
+
 ## Compute graph
 
 Every step, in dependency order, from `dag.yml` (OWID-style URIs). Status compares content
@@ -300,6 +329,9 @@ hashes with `dag.lock.tsv`: `inputs` means rebuild, `rebuilt`/`upstream` mean re
 |---|---|---|
 | `snapshot://cvelistv5/2026-11-04/baseline` | ok | 0 |
 | `data://garden/cve/2026-11-04/monthly_series` | ok | 1 |
+| `snapshot://ethicalcapital/2026-11-04/rooney_transcription` | ok | 0 |
+| `snapshot://gdelt_rooney/2026-11-04/responses_and_reports` | ok | 0 |
+| `data://garden/democracy/2026-11-04/proxies` | ok | 2 |
 | `snapshot://defeatbeta/2026-11-04/stock_earning_call_transcripts` | ok | 0 |
 | `snapshot://wikipedia/2026-10-27/sp500_constituents` | ok | 1 |
 | `data://meadow/earnings_calls/2026-11-04/ai_windows` | ok | 2 |

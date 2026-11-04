@@ -1,0 +1,17 @@
+namespace: anthropic-pbc-dataset
+dataset: democracy
+title: Health-of-democracy proxies
+pinned_as_of: 2026-11-04
+registry: corpus/datasets.tsv
+
+By signing this record, the signer attests that, when they signed: the files listed
+had exactly these BLAKE3 hashes; the dataset's own verify step (where it has one)
+passed; and, where scripts are listed, the files are the output of those scripts
+run on the sources pinned in the dataset's MANIFEST.tsv. It does not attest that
+any finding drawn from the dataset is true, and it says nothing about model
+output in proposals/.
+
+files (BLAKE3, path):
+
+scripts (BLAKE3, path):
+30838f4eed4963ba018d0de9230f44c6259e31cf8e77356d1008ed8b796a737b  scripts/democracy_proxies.py
