@@ -1,0 +1,15 @@
+{
+  "tool_use_id": "toolu_01MoS6GHbKPAigwSLp4mDEDi",
+  "agent_id": "a82b202e747279836",
+  "subagent_type": "Explore",
+  "task_description": "Map the Anthropic report's argument",
+  "token_usage": {
+    "input_tokens": 12,
+    "cache_creation_tokens": 77324,
+    "cache_read_tokens": 257271,
+    "output_tokens": 4159,
+    "api_call_count": 6
+  },
+  "started_at": "2026-11-04T10:47:34.146855-07:00",
+  "completed_at": "2026-11-04T10:48:14.612246-07:00"
+}
