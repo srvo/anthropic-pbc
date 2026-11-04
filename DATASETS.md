@@ -97,7 +97,7 @@ Refresh:
 | License | Public SEC filings; ODC-BY (index) |
 | Pinned as of | — |
 | Source cadence | EDGAR updates continuously |
-| Committed | Store is local (.rfcorpus/); method doc only |
+| Committed | Nothing committed; source unpinned; store is local only (.rfcorpus/); method doc only |
 | Folder | — |
 | Manifest | — rows · BLAKE3 `—` |
 | Method | [`docs/risk-factor-corpus.md`](docs/risk-factor-corpus.md) |
@@ -105,7 +105,7 @@ Refresh:
 
 Refresh:
 
-    uv run scripts/rf_extract.py (see doc)
+    # not rebuildable yet (no MANIFEST, no dag step); local runs: uv run scripts/rf_extract.py, see doc
 
 ---
 
