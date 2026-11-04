@@ -1,0 +1,17 @@
+hypothesis	n_windows	n_deberta	n_modernbert	n_both
+about_ai	3749	2225	2345	2091
+safety_ethics	3749	1345	1566	1069
+ai_risk	3749	1032	1116	833
+regulation	3749	925	912	754
+cyber	3749	396	443	261
+ip	3749	266	251	182
+bias	3749	246	193	166
+governance	3749	325	154	102
+privacy	3749	240	153	81
+accuracy	3749	101	159	69
+labor	3749	61	53	40
+ai_opportunity	3749	57	128	35
+energy	3749	44	41	33
+capex	3749	5	12	1
+disruption	3749	10	8	1
+supply	3749	2	2	0
