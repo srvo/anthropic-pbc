@@ -1383,7 +1383,7 @@ Caveats are the publishers' own.
 | Mechanism | Cybersecurity governance, Reg. S-K Item 106 ([Release 33-11216](https://www.sec.gov/rules-regulations/2023/07/s7-09-22)) | SEC | Annual reports for fiscal years ending on or after 2023-12-15 | Mandated governance disclosure for the same risk the filer lists in Item 1A |
 | Mechanism | Clawback policies, Rule 10D-1 ([Release 33-11126](https://www.sec.gov/rules-regulations/2022/10/listing-standards-recovery-erroneously-awarded-compensation)) | SEC | Policy filed as an exhibit to the annual report | A penalty mechanism in standard form: who pulls it, and on what trigger |
 | Mechanism | Proxy statements (DEF 14A): committee charters, compensation metrics | SEC / EDGAR | Free | Owner and independence for most board-level mechanisms |
-| Enforcement | [SEC litigation releases](https://www.sec.gov/enforcement-litigation/litigation-releases) and [AAERs](https://www.sec.gov/enforcement-litigation/accounting-auditing-enforcement-releases) | SEC | Free | The SEC states the AAER list "is not meant to be a complete and exhaustive compilation" |
+| Enforcement | [SEC litigation releases](https://www.sec.gov/enforcement-litigation/litigation-releases) and [AAERs](https://www.sec.gov/enforcement-litigation/accounting-auditing-enforcement-releases) | SEC | Free | The SEC states the AAER list "is not meant to be a complete and exhaustive compilation" [source identified, not yet pinned: https://www.sec.gov/enforcement-litigation/accounting-auditing-enforcement-releases] |
 | Enforcement | Form 8-K Item 1.05 incident filings | SEC / EDGAR | Since 2023-12-18 | Many incidents are filed under Item 8.01 instead ([Debevoise tracker](https://www.debevoisedatablog.com/2026/05/21/cybersecurity-incident-disclosure-form-8-k-tracker-two-year-update/): 29 under 1.05 vs 50 under 8.01 as of 2026-05-21); filter on both |
 | Enforcement | [Violation Tracker](https://violationtracker.goodjobsfirst.org/) | Good Jobs First | Federal cases since 2000 plus state and local; 700,000+ cases | Downloads are subscriber-only; redistribution terms unconfirmed; excludes penalties under $5,000 |
 | Enforcement | [EPA ECHO](https://echo.epa.gov/tools/data-downloads) | EPA | Free bulk CSV; 1.5M+ facilities | No parent-company key; facility→parent mapping is ours to build |
@@ -1404,6 +1404,7 @@ row diffs against the prior year.
 - *Hypothetical vs realized.* Risks written as "could" after they have
   happened. The SEC charged Facebook $100M for presenting data misuse as
   hypothetical when it "had in fact been misused"
+  [source identified, not yet pinned: https://www.sec.gov/newsroom/press-releases/2019-140]
   ([2019-140](https://www.sec.gov/newsroom/press-releases/2019-140)).
 - *Boilerplate and specificity.* Similarity to the industry centroid and to the
   firm's prior year ([Cohen, Malloy & Nguyen 2020](https://onlinelibrary.wiley.com/doi/abs/10.1111/jofi.12885)),
