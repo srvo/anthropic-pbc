@@ -1,0 +1,15 @@
+{
+  "tool_use_id": "toolu_01Ctx1HGCNdgqsby5otVGh73",
+  "agent_id": "ab3f1f4594affa5a2",
+  "subagent_type": "general-purpose",
+  "task_description": "Praxis-branded edition PDF",
+  "token_usage": {
+    "input_tokens": 168,
+    "cache_creation_tokens": 296925,
+    "cache_read_tokens": 16584940,
+    "output_tokens": 92070,
+    "api_call_count": 82
+  },
+  "started_at": "2026-11-04T14:17:00.710976-07:00",
+  "completed_at": "2026-11-04T14:32:31.718581-07:00"
+}
