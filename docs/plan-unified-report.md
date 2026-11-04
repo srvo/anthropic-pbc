@@ -77,7 +77,7 @@ Paper sections in brackets are what each step draws on.
      hard its verification was. Its CEO's view of its risk, in conversation
      with Sloane: the only thing that can go wrong is that the good things do
      not happen. The scrutiny on it is immense, like regulating a lemonade
-     stand like a refinery. [Opening, Wood Cache] *Needs Sloane:* whether to
+     stand like crazy. [Opening, Wood Cache] *Needs Sloane:* whether to
      quote the CEO, and a source for any "first to complete" claim about its
      audit (not in the paper; Descartes will need one).
    - **The missed risk.** Scrutiny runs backwards: the small, observable
