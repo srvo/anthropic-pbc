@@ -23,3 +23,8 @@ docs/_pending-*.md
 
 # Democracy proxies: saved GDELT responses and Rooney PDFs -- pinned in corpus/democracy/MANIFEST.tsv
 .democorpus/
+
+# Local agent and interpreter state
+scripts/__pycache__/
+.claude/worktrees/
+.claude/settings.local.json

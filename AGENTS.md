@@ -39,7 +39,9 @@ its own attribution README.
 - **Commit each piece as soon as it is complete and verified**: rebuild
   byte-identical, `verify` passes. Small commits, one corpus or one result each.
 - **Keep to your own files.** Others work in this tree at the same time. Stage
-  only your own paths and hunks; never stage `__pycache__/` or `.claude/`.
+  only your own paths and hunks. The agent hook configs (`.claude/settings.json`,
+  `.codex/`, `.cursor/`, `.factory/`, `.opencode/`, `.pi/`) are tracked; all
+  other agent state stays out of git.
 - **Disagree in the open.** A finding is changed by appending to the spec's
   §10 log, never by rewriting earlier entries. Codebooks change only by human
   review: a draft is marked `DRAFT` until approved.
@@ -129,3 +131,8 @@ codebook, pass `--units`, `--codebook`, `--id-col` and `--out`.
   never merge, by design. To combine workers, pass the same `--backend`.
 - Without `--out`, the classifier writes to `proposals/earnings-calls/<codebook stem>/`,
   which would overwrite earnings-call results when another corpus reuses a codebook.
+
+<!-- entire-agent:begin -->
+Read .entire/agent-guide.md for this repository's workflow, source inspection, and verification guidance.
+@.entire/agent-guide.md
+<!-- entire-agent:end -->
