@@ -117,6 +117,11 @@ codebook, pass `--units`, `--codebook`, `--id-col` and `--out`.
   fitted to the case in front of them. Descartes stays small, simple Rust: no
   Python around it, and sources reach it only through its own recorded
   recipes. (Sloane, 2026-11-04.)
+- **Always pin, always verify, always breadcrumb.** Every quotation is
+  either a verified quotation of a pinned source, with a trail back to it, or
+  it is not in quotation marks. Nothing in between: no paraphrase in quotation
+  marks, no "approximately quoted", no unpinned source quoted as if checked.
+  (Sloane, 2026-11-04.)
 - **Deterministic.** No clock, host or random id enters any output; time is a
   recorded argument. A rebuild must be byte-identical, so check that by
   re-hashing.
