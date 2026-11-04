@@ -247,6 +247,13 @@ with tempfile.TemporaryDirectory() as d:
     b.dialogue()
     expect("dialogue table without a source's window fails", any("# window wikipedia" in e for e in b.errs))
 
+# Low. float32 model scores round from their own shortest repr; a double that is not float32 is refused
+import struct  # noqa: E402
+f32 = struct.unpack("<f", struct.pack("<f", 0.38595))[0]
+expect("float32 score rounds from its float32 repr (0.38595 -> 0.3860)", display.score(f32, 4, float32=True) == "0.3860")
+expect("the widened double repr would round the other way", display.score(f32, 4) == "0.3859")
+expect("a non-float32 value passed as float32 is refused", raises(lambda: display.score(0.1, 2, float32=True), ValueError))
+
 # M1. the source commit is the last commit touching an input, so committing the outputs keeps --check passing
 with tempfile.TemporaryDirectory() as d:
     g = Path(d)

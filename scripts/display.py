@@ -16,6 +16,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from decimal import ROUND_HALF_UP, Decimal, localcontext
+import struct
 from fractions import Fraction
 
 
@@ -70,14 +71,29 @@ def kappa(n: int, pos_a: int, pos_b: int, agree: int) -> Fraction | None:
     return None if pe == 1 else (po - pe) / (1 - pe)
 
 
-def score(x: float, places: int) -> str:
+def _as_f32(x: float) -> float:
+    return struct.unpack("<f", struct.pack("<f", x))[0]
+
+
+def shortest_f32(x: float) -> str:
+    """The shortest decimal that reads back as the same float32 (what numpy prints for a float32).
+    x must hold a float32 value exactly, as it does when read from a FLOAT column."""
+    if _as_f32(x) != x:
+        raise ValueError(f"{x!r} is not a float32 value")
+    return next(s for s in (f"{x:.{k}g}" for k in range(1, 10)) if _as_f32(float(s)) == x)
+
+
+def score(x: float, places: int, *, float32: bool = False) -> str:
     """A model probability, the one float display accepts. Model scores are measurements,
-    not counts; they are shown half up from their shortest decimal repr."""
+    not counts; they are shown half up from their shortest decimal repr. A score stored as
+    float32 (the witnesses' p_entail) is rounded from its float32 shortest repr, not from
+    the longer repr of the same value widened to a double."""
     if not isinstance(x, float):
         raise TypeError("score takes the model's float probability")
     if not 0.0 <= x <= 1.0:
         raise ValueError(f"score {x} outside 0..1")
-    return format(Decimal(repr(x)).quantize(Decimal(1).scaleb(-places), rounding=ROUND_HALF_UP), "f")
+    r = shortest_f32(x) if float32 else repr(x)
+    return format(Decimal(r).quantize(Decimal(1).scaleb(-places), rounding=ROUND_HALF_UP), "f")
 
 
 def cell(v) -> str:
@@ -154,6 +170,7 @@ def selftest() -> None:
     assert kappa(10, 5, 5, 10) == 1 and kappa(4, 4, 4, 4) is None
     assert round_half_up(kappa(10, 5, 5, 0), 3) == "-1.000"
     assert score(0.12345, 4) == "0.1235" and score(1.0, 2) == "1.00"
+    assert score(_as_f32(0.38595), 4, float32=True) == "0.3860"   # widened repr 0.38594999... would give 0.3859
     for bad in (0.1, Fraction(1, 2)):
         try:
             cell(bad)
