@@ -1,0 +1,42 @@
+{
+  "cli_version": "0.12.2",
+  "checkpoint_id": "01M6M3MQVSGYM6PJXMN4NTJC3R",
+  "strategy": "manual-commit",
+  "branch": "ec-ai-corpus",
+  "checkpoints_count": 1,
+  "files_touched": [
+    ".gitignore",
+    "AGENTS.md",
+    "CLAUDE.md"
+  ],
+  "sessions": [
+    {
+      "metadata": "/0/metadata.json",
+      "transcript": "/0/full.jsonl",
+      "compact_transcript": "/0/transcript.jsonl",
+      "content_hash": "/0/content_hash.txt",
+      "prompt": "/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 20,
+    "cache_creation_tokens": 160413,
+    "cache_read_tokens": 1512014,
+    "output_tokens": 4547,
+    "api_call_count": 9
+  },
+  "redaction": {
+    "replacements": 37,
+    "layers": {
+      "betterleaks": 0,
+      "connection_string": 0,
+      "credential_key": 0,
+      "credential_value": 0,
+      "credentialed_uri": 0,
+      "entropy": 37,
+      "key_context": 0,
+      "provider_token": 0,
+      "shell_stdin": 0
+    }
+  }
+}
