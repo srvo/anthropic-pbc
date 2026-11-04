@@ -1,0 +1,15 @@
+{
+  "tool_use_id": "toolu_01WeGhhQoLEXNy5Qw64SP57j",
+  "agent_id": "aaab12c0b1d961a7d",
+  "subagent_type": "general-purpose",
+  "task_description": "Unified report phases 1-3",
+  "token_usage": {
+    "input_tokens": 116,
+    "cache_creation_tokens": 252497,
+    "cache_read_tokens": 9831262,
+    "output_tokens": 62285,
+    "api_call_count": 57
+  },
+  "started_at": "2026-11-04T14:46:36.452666-07:00",
+  "completed_at": "2026-11-04T14:58:26.020691-07:00"
+}
