@@ -323,7 +323,7 @@ with governments and does not describe our own model development or release
 timelines, which continue to be informed by our risk assessments." Meanwhile
 "Our business model requires substantial and increasing capital to support our
 ability to remain competitive and to stay at the frontier of AI." (S-1.)
-**[CONFIRMED that the S-1 says this; quotes to be run through Descartes.]**
+**[Found in the S-1; Descartes check pending.]**
 
 The Responsible Scaling Policy (RSP), the document in which Anthropic commits
 to safety measures as its models grow more capable, makes the condition
@@ -339,7 +339,8 @@ says these commitments "do not preclude us from taking cautionary action" and
 that Anthropic "would strongly consider pausing development and/or deployment
 to improve the safety profiles of our models even in cases not covered below."
 **[CONFIRMED/HIGH: the binding delay commitment is conditioned on Anthropic
-holding the lead, or on competitors already meeting a strong safety bar.]**
+holding the lead, or on competitors already meeting a strong safety bar.
+Read on RSP p.17; Descartes check pending.]**
 
 **[OPINION]** Read together: hold back while in the lead, and otherwise keep
 pace. That is "only we can save us" written as policy. If it is true that only

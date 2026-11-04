@@ -110,6 +110,13 @@ codebook, pass `--units`, `--codebook`, `--id-col` and `--out`.
   bulk data with ids, offsets and hashes and rebuild it from a pinned source;
   commit quotes, never whole transcripts, documents or corpora. Praxis
   `PRINCIPLES.md` P1.
+- **Checks are not beaten.** A failing check is a finding. Never write a
+  script that reshapes inputs, normalises sources or lengthens evidence until
+  a check passes; decide what to quote and claim by editorial judgement, and
+  let the check report what it finds. Checks and scripts stay general, never
+  fitted to the case in front of them. Descartes stays small, simple Rust: no
+  Python around it, and sources reach it only through its own recorded
+  recipes. (Sloane, 2026-11-04.)
 - **Deterministic.** No clock, host or random id enters any output; time is a
   recorded argument. A rebuild must be byte-identical, so check that by
   re-hashing.
