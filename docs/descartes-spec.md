@@ -1,5 +1,7 @@
 # Descartes
 
+> **Copy.** This document comes from the Praxis/Descartes project and describes that project, not this repository. Relative links and code paths (`src/`, `claims/`, `sources/`, `Cargo.toml`, ...) point into that project and do not resolve here, except links to the other copied docs in this folder.
+
 Descartes is part of Praxis, an open-source release from Ethical Capital.
 Its license today is `MIT OR Apache-2.0` (`Cargo.toml`). A Praxis license
 has not been written yet.
@@ -484,17 +486,17 @@ anything:
 ## 11. Not part of Descartes
 
 Design notes that bind nothing until a rule above names them:
-- [`docs/primitives.md`](docs/primitives.md): evaluations, frameworks,
+- [`docs/primitives.md`](primitives.md): evaluations, frameworks,
   `against`, custody, the roster;
-- [`docs/circles.md`](docs/circles.md) and
-  [`docs/epistemics.md`](docs/epistemics.md): fidelity and loss beyond what
+- [`docs/circles.md`](circles.md) and
+  [`docs/epistemics.md`](epistemics.md): fidelity and loss beyond what
   the code computes.
 
 Records:
 - [`docs/research-spike-permaculture-atomic.md`](docs/research-spike-permaculture-atomic.md), the source of P14–P16 and S6–S8;
 - [`docs/enclave-capital-introduction.md`](docs/enclave-capital-introduction.md) and [`docs/research-spike-enclave-domain-landscape.md`](docs/research-spike-enclave-domain-landscape.md), the source of T1–T3;
 - [`docs/adversarial-review-2026-11-02.md`](docs/adversarial-review-2026-11-02.md);
-- [`docs/strictness.md`](docs/strictness.md);
+- [`docs/strictness.md`](strictness.md);
 - [`docs/history.md`](docs/history.md);
 - [`docs/review-secure-alternatives-to-iroh.md`](docs/review-secure-alternatives-to-iroh.md).
 

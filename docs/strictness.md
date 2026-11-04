@@ -1,5 +1,7 @@
 # Is this the strictest standard?
 
+> **Copy.** This document comes from the Praxis/Descartes project and describes that project, not this repository. Relative links and code paths (`src/`, `claims/`, `sources/`, `Cargo.toml`, ...) point into that project and do not resolve here, except links to the other copied docs in this folder.
+
 Source: `sources/llm-witness-strictness.md`, an LLM text Sloane pasted on
 2026-11-02 (model unknown). Its claims and the checks against them are in
 `claims/strictness.tsv` (W = witness, K = check, S = verdict), and the loop

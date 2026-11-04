@@ -1,5 +1,7 @@
 # Loss ledger and analytical frameworks
 
+> **Copy.** This document comes from the Praxis/Descartes project and describes that project, not this repository. Relative links and code paths (`src/`, `claims/`, `sources/`, `Cargo.toml`, ...) point into that project and do not resolve here, except links to the other copied docs in this folder.
+
 ## Every stage is a translation
 
 Each stage carries the source into a new form, and

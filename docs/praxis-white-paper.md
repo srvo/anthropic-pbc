@@ -1,5 +1,7 @@
 # Praxis — White Paper (Consolidation Draft)
 
+> **Copy.** This document comes from the Praxis/Descartes project and describes that project, not this repository. Relative links and code paths (`src/`, `claims/`, `sources/`, `Cargo.toml`, ...) point into that project and do not resolve here, except links to the other copied docs in this folder.
+
 **Status:** Draft for public review. Consolidation of the Descartes repository
 as it stood at commit `1a2951d` (two commits: root + first outside witness).
 **Companion:** [`praxis-standard.md`](praxis-standard.md) — normative skeleton
@@ -51,7 +53,7 @@ without its tier.
 > independently OCR-confirmed 10,619/10,910 (97.33%, circle 2), left 2.41%
 > of ink in 17 regions outside any word box, and did not capture tables.
 > ([`claims/fidelity-secure-alternatives-to-iroh.tsv`](../claims/fidelity-secure-alternatives-to-iroh.tsv:3),
-> [`docs/circles.md`](../docs/circles.md:26))
+> [`docs/circles.md`](circles.md))
 >
 > **P2 [BUILT]** Witnesses — including the LLM witnesses this repo itself
 > used — assert false things fluently: wrong BLAKE3 dependency claims,
@@ -76,22 +78,22 @@ without its tier.
 > **P5 [DESIGNED]** Trust stratifies: circle 0 source bytes → 1 one
 > instrument → 2 independent instrument → 3 LLM proposal → 4 human
 > discernment. Only the source is assumed.
-> ([`docs/circles.md`](../docs/circles.md:7))
+> ([`docs/circles.md`](circles.md))
 >
 > **P6 [DESIGNED]** Judgment must not hard-code one framework. Frameworks
 > become ingested data; an `evaluation` pins framework version, rating,
 > and justifying claims. The evaluation node does not exist yet.
-> ([`docs/epistemics.md`](../docs/epistemics.md:30))
+> ([`docs/epistemics.md`](epistemics.md))
 >
 > **P7 [DESIGNED]** Conflict is data, not overwrite: a proposed `against`
 > edge, revisits as new nodes, unresolved conflict never silent.
-> ([`docs/primitives.md`](../docs/primitives.md:41))
+> ([`docs/primitives.md`](primitives.md))
 >
 > **P8 [DESIGNED]** "More strict" has no total order when rules constrain
 > different things, so conflict needs a person and a record — resolved in
 > the client's interest, then by proposed reversibility/visibility
-> tie-breaks. ([`docs/strictness.md`](../docs/strictness.md:10),
-> [`docs/primitives.md`](../docs/primitives.md:14))
+> tie-breaks. ([`docs/strictness.md`](strictness.md),
+> [`docs/primitives.md`](primitives.md))
 >
 > **P9 [DESIGNED]** The first tenant makes P6–P7 concrete: a correction
 > held "in his head, where the next run cannot see it" is judgment that
@@ -130,7 +132,7 @@ its own witnesses being wrong. Everything past that sentence is design.
 
 ### 1.1 Translation loss is measurable; a single "fidelity score" hides it [BUILT/DESIGNED]
 
-[`docs/epistemics.md`](../docs/epistemics.md:5): every stage is a
+[`docs/epistemics.md`](epistemics.md): every stage is a
 translation — ingestion (bytes→artifact, identity), derivation (PDF→text,
 formal), distillation (text→claims, semantic), evaluation (claims→ratings,
 not built). The ledger reports loss per component per circle and "never
@@ -172,7 +174,7 @@ content addressing as credibility, a quote as an argument — overclaims.
 Descartes' own pasted-draft corrections make the same point about
 Admiralty/ACH machinery: inventing 3/2/1 weights and calling hypotheses
 "mathematically eliminated" overstates ACH
-([`docs/epistemics.md`](../docs/epistemics.md:78)).
+([`docs/epistemics.md`](epistemics.md)).
 
 ### 1.4 Corrections evaporate [DESIGNED, single-subject]
 
@@ -205,7 +207,7 @@ implies but never states.
   one matched fragment each (§6.2). Their conclusions are **not** repo claims.
 - No audio/image/table path: testimony that cannot be quoted (speech,
   photos) suffers "evidentiary paralysis"; ingestion not built
-  ([`docs/strictness.md`](../docs/strictness.md:100)).
+  ([`docs/strictness.md`](strictness.md)).
 
 ---
 
@@ -299,7 +301,7 @@ The verifier decides three things only: quotes exist uniquely in held
 bytes, links resolve to the right kinds, and the graph rebuilds to the same
 root. Entailment, credibility, and conflict resolution are human acts that
 must leave records. "Say what is true, say who decided, say whose interest"
-([`docs/primitives.md`](../docs/primitives.md:3)) — the second and third clauses are
+([`docs/primitives.md`](primitives.md)) — the second and third clauses are
 governance, and both are unbuilt.
 
 ### 4.2 The designed stack [DESIGNED]
@@ -406,7 +408,7 @@ in the graph.
 ### 5.2 DESIGNED — judgment layer and enclaves
 
 Evaluation/framework nodes, `against`, gates/custody/interest/roster
-(build order in [`docs/primitives.md`](../docs/primitives.md:143));
+(build order in [`docs/primitives.md`](primitives.md));
 per-tenant strata with commons joins by opt-in contribution; attested
 operator reads; queue fairness; export bundle; custody/teardown. Blob-area
 design contradicts between brief ("either is defensible") and landscape
@@ -594,8 +596,8 @@ n=1), "commons" for podcast transcripts undefined, endowment weights;
 |---|---|
 | Objective, template, constraints P1–P16, loop, contracts, work order | [`README.md`](../README.md:1) (§0–§11, 505 lines) |
 | Node kinds, identity, verifier semantics | [`src/model.rs`](../src/model.rs:22), [`src/lib.rs`](../src/lib.rs:1), [`src/main.rs`](../src/main.rs:1) |
-| Loss/fidelity, circles 0–4 | [`docs/epistemics.md`](../docs/epistemics.md:1), [`docs/circles.md`](../docs/circles.md:1), [`claims/fidelity-secure-alternatives-to-iroh.tsv`](../claims/fidelity-secure-alternatives-to-iroh.tsv:1), `artifacts/fidelity/*`, `artifacts/loss/*` |
-| Judgment layer design | [`docs/primitives.md`](../docs/primitives.md:1), [`docs/strictness.md`](../docs/strictness.md:1), [`claims/strictness.tsv`](../claims/strictness.tsv:1) |
+| Loss/fidelity, circles 0–4 | [`docs/epistemics.md`](epistemics.md), [`docs/circles.md`](circles.md), [`claims/fidelity-secure-alternatives-to-iroh.tsv`](../claims/fidelity-secure-alternatives-to-iroh.tsv:1), `artifacts/fidelity/*`, `artifacts/loss/*` |
+| Judgment layer design | [`docs/primitives.md`](primitives.md), [`docs/strictness.md`](strictness.md), [`claims/strictness.tsv`](../claims/strictness.tsv:1) |
 | Enclave tenant, actors, market | [`docs/enclave-capital-introduction.md`](../docs/enclave-capital-introduction.md:1), [`docs/research-spike-enclave-domain-landscape.md`](../docs/research-spike-enclave-domain-landscape.md:1) |
 | Permaculture/FAIR framing, endowment | [`docs/research-spike-permaculture-atomic.md`](../docs/research-spike-permaculture-atomic.md:1), [`docs/endowment.md`](../docs/endowment.md:1) |
 | Witness falsifications | [`claims/blake3-decision.tsv`](../claims/blake3-decision.tsv:1), [`claims/secure-alternatives-to-iroh.tsv`](../claims/secure-alternatives-to-iroh.tsv:1), [`docs/review-secure-alternatives-to-iroh.md`](../docs/review-secure-alternatives-to-iroh.md:1) |
