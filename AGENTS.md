@@ -65,17 +65,24 @@ its own attribution README.
 
 ## Compute
 
-GPU scoring runs on **Modal** in the maintainer's setup (the local `modal`
-profile via `uvx`, no BWS secret):
+**Compute is vendor-agnostic.** The scoring lives in `scripts/ec_classify.py`,
+which runs on any machine: CUDA, Apple MPS or CPU. It can split the shards
+across several machines (`--workers N --worker i`, then `--merge-only`).
+Results are the same wherever they run, up to the documented bfloat16/float32
+tolerance. Every run records its device, GPU, library versions and backend
+tag, and runs from different hardware never merge silently.
+
+Remote GPU wrappers are conveniences on top of that script, never
+requirements. The maintainer uses Modal (`scripts/ec_classify_modal.py`,
+through the local `modal` profile via `uvx`):
 
     uvx --with duckdb==2.0.0 --with blake3 modal run scripts/ec_classify_modal.py --model deberta
 
-Without Modal, `scripts/ec_classify.py` runs the same scoring locally (MPS or
-CPU) and can split shards across machines. Measured speeds and costs are in
-`docs/earnings-call-ai-corpus.md` §9. For another corpus or codebook, pass
-`--units`, `--codebook`, `--id-col` and `--out`. Copy the `ec_classify_modal.py`
-pattern for new GPU jobs: shared scoring functions in the local script,
-imported by the Modal class.
+A wrapper for another provider (RunPod, a university cluster, k3s) follows the
+same pattern. It imports `ec_classify`'s scoring functions, adds no logic of
+its own, and tags its shards with its own `--backend`. Measured speeds and
+costs are in `docs/earnings-call-ai-corpus.md` §9. To score another corpus or
+codebook, pass `--units`, `--codebook`, `--id-col` and `--out`.
 
 ## Conventions
 
