@@ -165,7 +165,7 @@ def main() -> int:
     sub.add_parser("verify")
     s = sub.add_parser("sign")
     s.add_argument("--key", required=True, help="path to your SSH private key (ssh-keygen reads it; agent keys work)")
-    s.add_argument("--signer", required=True, help='name recorded in allowed_signers, e.g. "Sloane Ortel"')
+    s.add_argument("--signer", required=True, help='name recorded in allowed_signers, as you want it to appear')
     s.add_argument("datasets", nargs="*", help="dataset ids (default: all)")
     a = ap.parse_args()
     return {"record": cmd_record, "status": cmd_status, "verify": cmd_verify, "sign": cmd_sign}[a.cmd](a)
