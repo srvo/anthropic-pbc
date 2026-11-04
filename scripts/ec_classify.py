@@ -65,9 +65,9 @@ MODELS = {
 ID_COL = "window_id"
 
 
-def configure(units: str = "", codebook: str = "", id_col: str = "") -> None:
+def configure(units: str = "", codebook: str = "", id_col: str = "", out: str = "") -> None:
     """Point the scorer at another unit file / codebook (e.g. the analyst-question corpus).
-    Output goes to proposals/earnings-calls/<codebook stem>/."""
+    Output goes to proposals/earnings-calls/<codebook stem>/, or to `out` (relative to repo root)."""
     global WINDOWS, CODEBOOK, OUT, ID_COL
     if units:
         WINDOWS = (ROOT / units).resolve()
@@ -76,6 +76,8 @@ def configure(units: str = "", codebook: str = "", id_col: str = "") -> None:
         OUT = ROOT / "proposals" / "earnings-calls" / CODEBOOK.stem
     if id_col:
         ID_COL = id_col
+    if out:
+        OUT = ROOT / out
 
 
 MAX_LEN = 512
@@ -210,12 +212,13 @@ def main() -> int:
     ap.add_argument("--units", default="", help="unit parquet (id + text), relative to repo root")
     ap.add_argument("--codebook", default="", help="codebook TSV (id, group, hypothesis), relative to repo root")
     ap.add_argument("--id-col", default="", help="unit id column (default window_id)")
+    ap.add_argument("--out", default="", help="output dir relative to repo root (default proposals/earnings-calls/<codebook stem>)")
     ap.add_argument("--limit", type=int, default=0, help="score only the first N windows (smoke test; writes nothing)")
     a = ap.parse_args()
     if not 0 <= a.worker < a.workers:
         sys.exit("--worker must be in 0..workers-1")
 
-    configure(a.units, a.codebook, a.id_col)
+    configure(a.units, a.codebook, a.id_col, a.out)
     hyps, wins = load_inputs(a.limit)
     tag = make_tag(a.model, a.dtype, a.backend)
     chunks = shard_chunks(wins)

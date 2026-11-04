@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 460" font-family="system-ui,-apple-system,sans-serif" role="img" aria-labelledby="t d">
+<style>text{fill:#1b1b1b}.m{fill:#5f6368}.g{stroke:#e3e3e3}.b{fill:#2a6f97}</style>
+<rect width="920" height="460" fill="#fcfcfb"/>
+<title id="t">What kind of AI risk: executives vs Hacker News</title>
+<desc id="d">Share of AI-risk passages naming each risk type, in three sources, trailing 12 months.</desc>
+<text x="16" y="30" font-size="18" font-weight="600">What kind of AI risk? Executives vs Hacker News</text>
+<text x="16" y="52" font-size="13" class="m">Share of AI-risk units naming each type. Calls: 12 months to 2026-11-04. HN: 2025-09 to 2026-08.</text>
+<text x="190" y="80" font-size="13" font-weight="600">Earnings calls (executives)</text>
+<line x1="190.0" x2="190.0" y1="88" y2="404" class="g"/>
+<text x="190.0" y="420" font-size="11" class="m" text-anchor="middle">0%</text>
+<line x1="295.0" x2="295.0" y1="88" y2="404" class="g"/>
+<text x="295.0" y="420" font-size="11" class="m" text-anchor="middle">45%</text>
+<line x1="400.0" x2="400.0" y1="88" y2="404" class="g"/>
+<text x="400.0" y="420" font-size="11" class="m" text-anchor="middle">90%</text>
+<g><title>Earnings calls (executives): Safety / ethics / misuse, 12.4% (47 units)</title><rect x="190" y="97" width="28.9" height="16" rx="2" class="b"/><text x="222.9" y="109.0" font-size="11" class="m">12</text></g>
+<g><title>Earnings calls (executives): Cybersecurity, 35.9% (136 units)</title><rect x="190" y="123" width="83.8" height="16" rx="2" class="b"/><text x="277.8" y="135.0" font-size="11" class="m">36</text></g>
+<g><title>Earnings calls (executives): Regulation, 2.1% (8 units)</title><rect x="190" y="149" width="4.9" height="16" rx="2" class="b"/><text x="198.9" y="161.0" font-size="11" class="m">2</text></g>
+<g><title>Earnings calls (executives): Overspending / capex return, 8.2% (31 units)</title><rect x="190" y="175" width="19.1" height="16" rx="2" class="b"/><text x="213.1" y="187.0" font-size="11" class="m">8</text></g>
+<g><title>Earnings calls (executives): Data privacy, 3.4% (13 units)</title><rect x="190" y="201" width="7.9" height="16" rx="2" class="b"/><text x="201.9" y="213.0" font-size="11" class="m">3</text></g>
+<g><title>Earnings calls (executives): Intellectual property, 1.3% (5 units)</title><rect x="190" y="227" width="3.0" height="16" rx="2" class="b"/><text x="197.0" y="239.0" font-size="11" class="m">1</text></g>
+<g><title>Earnings calls (executives): Disruption of the business, 5.5% (21 units)</title><rect x="190" y="253" width="12.8" height="16" rx="2" class="b"/><text x="206.8" y="265.0" font-size="11" class="m">6</text></g>
+<g><title>Earnings calls (executives): Accuracy / hallucination, 0.0% (0 units)</title><rect x="190" y="279" width="0.0" height="16" rx="2" class="b"/><text x="194.0" y="291.0" font-size="11" class="m">0</text></g>
+<g><title>Earnings calls (executives): Jobs / labor, 1.6% (6 units)</title><rect x="190" y="305" width="3.7" height="16" rx="2" class="b"/><text x="197.7" y="317.0" font-size="11" class="m">2</text></g>
+<g><title>Earnings calls (executives): Energy / power, 0.5% (2 units)</title><rect x="190" y="331" width="1.2" height="16" rx="2" class="b"/><text x="195.2" y="343.0" font-size="11" class="m">0</text></g>
+<g><title>Earnings calls (executives): Chip &amp; supply constraints, 1.3% (5 units)</title><rect x="190" y="357" width="3.0" height="16" rx="2" class="b"/><text x="197.0" y="369.0" font-size="11" class="m">1</text></g>
+<g><title>Earnings calls (executives): Bias / fairness, 0.3% (1 units)</title><rect x="190" y="383" width="0.7" height="16" rx="2" class="b"/><text x="194.7" y="395.0" font-size="11" class="m">0</text></g>
+<text x="442" y="80" font-size="13" font-weight="600">HN: Anthropic</text>
+<line x1="442.0" x2="442.0" y1="88" y2="404" class="g"/>
+<text x="442.0" y="420" font-size="11" class="m" text-anchor="middle">0%</text>
+<line x1="547.0" x2="547.0" y1="88" y2="404" class="g"/>
+<text x="547.0" y="420" font-size="11" class="m" text-anchor="middle">45%</text>
+<line x1="652.0" x2="652.0" y1="88" y2="404" class="g"/>
+<text x="652.0" y="420" font-size="11" class="m" text-anchor="middle">90%</text>
+<g><title>HN: Anthropic: Safety / ethics / misuse, 40.1% (2479 units)</title><rect x="442" y="97" width="93.6" height="16" rx="2" class="b"/><text x="539.6" y="109.0" font-size="11" class="m">40</text></g>
+<g><title>HN: Anthropic: Cybersecurity, 23.3% (1441 units)</title><rect x="442" y="123" width="54.4" height="16" rx="2" class="b"/><text x="500.4" y="135.0" font-size="11" class="m">23</text></g>
+<g><title>HN: Anthropic: Regulation, 12.1% (748 units)</title><rect x="442" y="149" width="28.2" height="16" rx="2" class="b"/><text x="474.2" y="161.0" font-size="11" class="m">12</text></g>
+<g><title>HN: Anthropic: Overspending / capex return, 9.7% (598 units)</title><rect x="442" y="175" width="22.6" height="16" rx="2" class="b"/><text x="468.6" y="187.0" font-size="11" class="m">10</text></g>
+<g><title>HN: Anthropic: Data privacy, 6.5% (405 units)</title><rect x="442" y="201" width="15.2" height="16" rx="2" class="b"/><text x="461.2" y="213.0" font-size="11" class="m">6</text></g>
+<g><title>HN: Anthropic: Intellectual property, 5.6% (347 units)</title><rect x="442" y="227" width="13.1" height="16" rx="2" class="b"/><text x="459.1" y="239.0" font-size="11" class="m">6</text></g>
+<g><title>HN: Anthropic: Disruption of the business, 3.7% (231 units)</title><rect x="442" y="253" width="8.6" height="16" rx="2" class="b"/><text x="454.6" y="265.0" font-size="11" class="m">4</text></g>
+<g><title>HN: Anthropic: Accuracy / hallucination, 3.2% (196 units)</title><rect x="442" y="279" width="7.5" height="16" rx="2" class="b"/><text x="453.5" y="291.0" font-size="11" class="m">3</text></g>
+<g><title>HN: Anthropic: Jobs / labor, 1.1% (69 units)</title><rect x="442" y="305" width="2.6" height="16" rx="2" class="b"/><text x="448.6" y="317.0" font-size="11" class="m">1</text></g>
+<g><title>HN: Anthropic: Energy / power, 0.5% (29 units)</title><rect x="442" y="331" width="1.2" height="16" rx="2" class="b"/><text x="447.2" y="343.0" font-size="11" class="m">0</text></g>
+<g><title>HN: Anthropic: Chip &amp; supply constraints, 0.5% (31 units)</title><rect x="442" y="357" width="1.2" height="16" rx="2" class="b"/><text x="447.2" y="369.0" font-size="11" class="m">0</text></g>
+<g><title>HN: Anthropic: Bias / fairness, 0.4% (27 units)</title><rect x="442" y="383" width="0.9" height="16" rx="2" class="b"/><text x="446.9" y="395.0" font-size="11" class="m">0</text></g>
+<text x="694" y="80" font-size="13" font-weight="600">HN: AI security</text>
+<line x1="694.0" x2="694.0" y1="88" y2="404" class="g"/>
+<text x="694.0" y="420" font-size="11" class="m" text-anchor="middle">0%</text>
+<line x1="799.0" x2="799.0" y1="88" y2="404" class="g"/>
+<text x="799.0" y="420" font-size="11" class="m" text-anchor="middle">45%</text>
+<line x1="904.0" x2="904.0" y1="88" y2="404" class="g"/>
+<text x="904.0" y="420" font-size="11" class="m" text-anchor="middle">90%</text>
+<g><title>HN: AI security: Safety / ethics / misuse, 24.4% (740 units)</title><rect x="694" y="97" width="56.9" height="16" rx="2" class="b"/><text x="754.9" y="109.0" font-size="11" class="m">24</text></g>
+<g><title>HN: AI security: Cybersecurity, 85.4% (2591 units)</title><rect x="694" y="123" width="199.3" height="16" rx="2" class="b"/><text x="897.3" y="135.0" font-size="11" class="m">85</text></g>
+<g><title>HN: AI security: Regulation, 4.5% (138 units)</title><rect x="694" y="149" width="10.5" height="16" rx="2" class="b"/><text x="708.5" y="161.0" font-size="11" class="m">4</text></g>
+<g><title>HN: AI security: Overspending / capex return, 0.6% (19 units)</title><rect x="694" y="175" width="1.4" height="16" rx="2" class="b"/><text x="699.4" y="187.0" font-size="11" class="m">1</text></g>
+<g><title>HN: AI security: Data privacy, 12.8% (387 units)</title><rect x="694" y="201" width="29.9" height="16" rx="2" class="b"/><text x="727.9" y="213.0" font-size="11" class="m">13</text></g>
+<g><title>HN: AI security: Intellectual property, 2.6% (79 units)</title><rect x="694" y="227" width="6.1" height="16" rx="2" class="b"/><text x="704.1" y="239.0" font-size="11" class="m">3</text></g>
+<g><title>HN: AI security: Disruption of the business, 0.6% (18 units)</title><rect x="694" y="253" width="1.4" height="16" rx="2" class="b"/><text x="699.4" y="265.0" font-size="11" class="m">1</text></g>
+<g><title>HN: AI security: Accuracy / hallucination, 2.7% (81 units)</title><rect x="694" y="279" width="6.3" height="16" rx="2" class="b"/><text x="704.3" y="291.0" font-size="11" class="m">3</text></g>
+<g><title>HN: AI security: Jobs / labor, 0.2% (7 units)</title><rect x="694" y="305" width="0.5" height="16" rx="2" class="b"/><text x="698.5" y="317.0" font-size="11" class="m">0</text></g>
+<g><title>HN: AI security: Energy / power, 0.0% (1 units)</title><rect x="694" y="331" width="0.0" height="16" rx="2" class="b"/><text x="698.0" y="343.0" font-size="11" class="m">0</text></g>
+<g><title>HN: AI security: Chip &amp; supply constraints, 0.1% (2 units)</title><rect x="694" y="357" width="0.2" height="16" rx="2" class="b"/><text x="698.2" y="369.0" font-size="11" class="m">0</text></g>
+<g><title>HN: AI security: Bias / fairness, 0.2% (6 units)</title><rect x="694" y="383" width="0.5" height="16" rx="2" class="b"/><text x="698.5" y="395.0" font-size="11" class="m">0</text></g>
+<text x="180" y="109.0" font-size="12" text-anchor="end">Safety / ethics / misuse</text>
+<text x="180" y="135.0" font-size="12" text-anchor="end">Cybersecurity</text>
+<text x="180" y="161.0" font-size="12" text-anchor="end">Regulation</text>
+<text x="180" y="187.0" font-size="12" text-anchor="end">Overspending / capex return</text>
+<text x="180" y="213.0" font-size="12" text-anchor="end">Data privacy</text>
+<text x="180" y="239.0" font-size="12" text-anchor="end">Intellectual property</text>
+<text x="180" y="265.0" font-size="12" text-anchor="end">Disruption of the business</text>
+<text x="180" y="291.0" font-size="12" text-anchor="end">Accuracy / hallucination</text>
+<text x="180" y="317.0" font-size="12" text-anchor="end">Jobs / labor</text>
+<text x="180" y="343.0" font-size="12" text-anchor="end">Energy / power</text>
+<text x="180" y="369.0" font-size="12" text-anchor="end">Chip &amp; supply constraints</text>
+<text x="180" y="395.0" font-size="12" text-anchor="end">Bias / fairness</text>
+<text x="16" y="448" font-size="11" class="m">Ordered by HN: Anthropic. Two NLI witnesses must both score ≥ 0.5; a unit can name several types. Witness proposals, no gold set.</text>
+</svg>

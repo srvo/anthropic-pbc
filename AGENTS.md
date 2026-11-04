@@ -16,6 +16,14 @@ Repo content is CC0 except `corpus/*/`, which carries its own attribution README
 - **Earnings-call AI corpus**: `docs/earnings-call-ai-corpus.md` (method, unit,
   rebuild order). Data is in `corpus/earnings-calls/`.
 - **10-K Item 1A risk-factor corpus**: `docs/risk-factor-corpus.md`.
+- **Other corpora**, each with a method doc in `docs/`:
+  - Hacker News: `hacker-news-corpus.md`. It stores ids only and never commits
+    comment text or usernames.
+  - Wikipedia AI-risk articles: `wikipedia-ai-risk-corpus.md`.
+  - CVE monthly series: `cve-series.md`.
+- **Adding a source**: take broad, verifiable, normalisable data, such as
+  Epoch AI datasets, over hand-picked sensational sources. Hacker News is the
+  only social forum.
 
 ## Compute
 

@@ -462,3 +462,38 @@ in `gold/earnings-calls/`. Method:
   the firm's own earnings, such as an insurer's AI liability book or deposits
   drained by AI agents. Few ask about harm to anyone else. This is a reading,
   not a count, until the gold set is coded.
+
+### 2026-11-04 · Hacker News: Anthropic and AI-security comments, codebook v0.1
+
+**Status: witness proposals only; no gold set.** Method:
+[`hacker-news-corpus.md`](hacker-news-corpus.md). The repository holds ids,
+offsets and hashes, never comment text.
+
+- **Input.** `open-index/hacker-news` @ `c54ced59`, 2021-01 to 2026-08:
+  118,321 windows on 111,662 comments. The anthropic set has 105,559
+  windows and the ai_security set 12,762. Both witnesses ran on Modal L40S
+  against the unchanged `codebook-v0.1.tsv`.
+- **Agreement** (`proposals/hacker-news/report/agreement.tsv`). κ on
+  `ai_risk` is 0.54 in both sets, against 0.61 on calls.
+  `safety_ethics` drops to 0.52 (anthropic) and 0.24 (ai_security), and
+  `governance` to about 0.3.
+- **Precision read.** On HN, `safety_ethics` and `regulation` take in
+  general grievances: outages, terms of service, spending. A spot check
+  of 6 windows each found roughly half off-topic for `regulation`. The HN
+  type shares are therefore not comparable to calls in level, only in
+  rough order.
+- **Volume** (`report/by-month.tsv`). Anthropic comments rose from about
+  1,000 a month in early 2025 to 8,500–9,800 a month from February to July
+  2026. The share proposed as `ai_risk` rose from about 3.6% to 7–12%.
+- **Twelve months to 2026-08, share of AI-risk units naming each type**
+  (`report/risk-ranking-ttm.tsv`).
+
+  | Type | Calls | HN anthropic | HN ai_security |
+  |---|---|---|---|
+  | Cybersecurity | 36% | 23% | 85% |
+  | Safety, ethics, misuse | 12% | 40% | 24% |
+  | Regulation | 2% | 12% | 4% |
+  | Overspending / capex | 8% | 10% | 1% |
+
+  Accuracy and hallucination is 0 on calls and 3% on HN. IP is 1% on
+  calls and 6% on HN.

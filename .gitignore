@@ -8,3 +8,12 @@ docs/_pending-*.md
 
 # Earnings-call bulk source -- re-fetchable from corpus/earnings-calls/MANIFEST.tsv
 .eccorpus/
+
+# Hacker News bulk source + comment text -- never committed; re-fetchable from corpus/hacker-news/MANIFEST.tsv
+.hncorpus/
+
+# Wikipedia AI-risk wikitext -- re-fetchable from corpus/wikipedia-ai-risk/MANIFEST.tsv
+.wpcorpus/
+
+# CVE bulk snapshot -- re-fetchable from corpus/cve/MANIFEST.tsv
+.cvecorpus/
