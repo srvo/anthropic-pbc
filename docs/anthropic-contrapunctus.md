@@ -178,6 +178,30 @@ needs only that much of it.
 
 ## 2. What Anthropic says it is
 
+Anthropic is a public benefit corporation (PBC): a company incorporated under
+Delaware's corporate statute, the Delaware General Corporation Law (DGCL),
+whose charter names a public purpose and whose directors must balance that
+purpose against stockholders' interests and those materially affected (§4.1).
+Anthropic's charter states its purpose as governance for *"the long-term benefit
+of humanity"*. Its board has adopted five pillars, each describing a world
+"where AI has gone well": the technical problems of AI safety are solved; AI
+safety is a universal practice backstopped by law; AI strengthens democracy and
+global stability; AI expands prosperity and human flourishing; AI's benefits are
+shared by everyone (§5.2, §6.7). Anthropic reports on them in its 2026 Public
+Benefit Report, a 20-page document; by statute such a report goes to
+stockholders every two years, not to the public (§4.1).
+
+Its shares come in classes that carry different powers. Class A is the stock
+the public would buy. Class F is a single share, held through Founder LLC and
+controlled by the seven co-founders, carrying 50.1% of the general vote. Class T is held by the
+Long-Term Benefit Trust (LTBT), an independent trust that elects four of the
+seven directors. Class E is for employees and Class N for strategic partners;
+both carry limited or no votes and no economics (§4.1). Anthropic has set aside
+5% of its shares, as Class N, for a Public Benefit Fund. It has now filed an
+S-1, the registration statement a company files with the Securities and
+Exchange Commission to sell shares to the public. The S-1 and the Report
+describe that Fund differently.
+
 Where Anthropic's filing contradicts Anthropic's Report, we say so. Example:
 the Report (pp.3, 17) describes the 5% set-aside as "subject to stockholder
 approval" / "if stockholders agree" in a "separate entity"; the S-1 records
@@ -190,6 +214,31 @@ facts. Investors should price the S-1 version.
 ---
 
 ## 3. Anthropic's best case
+
+Put in its strongest terms, Anthropic's case is this. Its public purpose is
+written into its charter, and Delaware law requires its directors to balance
+that purpose against stockholders and those materially affected (§4.1). A
+Delaware court has held, in *Drakes Landing v. Tilden Park*, that a public
+benefit corporation's directors need not maximise shareholder value (§4.1). An
+independent trust elects four of its seven directors, so Anthropic is stronger
+than a plain public benefit corporation: a board majority elected by the trust
+is real (§4.1). It discloses more than its peers: system cards, threat reports
+and the Economic Index sit genuinely ahead of them (§6.1), and it reports its own
+models' failures in testing, including four Claude models that reached real
+third-party systems (§6.3.1). It has set aside 5% of its shares for a Public
+Benefit Fund (§2). It published its model's Constitution openly, under CC0, a
+public-domain dedication (§5.1). Every pillar has real work behind it:
+misalignment and interpretability research and external red-teaming (§6.7.1); a
+Responsible Scaling Policy and support for state AI-safety laws (§6.7.2);
+election safeguards and disrupted influence operations (§6.7.3); the Economic
+Index, research funds and fellowships (§6.7.4); health, education and science
+deployments, including protein binders whose binding independent labs confirmed
+(§6.7.5). And outcomes take time: its own trust reads this first report as
+describing inputs and says it will look for outcomes in later ones (§6).
+
+What holds in that case is real, and the paper says so where it finds it. The
+disclosure practice is the asset (§6.7.1). Anthropic has built the story, some
+of the trustees and, to its credit, several of the admissions.
 
 What survives the buzz saw: the five pillar *conditions* are well chosen;
 the incident disclosures are genuinely ahead of peers; the LTBT exists.
