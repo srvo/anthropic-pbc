@@ -151,6 +151,12 @@ CVE credits name Claude on {{cve_claude_total}} CVEs and any AI system on {{cve_
 - Human support review: pending.
 - Occurrences: what could change the conclusion; analysis.
 
+### Paper claims, verbatim at `{{paper_v0}}`
+
+Each line is an excerpt of edition {{paper_edition}} of the paper at `{{paper_v0}}`, re-sliced and re-hashed by the build; the bold part, where one is marked, is the most relevant. Its status is the paper's own, and every figure in it is the paper's, never recomputed. Appendix C verdicts are inferences; the governance table holds recommendations; the falsifiers come from the pillar sections and the closing standing section. The paper gives recommendations and falsifiers no status. Human support review: pending for all.
+
+{{paper_claims_index}}
+
 ## Sources index
 
 {{sources_index}}

@@ -43,7 +43,10 @@ Display controls (docs/report-build.md; every one fails the build):
      comments/aria-label, and fixed tick labels (scale ticks excepted).
   6. Quotes. Quoted text in the template (straight or curly, double or single
      quotes, markdown or HTML blockquotes) must be a single quote binding, and
-     every quote binding must occur verbatim in edition v0. A quote from the
+     every quote binding is an excerpt (edition/excerpts.tsv) re-sliced from
+     `git show <commit>:<path>` and re-hashed, with its highlighted sub-span
+     (also hashed) shown in bold. A warning, not a failure, when a newer
+     committed paper exists than the pinned one. A quote from the
      paper's claims table also binds the status the paper gives it. A binding
      that copies another (Registry.copy) carries its n and d.
   7. Nothing clipped. Every text element of a matplotlib chart lies inside the
@@ -73,6 +76,7 @@ import duckdb
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
 import display  # noqa: E402
+import edition_claims as ecl  # noqa: E402  (edition/claims.tsv: stable claim ids)
 import ec_text as ect  # noqa: E402  (window text is local: .eccorpus/, joined on window_id)
 
 TEMPLATE = ROOT / "edition" / "report.template.md"
@@ -83,8 +87,9 @@ DAG = ROOT / "dag.yml"
 # sections, in this order, are all REPORT.md may have. Praxis's `report check` enforces the same list.
 SECTIONS = ("Bottom line", "Decision-relevant facts", "What could change the conclusion", "Analysis",
             "Methods and limitations", "Claims index", "Sources index", "Revision and review record")
-# Report-local claims, in claim-id order (C0001, C0002, ...): each names the bindings its Evidence line
-# traces, with the unit the value is shown in. A composite binding (ec_top3) is traced through its parts.
+# Report-local data claims: each names the bindings its Evidence line traces, with the unit the value is
+# shown in. A composite binding (ec_top3) is traced through its parts. Claim ids are not positions here:
+# they are held in edition/claims.tsv (append-only, never reused), so reordering this dict changes no id.
 CLAIMS = {
     "ec_rise": [("ec_pct_witness_last", "%"), ("ec_pre2023_max", "%")],
     "ec_volume": [("ec_wpc_base", ""), ("ec_wpc_last", ""), ("ec_win_base", "%"), ("ec_win_last", "%")],
@@ -119,11 +124,10 @@ QUESTIONS = {"codebook": "v0.1", "file": "corpus/earnings-calls/codebook-questio
              "scores": "proposals/earnings-calls/codebook-questions-v0.1",
              "units": "corpus/earnings-calls/ai-questions.parquet"}
 CVE, CVE_MANIFEST = "corpus/cve/monthly-ai.tsv", "corpus/cve/MANIFEST.tsv"
-QUOTES = {  # binding -> exact text in edition v0 (markdown emphasis and line breaks removed before matching)
-    "q_toothless": "Anthropic's charter is legally real and legally toothless.",
-    "q_365b": "§365(b) gives directors no duty to any person on account of a public-benefit interest",
-    "q_33k": ">33,000 critical- and high-severity flaws",
-}
+# Quote bindings: each is an excerpt row of edition/excerpts.tsv (commit, character offsets, BLAKE3, and a
+# highlighted sub-span), re-sliced from `git show` and re-hashed by the build. Never the working tree.
+QUOTES = ("q_toothless", "q_365b", "q_33k")
+EXCERPTS = ROOT / ecl.EXCERPTS_TSV
 QUOTE_STATUS = {"q_33k"}   # quotes from the paper's claims table: also bind the status the paper gives them
 QUOTED = re.compile(r'"([^"\n]*)"|\u201c([^\u201d\n]*)\u201d'           # straight and curly double quotes
                     r"|(?<!\w)['\u2018]([^'\u2019\n]+?)['\u2019](?!\w)")    # single quotes; apostrophes sit inside words
@@ -193,8 +197,10 @@ class Build:
         self.codebook, self.cb = codebook, CODEBOOKS[codebook]
         self.reg = display.Registry()
         self.errs: list[str] = []
+        self.warns: list[str] = []
         self.outs: dict[str, bytes] = {}
         self.bound: dict[str, set[str]] = {}   # chart string -> the binding keys it was built from
+        self.claim_rows: list[dict] | None = None   # edition/claims.tsv; tests may set their own
 
     # ------------------------------------------------------------ preconditions
     def inputs(self) -> list[str]:
@@ -202,7 +208,8 @@ class Build:
                 QUESTIONS["scores"], QUESTIONS["units"],
                 "corpus/earnings-calls/calls.tsv", "corpus/earnings-calls/ai-windows.parquet",
                 "edition/report.template.md", "scripts/build_edition.py", "scripts/display.py",
-                "scripts/ec_question_report.py", "dag.lock.tsv", "dag.yml", CVE_MANIFEST]
+                "scripts/ec_question_report.py", "dag.lock.tsv", "dag.yml", CVE_MANIFEST,
+                ecl.CLAIMS_TSV, ecl.EXCERPTS_TSV, "scripts/edition_claims.py"]
 
     def preflight(self) -> bool:
         r = subprocess.run(["uv", "run", "--quiet", str(DAG_TOOL), "status"], cwd=ROOT, capture_output=True, text=True)
@@ -312,19 +319,78 @@ class Build:
         new = {r["status"].split()[0] for r in table(self.cb["file"])[1] if r["status"].startswith("v0.2")}
         for i, v in enumerate(sorted(new)):
             R.put(f"new_tag_{i}", v, source=self.cb["file"], how="status column of hypotheses new in this codebook")
-        raw = git("show", f"{PAPER_V0}:{PAPER}")
-        text = re.sub(r"\s+", " ", raw.replace("**", "").replace("*", ""))
-        for k, q in QUOTES.items():
-            if q not in text:
-                self.errs.append(f"quote {k} not found verbatim in {PAPER}@{PAPER_V0}: {q!r}")
+        self.excerpts, errs = ecl.load_excerpts(EXCERPTS.read_text())
+        self.errs += errs
+        pins = sorted({r["commit"] for r in self.excerpts.values() if r["path"] == PAPER})
+        if len(pins) != 1 or not pins[0].startswith(PAPER_V0):
+            # One paper commit per edition (the latest committed paper); the template still names it edition v0.
+            self.errs.append(f"{ecl.EXCERPTS_TSV}: paper excerpts must share one commit, {PAPER_V0}; found {pins}")
+        for pin in pins:
+            newer = ecl.newer_revisions(pin, PAPER, str(ROOT))
+            if newer:
+                self.warns.append(f"{PAPER} has {len(newer)} committed revision(s) newer than the pinned {pin[:12]} "
+                                  f"(latest {newer[0][:12]}): re-pin the excerpts")
+        for k in QUOTES:
+            if k not in self.excerpts:
+                self.errs.append(f"quote {k}: no row in {ecl.EXCERPTS_TSV}")
+                continue
+            x = self.excerpts[k]
+            raw = ecl.git_show(x["commit"], x["path"], str(ROOT))
+            q, _, errs = ecl.verify_excerpt(x, raw)
+            self.errs += errs
             R.put(k, q, source=f"{PAPER}@{PAPER_V0}", how="verbatim quote (emphasis and line breaks removed)")
             if k in QUOTE_STATUS:
-                row = [l for l in raw.splitlines() if l.startswith("|") and q in l.replace("**", "")]
-                status = row[0].split("|")[2].strip() if len(row) == 1 else ""
+                status = ecl.table_cell(raw, int(x["start"]), 2)
                 if not status:
                     self.errs.append(f"quote {k}: no single claims-table row with a status in {PAPER}@{PAPER_V0}")
                 R.put(f"{k}_status", status, source=f"{PAPER}@{PAPER_V0}",
                       how=f"status column of the claims-table row quoting {k}")
+
+    def paper_claims(self) -> None:
+        """Claims whose statement is an excerpt of the paper (Appendix C, the GOV table, the falsifiers).
+        Each excerpt verifies at its commit, each status equals the one the paper gives at that commit,
+        and every claim the parser finds there is registered. Shown verbatim, never recomputed."""
+        R = self.reg
+        if self.claim_rows is None:
+            self.load_claims()
+        pins = sorted({r["commit"] for r in self.excerpts.values() if r["path"] == PAPER})
+        if len(pins) != 1:
+            return
+        raw = ecl.git_show(pins[0], PAPER, str(ROOT))
+        found = {c["alias"]: c for c in ecl.parse_paper(raw)}
+        seen, lines = set(), []
+        for r in self.claim_rows:
+            if not r["statement_ref"].startswith("excerpt:"):
+                continue
+            xk, k, alias = r["statement_ref"][8:], r["key"], r["aliases"].split(",")[0]
+            x = self.excerpts.get(xk)
+            c = found.get(alias)
+            if x is None or c is None:
+                self.errs.append(f"{ecl.CLAIMS_TSV}: {r['id']}: no excerpt {xk} or no paper claim {alias} at {pins[0][:12]}")
+                continue
+            seen.add(alias)
+            shown, plain, errs = ecl.verify_excerpt(x, raw if x["commit"] == pins[0] else "")
+            self.errs += errs
+            if (int(x["start"]), int(x["end"])) != (c["start"], c["end"]) or x["path"] != PAPER:
+                self.errs.append(f"{ecl.CLAIMS_TSV}: {r['id']} excerpt {xk} is not the span of {alias} in the paper")
+            if r["status"] != c["status"] or r["kind"] != c["kind"]:
+                self.errs.append(f"{ecl.CLAIMS_TSV}: {r['id']} ({alias}) has {r['kind']}, status {r['status']!r}; "
+                                 f"the paper gives {c['kind']}, status {c['status']!r}")
+            if ecl.content_id(plain) != r["content_id"]:
+                self.errs.append(f"{ecl.CLAIMS_TSV}: {r['id']} content_id does not match its excerpt")
+            src = f"{PAPER}@{PAPER_V0}"
+            R.put(f"pc_{k}", r["id"], source=ecl.CLAIMS_TSV, how="claim id (append-only registry)")
+            R.put(f"pa_{k}", alias, source=ecl.CLAIMS_TSV, how="the paper's own id, or its place in the paper")
+            R.put(f"px_{k}", shown, source=src, how=f"verbatim excerpt {xk} (emphasis and line breaks removed; highlight bold)")
+            R.put(f"ps_{k}", r["status"], source=src, how=f"status the paper gives {alias}")
+            R.put(f"pl_{k}", f"#char={x['start']},{x['end']}", source=ecl.EXCERPTS_TSV, how=f"character offsets of {xk}")
+            q = ("", "") if '"' in plain else ("“", "”")   # an excerpt that quotes the Report keeps its own marks
+            lines.append(f"- **{{pc_{k}}}** ({r['kind']}; `{{pa_{k}}}`): {q[0]}{{px_{k}}}{q[1]} Paper status: {{ps_{k}}}. "
+                         f"Excerpt `{{pl_{k}}}`.")
+        for alias in sorted(set(found) - seen):
+            self.errs.append(f"paper claim {alias} at {pins[0][:12]} has no row in {ecl.CLAIMS_TSV}: "
+                             "run `uv run scripts/edition_claims.py paper <commit>`")
+        self.compose("paper_claims_index", "\n".join(lines), source=ecl.CLAIMS_TSV, how="paper claims, in id order")
 
     # ------------------------------------------------------------ earnings calls
     def earnings(self) -> None:
@@ -690,6 +756,26 @@ class Build:
             "naming Claude."), source=CVE, how="alt text of cve-ai-credit.svg, from the chart's bindings")
 
     # ------------------------------------------------------------ claims and sources
+    def load_claims(self, root: Path = ROOT) -> None:
+        """edition/claims.tsv, checked against its own rules and against every committed version of it."""
+        rows, errs = ecl.load_claims((root / ecl.CLAIMS_TSV).read_text())
+        commits = git("log", "--format=%H", "--", ecl.CLAIMS_TSV, cwd=root).split()
+        errs += ecl.history_errs(rows, [(c, git("show", f"{c}:{ecl.CLAIMS_TSV}", cwd=root)) for c in commits])
+        self.errs += errs
+        self.claim_rows = rows
+
+    def check_claim_statements(self, tpl: str) -> None:
+        """A data claim's content_id is the BLAKE3 of its claims-index heading in the template, bindings
+        unfilled: the claim's form, stable across data refreshes."""
+        for r in self.claim_rows or []:
+            if not r["statement_ref"].startswith("template:"):
+                continue
+            m = re.search(r"^### \{\{c_" + re.escape(r["statement_ref"][9:]) + r"\}\} — (.+)$", tpl, re.M)
+            if not m:
+                self.errs.append(f"{ecl.CLAIMS_TSV}: {r['id']} has no claims-index heading for {r['statement_ref']}")
+            elif ecl.content_id(m.group(1)) != r["content_id"]:
+                self.errs.append(f"{ecl.CLAIMS_TSV}: {r['id']} content_id does not match its statement in the template")
+
     def leaves(self, key: str) -> list[str]:
         """A binding, or the parts of a composite binding."""
         v = self.reg.values[key]
@@ -706,12 +792,18 @@ class Build:
         the registry. Every numeral in them comes from a registered value: the value itself, its numerator
         and denominator (registered as counts), its provenance text, or a dag.yml step."""
         R, steps = self.reg, dag_steps(DAG)
+        if self.claim_rows is None:
+            self.load_claims()
+        ids = {r["key"]: r["id"] for r in self.claim_rows}
         sources: dict[str, list[str]] = {}   # source path -> claim keys citing it
         evid: dict[str, list[tuple[str, str, list[str]]]] = {}
-        for i, (c, keys) in enumerate(CLAIMS.items(), 1):
-            cid = f"C{i:04d}"
-            R.put(f"c_{c}", cid, source="build_edition.CLAIMS", how="report-local claim id: position in CLAIMS")
-            R.put(f"ct_{c}", "{{" + cid + "}}", source="build_edition.CLAIMS", how="claim tag (Praxis report writer)")
+        for c, keys in CLAIMS.items():
+            if c not in ids:
+                self.errs.append(f"claim {c}: no row in {ecl.CLAIMS_TSV}")
+                continue
+            cid = ids[c]
+            R.put(f"c_{c}", cid, source=ecl.CLAIMS_TSV, how="claim id (append-only registry)")
+            R.put(f"ct_{c}", "{{" + cid + "}}", source=ecl.CLAIMS_TSV, how="claim tag (Praxis report writer)")
             evid[c] = []
             for key, unit in keys:
                 if key not in R.values:
@@ -759,6 +851,7 @@ class Build:
         a binding used on that template line."""
         tpl = TEMPLATE.read_text()
         name = TEMPLATE.name
+        self.check_claim_statements(tpl)
         fm_lines = tpl[:tpl.index("\n---\n", 4) + 5].count("\n")
         self.reg.put("generated_notice", f"Generated by `scripts/build_edition.py --codebook {self.codebook}` from source "
                      f"commit `{head}`. Edit `edition/report.template.md`, not this file.", source="build", how="notice")
@@ -809,6 +902,7 @@ class Build:
         head = source_commit(self.inputs())
         OUT_DIR.mkdir(exist_ok=True)
         self.register_static(head)
+        self.paper_claims()
         self.earnings()
         self.questions()
         self.dialogue()
@@ -898,7 +992,10 @@ def main() -> int:
                 (ROOT / p).write_bytes(before[p])
             elif (ROOT / p).exists():
                 (ROOT / p).unlink()
-    outs, errs = Build(a.codebook).run()
+    b = Build(a.codebook)
+    outs, errs = b.run()
+    for w in b.warns:
+        print("warning: " + w, file=sys.stderr)
     if errs:
         restore()
         print("build failed:\n  " + "\n  ".join(errs), file=sys.stderr)

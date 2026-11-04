@@ -184,15 +184,49 @@ for line, what in (("They said \u201ca paraphrase\u201d.", "curly double quotes"
     expect(f"quoted text in {what} that is not a quote binding fails", any("quote binding" in e for e in b.errs))
 b = build_with(FM + "Anthropic's charter and the executives' passages, in \u2018{{q_ok}}\u2019.\n> {{q_ok}}\n")
 expect("apostrophes, a bound single quote and a bound blockquote pass", not b.errs)
-b = be.Build("v0.2-draft")
-old_quotes = be.QUOTES
-be.QUOTES = {**old_quotes, "q_fake": "words edition v0 never printed"}
+# 6. quotes are excerpts (edition/excerpts.tsv): re-sliced from `git show` at their commit and re-hashed
+ecl = be.ecl
+ex_text = be.EXCERPTS.read_text()
+ex, _ = ecl.load_excerpts(ex_text)
+with tempfile.NamedTemporaryFile("w", suffix=".tsv", delete=False) as f:
+    f.write(ex_text.replace(ex["q_toothless"]["blake3"], ecl.b3("words edition v0 never printed")))
+old_x, be.EXCERPTS = be.EXCERPTS, Path(f.name)
 try:
+    b = be.Build("v0.2-draft")
     b.register_static("0" * 40)
 finally:
-    be.QUOTES = old_quotes
-expect("a quote not verbatim in edition v0 fails", any("q_fake" in e for e in b.errs))
+    be.EXCERPTS = old_x
+expect("a quote whose excerpt is not in the pinned paper fails", any("excerpt q_toothless" in e for e in b.errs))
+b = be.Build("v0.2-draft")
+b.register_static("0" * 40)
+expect("the committed excerpts verify against the pinned paper", not b.errs)
 expect("q_33k carries the status the paper gives it", b.reg.values["q_33k_status"]["text"].startswith("UNVERIFIED"))
+expect("a quote shows its highlighted sub-span in bold", "**legally toothless**" in b.reg.values["q_toothless"]["text"])
+x = ex["q_toothless"]
+raw = ecl.git_show(x["commit"], x["path"], str(be.ROOT))
+a, z = int(x["start"]), int(x["end"])
+moved = dict(x, start=str(a + 1), end=str(z + 1), highlight_start=str(int(x["highlight_start"]) + 1),
+             highlight_end=str(int(x["highlight_end"]) + 1))
+expect("a moved excerpt slice fails", any("does not hash" in e for e in ecl.verify_excerpt(moved, raw)[2]))
+edited = raw[:a] + raw[a:z].replace("legally real", "legally unreal") + raw[z:]
+expect("an edited excerpt slice fails", any("does not hash" in e for e in ecl.verify_excerpt(x, edited)[2]))
+outside = dict(x, highlight_start=str(a - 5))
+expect("a highlight outside its excerpt fails", any("outside its excerpt" in e for e in ecl.verify_excerpt(outside, raw)[2]))
+hb = int(x["highlight_end"])
+inside = dict(x, highlight_end=str(hb - 1), highlight_blake3=ecl.b3(raw[int(x["highlight_start"]):hb - 1]))
+expect("a re-hashed highlight inside its excerpt passes", not ecl.verify_excerpt(inside, raw)[2])
+expect("an excerpt pinned to a short commit id fails",
+       any("40-hex" in e for e in ecl.load_excerpts(ex_text.replace(x["commit"], x["commit"][:7], 1))[1]))
+with tempfile.TemporaryDirectory() as d:
+    g = Path(d)
+    be.git("init", "-q", cwd=g)
+    for body in ("one", "two"):
+        (g / "paper.md").write_text(body)
+        be.git("add", "paper.md", cwd=g)
+        be.git("-c", "user.name=t", "-c", "user.email=t@t", "commit", "-q", "-m", body, cwd=g)
+    first, last = be.git("rev-list", "--reverse", "HEAD", cwd=g).split()
+    expect("a pin older than the latest committed paper is reported",
+           ecl.newer_revisions(first, "paper.md", str(g)) == [last] and not ecl.newer_revisions(last, "paper.md", str(g)))
 
 # 4 (M4). a binding that copies another carries its n and d
 reg = display.Registry()
@@ -297,6 +331,7 @@ expect("a level-two heading outside the research sections fails", any("Praxis re
 
 # Claims and sources: every Evidence line traces a binding to its numerator, denominator and dag.yml step
 b = be.Build("v0.2-draft")
+b.claim_rows = [{"id": "C0001", "key": "c"}]
 b.reg.pct("ec_x", 214, 1760, 1, source="corpus/earnings-calls/{calls.tsv,ai-windows.parquet}", how="t")
 b.reg.copy("ec_y", "ec_x", how="last year")
 old_c, be.CLAIMS = be.CLAIMS, {"c": [("ec_y", "%")]}
@@ -312,6 +347,66 @@ expect("a source no dag.yml step writes fails",
        raises(lambda: be.describe_source("corpus/nope.tsv", be.dag_steps(be.DAG)), ValueError))
 expect("registry source strings expand to paths",
        be.source_paths("a/{b.tsv,c.parquet} + d/e + git") == ["a/b.tsv", "a/c.parquet", "d/e"])
+
+# Stable claim ids (edition/claims.tsv): append-only, never reused, never a position in CLAIMS
+ecl = be.ecl
+committed = (be.ROOT / ecl.CLAIMS_TSV).read_text()
+rows, errs = ecl.load_claims(committed)
+expect("committed claims.tsv passes its own checks", not errs)
+expect("C0001-C0008 keep their numbers",
+       [r["key"] for r in rows[:8]] == ["ec_rise", "ec_volume", "ec_firms", "q_intent", "ds_safety", "ds_cyber",
+                                        "cve_credit", "paper_33k"])
+lines = committed.splitlines(keepends=True)
+swapped = "".join([lines[0], lines[2], lines[1]] + lines[3:])
+expect("reordered claims.tsv rows fail (ids are file order)", any("want C0001" in e for e in ecl.load_claims(swapped)[1]))
+reused = committed.replace("\tec_rise\t", "\tsomething_else\t", 1)
+expect("an id reused for another key fails against the committed history",
+       any("never reused" in e for e in ecl.history_errs(ecl.load_claims(reused)[0], [("0" * 40, committed)])))
+dropped = "".join(lines[:-1])
+expect("a dropped id fails against the committed history",
+       any("never dropped" in e for e in ecl.history_errs(ecl.load_claims(dropped)[0], [("0" * 40, committed)])))
+dup = committed.replace(ecl.address("C0002"), ecl.address("C0001"), 1)
+expect("two rows cannot share an address", any("share the address" in e for e in ecl.load_claims(dup)[1]))
+b = be.Build("v0.2-draft")
+b.claim_rows = rows
+old_c, be.CLAIMS = be.CLAIMS, dict(reversed(list(be.CLAIMS.items())))
+try:
+    b.reg.values.update({k: {"text": "x", "source": "t", "how": "t"} for k in {k for v in old_c.values() for k, _ in v}})
+    b.claims()
+finally:
+    be.CLAIMS = old_c
+expect("reordering CLAIMS changes no claim id", (b.reg.values["c_ec_rise"]["text"], b.reg.values["c_paper_33k"]["text"])
+       == ("C0001", "C0008"))
+b = be.Build("v0.2-draft")
+b.claim_rows = [dict(rows[0], content_id="blake3:" + "0" * 64)]
+b.check_claim_statements(be.TEMPLATE.read_text())
+expect("a data claim whose content_id is not its template statement fails", any("content_id" in e for e in b.errs))
+
+# Paper claims: excerpts of the pinned paper, each with the paper's own status
+def paper_build(edit=None):
+    b = be.Build("v0.2-draft")
+    b.register_static("0" * 40)
+    b.errs = []
+    rows, _ = ecl.load_claims((be.ROOT / ecl.CLAIMS_TSV).read_text())
+    b.claim_rows = edit(rows) if edit else rows
+    b.paper_claims()
+    return b
+b = paper_build()
+paper_rows = [r for r in b.claim_rows if r["statement_ref"].startswith("excerpt:")]
+expect("every paper claim's excerpt verifies and its status equals the paper's", not b.errs and len(paper_rows) > 0)
+expect("a figure from an excerpt is the paper's own text", "$895.4B" in b.reg.values["px_paper_appc_11"]["text"])
+def restatus(rows):
+    return [dict(r, status="CONFIRMED/HIGH") if r["key"] == "paper_appc_2" else r for r in rows]
+expect("a paper claim whose status differs from the paper's fails",
+       any("the paper gives" in e for e in paper_build(restatus).errs))
+expect("a paper claim the parser finds but claims.tsv lacks fails",
+       any("has no row" in e for e in paper_build(lambda rows: [r for r in rows if r["key"] != "paper_gov_8"]).errs))
+def recontent(rows):
+    return [dict(r, content_id="blake3:" + "0" * 64) if r["key"] == "paper_gov_8" else r for r in rows]
+expect("a paper claim whose content_id is not its excerpt fails", any("content_id" in e for e in paper_build(recontent).errs))
+def rewire(rows):
+    return [dict(r, statement_ref="excerpt:x_gov_9") if r["key"] == "paper_gov_8" else r for r in rows]
+expect("a paper claim pointing at another claim's excerpt fails", any("not the span" in e for e in paper_build(rewire).errs))
 
 print(f"\n{len(FAILS)} failure(s)")
 sys.exit(1 if FAILS else 0)

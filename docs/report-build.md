@@ -85,8 +85,28 @@ paper; the Ethical Capital publisher is locked pending verified owner identity
 and is never selected here). Classification: Working paper. It is marked DRAFT
 in the revision line and the bottom line.
 
-Every number is a claim. `build_edition.CLAIMS` lists, in claim-id order
-(C0001, C0002, ...), the bindings each claim rests on. For each binding the
+Every number is a claim. Claim ids live in `edition/claims.tsv` (`id, key,
+kind, statement_ref, status, aliases, upstream, review, address,
+content_id`), assigned once in file order and never reused: the build checks
+the file against every committed version of it, so a reused, dropped or
+renumbered id fails. `address` (`praxis:claim/anthropic-pbc/C0001`) is the
+claim's address across all Praxis-governed repositories; `content_id` is the
+BLAKE3 of its canonical statement (for a data claim, its claims-index heading
+in the template with bindings unfilled), so the same claim in two
+repositories can be matched. `build_edition.CLAIMS` lists the bindings each
+data claim rests on; its order sets no id.
+
+The paper's own claims are rows too: Appendix C (inference, status = its
+Verdict cell), the §7 GOV table (recommendation) and the falsifiers of §6 and
+§8 (falsifier), each with an excerpt of the pinned committed paper.
+`uv run scripts/edition_claims.py paper <commit>` appends new ones; the build
+re-parses the paper at the pin and fails if a claim is missing, its excerpt is
+not that claim's span, or its status is not the paper's. The GOV table and the
+falsifier lists give no status, recorded as `none stated`. The highlight is
+mechanical until a person chooses one (the Report's quoted words in Appendix
+C, the mechanism's name in a GOV row); a falsifier is shown unhighlighted.
+
+For each binding the
 build writes an Evidence line from the registry: the value, the binding it was
 taken from, its numerator and denominator, how it was computed, and its source
 ids. The Sources index (S001, ...) is built from the registry's source paths;
@@ -177,7 +197,14 @@ build (`scripts/build_edition.py`) fails on any breach:
 6. **Quotes.** Quoted text in the template must be a single quote binding:
    straight and curly double quotes, single quotes (an apostrophe inside a
    word is not a quote), markdown blockquotes and HTML `<blockquote>`/`<q>`.
-   Each quote must occur verbatim in edition v0. A quote taken from the
+   Each quote is an excerpt in `edition/excerpts.tsv` (`key, commit, path,
+   start, end, blake3, highlight_start, highlight_end, highlight_blake3`):
+   the build re-slices it from `git show <commit>:<path>`, never the working
+   tree, and fails on any hash mismatch (a moved or edited slice) or a
+   highlight outside its excerpt. The highlight, the most relevant part of
+   the quote, is shown in bold. All paper excerpts share one commit, the
+   latest committed paper; the build warns (does not fail) when a newer
+   committed revision of the paper exists. A quote taken from the
    paper's claims table also binds the status that table gives it (`q_33k`
    is bound with `UNVERIFIED/MED`), so the report cannot quote a claim without
    the paper's own verdict on it. A binding that copies another
