@@ -62,6 +62,22 @@ MODELS = {
     "deberta": ("MoritzLaurer/deberta-v3-large-zeroshot-v2.0", "cf44676c28ba7312e5c5f8f8d2c22b3e0c9cdae2", "MIT"),
     "modernbert": ("MoritzLaurer/ModernBERT-large-zeroshot-v2.0", "a51e07b524299e309dd2b88d48b0cfa2bd9ec598", "Apache-2.0"),
 }
+ID_COL = "window_id"
+
+
+def configure(units: str = "", codebook: str = "", id_col: str = "") -> None:
+    """Point the scorer at another unit file / codebook (e.g. the analyst-question corpus).
+    Output goes to proposals/earnings-calls/<codebook stem>/."""
+    global WINDOWS, CODEBOOK, OUT, ID_COL
+    if units:
+        WINDOWS = (ROOT / units).resolve()
+    if codebook:
+        CODEBOOK = (ROOT / codebook).resolve()
+        OUT = ROOT / "proposals" / "earnings-calls" / CODEBOOK.stem
+    if id_col:
+        ID_COL = id_col
+
+
 MAX_LEN = 512
 SHARD = 2048  # windows per checkpoint shard
 
@@ -76,7 +92,7 @@ def load_inputs(limit: int = 0) -> tuple[list[tuple[str, str]], list[tuple[str, 
     with CODEBOOK.open(newline="") as f:
         hyps = [(r["id"], r["hypothesis"]) for r in csv.DictReader(f, delimiter="\t")]
     wins = duckdb.connect().execute(
-        f"SELECT window_id, text FROM '{WINDOWS}' ORDER BY length(text), window_id").fetchall()
+        f"SELECT {ID_COL}, text FROM '{WINDOWS}' ORDER BY length(text), {ID_COL}").fetchall()
     return hyps, (wins[:limit] if limit else wins)
 
 
@@ -113,7 +129,7 @@ def merge(model_key: str, tag: str, n_windows: int, hyps: list, runtime: dict) -
         sys.exit(f"shard merge mismatch: {n} vs {n_pairs} pairs")
     OUT.mkdir(parents=True, exist_ok=True)
     out = OUT / f"{model_key}.parquet"
-    con.execute(f"""COPY (SELECT window_id, hypothesis_id, p_entail::FLOAT AS p_entail FROM s
+    con.execute(f"""COPY (SELECT window_id AS {ID_COL}, hypothesis_id, p_entail::FLOAT AS p_entail FROM s
                     ORDER BY window_id, hypothesis_id)
                     TO '{out}' (FORMAT parquet, COMPRESSION zstd, ROW_GROUP_SIZE 65536)""")
     run = {
@@ -191,11 +207,15 @@ def main() -> int:
     ap.add_argument("--worker", type=int, default=0, help="this machine's index, 0..workers-1")
     ap.add_argument("--merge-only", action="store_true", help="skip scoring; merge shards gathered from all workers")
     ap.add_argument("--threads", type=int, default=0, help="torch CPU threads (0 = torch default)")
+    ap.add_argument("--units", default="", help="unit parquet (id + text), relative to repo root")
+    ap.add_argument("--codebook", default="", help="codebook TSV (id, group, hypothesis), relative to repo root")
+    ap.add_argument("--id-col", default="", help="unit id column (default window_id)")
     ap.add_argument("--limit", type=int, default=0, help="score only the first N windows (smoke test; writes nothing)")
     a = ap.parse_args()
     if not 0 <= a.worker < a.workers:
         sys.exit("--worker must be in 0..workers-1")
 
+    configure(a.units, a.codebook, a.id_col)
     hyps, wins = load_inputs(a.limit)
     tag = make_tag(a.model, a.dtype, a.backend)
     chunks = shard_chunks(wins)

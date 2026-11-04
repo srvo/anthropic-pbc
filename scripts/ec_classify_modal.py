@@ -8,6 +8,9 @@ the committed parquet and run record. Shards are tagged with the backend
     uvx --with duckdb==2.0.0 --with blake3 modal run scripts/ec_classify_modal.py --model deberta --limit 2048
     uvx --with duckdb==2.0.0 --with blake3 modal run scripts/ec_classify_modal.py --model deberta
     uvx --with duckdb==2.0.0 --with blake3 modal run scripts/ec_classify_modal.py --model modernbert
+    # another unit file / codebook (output: proposals/earnings-calls/<codebook stem>/):
+    ... --model deberta --units corpus/earnings-calls/ai-questions.parquet \
+        --codebook corpus/earnings-calls/codebook-questions-v0.1.tsv --id-col question_id
 
 GPU type: EC_GPU env var (default L40S). Containers: EC_MAX_CONTAINERS (default 8;
 the Starter plan allows 10 concurrent GPUs). Cost is per second of GPU time;
@@ -63,9 +66,11 @@ class Scorer:
 
 
 @app.local_entrypoint()
-def main(model: str, limit: int = 0, dtype: str = "bfloat16", batch: int = 128) -> None:
+def main(model: str, limit: int = 0, dtype: str = "bfloat16", batch: int = 128,
+         units: str = "", codebook: str = "", id_col: str = "") -> None:
     import ec_classify as ec
 
+    ec.configure(units, codebook, id_col)
     hyps, wins = ec.load_inputs(limit)
     backend = f"modal-{GPU}"
     tag = ec.make_tag(model, dtype, backend)

@@ -12,6 +12,9 @@ verbatim, byte-anchored, with the all-calls denominator. Method:
 | `ai-paragraphs.parquet` | Every paragraph matching the AI term regex, verbatim, with BLAKE3. |
 | `ai-windows.parquet` | The unit of analysis: match sentence ±1, as `[start_char, end_char)` of a stored paragraph, with BLAKE3. |
 | `codebook-v0.1.tsv` | The NLI hypotheses the witnesses score. |
+| `question-calls.tsv` | **Question denominator.** Per call: whether a Q&A was found, questioners, all questioner turns, AI questions. |
+| `ai-questions.parquet` | Every AI question an outside questioner asked in the Q&A, the full turn verbatim, with BLAKE3 (`scripts/ec_questions.py`). |
+| `codebook-questions-v0.1.tsv` | The NLI hypotheses for question intent: commercial, capital, threat, workforce, oversight. |
 
 Rebuild and check from scratch:
 
@@ -19,6 +22,7 @@ Rebuild and check from scratch:
     uv run scripts/ec_extract.py constituents
     uv run scripts/ec_extract.py build          # byte-identical outputs on rerun
     uv run scripts/ec_extract.py verify         # re-slice + re-hash every window
+    uv run scripts/ec_questions.py build        # analyst questions; verifies against the source
 
 Model output lives apart from the corpus, in `proposals/earnings-calls/`, because
 it is a witness's proposal, not text.

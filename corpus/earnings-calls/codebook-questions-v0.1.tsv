@@ -1,0 +1,11 @@
+id	group	hypothesis
+q_revenue	commercial	This question asks about revenue, sales, demand, orders, or pricing from artificial intelligence.
+q_efficiency	commercial	This question asks about using artificial intelligence to cut costs or improve efficiency or margins.
+q_spend	capital	This question asks about spending or investment on artificial intelligence, or the return on that spending.
+q_competition	threat	This question asks whether artificial intelligence threatens the company's business, customers, or competitive position.
+q_workforce	workforce	This question asks about the effect of artificial intelligence on jobs, employees, or headcount.
+q_risk	oversight	This question asks about the risks or downsides of artificial intelligence.
+q_controls	oversight	This question asks how the company oversees, controls, governs, or manages the risks of its artificial intelligence.
+q_regulation	oversight	This question asks about regulation, legal liability, or compliance related to artificial intelligence.
+q_harm	oversight	This question asks about harm that artificial intelligence could cause to customers, users, or society, such as errors, bias, or misuse.
+q_security	oversight	This question asks about security, privacy, or data protection risks of artificial intelligence.

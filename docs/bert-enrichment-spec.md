@@ -437,3 +437,28 @@ agreement. Method: [`earnings-call-ai-corpus.md`](earnings-call-ai-corpus.md).
   before any rate leaves `proposals/`.
 
 
+
+### 2026-11-04 · Analyst questions about AI, codebook-questions v0.1
+
+**Status: witness proposals only.** There is no gold set yet; the sample is
+in `gold/earnings-calls/`. Method:
+[`earnings-call-ai-corpus.md`](earnings-call-ai-corpus.md) §10.
+
+- **Input.** 4,288 AI questions asked by outside questioners on S&P 500 calls,
+  scored against 10 intent hypotheses by the same two witnesses on Modal L40S.
+- **Agreement** (`codebook-questions-v0.1/report/agreement.tsv`). κ runs from
+  0.32 (`q_harm`, only 4 joint positives) to 0.74 (`q_security`), with
+  `q_revenue` at 0.62 and `q_controls` at 0.48.
+- **12 months to 2026-11-04.** There were 1,645 AI questions from 654
+  questioners on 293 firms (`report/ttm.tsv`).
+  - **Selling or spending on AI:** 21.2% revenue, demand or pricing; 8.7% AI
+    spending and its return; 4.7% cost savings.
+  - **Governing its risks:** 3.0% security or privacy; 2.9% risks or
+    downsides; 0.8% (13 questions) how the company controls or governs AI
+    risk; 0.3% regulation or liability; 0.2% harm to customers or society.
+- **Word cross-check, calendar 2026.** 50.4% of AI questions use a commercial
+  word and 2.2% use an oversight word. The direction matches the witnesses.
+- **Read of the verbatim oversight questions.** Most frame risk as exposure of
+  the firm's own earnings, such as an insurer's AI liability book or deposits
+  drained by AI agents. Few ask about harm to anyone else. This is a reading,
+  not a count, until the gold set is coded.

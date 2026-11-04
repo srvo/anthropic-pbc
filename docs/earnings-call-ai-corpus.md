@@ -140,6 +140,13 @@ topic lists window ids that resolve to verbatim text.
     uv run scripts/ec_report.py
     uv run scripts/ec_risk_series.py              # AI-as-risk time series, 12-month ranking, verbatim quotes
     uv run scripts/ec_topics.py
+    # analyst questions (§10)
+    uv run scripts/ec_questions.py build
+    uvx --with duckdb==2.0.0 --with blake3 modal run scripts/ec_classify_modal.py --model deberta \
+        --units corpus/earnings-calls/ai-questions.parquet \
+        --codebook corpus/earnings-calls/codebook-questions-v0.1.tsv --id-col question_id
+    # ...the same with --model modernbert, then:
+    uv run scripts/ec_question_report.py
 
 ## 9. Compute
 
@@ -157,3 +164,35 @@ Shards are tagged by model, dtype and backend (`modal-L40S`, or none for a
 local run), so scores from different hardware or precision never merge into
 one output. `run-<model>.json` records the device, the GPU name and every
 library version.
+
+## 10. Analyst questions: selling AI or governing it?
+
+The test of investor oversight is what the people who price these companies
+ask them. `scripts/ec_questions.py` extracts every AI question asked in the Q&A
+by someone outside the company.
+
+- **Who counts as a questioner** is read from the call's structure, not the
+  §4 name heuristic, which mislabels executives whose names recur across firms.
+  - The questioner is introduced by the operator.
+  - The questioner never gave prepared remarks on any of that issuer's calls.
+  - The questioner asks at least one question (`?`) in the Q&A.
+
+  A pseudo-random check of 25 questions found 25 genuine analyst questions.
+- **Unit:** one questioner turn that contains an AI term and a `?` and is at
+  most 3,000 characters long. There are 4,288 such questions, out of 882,118
+  questioner turns on 33,314 calls with a detectable Q&A.
+- **Intent** is scored by the same two witnesses against
+  `codebook-questions-v0.1.tsv`:
+  - commercial (revenue, efficiency)
+  - capital (spending and its return)
+  - threat to the business
+  - workforce
+  - oversight (risks, controls, regulation, harm, security)
+
+  A deterministic word measure sits beside the witnesses as a cross-check.
+- **Same status as §5.** These are witness proposals until the question gold
+  set in `gold/earnings-calls/` is coded.
+
+Outputs are in `proposals/earnings-calls/codebook-questions-v0.1/report/`.
+`oversight-questions.tsv` lists every question flagged for oversight,
+verbatim.
