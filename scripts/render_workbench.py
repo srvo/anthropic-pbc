@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import html
 import json
+import re
 import math
 import shutil
 import sys
@@ -628,10 +629,28 @@ Inputs and their SHA-256 are in <code>MANIFEST.tsv</code> beside this page; copi
     return page, rows
 
 
+ARTIFACT_TITLE = "Anthropic PBC Workbench"
+
+
+def artifact_page(page: str) -> str:
+    """The same page as a claude.ai Artifact body: no document skeleton (the host adds it), no print or theme
+    buttons (the host frame cannot print and sets the theme), and no local regeneration instructions."""
+    head, rest = page.split("<style>", 1)
+    out = f"<title>{ARTIFACT_TITLE}</title>\n<style>" + rest.replace("</head><body>", "\n", 1)
+    out = re.sub(r'<div class="noprint">.*?</div></div>', "</div>", out, count=1, flags=re.S)
+    out = re.sub(r"\$\('#theme'\)\.addEventListener\(.*?\}\);\n", "", out, count=1, flags=re.S)
+    out = out.replace("$('#print').addEventListener('click',()=>window.print());\n", "")
+    out = re.sub(r"<p>A figure of \$500 billion.*?</p>\n", "", out, count=1, flags=re.S)
+    out = re.sub(r"<p>Regenerate: .*?</p>", "<p>Built only from the inputs listed, with their SHA-256, in the review "
+                 "bundle's <code>MANIFEST.tsv</code>.</p>", out, count=1, flags=re.S)
+    return out.replace("</body></html>\n", "")
+
+
 def write_bundle(out: Path, root: Path = cc.ROOT) -> Path:
     page, rows = render(root)
     out.mkdir(parents=True, exist_ok=True)
     (out / "index.html").write_text(page, encoding="utf-8")
+    (out / "artifact.html").write_text(artifact_page(page), encoding="utf-8")
     (out / "MANIFEST.tsv").write_text("path\tsha256\tbytes\n" + "".join(f"{p}\t{h}\t{n}\n" for p, h, n in rows),
                                       encoding="utf-8")
     inputs = out / "inputs"
