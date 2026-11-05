@@ -122,6 +122,14 @@ codebook, pass `--units`, `--codebook`, `--id-col` and `--out`.
   it is not in quotation marks. Nothing in between: no paraphrase in quotation
   marks, no "approximately quoted", no unpinned source quoted as if checked.
   (Sloane, 2026-11-04.)
+- **Every step emits its metadata.** Each step that makes or changes a
+  record (pin, derive, LLM proposal, review, edit, check) names its actor
+  and version, its inputs and outputs by digest or commit, and its
+  parameters. An LLM step names the model and `prompt=sha256:` of the exact
+  prompt, committed under `prompts/`; a step with no prompt file says
+  `prompt=unrecorded`, never a guess. LLM testimony that passes the
+  mechanical checks is circle 3 and is acceptable without a person
+  confirming each row (Sloane, 2026-11-04).
 - **Atomic review.** Every claim is reviewed on its own against four
   questions: pinned, present, faithful to its context, breadcrumbed. A claim
   with no source goes to research and, failing that, an open question.

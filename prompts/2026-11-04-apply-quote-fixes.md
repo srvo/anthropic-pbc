@@ -1,0 +1,20 @@
+Apply an accepted atomic review to a working paper. The author, Sloane (she/her), said: "go ahead and fix all these quotes". Read first: `docs/atomic-review.md`; AGENTS.md conventions "Checks are not beaten" and "Always pin, always verify, always breadcrumb". Branch ec-ai-corpus; first `git reset --hard ec-ai-corpus` in your worktree if it is on another branch, and confirm `docs/anthropic-contrapunctus.md` exists.
+
+Files you change: `docs/anthropic-contrapunctus.md` (the paper), `claims/anthropic-contrapunctus.tsv` (quotations), `claims/anthropic-contrapunctus.review.tsv` (status column only). Nothing else. Sources (`sources/`, `derived/`) are gitignored and absent in your worktree: work from the review file's `context` and `proposed` columns, which hold the source text.
+
+## Apply, per review row
+- `verified`: no change.
+- `requote`: replace the paper's quotation with the `proposed` source words (where `proposed` has several quotations separated by ` | `, use them as separate quotations). Adjust the paper's surrounding sentence only as much as needed to read correctly and stay faithful; keep the paper's point if the source supports it, and if the source's words carry less than the paper claimed, weaken the claim to what they carry. In the PAPER, a `\n` in `proposed` is a layout line break in the PDF: print it as a single space (the text as published). Keep the source's characters exactly (curly apostrophes, unspaced em dashes, the source's own hyphenation except a pdftotext artefact like "highseverity": there, unquote the word and say so). Update the claims-file row's `quote` to exactly what the paper now prints inside the quotation marks, and its `statement` if the claim changed.
+- `unquote`: remove the quotation marks, keep the citation; delete the claims-file row's checkable form by turning it into a comment `# UNQUOTED Qnnn<TAB>statement<TAB>reason`.
+- `context`: rewrite the paper's claim to match the source as the review's `reason`/`proposed` explains, or cut it if the source does not support it; requote if needed. Restore dropped hedges, conditions and scope ("largely", "though not always", "yet", "primarily related to the use of AI to accelerate AI development", the public's limited visibility, "many described").
+- `unpinned`: keep the quotation and add, right after it in the paper, a breadcrumb `[source identified, not yet pinned: <URL>]`; leave the claims comment row.
+- Rows for repeats (`# REPEAT of Qnnn`): apply the same fix at each occurrence.
+
+## Specific direction from Sloane: the Constitution is a lens, not a rulebook
+Reframe §5.1 (and every place the paper uses the Constitution, including step 0 and step 4 sentences and the heading "The constraint binds Anthropic by name") along this idea, in plain words: Anthropic manages a potentially misaligned Claude; the public has to manage a potentially misaligned Anthropic. The Constitution shows how Anthropic chose to govern an agent it cannot fully verify, so it is a window into the argument — an illustrative standard, not a rule that binds Anthropic's corporate conduct. Never write that a clause about Claude's conduct binds or forbids Anthropic itself. In step 0, replace "Anthropic's Public Benefit Report does what it forbids" with a faithful version (e.g. that by the standard Anthropic set for Claude, the Report's selective emphasis would count as deception). Keep it short; do not add new facts.
+
+## Commits (reviewable like track changes)
+One commit per paper section (step 0–9 and appendices) that you touch, message `Paper §N: apply atomic review (Qnnn, …)` ending `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`. Then one commit for the claims file and the review status: set the status of every applied row to `applied (Sloane 2026-11-04: "go ahead and fix all these quotes")`. Never sign. No scripts that transform sources; editing the paper and TSV files with scripts that only perform the edits listed in the review is fine.
+
+## Report
+Commits; counts applied per verdict; every row you could not apply and why; every claim you weakened or cut (one line each); word count before/after.

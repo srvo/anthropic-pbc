@@ -1,0 +1,14 @@
+Research step of an atomic review. Read `/Users/srvo/dev/anthropic-pbc/docs/atomic-review.md` (section "No source: research, then an open question") and follow it. The author is Sloane (she/her). Rule: always pin, always verify, always breadcrumb; never guess a source.
+
+SCOPE: every comment row in `/Users/srvo/dev/anthropic-pbc/claims/anthropic-contrapunctus.tsv` starting `# UNPINNED`, `# AMBIGUOUS` or `# UNCLASSIFIED` (about 16). Prior findings to build on, not redo: sec.gov blocks automated fetches without a contact email (so SEC documents cannot be fetched now; record their exact URLs); the certificate of incorporation is S-1/A Exhibit 3.1 at https://www.sec.gov/Archives/edgar/data/2130357/000162828026068676/exhibit31-sx1a1.htm; a candidate for the 4.2B "affected" figure is https://surfshark.com/research/chart/election-deepfakes (unconfirmed by the paper); no originating document was found on the open web for "Measurable harm to millions", "All AI training is theft", "legally binding", "no issues".
+
+For each quotation:
+1. Search what we already hold, in order, and record where you looked: the pinned sources (`/Users/srvo/dev/anthropic-pbc/sources/` and `derived/`; grep them, they may contain the words); this repository's corpora (`DATASETS.md`, `corpus/`); the Entire brain (`cd /Users/srvo/dev/anthropic-pbc && entire brain query "<words>" --json`); the Praxis checkout (`/Users/srvo/dev/praxis`, grep catalog/ and docs) and Descartes (`/Users/srvo/dev/descartes/sources`, `docs`).
+2. Then the open web for a primary source (TinyFish search is available). A primary source is the originator's own document, not a summary.
+3. If found: give the URL and where in it the words are; do not download into the repository.
+4. If not found anywhere: write the open question precisely (what claim the paper needs, why, what evidence would settle it, what was searched), suitable for an issue.
+5. Recommend one verdict per docs/atomic-review.md: requote (with the found source's exact words), unquote, context, not-in-source, or unpinned (source identified but not pinnable now, e.g. SEC 403).
+
+Write ONLY to `/private/tmp/claude-501/-Users-srvo-dev-anthropic-pbc/c1e11076-829e-4b02-9641-6b48b095d475/scratchpad/review-research.tsv`, tab-separated, no header, columns `label verdict source context proposed reason reviewer status` (source = URL or pinned path or `-`; context = the found passage verbatim or `-`; proposed = replacement or `-`; reason = where you searched and what you found, or the open question; reviewer `llm:claude (atomic review 2026-11-04)`; status `proposed`). Escape tab/newline as `\t`/`\n`. Edit no repository file. Stop by ~40 turns.
+
+Report back: per quotation, one line: verdict, source or open question.
