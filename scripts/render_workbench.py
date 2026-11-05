@@ -630,7 +630,7 @@ proven     = only levers whose remedy card is circle ≥ 1</div></div></div>
 <h2 id="links">Links</h2>
 <div class="links"><div><h3>The paper and its code</h3><ul class="linklist">
 <li><a href="{DOI_URL}" target="_blank" rel="noopener">The working paper</a> <span class="small muted">Zenodo, DOI {DOI}</span></li>
-<li><a href="{REPO_URL}" target="_blank" rel="noopener">Code, cards and checks</a> <span class="small muted">GitHub; this page is built by <code>scripts/render_workbench.py</code> from <code>argument/</code></span></li>
+<li><a href="{REPO_URL}/tree/{head.split()[0]}/argument" target="_blank" rel="noopener">Code, cards and checks</a> <span class="small muted">GitHub; this page is built by <code>scripts/render_workbench.py</code> from <code>argument/</code></span></li>
 </ul></div>
 <div><h3>Sources the cards quote</h3><ul class="linklist">{src_items}</ul></div></div>
 
