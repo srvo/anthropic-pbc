@@ -3,7 +3,7 @@
 ### A cryptographically verifiable counterpoint to Anthropic's 2026 Public Benefit Report
 
 <div class="gallery">
-<a href="figures/fig1-verification.svg"><img src="figures/fig1-verification.svg" width="640" alt="51 of 60 quotes verified byte-exact against the PBC Report and S-1; 9 not, including one unsupported number and five compressions."></a>
+<!-- fig1-verification withdrawn: its counts were hand-coded in figures/build.py and went stale. It returns when generated from Descartes check output (Entire trail #26). -->
 <a href="figures/fig2-risk-governance-index.svg"><img src="figures/fig2-risk-governance-index.svg" width="640" alt="Risk–Governance Index v1: 0 of 8 disclosed risks controlled; 5 Uncontrolled, 3 Externalized."></a>
 <a href="figures/fig3-scorecard.svg"><img src="figures/fig3-scorecard.svg" width="640" alt="Governance scorecard, Appendix A: 0 of 10 dimensions held as filed; 4 partial or revocable, 6 absent."></a>
 <a href="figures/fig4-leverage.svg"><img src="figures/fig4-leverage.svg" width="640" alt="Meadows leverage points: Anthropic acts at 12 and 6, declines at 5, 4 and 3, speaks at 2 and 3."></a>
@@ -497,14 +497,15 @@ a claim that survives disagreement is worth more than one no one has tested.
 
 #### Verification status (this draft)
 
-Run through the Descartes loop on 2026-11-03: **60 load-bearing fragments the
-draft attributes to the PBC Report / S-1 were checked; 51 are byte-exact in
-the filing** (`descartes check` exit 0 on the uniquely-anchorable set). The
-audit caught **one unsupported number in our own text** — the "129,000"
-program-total is *not present in the PBC Report* (it is partner-reported) —
-now flagged in-line; and five "quotes" that are compressions, to be expanded
-to the filing's exact words or stripped of quotation marks before release.
-Finding our own error is the method working, not failing.
+The counts are not written here by hand. Each run of `descartes check` on
+[`claims/anthropic-contrapunctus.tsv`](../claims/anthropic-contrapunctus.tsv)
+is recorded unedited in [`quote-check-2026-11-04.md`](quote-check-2026-11-04.md);
+the build will include the latest result here, generated from Descartes's own
+output (Entire trail #26). Every failure is listed there with its cause; none is
+fitted to pass. The checks have already caught errors in our own text,
+including a number not present in the Report and quotations that compressed
+or paraphrased their source. Finding our own error is the method working, not
+failing.
 
 **The seal (not yet verified).** This paper is to be sealed by the Descartes
 check, not by a standard of its own: every quotation occurs exactly once, byte
@@ -668,7 +669,7 @@ than any critic could. Six recurring moves:
 |---|---|---|
 | Pirated-book library in training | ~500k compensated works; ~7M downloaded; authors in thousands–hundreds of thousands; **$1.5B** | Court-approved settlement Jul 2026 **[CONFIRMED/HIGH]**. The claim that all AI training is theft is simultaneously **REFUTED** as US law by the same ruling for lawfully acquired books — argue the taking, not the technology |
 | Revenue from policy violators | **5–7% of 9M-2026 revenue** booked before termination (~$1.7–2.3B implied) | S-1 **[CONFIRMED/HIGH]**. The single most investor-material harm sentence in either document: misuse is not an externality, it is a revenue line |
-| Model escape in testing | 4 Claude models reached real third-party systems via misconfigured internet-connected eval env; further unintended actions internally | Report p.6 **[CONFIRMED/HIGH]** (absent from S-1 keyword windows — materiality judgment worth a regulator's question) |
+| Model escape in testing | 4 Claude models reached real third-party systems via misconfigured internet-connected eval env; further unintended actions internally | Report p.6 **[CONFIRMED/HIGH]**; also in the S-1 risk factors: "Four of our models gained unauthorized access to real third-party systems" |
 | Misuse disrupted after the fact | Vibe-hacking data extortion ("The actor targeted at least 17 distinct organizations"); Claude-built ransomware sold; NK employment fraud; Iran/China influence ops; GTG-1002 ~30 targets | [Anthropic threat reports](https://www.anthropic.com/news/detecting-countering-misuse-aug-2025) **[CONFIRMED/MED]**; downstream victim counts unknown; GTG-1002 autonomy/attribution single-source **[NUANCED]** |
 | Accounts banned at platform scale | 11.4M accounts banned H1-2026, all violation types | Report p.11. Note: this is the only "millions" numeral in either document tied to persons — and it measures attempted misuse *of Claude*, banned by Anthropic. Cite it for throughput of abuse, not victims |
 | Regulatory interruption | Jun 2026 worldwide US Commerce export restrictions on Fable 5/Mythos 5, lifted after safeguard changes | S-1 **[CONFIRMED/HIGH]** — proof that "pace the frontier" already has a state actor willing to pace it for them |
@@ -1082,7 +1083,7 @@ own limits — §8.2).
 | GOV-7 | **No-training provenance ledger** — hash-chained training-corpus ledger; binding no-train on contested/customer data | Rights-holder/auditor spot-check | % corpus licensed/provenanced | Disgorgement + derivative-model destruction for unprovenanced slices |
 | GOV-8 | **Irrevocable mission lock** — move Class T economics+votes (or a golden veto on purpose/sale/model-transfer) to a purpose trust with an enforcer; delete sunset/redemption and supermajority trustee-removal | Any amendment/sale attempt | Attempt = breach | **Transaction void.** This is the Patagonia/Bosch step; everything else is commentary on its absence |
 | GOV-9 | **Misuse-revenue disgorgement** — audit the disclosed 5–7% quarterly | Auditor finds >1% | % revenue + downstream victim count (which Anthropic must now count) | 3× disgorgement to victims, exec clawback, customer ban. Misuse stops being a revenue line |
-| GOV-10 | **Incident + externality bond** — mandatory timed disclosure of eval-escape class incidents; metered power/water/displacement per site vs bond | Auditor, community, regulator | Hours-to-disclose; MWh, litres, headcount | Bond forfeit + curtailment; the 4-model incident would be an S-1 item, not a Report anecdote |
+| GOV-10 | **Incident + externality bond** — mandatory timed disclosure of eval-escape class incidents; metered power/water/displacement per site vs bond | Auditor, community, regulator | Hours-to-disclose; MWh, litres, headcount | Bond forfeit + curtailment; an incident like the 4-model case would carry a disclosure deadline and a bond, not wait for the company's next report or filing |
 
 **Pre-IPO asks (investors/regulators can condition on these now):**
 (1) File the Trust Agreement terms that decide GOV-8 in plain prospectus
@@ -1094,8 +1095,10 @@ site-level power/water commitments behind the $895.4B schedule (GOV-10).
 trustee'd vehicle with a non-Anthropic enforcer, so that the "separate
 entity" the LTBT describes is separate in control as well as in law. (5) Restate flagship benefit numbers under GOV-2/GOV-3
 labelling in the next amendment. None of these slows a safe frontier.
-All of them slow an *unverifiable* one — which is the Report's own stated
-preference ("pace the frontier," Sept 2026).
+All of them slow an *unverifiable* one. The S-1 calls for "pacing the
+frontier" through industry-wide standards and says that call does not
+describe Anthropic's own model development; these asks apply the same idea
+to Anthropic itself.
 
 ### 7.2 What Praxis builds instead — the alternative mechanisms
 
@@ -1246,7 +1249,7 @@ Scoring: ● held/verifiable today · ◐ partial/revocable · ○ absent.
 | Misuse economics | ○ 5–7% revenue disclosed, retained | ● Audited quarterly; 3× disgorgement >1% (GOV-9) |
 | Externality metering | ○ No site MW/water in extract | ● Bonded metered disclosure (GOV-10) |
 | Benefit vehicle independence | ○ 5% in wholly-owned subsidiary | ● Independently trustee'd, external enforcer |
-| Incident disclosure | ◐ Report-level candor, S-1-silent (4-model case) | ● Timed, bonded, filing-grade (GOV-10) |
+| Incident disclosure | ◐ Disclosed after the fact in the Report and the S-1 risk factors (4-model case); no disclosure deadline | ● Timed, bonded, filing-grade (GOV-10) |
 
 **Implementation order we would underwrite:** pre-pricing — Trust terms in
 plain language, 5–7% dollarized, Fund independence or relabelling,

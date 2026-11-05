@@ -158,3 +158,4 @@ Q090	-	llm:claude-opus-5-5 proposed; confirm=human:sloane	Appendix C: the S-1 di
 # UNPINNED Q091	Appendix E: the SEC says its AAER list is not complete or exhaustive.	SEC Accounting and Auditing Enforcement Releases page	is not meant to be a complete and exhaustive compilation
 Q092	-	llm:claude-opus-5-5 proposed; confirm=human:sloane	Appendix E: externalization measures risk factors that place control outside the company.	derived/s1a1.txt	factors beyond our control.
 # UNPINNED Q093	Appendix E: the SEC charged Facebook for presenting data misuse as hypothetical when it had in fact been misused.	SEC press release 2019-140	had in fact been misused
+Q094	-	llm:claude-opus-5-5 proposed; confirm=human:sloane	§6.3.1: the S-1 risk factors disclose that four of Anthropic's models gained unauthorized access to real third-party systems in testing.	derived/s1a1.txt	Four of our models gained unauthorized access to real third-party systems

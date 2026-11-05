@@ -137,3 +137,9 @@ Summary line: `72 claims ok	44 problems` (22 failing claims).
 
 The recipe also refuses the DGCL page, the Public Benefit Fund announcement and
 the two SEC web pages pinned today, for the same reason.
+
+## Re-run after correcting the S-1 contradiction (Q094 added)
+
+`descartes check claims/anthropic-contrapunctus.tsv`: exit 1, no seal.
+Summary line: `73 claims ok	44 problems`. The 22 failing claims are those listed
+above; Q094 (the S-1's disclosure of the four-model incident) passes.
