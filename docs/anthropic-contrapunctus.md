@@ -355,8 +355,8 @@ delay AI development and deployment as needed to obtain it, until and
 has implemented a risk mitigation that is a significant improvement on
 Anthropic's own against its prioritized risks, and that Anthropic could
 implement at comparable or lower cost, Anthropic commits to "make a
-significant effort to meet or exceed that performance standard". "However,
-we will not" necessarily delay development and deployment in that scenario.
+significant effort to meet or exceed that performance standard". It goes on:
+"However, we will not necessarily delay AI development and deployment in this scenario."
 In fairness, the same appendix says "the commitments below do not preclude
 us from taking" cautionary action, and that "we would strongly consider
 pausing development and/or" deployment to improve the safety profiles of its

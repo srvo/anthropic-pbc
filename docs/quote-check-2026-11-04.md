@@ -150,3 +150,11 @@ Exhibit 3.3 to the original Form S-1 (2026-10-26; the form of certificate effect
 on completion of the offering) is pinned and reaches text through `html-to-text static-v1`.
 `descartes check claims/anthropic-contrapunctus.tsv`: exit 1, no seal.
 Summary line: `75 claims ok	44 problems`. The failing claims are unchanged.
+
+## Re-run after requoting Q022b (adversarial audit)
+
+Q022b quoted "However, we will not", cut before "necessarily", on which the
+paper's point rests. It now quotes the whole clause; the quote is faithful and
+fails on the RSP's printed line breaks and zero-width spaces (same cause as the
+other 18 PDF failures). Checked with descartes `1a44f60`
+(sha256 `68ba4cac…`): exit 1. Summary line: `74 claims ok	46 problems`.
