@@ -1,0 +1,40 @@
+Hey, can you take a look at The stuff in this repo to see if there is a bug where a bunch of files are getting organization in like placeholders, placeholders, because one of our agents has a weird privacy thing going on
+
+---
+
+/Users/srvo/dev/anthropic-pbc/corpus/risk-factors/MAN
+ IFEST.meta.yml
+ In batch 1 (queued)
+
+
+
+ replace
+ /Users/srvo/dev/anthropic-pbc/corpus/risk-factors/MAN
+ IFEST.meta.yml
+ batch 1:
+    │  ...
+ 22 │  zkoms│  accession number only; it contains no
+ filing text. Item 1A text was
+ 23 │ -ojipp│  fetched
+
+---
+
+It was a pie agent. Can you dig around and please fix that?
+
+---
+
+I mean, actually, we should give it a different key... I think we should have independent keys that are tracked and manageable, you know
+
+---
+
+replace
+ /Users/srvo/dev/anthropic-pbc/corpus/risk-factors/MAN
+ IFEST.meta.yml All of its edits were in there, and that looks like a document that should be created as a mechanistic output. Can you look into that?
+
+---
+
+Yeah, you gotta fix that
+
+---
+
+Also, as a rule, agents need to render shit to the tray... Like, if they're trying to show me something or whatever, it goes straight in the tray
