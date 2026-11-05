@@ -73,10 +73,29 @@ That weight is **computed from the claim DAG, never assigned by hand**
   belongs in Descartes, in Rust, as a command beside `check` (AGENTS.md:
   no Python around Descartes).
 
-**Gap, 2026-11-04:** in `claims/anthropic-contrapunctus.tsv`, all 97 rows
-have `rests_on` = `-`. The DAG holds the quotations but not the argument
-built on them, so there is nothing yet to compute from. The first step is to
-encode §0's chain as claims resting on the quotations that support them.
+## The argument lives in the DAG
+
+Every inference a document makes is a claim row, not just its quotations
+(Sloane, 2026-11-04). An argument row has `path` and `quote` set to `-` and
+`rests_on` naming the claims it needs, so it stands only if they stand, and a
+failure anywhere below it shows up in it.
+
+- **List what a claim needs, not what corroborates it.** `rests_on` is a
+  conjunction, so a corroborating quote listed there becomes a requirement.
+  Descartes has no corroboration link yet; until it does, corroboration goes
+  in a comment.
+- **A premise with nothing under it stays in the file and fails.** It is
+  not dropped and not quoted around: the failure is the finding that it needs
+  a source.
+- **The steelman is a row too**, and the thesis does not rest on it.
+
+First encoding, 2026-11-04 (§0, rows A01–A09, T0, R0, step S15): the thesis
+T0 fails. Five premises have no supporting claim yet: A02a (the Delaware
+holding), A02b (the trust's four of seven), A02d (more disclosure than
+peers), A03 (§367's 2% / $2 million standing) and A04 (amendability and the
+50.1%). Two more fail through quotations that fail for instrument reasons:
+A06 through Q025 (a PDF line break) and A09 through Q048 (duplicated HTML).
+A01, A02c and A07 stand.
 
 ## The front page lays it all out
 

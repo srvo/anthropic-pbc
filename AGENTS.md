@@ -143,6 +143,11 @@ codebook, pass `--units`, `--codebook`, `--id-col` and `--out`.
   first, then extract every comment verbatim into `comments/`
   (`docs/comments-standard.md`, `scripts/pdf_comments.py`) (Sloane,
   2026-11-04).
+- **The argument lives in the DAG.** Every inference is a claim row whose
+  `rests_on` names what it needs (not what corroborates it); a premise with
+  no support stays in and fails. Argument order and link weight are
+  computed from that graph, never assigned (`docs/editorial-standard.md`)
+  (Sloane, 2026-11-04).
 - **Atomic review.** Every claim is reviewed on its own against four
   questions: pinned, present, faithful to its context, breadcrumbed. A claim
   with no source goes to research and, failing that, an open question.
