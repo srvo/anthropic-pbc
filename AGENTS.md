@@ -135,6 +135,14 @@ codebook, pass `--units`, `--codebook`, `--id-col` and `--out`.
   verifier's result, the steps that produced the claims, open audit
   findings and the trails that track them (`scripts/render_report.py`).
   It is built with the document, never typed (Sloane, 2026-11-04).
+- **Be understood.** It is our job to be understood, not the reader's to
+  understand us: one point per paragraph, each made more than one way,
+  with inline pictures where there is a mechanism or a payoff
+  (`docs/editorial-standard.md`). Reader comments are records: log each
+  emitted file's digest, and when feedback comes back compare the bytes
+  first, then extract every comment verbatim into `comments/`
+  (`docs/comments-standard.md`, `scripts/pdf_comments.py`) (Sloane,
+  2026-11-04).
 - **Atomic review.** Every claim is reviewed on its own against four
   questions: pinned, present, faithful to its context, breadcrumbed. A claim
   with no source goes to research and, failing that, an open question.
