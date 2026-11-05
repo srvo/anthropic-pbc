@@ -20,6 +20,16 @@ compare its bytes with that record (`pdf_comments.py pull`):
 
 Emitted files themselves are never committed; the record of them is.
 
+## Dissent beats comments
+
+A free-text comment can't be checked, so it adds noise as easily as signal
+(Sloane, 2026-11-04). The verification chain at the end of every rendering
+(its colophon) gives each claim a version, a source and a result. The
+strongest response therefore names what it disputes: a claim, at a commit,
+with a reason and, where possible, a pinned counter-source. It enters as a
+fork of the argument graph, beside ours, not as an overwrite. The ledger below
+still records every comment, because a comment is often where dissent starts.
+
 ## Channels
 
 Any channel works as long as its comments land in the ledger:
