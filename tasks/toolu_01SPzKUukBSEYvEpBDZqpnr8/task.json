@@ -1,0 +1,15 @@
+{
+  "tool_use_id": "toolu_01SPzKUukBSEYvEpBDZqpnr8",
+  "agent_id": "a67f4b7aafd59722c",
+  "subagent_type": "general-purpose",
+  "task_description": "Build country entity set and profiles",
+  "token_usage": {
+    "input_tokens": 142,
+    "cache_creation_tokens": 210312,
+    "cache_read_tokens": 11165786,
+    "output_tokens": 79597,
+    "api_call_count": 69
+  },
+  "started_at": "2026-11-05T01:38:05.934079-07:00",
+  "completed_at": "2026-11-05T01:55:29.648665-07:00"
+}

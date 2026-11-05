@@ -1,0 +1,15 @@
+{
+  "tool_use_id": "toolu_01QicH8DCKxNRJdW9mAiwv2a",
+  "agent_id": "a720d6bac1efc0f26",
+  "subagent_type": "general-purpose",
+  "task_description": "Crosswalk exclusions to SDG targets",
+  "token_usage": {
+    "input_tokens": 98,
+    "cache_creation_tokens": 171755,
+    "cache_read_tokens": 6260742,
+    "output_tokens": 64809,
+    "api_call_count": 48
+  },
+  "started_at": "2026-11-04T23:36:44.536512-07:00",
+  "completed_at": "2026-11-04T23:47:07.776569-07:00"
+}

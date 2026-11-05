@@ -1,0 +1,15 @@
+{
+  "tool_use_id": "toolu_01N3kwkF6GwPfhfecR8VpiXL",
+  "agent_id": "ada4c7e71b8232e98",
+  "subagent_type": "general-purpose",
+  "task_description": "Add our exclusion sources to registry",
+  "token_usage": {
+    "input_tokens": 94,
+    "cache_creation_tokens": 214080,
+    "cache_read_tokens": 7985093,
+    "output_tokens": 48532,
+    "api_call_count": 46
+  },
+  "started_at": "2026-11-05T01:29:00.036135-07:00",
+  "completed_at": "2026-11-05T01:37:50.706566-07:00"
+}

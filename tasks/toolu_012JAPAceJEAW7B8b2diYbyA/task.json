@@ -1,0 +1,15 @@
+{
+  "tool_use_id": "toolu_012JAPAceJEAW7B8b2diYbyA",
+  "agent_id": "ad862a30044d718d8",
+  "subagent_type": "fork",
+  "task_description": "Coolify cleanup: docs/research/workers",
+  "token_usage": {
+    "input_tokens": 148,
+    "cache_creation_tokens": 228141,
+    "cache_read_tokens": 11400264,
+    "output_tokens": 50202,
+    "api_call_count": 73
+  },
+  "started_at": "2026-11-05T02:47:39.692618-07:00",
+  "completed_at": "2026-11-05T02:54:13.842875-07:00"
+}

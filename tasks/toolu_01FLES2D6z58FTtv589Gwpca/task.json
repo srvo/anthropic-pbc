@@ -1,0 +1,15 @@
+{
+  "tool_use_id": "toolu_01FLES2D6z58FTtv589Gwpca",
+  "agent_id": "ac3620e2ffc25bdfc",
+  "subagent_type": "fork",
+  "task_description": "Coolify cleanup: infra hosts/scripts/packages",
+  "token_usage": {
+    "input_tokens": 134,
+    "cache_creation_tokens": 207894,
+    "cache_read_tokens": 10196312,
+    "output_tokens": 41927,
+    "api_call_count": 66
+  },
+  "started_at": "2026-11-05T02:47:39.698743-07:00",
+  "completed_at": "2026-11-05T02:53:39.248437-07:00"
+}

@@ -1,0 +1,15 @@
+{
+  "tool_use_id": "toolu_01T8WqqvQPYEnZTuerxpSkyP",
+  "agent_id": "a0ccf4960007594b3",
+  "subagent_type": "general-purpose",
+  "task_description": "Build cross-document link and conflict checker",
+  "token_usage": {
+    "input_tokens": 74,
+    "cache_creation_tokens": 165011,
+    "cache_read_tokens": 4489867,
+    "output_tokens": 59579,
+    "api_call_count": 37
+  },
+  "started_at": "2026-11-05T02:13:20.100932-07:00",
+  "completed_at": "2026-11-05T02:23:49.351138-07:00"
+}

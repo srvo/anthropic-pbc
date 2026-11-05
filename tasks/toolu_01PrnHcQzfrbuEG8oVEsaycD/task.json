@@ -1,0 +1,15 @@
+{
+  "tool_use_id": "toolu_01PrnHcQzfrbuEG8oVEsaycD",
+  "agent_id": "af8a933d5adae9193",
+  "subagent_type": "general-purpose",
+  "task_description": "Map asset owners publishing exclusion lists",
+  "token_usage": {
+    "input_tokens": 152,
+    "cache_creation_tokens": 234440,
+    "cache_read_tokens": 13219027,
+    "output_tokens": 67521,
+    "api_call_count": 72
+  },
+  "started_at": "2026-11-05T01:35:55.904742-07:00",
+  "completed_at": "2026-11-05T01:51:10.206675-07:00"
+}

@@ -1,0 +1,15 @@
+{
+  "tool_use_id": "toolu_01EhCCQZasVwkeQND7hsTgXU",
+  "agent_id": "a3729b90581f59d97",
+  "subagent_type": "general-purpose",
+  "task_description": "Make gmail_sync atomic and accurately named",
+  "token_usage": {
+    "input_tokens": 140,
+    "cache_creation_tokens": 234261,
+    "cache_read_tokens": 11574508,
+    "output_tokens": 85283,
+    "api_call_count": 70
+  },
+  "started_at": "2026-11-05T02:45:34.69891-07:00",
+  "completed_at": "2026-11-05T02:58:28.189954-07:00"
+}

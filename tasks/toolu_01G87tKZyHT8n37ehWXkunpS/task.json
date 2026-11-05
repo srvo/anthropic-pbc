@@ -1,0 +1,15 @@
+{
+  "tool_use_id": "toolu_01G87tKZyHT8n37ehWXkunpS",
+  "agent_id": "a7956840468eba792",
+  "subagent_type": "general-purpose",
+  "task_description": "Build exclusions evidence feeder in Dark",
+  "token_usage": {
+    "input_tokens": 172,
+    "cache_creation_tokens": 630067,
+    "cache_read_tokens": 13941902,
+    "output_tokens": 98441,
+    "api_call_count": 84
+  },
+  "started_at": "2026-11-05T01:03:22.620791-07:00",
+  "completed_at": "2026-11-05T01:15:22.563425-07:00"
+}

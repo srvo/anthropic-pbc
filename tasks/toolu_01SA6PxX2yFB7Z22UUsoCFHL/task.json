@@ -1,0 +1,15 @@
+{
+  "tool_use_id": "toolu_01SA6PxX2yFB7Z22UUsoCFHL",
+  "agent_id": "a88c4a3a096b58b0a",
+  "subagent_type": "general-purpose",
+  "task_description": "Inventory topology sources",
+  "token_usage": {
+    "input_tokens": 62,
+    "cache_creation_tokens": 168988,
+    "cache_read_tokens": 3811861,
+    "output_tokens": 19711,
+    "api_call_count": 31
+  },
+  "started_at": "2026-11-04T23:12:34.992313-07:00",
+  "completed_at": "2026-11-04T23:22:50.559433-07:00"
+}

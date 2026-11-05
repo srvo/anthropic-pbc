@@ -1,0 +1,15 @@
+{
+  "tool_use_id": "toolu_01G2GPsVhZnz3s5DARLQAtfU",
+  "agent_id": "a99dbd9016329d6ae",
+  "subagent_type": "fork",
+  "task_description": "Coolify cleanup: containers + CI",
+  "token_usage": {
+    "input_tokens": 164,
+    "cache_creation_tokens": 241302,
+    "cache_read_tokens": 13246459,
+    "output_tokens": 54855,
+    "api_call_count": 81
+  },
+  "started_at": "2026-11-05T02:47:39.693454-07:00",
+  "completed_at": "2026-11-05T02:55:23.252069-07:00"
+}

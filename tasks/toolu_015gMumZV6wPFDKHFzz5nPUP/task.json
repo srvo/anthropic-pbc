@@ -1,0 +1,15 @@
+{
+  "tool_use_id": "toolu_015gMumZV6wPFDKHFzz5nPUP",
+  "agent_id": "a80b57a843323f449",
+  "subagent_type": "general-purpose",
+  "task_description": "Unify fetch gate and add conformance tests",
+  "token_usage": {
+    "input_tokens": 118,
+    "cache_creation_tokens": 209887,
+    "cache_read_tokens": 9361056,
+    "output_tokens": 89885,
+    "api_call_count": 57
+  },
+  "started_at": "2026-11-05T01:21:10.679386-07:00",
+  "completed_at": "2026-11-05T01:34:47.442331-07:00"
+}

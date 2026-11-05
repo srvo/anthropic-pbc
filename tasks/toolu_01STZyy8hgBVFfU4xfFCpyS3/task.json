@@ -1,0 +1,15 @@
+{
+  "tool_use_id": "toolu_01STZyy8hgBVFfU4xfFCpyS3",
+  "agent_id": "ac7b45924cd01783e",
+  "subagent_type": "Explore",
+  "task_description": "Map mail ingestion jobs",
+  "token_usage": {
+    "input_tokens": 58,
+    "cache_creation_tokens": 106492,
+    "cache_read_tokens": 2119440,
+    "output_tokens": 16818,
+    "api_call_count": 29
+  },
+  "started_at": "2026-11-05T02:46:01.978619-07:00",
+  "completed_at": "2026-11-05T02:48:46.764472-07:00"
+}
