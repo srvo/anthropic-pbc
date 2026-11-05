@@ -4,3 +4,39 @@
 docs/contrapunctus-compliance-review.md
 docs/_pending-*.md
 *.draft.md
+.rfcorpus/
+
+# Enrichment bulk bytes — re-fetchable from sources/MANIFEST.tsv pins.
+sources/*
+!sources/MANIFEST.tsv
+enrich-out/
+
+# Earnings-call bulk source -- re-fetchable from corpus/earnings-calls/MANIFEST.tsv
+.eccorpus/
+
+# Hacker News bulk source + comment text -- never committed; re-fetchable from corpus/hacker-news/MANIFEST.tsv
+.hncorpus/
+
+# Wikipedia AI-risk wikitext -- re-fetchable from corpus/wikipedia-ai-risk/MANIFEST.tsv
+.wpcorpus/
+
+# CVE bulk snapshot -- re-fetchable from corpus/cve/MANIFEST.tsv
+.cvecorpus/
+
+# Epoch AI snapshot bytes (large tables) -- pinned in corpus/epoch/MANIFEST.tsv
+.epochcorpus/
+
+# Democracy proxies: saved GDELT responses and Rooney PDFs -- pinned in corpus/democracy/MANIFEST.tsv
+.democorpus/
+
+# Local agent and interpreter state
+scripts/__pycache__/
+.claude/worktrees/
+.claude/settings.local.json
+
+# Emitted files are never committed (Sloane, 2026-11-04): rebuilt by docs/figures/build.py.
+docs/figures/*.svg
+
+# Descartes: derived text is rebuilt from derived/recipes.tsv; the store is a projection.
+derived/*.txt
+.descartes/

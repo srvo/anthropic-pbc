@@ -1,0 +1,219 @@
+# Metadata for data://meadow/wikipedia/2026-11-04/ai_risk_articles (praxis/datasets/metadata.schema.yml)
+title: English Wikipedia AI-risk articles as anchored paragraphs and windows, pinned 2026-11-04
+description: >-
+  What English Wikipedia files under AI risk, as a reference map: 151 pinned
+  articles converted to plain Markdown by published rules, stored verbatim as
+  paragraphs and scoring windows with character offsets and BLAKE3 hashes, an
+  inventory of every section, and a candidate list of dimensions read from the
+  headings of four hub articles. The dimension list is a candidate for human
+  review, not a taxonomy or a codebook.
+processing: >-
+  Parse each pinned wikitext with mwparserfromhell 0.7.2 and render plain
+  Markdown: headings kept as # lines (the lead is "(lead)"); templates,
+  references, tables, galleries, maths and files dropped, except a short
+  allowlist of inline templates whose argument is prose; links reduced to
+  their label; category, file and interlanguage links and bare URLs dropped;
+  list items become "- " lines; bold and italic markup removed; standard
+  end-matter sections (References, Notes, See also, External links, Further
+  reading and variants) dropped with their subsections; whitespace and
+  emptied parentheses collapsed. A paragraph is a run of non-blank lines. A
+  window is the whole paragraph up to 1,500 characters, or consecutive chunks
+  of whole sentences of at most 1,500 characters; paragraphs under 80
+  characters get no window. Candidate dimensions are the kept headings of AI
+  safety, Ethics of artificial intelligence and Existential risk from
+  artificial intelligence, and the subtree under "Ethics > Risks and harm" of
+  Artificial intelligence. Drops dropped templates' words (for example a
+  converted unit or a templated date), end-matter text, and the Markdown
+  itself, which is rebuilt locally. verify re-converts, re-slices, re-hashes
+  and rebuilds every output to compare bytes. No model, no labels.
+unit_of_analysis: >-
+  one paragraph of a pinned article's converted Markdown (articles.parquet);
+  windows.parquet cuts paragraphs of 80 characters or more into scoring windows
+denominator: corpus/wikipedia-ai-risk/sections.tsv (every section of every article, including dropped end-matter)
+coverage: >-
+  151 articles, one revision each, the last at or before 2026-11-04T00:00:00Z
+  (revids 1301533223, 2025-07-20, to 1383632719, 2026-11-03). 1,984 sections,
+  3,761 paragraphs, 3,749 windows, 110 candidate headings. 78 paragraphs are
+  under 80 characters and get no window. Category membership was read on the
+  day pin ran. The seed article "AI-assisted targeting" does not exist and was
+  dropped.
+does_not_answer:
+  - "How likely or harmful a risk is: Wikipedia records editor attention, not risk. A heading exists because editors wrote one; its size measures how much they wrote."
+  - "Risks felt most outside North America and Europe: English Wikipedia's editors skew towards them, so labelling work, data-centre siting and surveillance in other legal systems can be thin or absent."
+  - "Anything after the pin: the pin is one day's text, and articles on fast-moving subjects are rewritten often."
+  - "Which articles are about risk: category membership mixes risks with the organisations, books and fiction about them, and some relevant articles are in no seed category."
+  - "That an absent risk is unimportant: silence is not absence."
+  - "Any model judgment: scoring windows against the codebook is a separate, witnessed step under bert-enrichment-spec.md §5."
+license:
+  name: Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0), adapted from English Wikipedia
+  url: https://creativecommons.org/licenses/by-sa/4.0/
+status: held
+tables:
+  corpus/wikipedia-ai-risk/articles.parquet:
+    title: "Paragraphs of every article, verbatim from the converted Markdown"
+    description: "One row per paragraph of a kept section, anchored in the article's Markdown."
+    primary_key: [title, paragraph_number]
+    columns:
+      "title":
+        type: string
+        description: "Article title (MANIFEST.tsv title)."
+      "pageid":
+        type: integer
+        description: "MediaWiki page id."
+      "revid":
+        type: integer
+        description: "Pinned revision id."
+      "section_path":
+        type: string
+        description: "Heading path of the paragraph's section, headings joined by ' > '; '(lead)' for the lead."
+      "heading_level":
+        type: integer
+        description: "Wikitext heading level of the section (2 for ==); 1 for the lead."
+      "paragraph_number":
+        type: integer
+        description: "1-based order of the paragraph within the article, across kept sections."
+      "kind":
+        type: string
+        description: "Paragraph kind."
+        values:
+          list: "text starts with '- ' (a list)"
+          prose: "anything else"
+      "md_start":
+        type: integer
+        unit: characters
+        description: "Start offset (0-based, inclusive) of the paragraph in the article's converted Markdown."
+      "md_end":
+        type: integer
+        unit: characters
+        description: "End offset (exclusive) of the paragraph in the article's converted Markdown."
+      "markdown_blake3":
+        type: string
+        hash_of: "the article's whole converted Markdown, UTF-8"
+        description: "BLAKE3 of the converted Markdown the offsets refer to."
+      "paragraph_blake3":
+        type: string
+        hash_of: "the paragraph text, UTF-8"
+        description: "BLAKE3 of `text`."
+      "text":
+        type: string
+        verbatim: true
+        description: "The paragraph, Markdown [md_start, md_end)."
+  corpus/wikipedia-ai-risk/sections.tsv:
+    title: "Every section of every article"
+    description: "Denominator. Includes dropped end-matter, with kept = 0."
+    primary_key: [title, section_index]
+    columns:
+      "title":
+        type: string
+        description: "Article title."
+      "revid":
+        type: integer
+        description: "Pinned revision id."
+      "section_index":
+        type: integer
+        description: "0-based order of the section in the article; 0 is the lead."
+      "heading_level":
+        type: integer
+        description: "Wikitext heading level (2 for ==); 1 for the lead."
+      "heading_path":
+        type: string
+        verbatim: true
+        description: "Headings from the top down, joined by ' > '; '(lead)' for the lead."
+      "kept":
+        type: integer
+        description: "Whether the section's text is in the corpus."
+        values:
+          "1": "kept"
+          "0": "end-matter heading, or under one; text dropped"
+      "n_paragraphs":
+        type: integer
+        unit: paragraphs
+        description: "Paragraphs stored from the section; 0 when kept = 0."
+      "n_chars":
+        type: integer
+        unit: characters
+        description: "Total characters of those paragraphs."
+  corpus/wikipedia-ai-risk/windows.parquet:
+    title: "Scoring windows"
+    description: "One row per window, in the shape of corpus/earnings-calls/ai-windows.parquet."
+    primary_key: [window_id]
+    columns:
+      "window_id":
+        type: string
+        hash_of: "the string <title>|<revid>|<paragraph_number>|<start_char>|<end_char>|<paragraph_blake3>"
+        description: "First 16 hex characters of the BLAKE3 hash of the window's anchors."
+      "title":
+        type: string
+        description: "Article title."
+      "pageid":
+        type: integer
+        description: "MediaWiki page id."
+      "revid":
+        type: integer
+        description: "Pinned revision id."
+      "section_path":
+        type: string
+        description: "Heading path of the section, as in articles.parquet."
+      "paragraph_number":
+        type: integer
+        description: "Paragraph the window is cut from (articles.parquet paragraph_number)."
+      "paragraph_blake3":
+        type: string
+        hash_of: "the paragraph text, UTF-8"
+        description: "BLAKE3 of the source paragraph."
+      "start_char":
+        type: integer
+        unit: characters
+        description: "Start offset (0-based, inclusive) of the window in the paragraph text."
+      "end_char":
+        type: integer
+        unit: characters
+        description: "End offset (exclusive) of the window in the paragraph text."
+      "window_blake3":
+        type: string
+        hash_of: "the window text, UTF-8"
+        description: "BLAKE3 of `text`."
+      "text":
+        type: string
+        verbatim: true
+        description: "The window, paragraph [start_char, end_char)."
+  corpus/wikipedia-ai-risk/dimensions-candidate.tsv:
+    title: "Candidate dimensions from hub-article headings"
+    description: "Candidate for human review, not a taxonomy. One row per kept heading of the hub sections; every row is 'candidate: not reviewed'."
+    primary_key: [source_title, heading_path]
+    columns:
+      "source_title":
+        type: string
+        description: "Hub article (HUBS in scripts/wp_extract.py)."
+      "revid":
+        type: integer
+        description: "Pinned revision id of the hub article."
+      "heading_level":
+        type: integer
+        description: "Wikitext heading level (2 for ==)."
+      "heading_path":
+        type: string
+        verbatim: true
+        description: "Headings from the top down, joined by ' > '."
+      "heading":
+        type: string
+        verbatim: true
+        description: "The section's own heading."
+      "main_articles":
+        type: string
+        description: "' | '-joined targets of the section's {{Main}}, {{Further}}, {{Details}}, {{See also}} and similar hatnotes, deduplicated in order; empty if none."
+      "linked_articles":
+        type: string
+        description: "' | '-joined targets of every article link in the section's own text (not its subsections), deduplicated in order."
+      "n_linked_in_corpus":
+        type: integer
+        unit: articles
+        description: "Distinct main and linked targets whose title is a title in MANIFEST.tsv (exact match; redirects not followed)."
+      "codebook_v0_1_literal_match":
+        type: string
+        description: "Comma-separated codebook-v0.1 ids that, with underscores as spaces, appear as a whole word in the lower-cased heading; empty if none. Literal, not semantic."
+      "status":
+        type: string
+        description: "Review status."
+        values:
+          "candidate: not reviewed": "every row; choosing dimensions is Sloane's decision"

@@ -1,0 +1,117 @@
+# Metadata for data://meadow/earnings_calls/2026-11-04/ai_questions (praxis/datasets/metadata.schema.yml)
+title: AI questions asked by outside questioners on S&P 500 earnings calls
+description: >-
+  Every AI question an outside questioner (the method doc's analysts) asked in the Q&A of a unique, non-stub S&P 500 call: the full turn,
+  identified by id and BLAKE3. Beside it, per call, whether a Q&A was found and how
+  many questioner turns it held, AI or not, as the denominator. The committed
+  table carries no text; `build` writes the same table with each verbatim turn
+  to the gitignored .eccorpus/ai-questions.parquet (scripts/ec_text.py).
+processing: >-
+  Takes the unique, non-stub calls of calls.tsv (duplicate_of empty,
+  n_paragraphs > 2) and their paragraphs from the pinned source. A speaker key
+  is the speaker string lower-cased and trimmed, with any " - Company" suffix
+  dropped. Q&A starts at the first paragraph matching QA_START
+  (scripts/ec_questions.py) that comes after the first non-operator paragraph;
+  calls with none have qa_found false and contribute no turns. Anyone
+  (non-operator) speaking before Q&A start on any of the issuer's calls with a
+  detected Q&A is an insider. A questioner is a non-operator, non-insider, non-empty speaker key
+  with at least one Q&A turn directly after an Operator turn and at least one
+  Q&A turn containing '?'. Every Q&A paragraph by a questioner is a questioner
+  turn. The unit keeps turns that match the AI term regex of
+  scripts/ec_extract.py, contain '?', and are at most 3,000 characters. Writes
+  the table with text to .eccorpus/ai-questions.parquet (byte-identical to the
+  table committed before 2026-11-04, whose BLAKE3 the witness run records cite)
+  and without text to this folder. `verify` reads every turn again from the
+  pinned source and checks its BLAKE3, length and question_id, and checks the
+  local text table, when built. Drops non-AI turns,
+  AI turns without '?', and turns over 3,000 characters (the code notes these
+  are mostly mis-attributed remarks); all are still counted in
+  question-calls.tsv.
+unit_of_analysis: >-
+  one AI question: one questioner turn (paragraph) in the Q&A that matches an AI term,
+  contains '?', and is at most 3,000 characters
+denominator: >-
+  corpus/earnings-calls/question-calls.tsv (every unique, non-stub S&P 500 call, with
+  n_questioner_turns AI or not)
+coverage: >-
+  The 33,622 unique, non-stub calls of calls.tsv (universe and survivorship
+  bias as in ai_windows). A Q&A was detected on 33,314; 882,118 questioner
+  turns, 4,288 of them AI questions, report dates 2006-11-02 to 2026-11-04. A
+  pseudo-random check of 25 questions found 25 genuine analyst questions
+  (method doc §10); no larger check exists.
+does_not_answer:
+  - "What a question's intent is: intent comes only from the witness step, whose scores are proposals until the question gold set in gold/earnings-calls/ is coded (method doc §10)."
+  - "Whether a risk raised in a question is an exposure, was governed, or materialised (§7)."
+  - "What investors who do not speak on calls ask or think: only questioners introduced on the call are heard (§7)."
+  - "Anything about a call with no AI question: silence is silence, counted against the denominator (§7)."
+license:
+  name: ODC-BY 1.0 (transcript text, defeatbeta/yahoo-finance-data); S&P 500 universe from Wikipedia, CC BY-SA 4.0
+  url: https://opendatacommons.org/licenses/by/1-0/
+status: held
+tables:
+  corpus/earnings-calls/ai-questions.parquet:
+    title: "AI questions, by id and hash"
+    description: "One row per AI question, sorted by symbol, fiscal_year, fiscal_quarter, paragraph_number. No text: the turn is in .eccorpus/ai-questions.parquet after `build` (joined on question_id), or in the pinned source."
+    primary_key: [question_id]
+    columns:
+      "question_id":
+        type: string
+        description: "First 16 hex characters of a BLAKE3 digest identifying the question."
+        hash_of: "the string q|symbol|fiscal_year|fiscal_quarter|paragraph_number|turn_blake3"
+      "symbol":
+        type: string
+        description: "Ticker."
+      "fiscal_year":
+        type: integer
+        description: "Fiscal year as labelled by the source."
+      "fiscal_quarter":
+        type: integer
+        description: "Fiscal quarter as labelled by the source, 1-4."
+      "report_date":
+        type: string
+        unit: YYYY-MM-DD
+        description: "Call report date from the source, cast to text."
+      "paragraph_number":
+        type: integer
+        description: "The source's paragraph_number of the turn."
+      "speaker":
+        type: string
+        description: "Speaker string exactly as in the source (any ' - Company' suffix kept; the questioner test uses the normalised key)."
+        verbatim: true
+      "turn_blake3":
+        type: string
+        description: "BLAKE3 of the full turn, the source paragraph content (text not stored here)."
+        hash_of: "the turn text, UTF-8"
+      "n_chars":
+        type: integer
+        unit: characters
+        description: "Length of the turn in Python string characters (at most 3,000)."
+  corpus/earnings-calls/question-calls.tsv:
+    title: "Questioner turns per call (question denominator)"
+    description: "One row per unique, non-stub S&P 500 call, sorted by symbol, fiscal_year, fiscal_quarter."
+    primary_key: [symbol, fiscal_year, fiscal_quarter]
+    columns:
+      "symbol":
+        type: string
+        description: "Ticker."
+      "fiscal_year":
+        type: integer
+        description: "Fiscal year as labelled by the source."
+      "fiscal_quarter":
+        type: integer
+        description: "Fiscal quarter as labelled by the source, 1-4."
+      "qa_found":
+        type: boolean
+        description: "True when a Q&A start was detected (QA_START after the first non-operator paragraph)."
+      "n_questioners":
+        type: integer
+        unit: speakers
+        description: "Distinct questioner speaker keys on the call."
+      "n_questioner_turns":
+        type: integer
+        unit: turns
+        description: "Q&A paragraphs spoken by questioners, AI or not."
+      "n_ai_questions":
+        type: integer
+        unit: turns
+        description: "Questioner turns that are AI questions (rows of ai-questions.parquet for the call)."

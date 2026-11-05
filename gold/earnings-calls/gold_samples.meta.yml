@@ -1,0 +1,153 @@
+# Metadata for data://garden/earnings_calls/2026-11-04/gold_samples (praxis/datasets/metadata.schema.yml)
+title: Stratified samples for the human gold sets (AI windows and analyst questions)
+description: >-
+  Two deterministic, stratified samples for human coding: 240 AI windows for
+  codebook v0.1 and 200 AI analyst questions for codebook-questions-v0.1. Each
+  row carries the verbatim text and empty label columns for a person to fill.
+  No model score is in the files, so coding is blind. Labels are human-only:
+  spec §9 bars LLM-generated labels.
+processing: >-
+  Windows: every window is put in one of 13 strata. lexical_risk takes windows
+  whose text matches (?i)\brisk(s|y|ier|iest)?\b; every other window goes to
+  ai_risk:<cell>:<period>, where cell is both, deberta_only, modernbert_only or
+  neither by the two witnesses' ai_risk scores at 0.5, and period is report_date
+  <=2022, 2023-2025 or 2026+. Questions: four strata, first that applies:
+  oversight_both (both witnesses >= 0.5 on an oversight hypothesis),
+  oversight_one (exactly one witness), commercial_only (both >= 0.5 on a
+  commercial hypothesis), neither. Allocations are ALLOCATION (n 240) and
+  Q_ALLOCATION (n 200) in scripts/ec_gold.py, scaled by largest remainder and
+  capped at the population. Within a stratum, units are ordered by
+  BLAKE3("ec-gold-v0.1|" + window_id) or BLAKE3("ec-gold-questions-v0.1|" +
+  question_id) and the first k taken. No RNG, no clock. `sample` refuses to
+  overwrite a file with coded rows unless forced. The `code` command fills
+  labels; `score` writes score.tsv beside each sample (not an output of this
+  step).
+unit_of_analysis: one sampled window (codebook-v0.1/sample.tsv); one sampled question (codebook-questions-v0.1/sample.tsv)
+denominator: >-
+  corpus/earnings-calls/ai-windows.parquet and corpus/earnings-calls/ai-questions.parquet
+  (every unit is assigned a stratum; stratum_population gives each stratum's size)
+coverage: >-
+  Windows: 240 of 38,600, all 13 strata filled to allocation (lexical_risk
+  1,018; neither cells 6,029 / 18,028 / 12,431 by period). Questions: 200 of
+  4,288 (oversight_both 141 -> 100, oversight_one 121 -> 30, commercial_only
+  1,113 -> 30, neither 2,913 -> 40). In this build no row is coded (coder
+  empty in all 440). The spec's two independent coders, per-label agreement
+  and adjudication are not built; one coder per file (gold/earnings-calls/README.md).
+does_not_answer:
+  - "Witness precision or recall: none can be reported until the samples are coded; until then the gate in method doc §7 (spec §7, go criterion a) is not passed and the question intents stay proposals (§10)."
+  - "Whether a risk said on a call is an exposure, was governed, or materialised (§7)."
+  - "What people who do not speak on calls would say (§7)."
+license:
+  name: ODC-BY 1.0 (verbatim transcript text, defeatbeta/yahoo-finance-data); S&P 500 universe from Wikipedia, CC BY-SA 4.0
+  url: https://opendatacommons.org/licenses/by/1-0/
+status: gold
+status_note: >-
+  The step that holds the human gold sets. Strata are drawn from witness
+  scores, but no score is written to the files; zero rows are coded in this
+  build.
+tables:
+  gold/earnings-calls/codebook-v0.1/sample.tsv:
+    title: "Gold sample: AI windows for codebook v0.1"
+    description: "240 windows in ALLOCATION order, each stratum sorted by its BLAKE3 draw key; label columns empty until coded."
+    primary_key: [window_id]
+    columns:
+      "window_id":
+        type: string
+        description: "Window id; joins to corpus/earnings-calls/ai-windows.parquet."
+      "stratum":
+        type: string
+        description: "lexical_risk, or ai_risk:<both|deberta_only|modernbert_only|neither>:<<=2022|2023-2025|2026+>."
+      "stratum_population":
+        type: integer
+        unit: windows
+        description: "Windows in the stratum across the whole corpus (the Horvitz-Thompson numerator in `score`)."
+      "symbol":
+        type: string
+        description: "Ticker."
+      "report_date":
+        type: string
+        unit: YYYY-MM-DD
+        description: "Call report date."
+      "speaker":
+        type: string
+        description: "Speaker string as in the source."
+        verbatim: true
+      "role":
+        type: string
+        description: "Heuristic speaker role (operator, analyst_heuristic, issuer_heuristic)."
+      "text":
+        type: string
+        description: "The window text, verbatim (TSV-quoted where needed)."
+        verbatim: true
+      "about_ai":
+        type: string
+        description: "Human label for about_ai; empty until coded."
+        values: {"y": "yes", "n": "no", "": "not yet coded"}
+      "ai_risk":
+        type: string
+        description: "Human label for ai_risk; empty until coded."
+        values: {"y": "yes", "n": "no", "": "not yet coded"}
+      "risk_types":
+        type: string
+        description: "Semicolon-separated risk-type ids from codebook-v0.1.tsv, asked only when ai_risk is y; empty if none fits or not coded."
+      "governance":
+        type: string
+        description: "Human label for governance; empty until coded."
+        values: {"y": "yes", "n": "no", "": "not yet coded"}
+      "coder":
+        type: string
+        description: "Name typed by the person who coded the row; empty until coded."
+      "note":
+        type: string
+        description: "Coder's optional note, whitespace collapsed."
+  gold/earnings-calls/codebook-questions-v0.1/sample.tsv:
+    title: "Gold sample: AI analyst questions for codebook-questions-v0.1"
+    description: "200 questions in Q_ALLOCATION order, each stratum sorted by its BLAKE3 draw key; label columns empty until coded."
+    primary_key: [question_id]
+    columns:
+      "question_id":
+        type: string
+        description: "Question id; joins to corpus/earnings-calls/ai-questions.parquet."
+      "stratum":
+        type: string
+        description: "Sampling stratum."
+        values:
+          oversight_both: "Both witnesses >= 0.5 on at least one oversight hypothesis."
+          oversight_one: "One witness, not both, >= 0.5 on an oversight hypothesis."
+          commercial_only: "Both witnesses >= 0.5 on a commercial hypothesis, and not in an oversight stratum."
+          neither: "Everything else."
+      "stratum_population":
+        type: integer
+        unit: questions
+        description: "Questions in the stratum across all AI questions."
+      "symbol":
+        type: string
+        description: "Ticker."
+      "report_date":
+        type: string
+        unit: YYYY-MM-DD
+        description: "Call report date."
+      "speaker":
+        type: string
+        description: "Speaker string as in the source."
+        verbatim: true
+      "text":
+        type: string
+        description: "The question text, verbatim (TSV-quoted where needed)."
+        verbatim: true
+      "q_revenue": {type: string, description: "Human y/n label for q_revenue; empty until coded."}
+      "q_efficiency": {type: string, description: "Human y/n label for q_efficiency; empty until coded."}
+      "q_spend": {type: string, description: "Human y/n label for q_spend; empty until coded."}
+      "q_competition": {type: string, description: "Human y/n label for q_competition; empty until coded."}
+      "q_workforce": {type: string, description: "Human y/n label for q_workforce; empty until coded."}
+      "q_risk": {type: string, description: "Human y/n label for q_risk; empty until coded."}
+      "q_controls": {type: string, description: "Human y/n label for q_controls; empty until coded."}
+      "q_regulation": {type: string, description: "Human y/n label for q_regulation; empty until coded."}
+      "q_harm": {type: string, description: "Human y/n label for q_harm; empty until coded."}
+      "q_security": {type: string, description: "Human y/n label for q_security; empty until coded."}
+      "coder":
+        type: string
+        description: "Name typed by the person who coded the row; empty until coded."
+      "note":
+        type: string
+        description: "Coder's optional note, whitespace collapsed."

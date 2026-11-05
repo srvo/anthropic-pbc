@@ -1,0 +1,101 @@
+# Authored inputs; generated metadata is not an authoring target.
+# Rights/personal-data statements are retained declarations, not independently verified.
+pin:
+  date: '2026-11-04'
+  index_repo: defeatbeta/yahoo-finance-data
+  index_revision: 31ee02618c62cfa1dd3cf261c89691ea926de12e
+  index_file: data/US/stock_sec_filing.parquet
+metadata:
+  producer: Derived in this repository from public SEC filings; see derivation
+  title: 10-K Item 1A risk-factor corpus and 8-K loss-event index
+  derivation: Both corpora are derived from public SEC filings. The filing index (defeatbeta/yahoo-finance-data;
+    revision recorded in MANIFEST.tsv) supplies CIK and accession number only; it contains
+    no filing text. Item 1A text was fetched from sec.gov and cut between its heading and
+    the next Item heading (scripts/rf_extract.py); loss events were selected on EDGAR's structured
+    items[] array, never by text search (scripts/rf_loss.py).
+  attribution_short: derived from publicly available SEC filings
+  url_main: https://www.sec.gov/edgar/search-edgar
+  url_download: https://www.sec.gov/edgar/searchedgar/fulltextsearch
+  license:
+    name: Public filings, no copyright claimed by the filer
+    url: https://www.sec.gov/about/website-policies
+  terms_notes: 'SEC filings are public records. This corpus does not republish the defeatbeta
+    index and does not exhaustively mirror filing documents: it records which filings were
+    read and what was extracted from them. Short verbatim quotations are used for analysis
+    and citation.'
+  personal_data: none
+  personal_data_note: Company risk disclosures and 8-K event filings. No personal data is
+    extracted; named officers appear only incidentally in filed text.
+  citation_full: Risk-factor corpus and loss-event index, derived in this repository from
+    public SEC filings. The upstream filing index and its revision are recorded in MANIFEST.tsv;
+    counts and dates describe the retained local records.
+  processing: Aggregate retained Item 1A and loss-event records into corpus digests and coverage
+    statistics; emit no filing text. This is a held local audit projection, not a full acquisition
+    recipe or lake custody receipt.
+  unit_of_analysis: One manifest row per derived record digest or upstream index revision.
+  denominator: Item 1A coverage uses every row of .rfcorpus/rf.duckdb table filings. No retained
+    attempted-slice denominator exists for loss discovery.
+  does_not_answer:
+  - 'Whether all loss-discovery months and pages were enumerated: slice receipts were not
+    retained.'
+  - 'Whether each stored text hash matches the underlying filing bytes: this check reads record
+    metadata, not text blobs.'
+  - Whether any Item 1A risk caused an event in an 8-K filing.
+  - Whether EDGAR will reproduce the same historical bytes on refetch.
+  - Whether source rights and attribution statements have received human review.
+  status: held
+  refetch: saved_bytes_are_pin
+  refetch_reason: Retained record digests are the comparison pins. A refetch must be compared
+    to these pins; mutable EDGAR responses are not guaranteed byte-identical.
+  rebuild:
+    cmd: uv run scripts/rf_manifest.py write && uv run scripts/rf_manifest.py check
+    offline: true
+    offline_note: Requires the two retained local DuckDB stores. Neither command fetches sources
+      or establishes complete acquisition or blob verification.
+  tables:
+    corpus/risk-factors/MANIFEST.tsv:
+      title: Risk-factor corpus pins
+      description: 'One row per digest: the two derived corpora and the upstream index revision
+        they were addressed through.'
+      primary_key:
+      - id
+      columns:
+        id:
+          type: string
+          description: 'Pin name: item_1a, loss_events, or edgar_index.'
+        role:
+          type: string
+          description: corpus for a derived digest, upstream for the pinned source revision.
+        pinned:
+          type: date
+          unit: YYYY-MM-DD
+          description: Date the pin was recorded (a recorded input, never read from the clock).
+        url:
+          type: string
+          description: 'Where to get it: sec.gov for the corpora, the Hugging Face dataset
+            page for the index.'
+        path:
+          type: string
+          description: File within the source, where one applies.
+        bytes:
+          type: integer
+          unit: bytes
+          description: 'Not recorded: these rows pin record digests and a source revision,
+            not raw downloaded byte artifacts.'
+        sha256:
+          type: string
+          description: SHA-256 digest for a derived corpus; empty on the upstream revision
+            row.
+          hash_of: Sorted accession_number/text_blake3 pairs for item_1a; sorted accession_number/items
+            pairs for loss_events, with distinct domain prefixes.
+        revision:
+          type: string
+          description: Upstream Git revision for edgar_index; empty on derived corpus rows.
+        note:
+          type: string
+          description: Scope counts and refusal counts for corpus rows; source identity for
+            upstream rows.
+    corpus/risk-factors/MANIFEST.meta.yml:
+      title: Generated risk-factor metadata
+      description: Authored statements plus deterministic statistics, source parameters and
+        generation provenance; not a tabular corpus.

@@ -1,0 +1,11 @@
+hypothesis_id	n_questions	pos_deberta	pos_modernbert	pos_both	cohen_kappa
+q_revenue	4288	1253	1410	986	0.624
+q_spend	4288	592	581	366	0.564
+q_efficiency	4288	333	229	178	0.609
+q_competition	4288	132	97	76	0.655
+q_security	4288	98	84	68	0.742
+q_risk	4288	117	86	67	0.652
+q_workforce	4288	68	73	47	0.661
+q_controls	4288	62	46	26	0.475
+q_regulation	4288	26	29	12	0.433
+q_harm	4288	15	10	4	0.318

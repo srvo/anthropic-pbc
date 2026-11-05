@@ -1,0 +1,25 @@
+source	query_id	query	mode	series	unit	resolution	first_period	last_period	n_periods	n_nonzero	first_nonzero	last_nonzero	peak_period	peak_value	sum_value
+doc	anthropic	anthropic	timelinevol	Volume Intensity	pct_of_monitored_articles	day	20170101	20261103	3547	2144	20170102	20261103	20260913	0.5547	59.0855
+doc	anthropic	anthropic	timelinevolraw	NOT PINNED					0	0					
+doc	anthropic_hod	anthropic "health of democracy"	timelinevol	Volume Intensity	pct_of_monitored_articles	day	20170101	20261103	3547	3	20230831	20260411	20260411	0.0008	0.002
+doc	anthropic_hod	anthropic "health of democracy"	timelinevolraw	NOT PINNED					0	0					
+doc	anthropic_near20_democracy	near20:"anthropic democracy"	timelinevol	Volume Intensity	pct_of_monitored_articles	day	20170101	20261103	3547	64	20181005	20261023	20260228	0.2052	0.316
+doc	anthropic_near20_democracy	near20:"anthropic democracy"	timelinevolraw	NOT PINNED					0	0					
+doc	claude_near20_democracy	near20:"claude democracy"	timelinevol	Volume Intensity	pct_of_monitored_articles	day	20170101	20261103	3547	1602	20170102	20261022	20181212	0.0696	1.5933
+doc	claude_near20_democracy	near20:"claude democracy"	timelinevolraw	NOT PINNED					0	0					
+doc	democracy	democracy	timelinevol	NOT PINNED					0	0					
+doc	democracy	democracy	timelinevolraw	NOT PINNED					0	0					
+doc	hod	"health of democracy"	timelinevol	Volume Intensity	pct_of_monitored_articles	day	20170101	20261103	3547	3115	20170101	20261025	20260912	0.0794	6.8855
+doc	hod	"health of democracy"	timelinevolraw	NOT PINNED					0	0					
+tv	anthropic	anthropic market:"National"	timelinevol/percent	Combined	pct_of_monitored_airtime	month	20090701	20241001	184	54	20110801	20241001	20230901	0.0086	0.0811
+tv	anthropic	anthropic market:"National"	timelinevol/raw	Combined	caption_clips_15s	month	20090701	20241001	184	54	20110801	20241001	20230901	93	828
+tv	anthropic_democracy_clip	anthropic democracy market:"National"	timelinevol/percent		pct_of_monitored_airtime				0	0				0	0
+tv	anthropic_democracy_clip	anthropic democracy market:"National"	timelinevol/raw		caption_clips_15s				0	0				0	0
+tv	anthropic_hod	anthropic "health of democracy" market:"National"	timelinevol/percent		pct_of_monitored_airtime				0	0				0	0
+tv	anthropic_hod	anthropic "health of democracy" market:"National"	timelinevol/raw		caption_clips_15s				0	0				0	0
+tv	claude_democracy_clip	claude democracy market:"National"	timelinevol/percent	Combined	pct_of_monitored_airtime	month	20090701	20241001	184	10	20140301	20230301	20170501	0.0004	0.0017
+tv	claude_democracy_clip	claude democracy market:"National"	timelinevol/raw	Combined	caption_clips_15s	month	20090701	20241001	184	10	20140301	20230301	20170501	4	17
+tv	democracy	democracy market:"National"	timelinevol/percent	Combined	pct_of_monitored_airtime	month	20090701	20241001	184	184	20090701	20241001	20220101	1.3795	69.8212
+tv	democracy	democracy market:"National"	timelinevol/raw	Combined	caption_clips_15s	month	20090701	20241001	184	184	20090701	20241001	20220101	15220	674311
+tv	hod	"health of democracy" market:"National"	timelinevol/percent	Combined	pct_of_monitored_airtime	month	20090701	20241001	184	58	20110601	20240901	20240301	0.0016	0.0193
+tv	hod	"health of democracy" market:"National"	timelinevol/raw	Combined	caption_clips_15s	month	20090701	20241001	184	58	20110601	20240901	20240301	17	193

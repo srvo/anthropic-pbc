@@ -1,0 +1,174 @@
+# Coverage: how each party appears in each theme, judged from what the theme's cards actually say and cite.
+# state: missing < identified (named) < located (named with where) < secondhand (their situation told by another source)
+#        < voiced (their own words in a pinned quote). cards: the cards in that theme that carry it; "-" when missing.
+party	theme	state	cards	note
+stockholders-2pct	promise	identified	A001,A006	named as stockholders and investors
+stockholders-2pct	best-case	identified	A009	shareholder value
+stockholders-2pct	enforce	identified	A018	the 2% threshold
+stockholders-2pct	lens	missing	-	-
+stockholders-2pct	record	missing	-	-
+stockholders-2pct	pillars	missing	-	-
+stockholders-2pct	planet	missing	-	-
+stockholders-2pct	answer	missing	-	-
+stockholders-2pct	remedy	missing	-	-
+stockholders-2pct	falsifiers	missing	-	-
+founders	promise	missing	-	-
+founders	best-case	missing	-	-
+founders	enforce	secondhand	A021,A023	their beliefs reported in the company's S-1
+founders	lens	missing	-	-
+founders	record	missing	-	-
+founders	pillars	missing	-	-
+founders	planet	missing	-	-
+founders	answer	missing	-	-
+founders	remedy	missing	-	-
+founders	falsifiers	missing	-	-
+ltbt	promise	missing	-	-
+ltbt	best-case	voiced	A014,A010	the trust's own letter in the Report (Q034)
+ltbt	enforce	identified	A022	Class T revocable
+ltbt	lens	missing	-	-
+ltbt	record	missing	-	-
+ltbt	pillars	missing	-	-
+ltbt	planet	missing	-	-
+ltbt	answer	missing	-	-
+ltbt	remedy	identified	A065	a purpose trust with an enforcer would replace it
+ltbt	falsifiers	missing	-	-
+board	promise	identified	A001,A004	directors' duty; board adopted the pillars
+board	best-case	identified	A009	directors
+board	enforce	identified	A017	no duty to any person
+board	lens	missing	-	-
+board	record	missing	-	-
+board	pillars	missing	-	-
+board	planet	missing	-	-
+board	answer	missing	-	-
+board	remedy	missing	-	-
+board	falsifiers	missing	-	-
+courts	promise	missing	-	-
+courts	best-case	identified	A009	Drakes Landing; source pending
+courts	enforce	identified	A020	no precedent
+courts	lens	missing	-	-
+courts	record	missing	-	-
+courts	pillars	missing	-	-
+courts	planet	missing	-	-
+courts	answer	missing	-	-
+courts	remedy	missing	-	-
+courts	falsifiers	missing	-	-
+federal-gov	promise	missing	-	-
+federal-gov	best-case	missing	-	-
+federal-gov	enforce	missing	-	-
+federal-gov	lens	missing	-	-
+federal-gov	record	identified	A050	no mandatory check; Accord has no penalties
+federal-gov	pillars	identified	A057	Congress has enacted no framework
+federal-gov	planet	missing	-	-
+federal-gov	answer	missing	-	-
+federal-gov	remedy	missing	-	-
+federal-gov	falsifiers	missing	-	-
+basin-regulators	promise	missing	-	-
+basin-regulators	best-case	missing	-	-
+basin-regulators	enforce	missing	-	-
+basin-regulators	lens	missing	-	-
+basin-regulators	record	missing	-	-
+basin-regulators	pillars	missing	-	-
+basin-regulators	planet	identified	L-planet-local-basin-05	inputs would come from them
+basin-regulators	answer	missing	-	-
+basin-regulators	remedy	missing	-	-
+basin-regulators	falsifiers	missing	-	-
+host-communities	promise	missing	-	-
+host-communities	best-case	missing	-	-
+host-communities	enforce	missing	-	-
+host-communities	lens	missing	-	-
+host-communities	record	identified	A054	no seat or standing
+host-communities	pillars	missing	-	-
+host-communities	planet	secondhand	L-planet-local-basin-01,L-planet-local-basin-02,L-planet-local-basin-03,L-planet-local-basin-06	the IEA's account; located only by US cluster, not by site
+host-communities	answer	missing	-	-
+host-communities	remedy	identified	A067	displacement metered
+host-communities	falsifiers	identified	A070,A076	levers of an affected community
+data-workers	promise	missing	-	-
+data-workers	best-case	missing	-	-
+data-workers	enforce	missing	-	-
+data-workers	lens	missing	-	-
+data-workers	record	identified	A054	no seat or standing
+data-workers	pillars	missing	-	-
+data-workers	planet	missing	-	-
+data-workers	answer	missing	-	-
+data-workers	remedy	missing	-	-
+data-workers	falsifiers	missing	-	-
+authors	promise	missing	-	-
+authors	best-case	missing	-	-
+authors	enforce	missing	-	-
+authors	lens	missing	-	-
+authors	record	identified	A042,A054	Bartz class; corpus authors
+authors	pillars	missing	-	-
+authors	planet	missing	-	-
+authors	answer	missing	-	-
+authors	remedy	missing	-	-
+authors	falsifiers	identified	A073	rights-holder exit
+public	promise	identified	A002	named as humanity in the charter
+public	best-case	missing	-	-
+public	enforce	identified	A019	cannot enforce
+public	lens	identified	A031	must manage an Anthropic it cannot verify
+public	record	missing	-	-
+public	pillars	missing	-	-
+public	planet	missing	-	-
+public	answer	identified	A063	no one it names can make it act
+public	remedy	identified	A066	affected people given standing
+public	falsifiers	missing	-	-
+workers	promise	missing	-	-
+workers	best-case	missing	-	-
+workers	enforce	missing	-	-
+workers	lens	missing	-	-
+workers	record	identified	A049	only as perceived job displacement
+workers	pillars	secondhand	A059	the Report's account: impacts mostly unknown
+workers	planet	missing	-	-
+workers	answer	missing	-	-
+workers	remedy	missing	-	-
+workers	falsifiers	missing	-	-
+users	promise	missing	-	-
+users	best-case	missing	-	-
+users	enforce	missing	-	-
+users	lens	missing	-	-
+users	record	identified	A055	use is concentrated
+users	pillars	identified	A060	benefits not shared
+users	planet	missing	-	-
+users	answer	missing	-	-
+users	remedy	missing	-	-
+users	falsifiers	missing	-	-
+low-use-countries	promise	missing	-	-
+low-use-countries	best-case	missing	-	-
+low-use-countries	enforce	missing	-	-
+low-use-countries	lens	missing	-	-
+low-use-countries	record	identified	A055	use concentrated in wealthier countries
+low-use-countries	pillars	identified	A060	benefits not shared
+low-use-countries	planet	identified	L-planet-doughnut-02,L-planet-doughnut-04	the people below the floor
+low-use-countries	answer	missing	-	-
+low-use-countries	remedy	missing	-	-
+low-use-countries	falsifiers	missing	-	-
+misuse-targets	promise	missing	-	-
+misuse-targets	best-case	missing	-	-
+misuse-targets	enforce	missing	-	-
+misuse-targets	lens	missing	-	-
+misuse-targets	record	identified	A045	counted: at least 17 organisations
+misuse-targets	pillars	missing	-	-
+misuse-targets	planet	missing	-	-
+misuse-targets	answer	missing	-	-
+misuse-targets	remedy	missing	-	-
+misuse-targets	falsifiers	identified	A074	victim counts
+third-party-systems	promise	missing	-	-
+third-party-systems	best-case	identified	A011	named only as systems reached
+third-party-systems	enforce	missing	-	-
+third-party-systems	lens	missing	-	-
+third-party-systems	record	identified	A044	named only as systems reached
+third-party-systems	pillars	missing	-	-
+third-party-systems	planet	missing	-	-
+third-party-systems	answer	missing	-	-
+third-party-systems	remedy	missing	-	-
+third-party-systems	falsifiers	missing	-	-
+future-people	promise	missing	-	-
+future-people	best-case	missing	-	-
+future-people	enforce	missing	-	-
+future-people	lens	missing	-	-
+future-people	record	missing	-	-
+future-people	pillars	missing	-	-
+future-people	planet	missing	-	-
+future-people	answer	missing	-	-
+future-people	remedy	missing	-	-
+future-people	falsifiers	missing	-	-

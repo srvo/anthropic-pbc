@@ -1,5 +1,7 @@
 # Primitives
 
+> **Copy.** This document comes from the Praxis/Descartes project and describes that project, not this repository. Relative links and code paths (`src/`, `claims/`, `sources/`, `Cargo.toml`, ...) point into that project and do not resolve here, except links to the other copied docs in this folder.
+
 Every open problem so far reduces to three needs: say what is true, say who
 decided, and say whose interest the decision served. This document proposes
 how to express all three with the node kinds we already have, plus two

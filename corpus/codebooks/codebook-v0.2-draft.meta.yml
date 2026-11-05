@@ -1,0 +1,66 @@
+# Metadata for snapshot://ethicalcapital/v0.2-draft/codebook (praxis/datasets/metadata.schema.yml)
+producer: Sloane Ortel (this repository; personal working paper)
+title: AI-risk codebook v0.2 DRAFT
+description: >-
+  Thirty natural-language NLI hypotheses: the 16 of codebook v0.1 word for
+  word (status "v0.1 unchanged"), plus 14 new risk dimensions read from the
+  section headings of English Wikipedia's AI-risk hub articles (status
+  "v0.2 DRAFT new"). Each new row cites the heading and revision it came
+  from in `source`. The wording of the new rows is a draft awaiting human
+  review (OPENQUESTIONS Q2). The `democracy` row comes from Sloane's
+  health-of-democracy question, with the nearest heading cited.
+citation_full: >-
+  Sloane Ortel, AI-risk codebook v0.2 DRAFT,
+  corpus/codebooks/codebook-v0.2-draft.tsv, anthropic-pbc repository,
+  commit e934f04 (2026-11-04).
+attribution_short: Sloane Ortel
+url_main: null
+url_main_reason: >-
+  unknown: the repository's public home is unsettled (scripts name
+  github.com/ethicalcapital/anthropic-pbc; the git remote is
+  github.com/srvo/anthropic-pbc). OPENQUESTIONS Q13.
+url_download: null
+url_download_reason: "unknown: depends on the public home (OPENQUESTIONS Q13)."
+date_published: 2026-11-04
+date_accessed: 2026-11-04
+date_accessed_note: "Authored in the repository: the date of the commit that added it."
+version_producer: v0.2-draft
+license:
+  name: CC0 1.0 Universal
+  url: https://creativecommons.org/publicdomain/zero/1.0/
+terms_notes: >-
+  The `source` column quotes Wikipedia section headings (CC BY-SA 4.0) as
+  short citations of where each dimension came from.
+refetch: exact
+refetch_reason: "Authored here; git holds the bytes, and each witness run records its BLAKE3 as codebook_blake3."
+personal_data: none
+files: corpus/codebooks/codebook-v0.2-draft.tsv
+tables:
+  corpus/codebooks/codebook-v0.2-draft.tsv:
+    title: "Codebook v0.2 DRAFT: NLI hypotheses"
+    description: "One row per hypothesis; v0.1 rows first, in v0.1 order, then the 14 new rows."
+    primary_key: [id]
+    columns:
+      "id":
+        type: string
+        description: "Hypothesis id; becomes hypothesis_id in the witness outputs."
+      "group":
+        type: string
+        description: "Hypothesis group."
+        values:
+          topic: "about_ai."
+          stance: "ai_risk, ai_opportunity."
+          risk_type: "The 12 v0.1 risk types plus 13 new ones."
+          mechanism: "governance (v0.1) and oversight_any (new, speaker-neutral)."
+      "hypothesis":
+        type: string
+        description: "The English sentence scored as the NLI hypothesis (premise = unit text)."
+      "status":
+        type: string
+        description: "Provenance of the row."
+        values:
+          "v0.1 unchanged": "Copied word for word from corpus/earnings-calls/codebook-v0.1.tsv."
+          "v0.2 DRAFT new — Sloane to review wording": "New in v0.2; wording not yet approved."
+      "source":
+        type: string
+        description: "Where the row came from: codebook-v0.1.tsv for unchanged rows; for new rows, Wikipedia article@revid and section heading path(s), or the stated question it answers."

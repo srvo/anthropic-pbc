@@ -1,0 +1,50 @@
+{
+  "embedding_device": "mps",
+  "embedding_license": "Apache-2.0",
+  "embedding_model": "sentence-transformers/all-mpnet-base-v2",
+  "embedding_revision": "e8c3b32edf5434bc2275fc9bab85f82640a19130",
+  "hdbscan": {
+    "cluster_selection_method": "eom",
+    "metric": "euclidean",
+    "min_cluster_size": 60,
+    "min_samples": 10,
+    "prediction_data": true
+  },
+  "machine": "arm64",
+  "n_topics": 93,
+  "n_unclustered": 18546,
+  "n_windows": 38600,
+  "normalize_embeddings": true,
+  "outputs": {
+    "assignments.parquet": "67dfb104e7650a6ca64501d79764fdfd1708192bd19059b3143ca56adb8079b5",
+    "by-year.tsv": "1dfc20d318e32d9f2cf11df4a1a209cdabbffcbbd58685eede2aca2996508d69",
+    "topics.tsv": "bf937660439ad3b887bbb098f0ac4f29792ff637091e777db1c272f869906a63"
+  },
+  "status": "EXPLORATORY reading aid; not evidence, not signed (docs/bert-enrichment-spec.md \u00a79)",
+  "umap": {
+    "metric": "cosine",
+    "min_dist": 0.0,
+    "n_components": 5,
+    "n_neighbors": 15,
+    "random_state": 42
+  },
+  "vectorizer": {
+    "min_df": 5,
+    "ngram_range": [
+      1,
+      2
+    ],
+    "stop_words": "english"
+  },
+  "versions": {
+    "bertopic": "0.17.4",
+    "hdbscan": "0.8.44",
+    "numpy": "2.3.5",
+    "python": "3.12.13",
+    "sentence_transformers": "5.1.2",
+    "sklearn": "1.7.2",
+    "umap": "0.5.12"
+  },
+  "windows": "corpus/earnings-calls/ai-windows.parquet",
+  "windows_blake3": "61465b2fbbb46f8da8e1606b500654ca3b0ac9db3306e4a59ee1e67d1d7b7e51"
+}

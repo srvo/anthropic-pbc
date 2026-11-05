@@ -1,0 +1,82 @@
+# Metadata for data://witness/wikipedia/2026-11-04/codebook_v0_1 (praxis/datasets/metadata.schema.yml)
+title: "Wikipedia AI-risk windows scored against codebook v0.1 by two NLI witnesses"
+description: >-
+  Every window of the Wikipedia AI-risk corpus scored against each of the 16
+  hypotheses in corpus/earnings-calls/codebook-v0.1.tsv by two zero-shot NLI
+  cross-encoders. A score is P(entailment) with the window as premise. Witness
+  proposals under docs/bert-enrichment-spec.md §5, not findings.
+processing: >-
+  scripts/ec_classify.py functions, run on Modal (L40S, bfloat16, batch 128,
+  per run-*.json), read corpus/wikipedia-ai-risk/windows.parquet (window_id,
+  text). Each window is paired with every codebook hypothesis, tokenised with
+  truncation of the window only to 512 tokens, and scored; the softmax
+  probability of the entailment label is written to 6 decimals, then stored as
+  FLOAT. Shards are merged only if every window x hypothesis pair is present
+  exactly once. No text and no threshold is written; a proposed positive (both
+  witnesses >= 0.5) is applied downstream in wp_report.py.
+unit_of_analysis: one (window, hypothesis) pair
+denominator: >-
+  corpus/wikipedia-ai-risk/windows.parquet (3,749 windows, run-*.json n_windows;
+  each scored on all 16 hypotheses, 59,984 rows per model)
+coverage: >-
+  All 3,749 windows of the 151 articles pinned at 2026-11-04T00:00:00Z. Both
+  models scored every window. Derivation determinism across hardware is not
+  claimed (ec_classify.py).
+does_not_answer:
+  - "How likely or harmful a risk is: Wikipedia records editor attention, not risk. A heading exists because editors wrote one; its size measures how much they wrote."
+  - "Risks felt most outside North America and Europe: English Wikipedia's editors skew towards them, so labelling work, data-centre siting and surveillance in other legal systems can be thin or absent."
+  - "Anything after the pin: the pin is one day's text, and articles on fast-moving subjects are rewritten often."
+  - "Which articles are about risk: category membership mixes risks with the organisations, books and fiction about them, and some relevant articles are in no seed category."
+  - "That an absent risk is unimportant: silence is not absence."
+license:
+  name: Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0), from English Wikipedia (scores only; the models are MIT and Apache-2.0)
+  url: https://creativecommons.org/licenses/by-sa/4.0/
+status: witness
+proposal_only: true
+models:
+  - name: MoritzLaurer/deberta-v3-large-zeroshot-v2.0
+    revision: cf44676c28ba7312e5c5f8f8d2c22b3e0c9cdae2
+    license: MIT
+  - name: MoritzLaurer/ModernBERT-large-zeroshot-v2.0
+    revision: a51e07b524299e309dd2b88d48b0cfa2bd9ec598
+    license: Apache-2.0
+codebook:
+  path: corpus/earnings-calls/codebook-v0.1.tsv
+  blake3: 16d1c01230a706e9c789eb22ccf7ced9f92906659d12b7800b69d4bf25e950a3
+tables:
+  proposals/wikipedia-ai-risk/codebook-v0.1/deberta.parquet:
+    title: "DeBERTa-v3-large entailment scores"
+    description: "Long format: one row per window and hypothesis, scored by MoritzLaurer/deberta-v3-large-zeroshot-v2.0."
+    primary_key: [window_id, hypothesis_id]
+    columns:
+      "window_id":
+        type: string
+        description: "Window id; joins to corpus/wikipedia-ai-risk/windows.parquet."
+      "hypothesis_id":
+        type: string
+        description: "Codebook v0.1 hypothesis id: about_ai (topic); ai_risk, ai_opportunity (stance); regulation, cyber, privacy, accuracy, bias, labor, disruption, capex, energy, supply, ip, safety_ethics (risk_type); governance (mechanism). Text in corpus/earnings-calls/codebook-v0.1.tsv."
+      "p_entail":
+        type: float
+        unit: probability (0-1)
+        description: "Softmax probability of the entailment label for (premise = window text, hypothesis), rounded to 6 decimals, stored as FLOAT."
+  proposals/wikipedia-ai-risk/codebook-v0.1/modernbert.parquet:
+    title: "ModernBERT-large entailment scores"
+    description: "Long format: one row per window and hypothesis, scored by MoritzLaurer/ModernBERT-large-zeroshot-v2.0."
+    primary_key: [window_id, hypothesis_id]
+    columns:
+      "window_id":
+        type: string
+        description: "Window id; joins to corpus/wikipedia-ai-risk/windows.parquet."
+      "hypothesis_id":
+        type: string
+        description: "Codebook v0.1 hypothesis id: about_ai (topic); ai_risk, ai_opportunity (stance); regulation, cyber, privacy, accuracy, bias, labor, disruption, capex, energy, supply, ip, safety_ethics (risk_type); governance (mechanism). Text in corpus/earnings-calls/codebook-v0.1.tsv."
+      "p_entail":
+        type: float
+        unit: probability (0-1)
+        description: "Softmax probability of the entailment label for (premise = window text, hypothesis), rounded to 6 decimals, stored as FLOAT."
+  proposals/wikipedia-ai-risk/codebook-v0.1/run-deberta.json:
+    title: "DeBERTa-v3-large run record"
+    description: "Every pin of the run: model name, revision and licence, codebook and units paths with BLAKE3, counts, max_length 512, truncation only_first, backend modal-L40S, dtype bfloat16, batch 128, software versions, and the output's BLAKE3. No clock."
+  proposals/wikipedia-ai-risk/codebook-v0.1/run-modernbert.json:
+    title: "ModernBERT-large run record"
+    description: "Every pin of the run: model name, revision and licence, codebook and units paths with BLAKE3, counts, max_length 512, truncation only_first, backend modal-L40S, dtype bfloat16, batch 128, software versions, and the output's BLAKE3. No clock."

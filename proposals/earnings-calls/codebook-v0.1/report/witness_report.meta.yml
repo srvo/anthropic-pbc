@@ -1,0 +1,257 @@
+# Metadata for data://witness/earnings_calls/2026-11-04/witness_report (praxis/datasets/metadata.schema.yml)
+title: Witness agreement and both-agree counts for AI windows (codebook v0.1)
+description: >-
+  Deterministic tables over the two NLI witnesses: per-hypothesis agreement
+  and Cohen's kappa, and counts of proposed positives by fiscal year, risk
+  type, heuristic speaker role and firm, plus per-window flags. A proposed
+  positive needs both witnesses at P(entailment) >= 0.5. Counts, never
+  verdicts.
+processing: >-
+  Joins the DeBERTa and ModernBERT scores on (window_id, hypothesis_id). Each
+  witness is positive at p_entail >= 0.5; a pair is a proposed positive when
+  both are. Per window, a hypothesis flag is that both-agree result, joined to
+  the window's metadata from ai-windows.parquet (all 38,600 windows, including
+  the one window on a stub call). Agreement uses every window. Rates by year
+  and firm use the unique, non-stub calls of calls.tsv (duplicate_of empty,
+  n_paragraphs > 2) as the call count. Window counts of AI, risk, opportunity
+  and governance require about_ai as well; risk-type counts require about_ai
+  and ai_risk as well. No model runs here.
+unit_of_analysis: one window's both-agree flags; tables aggregate windows to hypothesis, year, role or firm
+denominator: >-
+  corpus/earnings-calls/calls.tsv (unique, non-stub calls: the calls column of by-year.tsv
+  and by-firm.tsv); agreement.tsv uses all windows of corpus/earnings-calls/ai-windows.parquet
+coverage: >-
+  All 38,600 windows and the 33,622 unique, non-stub calls, fiscal years
+  2005-2027; 498 firms with at least one such call. Universe and survivorship
+  bias as in the ai_windows step.
+does_not_answer:
+  - "Whether any count is right: no human gold set has been coded for this codebook, so witness precision is unknown and no rate is citable until a stratified hand-coded sample reports precision and recall per hypothesis (method doc §7)."
+  - "Whether a risk said on a call is an exposure, was governed, or materialised (§7)."
+  - "Anything about a firm whose calls are silent on AI: silence is counted against the denominator, not read as absence of risk (§7)."
+  - "What workers, users or data-center neighbours would say: they do not speak on calls (§7)."
+license:
+  name: ODC-BY 1.0 (derived from defeatbeta/yahoo-finance-data transcripts); S&P 500 universe from Wikipedia, CC BY-SA 4.0; codebook CC0 1.0
+  url: https://opendatacommons.org/licenses/by/1-0/
+status: witness
+proposal_only: true
+models:
+  - name: MoritzLaurer/deberta-v3-large-zeroshot-v2.0
+    revision: cf44676c28ba7312e5c5f8f8d2c22b3e0c9cdae2
+    license: MIT
+  - name: MoritzLaurer/ModernBERT-large-zeroshot-v2.0
+    revision: a51e07b524299e309dd2b88d48b0cfa2bd9ec598
+    license: Apache-2.0
+codebook: corpus/earnings-calls/codebook-v0.1.tsv
+tables:
+  proposals/earnings-calls/codebook-v0.1/report/agreement.tsv:
+    title: "Witness agreement per hypothesis"
+    description: "One row per codebook hypothesis, in codebook order, over all windows."
+    primary_key: [hypothesis_id]
+    columns:
+      "group":
+        type: string
+        description: "Codebook group of the hypothesis: topic, stance, risk_type or mechanism."
+      "hypothesis_id":
+        type: string
+        description: "Hypothesis id from codebook-v0.1.tsv."
+      "n_windows":
+        type: integer
+        unit: windows
+        description: "Windows scored by both witnesses on the hypothesis."
+      "pos_deberta":
+        type: integer
+        unit: windows
+        description: "Windows DeBERTa scores >= 0.5."
+      "pos_modernbert":
+        type: integer
+        unit: windows
+        description: "Windows ModernBERT scores >= 0.5."
+      "pos_both":
+        type: integer
+        unit: windows
+        description: "Windows both witnesses score >= 0.5 (proposed positives)."
+      "cohen_kappa":
+        type: float
+        unit: kappa (-1 to 1)
+        description: "Cohen's kappa between the two witnesses' >= 0.5 decisions, 3 decimals, half up from exact counts (scripts/display.py); empty if expected agreement is 1."
+  proposals/earnings-calls/codebook-v0.1/report/by-year.tsv:
+    title: "AI, AI-risk and AI-governance calls and windows by fiscal year"
+    description: "One row per fiscal year with at least one unique, non-stub call."
+    primary_key: [fiscal_year]
+    columns:
+      "fiscal_year":
+        type: integer
+        description: "Fiscal year as labelled by the source."
+      "calls":
+        type: integer
+        unit: calls
+        description: "Unique, non-stub S&P 500 calls in the fiscal year (the denominator)."
+      "calls_mentioning_ai":
+        type: integer
+        unit: calls
+        description: "Calls with at least one window (an AI term match). No witness condition; contrast by-firm.tsv, where the same name requires about_ai."
+      "calls_with_ai_risk":
+        type: integer
+        unit: calls
+        description: "Calls with at least one window proposed as both about_ai and ai_risk."
+      "share_calls_ai_risk":
+        type: float
+        unit: fraction (0-1)
+        description: "calls_with_ai_risk / calls, 4 decimals, half up from exact counts (scripts/display.py)."
+      "calls_with_ai_governance":
+        type: integer
+        unit: calls
+        description: "Calls with at least one window proposed as both about_ai and governance."
+      "windows_ai":
+        type: integer
+        unit: windows
+        description: "Windows proposed as about_ai."
+      "windows_risk":
+        type: integer
+        unit: windows
+        description: "Windows proposed as about_ai and ai_risk."
+      "windows_opportunity":
+        type: integer
+        unit: windows
+        description: "Windows proposed as about_ai and ai_opportunity."
+  proposals/earnings-calls/codebook-v0.1/report/risk-types-by-year.tsv:
+    title: "AI risk windows by risk type and fiscal year"
+    description: "One row per fiscal year with at least one window proposed as about_ai and ai_risk."
+    primary_key: [fiscal_year]
+    columns:
+      "fiscal_year":
+        type: integer
+        description: "Fiscal year as labelled by the source."
+      "risk_windows":
+        type: integer
+        unit: windows
+        description: "Windows proposed as about_ai and ai_risk."
+      "regulation": {type: integer, unit: windows, description: "Risk windows also proposed as regulation (both witnesses >= 0.5)."}
+      "cyber": {type: integer, unit: windows, description: "Risk windows also proposed as cyber."}
+      "privacy": {type: integer, unit: windows, description: "Risk windows also proposed as privacy."}
+      "accuracy": {type: integer, unit: windows, description: "Risk windows also proposed as accuracy."}
+      "bias": {type: integer, unit: windows, description: "Risk windows also proposed as bias."}
+      "labor": {type: integer, unit: windows, description: "Risk windows also proposed as labor."}
+      "disruption": {type: integer, unit: windows, description: "Risk windows also proposed as disruption."}
+      "capex": {type: integer, unit: windows, description: "Risk windows also proposed as capex."}
+      "energy": {type: integer, unit: windows, description: "Risk windows also proposed as energy."}
+      "supply": {type: integer, unit: windows, description: "Risk windows also proposed as supply."}
+      "ip": {type: integer, unit: windows, description: "Risk windows also proposed as ip."}
+      "safety_ethics": {type: integer, unit: windows, description: "Risk windows also proposed as safety_ethics."}
+  proposals/earnings-calls/codebook-v0.1/report/by-role.tsv:
+    title: "AI, risk and opportunity windows by heuristic speaker role"
+    description: "One row per heuristic role (analyst_heuristic, issuer_heuristic, operator)."
+    primary_key: [role]
+    columns:
+      "role":
+        type: string
+        description: "Heuristic role from ai-windows.parquet; a name-frequency heuristic, not fact."
+      "windows_ai":
+        type: integer
+        unit: windows
+        description: "Windows proposed as about_ai."
+      "windows_risk":
+        type: integer
+        unit: windows
+        description: "Windows proposed as about_ai and ai_risk."
+      "windows_opportunity":
+        type: integer
+        unit: windows
+        description: "Windows proposed as about_ai and ai_opportunity."
+      "share_risk":
+        type: float
+        unit: fraction (0-1)
+        description: "windows_risk / windows_ai, 4 decimals, half up from exact counts (scripts/display.py)."
+      "share_opportunity":
+        type: float
+        unit: fraction (0-1)
+        description: "windows_opportunity / windows_ai, 4 decimals, half up from exact counts (scripts/display.py)."
+  proposals/earnings-calls/codebook-v0.1/report/by-firm.tsv:
+    title: "AI, risk, opportunity and governance windows by firm"
+    description: "One row per symbol with at least one unique, non-stub call; for the join to the Risk-Governance Index (Appendix E)."
+    primary_key: [symbol]
+    columns:
+      "symbol":
+        type: string
+        description: "Ticker."
+      "calls":
+        type: integer
+        unit: calls
+        description: "Unique, non-stub calls of the firm."
+      "calls_mentioning_ai":
+        type: integer
+        unit: calls
+        description: "Distinct (fiscal_year, fiscal_quarter) with at least one window proposed as about_ai. Requires about_ai, unlike the same name in by-year.tsv."
+      "first_ai_fy":
+        type: integer
+        description: "Earliest fiscal year with a window proposed as about_ai; empty if none."
+      "first_ai_risk_fy":
+        type: integer
+        description: "Earliest fiscal year with a window proposed as about_ai and ai_risk; empty if none."
+      "windows_ai":
+        type: integer
+        unit: windows
+        description: "Windows proposed as about_ai."
+      "windows_risk":
+        type: integer
+        unit: windows
+        description: "Windows proposed as about_ai and ai_risk."
+      "windows_opportunity":
+        type: integer
+        unit: windows
+        description: "Windows proposed as about_ai and ai_opportunity."
+      "windows_governance":
+        type: integer
+        unit: windows
+        description: "Windows proposed as about_ai and governance."
+      "regulation": {type: integer, unit: windows, description: "Windows proposed as about_ai, ai_risk and regulation."}
+      "cyber": {type: integer, unit: windows, description: "Windows proposed as about_ai, ai_risk and cyber."}
+      "privacy": {type: integer, unit: windows, description: "Windows proposed as about_ai, ai_risk and privacy."}
+      "accuracy": {type: integer, unit: windows, description: "Windows proposed as about_ai, ai_risk and accuracy."}
+      "bias": {type: integer, unit: windows, description: "Windows proposed as about_ai, ai_risk and bias."}
+      "labor": {type: integer, unit: windows, description: "Windows proposed as about_ai, ai_risk and labor."}
+      "disruption": {type: integer, unit: windows, description: "Windows proposed as about_ai, ai_risk and disruption."}
+      "capex": {type: integer, unit: windows, description: "Windows proposed as about_ai, ai_risk and capex."}
+      "energy": {type: integer, unit: windows, description: "Windows proposed as about_ai, ai_risk and energy."}
+      "supply": {type: integer, unit: windows, description: "Windows proposed as about_ai, ai_risk and supply."}
+      "ip": {type: integer, unit: windows, description: "Windows proposed as about_ai, ai_risk and ip."}
+      "safety_ethics": {type: integer, unit: windows, description: "Windows proposed as about_ai, ai_risk and safety_ethics."}
+  proposals/earnings-calls/codebook-v0.1/report/window-flags.tsv:
+    title: "Both-agree flags per window"
+    description: "One row per window: ids and metadata only (text lives in the corpus), with one boolean per hypothesis. Sorted by symbol, fiscal_year, fiscal_quarter, paragraph_number, window_id."
+    primary_key: [window_id]
+    columns:
+      "window_id":
+        type: string
+        description: "Window id; joins to corpus/earnings-calls/ai-windows.parquet."
+      "symbol":
+        type: string
+        description: "Ticker."
+      "fiscal_year":
+        type: integer
+        description: "Fiscal year as labelled by the source."
+      "fiscal_quarter":
+        type: integer
+        description: "Fiscal quarter as labelled by the source, 1-4."
+      "paragraph_number":
+        type: integer
+        description: "The source's paragraph_number."
+      "role":
+        type: string
+        description: "Heuristic speaker role (operator, analyst_heuristic, issuer_heuristic)."
+      "about_ai": {type: boolean, description: "Both witnesses >= 0.5 on about_ai."}
+      "ai_risk": {type: boolean, description: "Both witnesses >= 0.5 on ai_risk (not conditioned on about_ai)."}
+      "ai_opportunity": {type: boolean, description: "Both witnesses >= 0.5 on ai_opportunity."}
+      "regulation": {type: boolean, description: "Both witnesses >= 0.5 on regulation (not conditioned on ai_risk)."}
+      "cyber": {type: boolean, description: "Both witnesses >= 0.5 on cyber."}
+      "privacy": {type: boolean, description: "Both witnesses >= 0.5 on privacy."}
+      "accuracy": {type: boolean, description: "Both witnesses >= 0.5 on accuracy."}
+      "bias": {type: boolean, description: "Both witnesses >= 0.5 on bias."}
+      "labor": {type: boolean, description: "Both witnesses >= 0.5 on labor."}
+      "disruption": {type: boolean, description: "Both witnesses >= 0.5 on disruption."}
+      "capex": {type: boolean, description: "Both witnesses >= 0.5 on capex."}
+      "energy": {type: boolean, description: "Both witnesses >= 0.5 on energy."}
+      "supply": {type: boolean, description: "Both witnesses >= 0.5 on supply."}
+      "ip": {type: boolean, description: "Both witnesses >= 0.5 on ip."}
+      "safety_ethics": {type: boolean, description: "Both witnesses >= 0.5 on safety_ethics."}
+      "governance": {type: boolean, description: "Both witnesses >= 0.5 on governance."}

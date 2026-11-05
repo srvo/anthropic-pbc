@@ -1,0 +1,4 @@
+id	role	pinned	url	path	bytes	sha256	revision	note
+item_1a	corpus	2026-11-04	https://www.sec.gov/search-filings			344b410c5eaa2f369f1b89e5ef9a87c49b7807c035d8b2bb518a6211b38256ea		51348 spans; 50183 distinct texts; 80592 filings in scope (2010-01-04..2026-10-30); 5085 companies; 534834488 words; 2178 not-applicable
+loss_events	corpus	2026-11-04	https://www.sec.gov/edgar/searchedgar/fulltextsearch			192bce830feb43baa8104ef4397f9daa6fde07d85d6ad95bd63e19cef13b2929		13570 retained 8-K loss-relevant events; EDGAR structured-items discovery; enumeration completeness unknown
+edgar_index	upstream	2026-11-04	https://huggingface.co/datasets/defeatbeta/yahoo-finance-data	data/US/stock_sec_filing.parquet			31ee02618c62cfa1dd3cf261c89691ea926de12e	Filing index only; no filing text

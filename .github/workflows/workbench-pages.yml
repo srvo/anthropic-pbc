@@ -1,0 +1,50 @@
+name: workbench-pages
+# Every push that changes the argument rebuilds the workbench, the chain view and the card deck,
+# checks them, and deploys them to GitHub Pages. Nothing rendered is committed.
+on:
+  push:
+    branches: [cards/argument-v1, main]
+    paths: ['argument/**', 'claims/**', 'sources/MANIFEST.tsv', 'derived/recipes.tsv', 'scripts/**', '.github/workflows/workbench-pages.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check cards and workbench inputs
+        env:
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: |
+          python3 scripts/check_cards.py
+          python3 scripts/check_workbench.py
+          python3 scripts/test_check_cards.py
+          python3 scripts/test_chain_shape.py
+          python3 scripts/test_workbench.py
+      - name: Render
+        run: |
+          python3 scripts/render_workbench.py _site/workbench
+          python3 scripts/render_chain.py _site/chain/index.html
+          python3 scripts/render_cards.py _site/cards/index.html
+          cp _site/workbench/index.html _site/index.html
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

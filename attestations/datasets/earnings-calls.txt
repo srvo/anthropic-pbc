@@ -1,0 +1,34 @@
+namespace: anthropic-pbc-dataset
+dataset: earnings-calls
+title: S&P 500 earnings-call AI corpus
+pinned_as_of: 2026-11-04
+registry: corpus/datasets.tsv
+
+By signing this record, the signer attests that, when they signed: the files listed
+had exactly these BLAKE3 hashes; the dataset's own verify step (where it has one)
+passed; and, where scripts are listed, the files are the output of those scripts
+run on the sources pinned in the dataset's MANIFEST.tsv. It does not attest that
+any finding drawn from the dataset is true, and it says nothing about model
+output in proposals/.
+
+files (BLAKE3, path):
+d2ac999e14259ffa23dcf673e1c9bbe5816bb5ff51b11ddbb28517692c614448  corpus/earnings-calls/MANIFEST.tsv
+69117a498cc1f27bf0eb0342fba169d28aab6b731866282280c569d1c5e14700  corpus/earnings-calls/README.md
+997670a8137e4f5a810b42ca3bab9175da728f0f1e7e24e63c3ce9e9b2b41634  corpus/earnings-calls/ai-paragraphs.parquet
+ee5cb96bce7e2f868ec1e3843fd8e80a72123590faf7e07fd5b26694283d1d46  corpus/earnings-calls/ai-questions.parquet
+f0d0b95a92ed6edf2be3eadbb701229f3802d27ec7a634774b004cf86a433057  corpus/earnings-calls/ai-windows.parquet
+639692a126a2855aaa3f6b24913c6cc57d00dfab1e3730017def5c755715a6dc  corpus/earnings-calls/ai_questions.meta.yml
+7a7d1535c00f1b6795f1c175e06df77dad2f8fdd75cb8a736de2b3e0e630f418  corpus/earnings-calls/ai_windows.meta.yml
+5f74c37cce10819c413118902cb7cd2b5d40c55a7fb771201a3aeb0601cf9bfb  corpus/earnings-calls/calls.tsv
+8d10599c1428e67d9d20cd2a172e50d9c218d4cf124d962a35c15281a445a12b  corpus/earnings-calls/codebook-questions-v0.1.tsv
+16d1c01230a706e9c789eb22ccf7ced9f92906659d12b7800b69d4bf25e950a3  corpus/earnings-calls/codebook-v0.1.tsv
+6bb115b125d18f754b14b2cae7b7b3ce355eb85079fcbc617e76d104c6016006  corpus/earnings-calls/codebook.meta.yml
+7efc722dbe1ced7c1469f24b1490d10a3c154ea732e6c46da2311dfb30feedf2  corpus/earnings-calls/codebook_questions.meta.yml
+305da463005585111424a10cbbd58e60dff3cadb4be1d1740debb18c0d07da0b  corpus/earnings-calls/question-calls.tsv
+906a5041373687dbc293e943c4c9b014df145b0f87348fac5d4f9edcb5b59d82  corpus/earnings-calls/sp500-constituents.tsv
+b39f6fa8eabbc2d1d7059c2ff6c96cf76784ee9f1e3e52dcb101287e9f2a9618  corpus/earnings-calls/sp500_constituents.meta.yml
+3d998452d20aa901a63346038e79511c8d8fb28a6fee3ae647b673c376c00569  corpus/earnings-calls/stock_earning_call_transcripts.meta.yml
+
+scripts (BLAKE3, path):
+bedb0b31b8ad726f1ed88cef28b101cfc169326eaba63d9e480216c4592647d7  scripts/ec_extract.py
+b238786b1fdf3cc76a952f9ad5a516f89e8f0577ebf85169a13b42eb0a049a50  scripts/ec_questions.py

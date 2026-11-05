@@ -1,0 +1,25 @@
+namespace: anthropic-pbc-dataset
+dataset: cve
+title: Monthly CVE series
+pinned_as_of: 2026-11-04
+registry: corpus/datasets.tsv
+
+By signing this record, the signer attests that, when they signed: the files listed
+had exactly these BLAKE3 hashes; the dataset's own verify step (where it has one)
+passed; and, where scripts are listed, the files are the output of those scripts
+run on the sources pinned in the dataset's MANIFEST.tsv. It does not attest that
+any finding drawn from the dataset is true, and it says nothing about model
+output in proposals/.
+
+files (BLAKE3, path):
+75683ee183f5d0a832197d5813b2a3a357d4df76a468c7acdc2eacf399f0d3aa  corpus/cve/MANIFEST.tsv
+fa5863dce326a8bd8e3f2580377dd9dd6de521525dd6ce9222eb70adc9260c7c  corpus/cve/README.md
+1f565500fefd2eca6665003f2efaeb5cc56411249d53813416b72a3963bafa73  corpus/cve/ai-related.tsv
+fe11744debe42411f7b9f491634c98e176feae699b6710fbd856bf311ee48caf  corpus/cve/monthly-ai.tsv
+ea1a95d5a247e4f4742927f3a27e51aa699627a2f6338ce3279596db6dd4f394  corpus/cve/monthly-by-cna.tsv
+6f7c70bef39fd1f5328f1ab8cf3bf723369bf523914b94845c467b835fe06616  corpus/cve/monthly.tsv
+b7ff0692bfacf1eed5d6c7045312a671cbd90b200c2cf7c05df3d400881c48cf  corpus/cve/monthly_series.meta.yml
+05776dcce58b0ed3e54e95496dcb17e2bb3de662e8ee7d355893679849a5d91d  corpus/cve/snapshot.meta.yml
+
+scripts (BLAKE3, path):
+cb2c6c51dc50b68f31321e258ce09f6a4d0f17f52913ae5d296d0087c0142194  scripts/cve_series.py

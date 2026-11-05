@@ -1,0 +1,31 @@
+item	codebook	block	letter	stem_quote	note
+radical_changes_truly_democratic	CB_2025_10	SYSTJUST	B	Radical changes should be made in order to have a truly democratic political system in our country.	7-point agree scale.
+congress_follow_will_of_people	CB_2025_10	POPULISM	C	The politicians in Congress need to follow the will of the people.	7-point agree scale.
+mighty_leader_destroy_radical_ways	CB_2025_10	RWAUTHSS	A	Our country desperately needs a mighty leader who will do what has to be done to destroy the radical new ways and sinfulness that are ruining us.	7-point agree scale.
+strong_leader_crush_evil	CB_2025_10	RWAUTHSS	B	What our country really needs is a strong, determined leader who will crush evil, and take us back to our true path.	7-point agree scale.
+christian_nation	CB_2025_10	CHRISTNA	A	The federal government should declare the United States a Christian nation.	7-point agree scale.
+christian_integral_to_american	CB_2025_10	CHRISTNA	B	consider being a Christian an important aspect of being truly American.	7-point agree scale; R09 paraphrases as "integral to being American".
+founding_documents_divinely_inspired	CB_2025_10	CHRISTNA	C	the US Constitution to be divinely inspired.	7-point agree scale; full stem names the Declaration of Independence and the US Constitution.
+everyone_allowed_to_vote	CB_2025_10	SUPPDEMO	A	Everyone should be allowed to vote.	7-point agree scale.
+voting_should_be_easy	CB_2025_10	SUPPDEMO	B	Voting should be easy.	7-point agree scale.
+greater_participation_improves_democracy	CB_2025_10	SUPPDEMO	C	The more people participate in politics and elections, the better.	7-point agree scale; R11 paraphrases as "greater participation improves democracy".
+dangerous_ideas_acceptable	CB_2025_10	SUPPDEMO	D	Everyone should be allowed to express any idea, even potentially dangerous ideas.	7-point agree scale; R01 reports an earlier (Fall 2024) wave whose questionnaire is not pinned.
+media_shutdown_never	CB_2025_10	SUPPDEMO	E	The government should never shut down media outlets, even if they spread disinformation.	7-point agree scale; R01 reports an earlier (Fall 2024) wave whose questionnaire is not pinned.
+president_not_above_law	CB_2025_10	SUPPDEMO	G	The president should not be above the law.	7-point agree scale.
+law_treat_everyone_equally	CB_2025_10	SUPPDEMO	H	The law should treat everyone the same, regardless of wealth or power.	7-point agree scale.
+leaders_legitimate_only_if_follow_rules	CB_2025_10	SUPPDEMO	M	they need to follow the rules.	7-point agree scale; full stem: "In order for a leader's actions to be legitimate, they need to follow the rules."
+reduce_polling_access	CB_2025_10	DEMNORMS	A	should reduce the number of polling stations in areas that typically support	Party names are piped in by the respondent's party ID: the item asks about the respondent's OWN party restricting the other's polling stations.
+ignore_court_decisions	CB_2025_10	DEMNORMS	C	sometimes consider ignoring court decisions when the judges who issued those decisions were	Party names piped by party ID: own party's officials ignoring judges appointed by the other party's presidents.
+censor_opposing_media	CB_2025_10	DEMNORMS	D	The government should be able to censor media sources that spend more time attacking	Party names piped by party ID.
+strong_leader_bend_rules	CB_2025_10	MCCLDEMO	A	Strong leaders sometimes have to bend the rules in order to get things done.	7-point agree scale.
+force_to_save_way_of_life	CB_2025_10	MCCLDEMO	B	The traditional American way of life is disappearing so fast that we may have to use force to save	7-point agree scale; R08 quotes it without "traditional".
+patriots_take_law_into_own_hands	CB_2025_10	MCCLDEMO	C	A time will come when patriotic Americans have to take the law into their own hands.	7-point agree scale.
+democratic_system_good	CB_2025_10	AUTODEMO	C	Having a democratic political system.	4-point very good to very bad. Asked in this wave; no Rooney Report in the pinned set states a percent for it.
+way_of_life_under_attack	CB_2025_10	CIVILWAR	A	The American way of life is under attack.	7-point agree scale.
+brink_of_civil_war	CB_2025_10	CIVILWAR	B	The United States is on the brink of a new civil war.	7-point agree scale.
+violence_to_ensure_party_wins	CB_2025_10	CIVILWAR	C	support the use of violence to ensure a	Party piped by party ID; full stem ends "party candidate wins the next presidential election."
+personally_willing_violence	CB_2025_10	CIVILWAR	D	would personally be willing to use violence to ensure that a	Party piped by party ID.
+allow_run_for_office	CB_2025_10	TOLERANC	E	should be banned from running for public office.	Asked about the respondent's LEAST-LIKED group (LSTLIKED), and worded as a BAN; R13's "support allowing individuals to run for office" is therefore disagreement with banning the least-liked group, as far as the report text lets us tell.
+allow_public_protest	CB_2025_10	TOLERANC	A	should be allowed to organize a rally in	Asked about the respondent's least-liked group; R13 calls it "public protest".
+least_liked_group	CB_2025_10	LSTLIKED		Which of these groups do you like the least?	16 options (R06's "16 response options"); R06 reports the Fall 2024 wave.
+democracy_most_important_problem	CB_2026_05	DEMOPROB		Which of the following do you think is the most important problem facing American democracy in recent	New in May 2026. Option 05 is "Social media and misinformation", the only technology option in either pinned questionnaire. No Rooney Report in the pinned set reports it.

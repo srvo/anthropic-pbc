@@ -1,0 +1,4 @@
+date	file	sha256	bytes	built_from	to
+# 154d864: digest not recorded at emission (before this log existed); size recorded in the session that emitted it.
+2026-11-04	anthropic-pbc-working-paper-154d864.pdf	unrecorded	478828	154d8647b32c	~/tray
+2026-11-04	anthropic-pbc-working-paper-1abaa3d.pdf	fe7c45aab87cd34f5a61a52bf1c6488f8270663b2e37cf457761b15ddb9c8635	474860	1abaa3d	~/tray

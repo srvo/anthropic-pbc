@@ -1,0 +1,21 @@
+namespace: anthropic-pbc-dataset
+dataset: risk-factors
+title: 10-K Item 1A risk-factor corpus
+pinned_as_of: 2026-11-04
+registry: corpus/datasets.tsv
+
+By signing this record, the signer attests that, when they signed: the files listed
+had exactly these BLAKE3 hashes; the dataset's own verify step (where it has one)
+passed; and, where scripts are listed, the files are the output of those scripts
+run on the sources pinned in the dataset's MANIFEST.tsv. It does not attest that
+any finding drawn from the dataset is true, and it says nothing about model
+output in proposals/.
+
+files (BLAKE3, path):
+3fd758ea3cf108b70d9d4be8f79c70cfc04216303fdb681e1f57d20892dc05e7  corpus/risk-factors/MANIFEST.meta.yml
+d91fb0e86c3fe80b770d4e191cdfa1e9175fdbe0c204ae566fb9c933b7950f33  corpus/risk-factors/MANIFEST.tsv
+8486c25afbe24fe62e542cfeb0e69adf9b1bee820c0a293dbda70d155d27b75d  corpus/risk-factors/README.md
+f37bd6191c887658f9a5ccabbaec797e215aefb281ec140a8e35556734093dd6  corpus/risk-factors/metadata.source.yml
+
+scripts (BLAKE3, path):
+19ea30d8640cb6ef31975c7f582fd7cb0f9709f2c15933da1d7dd5f10b9a0ce8  scripts/rf_manifest.py

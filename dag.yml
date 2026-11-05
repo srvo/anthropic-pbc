@@ -1,0 +1,261 @@
+# Compute graph of every dataset step in this repository.
+#
+# Modelled on Our World in Data's ETL
+# (https://docs.owid.io/projects/etl/architecture/design/compute-graph/): each
+# step is a node named by a URI, and an edge means "depends on". When a node
+# changes, every node downstream of it is stale. Praxis's `dag.py status`
+# (praxis/datasets/) computes that from content hashes; nothing here reads a clock.
+#
+# URIs follow OWID's convention:
+#   snapshot://<namespace>/<version>/<name>          an upstream copy, pinned in a MANIFEST
+#   data://<channel>/<namespace>/<version>/<name>    a dataset built from other steps
+#   viz://static/<namespace>/<version>/<name>        a chart
+# version is the pin date (YYYY-MM-DD), or the codebook version for hand-written codebooks.
+#
+# Channels:
+#   meadow   OWID's: the source in a common format. Here, the verbatim, byte-anchored
+#            extraction (windows, questions, ids, inventories).
+#   garden   OWID's: processed and harmonised. Here, counts and joins built
+#            deterministically from meadow (no model).
+#   witness  OUR EXTENSION, not in OWID: model output (NLI scores, topics). A
+#            proposal under docs/bert-enrichment-spec.md §5, never a finding. Steps that
+#            read witness output stay proposals too.
+#
+# Paths are unchanged from before the graph existed; the URI names a step and
+# `outputs` says where it writes. `cmd` records the command that produced the
+# committed bytes. Earnings-call text is not committed: units with text live in the
+# gitignored .eccorpus/ (scripts/ec_text.py), rebuilt by the meadow steps, as Hacker
+# News units live in .hncorpus/. Witness steps ran through the Modal wrapper (bf16, L40S, per
+# each run-*.json). Any backend can run the same scoring (scripts/ec_classify.py,
+# AGENTS.md "Compute"), but its scores carry its own backend tag and will not be
+# byte-identical: bf16 varies with hardware and batch composition
+# (docs/bert-enrichment-spec.md §10, 2026-11-04).
+
+steps:
+  # ---------------------------------------------------------------- snapshots
+  snapshot://defeatbeta/2026-11-04/stock_earning_call_transcripts:
+    meta: corpus/earnings-calls/stock_earning_call_transcripts.meta.yml
+    cmd: uv run scripts/ec_extract.py fetch
+    outputs: [corpus/earnings-calls/MANIFEST.tsv]
+  snapshot://wikipedia/2026-10-27/sp500_constituents:
+    meta: corpus/earnings-calls/sp500_constituents.meta.yml
+    cmd: uv run scripts/ec_extract.py constituents
+    deps: [snapshot://defeatbeta/2026-11-04/stock_earning_call_transcripts]   # shares MANIFEST.tsv
+    outputs: [corpus/earnings-calls/sp500-constituents.tsv]
+  snapshot://open_index/2026-08-31/hacker_news:
+    meta: corpus/hacker-news/snapshot.meta.yml
+    cmd: uv run scripts/hn_extract.py pin && uv run scripts/hn_extract.py fetch
+    outputs: [corpus/hacker-news/MANIFEST.tsv]
+  snapshot://wikipedia/2026-11-04/ai_risk_articles:
+    meta: corpus/wikipedia-ai-risk/snapshot.meta.yml
+    cmd: uv run scripts/wp_extract.py pin --as-of 2026-11-04 && uv run scripts/wp_extract.py fetch
+    outputs: [corpus/wikipedia-ai-risk/MANIFEST.tsv, corpus/wikipedia-ai-risk/seeds.tsv]
+  snapshot://cvelistv5/2026-11-04/baseline:
+    cmd: uv run scripts/cve_series.py pin --as-of 2026-11-04 && uv run scripts/cve_series.py fetch
+    meta: corpus/cve/snapshot.meta.yml
+    outputs: [corpus/cve/MANIFEST.tsv]
+  snapshot://epoch/2026-11-04/all_datasets:
+    meta: corpus/epoch/snapshot.meta.yml
+    cmd: uv run scripts/epoch_data.py pin --as-of 2026-11-04
+    outputs: [corpus/epoch/MANIFEST.tsv, corpus/epoch/CITATIONS.tsv]
+  # hand-written codebooks: authored in-repo, so "upstream" is a human review
+  snapshot://ethicalcapital/v0.1/codebook:
+    meta: corpus/earnings-calls/codebook.meta.yml
+    outputs: [corpus/earnings-calls/codebook-v0.1.tsv]
+  snapshot://ethicalcapital/v0.1/codebook_questions:
+    meta: corpus/earnings-calls/codebook_questions.meta.yml
+    outputs: [corpus/earnings-calls/codebook-questions-v0.1.tsv]
+
+  # ---------------------------------------------------------------- earnings calls
+  data://meadow/earnings_calls/2026-11-04/ai_windows:
+    meta: corpus/earnings-calls/ai_windows.meta.yml
+    cmd: uv run scripts/ec_extract.py build
+    inputs: [scripts/ec_text.py]
+    deps: [snapshot://defeatbeta/2026-11-04/stock_earning_call_transcripts, snapshot://wikipedia/2026-10-27/sp500_constituents]
+    outputs: [corpus/earnings-calls/calls.tsv, corpus/earnings-calls/ai-paragraphs.parquet, corpus/earnings-calls/ai-windows.parquet]
+  data://meadow/earnings_calls/2026-11-04/ai_questions:
+    meta: corpus/earnings-calls/ai_questions.meta.yml
+    cmd: uv run scripts/ec_questions.py build
+    inputs: [scripts/ec_extract.py, scripts/ec_text.py]
+    deps: [snapshot://defeatbeta/2026-11-04/stock_earning_call_transcripts, data://meadow/earnings_calls/2026-11-04/ai_windows]
+    outputs: [corpus/earnings-calls/ai-questions.parquet, corpus/earnings-calls/question-calls.tsv]
+  data://witness/earnings_calls/2026-11-04/codebook_v0_1:
+    meta: proposals/earnings-calls/codebook-v0.1/codebook_v0_1.meta.yml
+    cmd: uvx --with duckdb==2.0.0 --with blake3 modal run scripts/ec_classify_modal.py --model deberta && uvx --with duckdb==2.0.0 --with blake3 modal run scripts/ec_classify_modal.py --model modernbert
+    deps: [data://meadow/earnings_calls/2026-11-04/ai_windows, snapshot://ethicalcapital/v0.1/codebook]
+    inputs: [scripts/ec_classify.py]
+    outputs: [proposals/earnings-calls/codebook-v0.1/deberta.parquet, proposals/earnings-calls/codebook-v0.1/modernbert.parquet,
+              proposals/earnings-calls/codebook-v0.1/run-deberta.json, proposals/earnings-calls/codebook-v0.1/run-modernbert.json]
+  data://witness/earnings_calls/2026-11-04/codebook_questions_v0_1:
+    meta: proposals/earnings-calls/codebook-questions-v0.1/codebook_questions_v0_1.meta.yml
+    cmd: uvx --with duckdb==2.0.0 --with blake3 modal run scripts/ec_classify_modal.py --model deberta --units .eccorpus/ai-questions.parquet --codebook corpus/earnings-calls/codebook-questions-v0.1.tsv --id-col question_id && uvx --with duckdb==2.0.0 --with blake3 modal run scripts/ec_classify_modal.py --model modernbert --units .eccorpus/ai-questions.parquet --codebook corpus/earnings-calls/codebook-questions-v0.1.tsv --id-col question_id
+    deps: [data://meadow/earnings_calls/2026-11-04/ai_questions, snapshot://ethicalcapital/v0.1/codebook_questions]
+    inputs: [scripts/ec_classify.py]
+    outputs: [proposals/earnings-calls/codebook-questions-v0.1/deberta.parquet, proposals/earnings-calls/codebook-questions-v0.1/modernbert.parquet,
+              proposals/earnings-calls/codebook-questions-v0.1/run-deberta.json, proposals/earnings-calls/codebook-questions-v0.1/run-modernbert.json]
+  data://witness/earnings_calls/2026-11-04/topics_v0_1:
+    meta: proposals/earnings-calls/topics-v0.1/topics_v0_1.meta.yml
+    cmd: uv run scripts/ec_topics.py
+    inputs: [scripts/ec_text.py]
+    deps: [data://meadow/earnings_calls/2026-11-04/ai_windows]
+    outputs: [proposals/earnings-calls/topics-v0.1/assignments.parquet, proposals/earnings-calls/topics-v0.1/by-year.tsv,
+              proposals/earnings-calls/topics-v0.1/run.json, proposals/earnings-calls/topics-v0.1/topics.tsv]
+  data://witness/earnings_calls/2026-11-04/witness_report:
+    meta: proposals/earnings-calls/codebook-v0.1/report/witness_report.meta.yml
+    cmd: uv run scripts/ec_report.py
+    deps: [data://witness/earnings_calls/2026-11-04/codebook_v0_1, data://meadow/earnings_calls/2026-11-04/ai_windows]
+    outputs: [proposals/earnings-calls/codebook-v0.1/report/agreement.tsv, proposals/earnings-calls/codebook-v0.1/report/by-year.tsv,
+              proposals/earnings-calls/codebook-v0.1/report/risk-types-by-year.tsv, proposals/earnings-calls/codebook-v0.1/report/by-role.tsv,
+              proposals/earnings-calls/codebook-v0.1/report/by-firm.tsv, proposals/earnings-calls/codebook-v0.1/report/window-flags.tsv]
+  data://witness/earnings_calls/2026-11-04/ai_risk_series:
+    meta: proposals/earnings-calls/codebook-v0.1/report/ai_risk_series.meta.yml
+    cmd: uv run scripts/ec_risk_series.py
+    inputs: [scripts/ec_text.py]
+    deps: [data://witness/earnings_calls/2026-11-04/codebook_v0_1, data://meadow/earnings_calls/2026-11-04/ai_windows]
+    outputs: [proposals/earnings-calls/codebook-v0.1/report/ai-risk-by-year.tsv, proposals/earnings-calls/codebook-v0.1/report/ai-risk-by-year.svg,
+              proposals/earnings-calls/codebook-v0.1/report/risk-ranking-ttm.tsv, proposals/earnings-calls/codebook-v0.1/report/risk-ranking-ttm.svg,
+              proposals/earnings-calls/codebook-v0.1/report/risk-quotes-ttm.tsv]
+  data://witness/earnings_calls/2026-11-04/question_report:
+    meta: proposals/earnings-calls/codebook-questions-v0.1/report/question_report.meta.yml
+    cmd: uv run scripts/ec_question_report.py
+    inputs: [scripts/ec_text.py]
+    deps: [data://witness/earnings_calls/2026-11-04/codebook_questions_v0_1, data://meadow/earnings_calls/2026-11-04/ai_questions]
+    outputs: [proposals/earnings-calls/codebook-questions-v0.1/report/agreement.tsv, proposals/earnings-calls/codebook-questions-v0.1/report/by-year.tsv,
+              proposals/earnings-calls/codebook-questions-v0.1/report/ttm.tsv, proposals/earnings-calls/codebook-questions-v0.1/report/oversight-questions.tsv,
+              proposals/earnings-calls/codebook-questions-v0.1/report/intent-ttm.svg]
+  data://garden/earnings_calls/2026-11-04/gold_samples:
+    meta: gold/earnings-calls/gold_samples.meta.yml
+    cmd: uv run scripts/ec_gold.py sample && uv run scripts/ec_gold.py --set questions sample
+    inputs: [scripts/ec_text.py]
+    deps: [data://witness/earnings_calls/2026-11-04/codebook_v0_1, data://witness/earnings_calls/2026-11-04/codebook_questions_v0_1]
+    outputs: [gold/earnings-calls/codebook-v0.1/sample.tsv, gold/earnings-calls/codebook-questions-v0.1/sample.tsv]
+
+  # ---------------------------------------------------------------- hacker news
+  data://meadow/hacker_news/2026-08-31/ai_windows:
+    meta: corpus/hacker-news/ai_windows.meta.yml
+    cmd: uv run scripts/hn_extract.py build
+    deps: [snapshot://open_index/2026-08-31/hacker_news]
+    outputs: [corpus/hacker-news/months.tsv, corpus/hacker-news/windows.parquet]
+  data://witness/hacker_news/2026-08-31/anthropic_v0_1:
+    meta: proposals/hacker-news/anthropic/anthropic_v0_1.meta.yml
+    cmd: uvx --with duckdb==2.0.0 --with blake3 modal run scripts/ec_classify_modal.py --model deberta --units .hncorpus/units-anthropic.parquet --out proposals/hacker-news/anthropic && uvx --with duckdb==2.0.0 --with blake3 modal run scripts/ec_classify_modal.py --model modernbert --units .hncorpus/units-anthropic.parquet --out proposals/hacker-news/anthropic
+    deps: [data://meadow/hacker_news/2026-08-31/ai_windows, snapshot://ethicalcapital/v0.1/codebook]
+    inputs: [scripts/ec_classify.py]
+    outputs: [proposals/hacker-news/anthropic/deberta.parquet, proposals/hacker-news/anthropic/modernbert.parquet,
+              proposals/hacker-news/anthropic/run-deberta.json, proposals/hacker-news/anthropic/run-modernbert.json]
+  data://witness/hacker_news/2026-08-31/ai_security_v0_1:
+    meta: proposals/hacker-news/ai_security/ai_security_v0_1.meta.yml
+    cmd: uvx --with duckdb==2.0.0 --with blake3 modal run scripts/ec_classify_modal.py --model deberta --units .hncorpus/units-ai_security.parquet --out proposals/hacker-news/ai_security && uvx --with duckdb==2.0.0 --with blake3 modal run scripts/ec_classify_modal.py --model modernbert --units .hncorpus/units-ai_security.parquet --out proposals/hacker-news/ai_security
+    deps: [data://meadow/hacker_news/2026-08-31/ai_windows, snapshot://ethicalcapital/v0.1/codebook]
+    inputs: [scripts/ec_classify.py]
+    outputs: [proposals/hacker-news/ai_security/deberta.parquet, proposals/hacker-news/ai_security/modernbert.parquet,
+              proposals/hacker-news/ai_security/run-deberta.json, proposals/hacker-news/ai_security/run-modernbert.json]
+  data://witness/hacker_news/2026-08-31/report:
+    meta: proposals/hacker-news/report/report.meta.yml
+    cmd: uv run scripts/hn_report.py
+    deps: [data://witness/hacker_news/2026-08-31/anthropic_v0_1, data://witness/hacker_news/2026-08-31/ai_security_v0_1,
+           data://meadow/hacker_news/2026-08-31/ai_windows, data://witness/earnings_calls/2026-11-04/ai_risk_series]
+    inputs: [scripts/ec_risk_series.py]
+    outputs: [proposals/hacker-news/report/agreement.tsv, proposals/hacker-news/report/by-month.tsv, proposals/hacker-news/report/examples-ttm.tsv,
+              proposals/hacker-news/report/risk-ranking-ttm.tsv, proposals/hacker-news/report/risk-ranking-ttm.svg]
+
+  # ---------------------------------------------------------------- wikipedia
+  data://meadow/wikipedia/2026-11-04/ai_risk_articles:
+    meta: corpus/wikipedia-ai-risk/ai_risk_articles.meta.yml
+    cmd: uv run scripts/wp_extract.py build
+    deps: [snapshot://wikipedia/2026-11-04/ai_risk_articles]
+    outputs: [corpus/wikipedia-ai-risk/articles.parquet, corpus/wikipedia-ai-risk/sections.tsv, corpus/wikipedia-ai-risk/windows.parquet,
+              corpus/wikipedia-ai-risk/dimensions-candidate.tsv]
+  data://witness/wikipedia/2026-11-04/codebook_v0_1:
+    meta: proposals/wikipedia-ai-risk/codebook-v0.1/codebook_v0_1.meta.yml
+    cmd: uvx --with duckdb==2.0.0 --with blake3 modal run scripts/ec_classify_modal.py --model deberta --units corpus/wikipedia-ai-risk/windows.parquet --out proposals/wikipedia-ai-risk/codebook-v0.1 && uvx --with duckdb==2.0.0 --with blake3 modal run scripts/ec_classify_modal.py --model modernbert --units corpus/wikipedia-ai-risk/windows.parquet --out proposals/wikipedia-ai-risk/codebook-v0.1
+    deps: [data://meadow/wikipedia/2026-11-04/ai_risk_articles, snapshot://ethicalcapital/v0.1/codebook]
+    inputs: [scripts/ec_classify.py]
+    outputs: [proposals/wikipedia-ai-risk/codebook-v0.1/deberta.parquet, proposals/wikipedia-ai-risk/codebook-v0.1/modernbert.parquet,
+              proposals/wikipedia-ai-risk/codebook-v0.1/run-deberta.json, proposals/wikipedia-ai-risk/codebook-v0.1/run-modernbert.json]
+  data://witness/wikipedia/2026-11-04/coverage_report:
+    meta: proposals/wikipedia-ai-risk/codebook-v0.1/report/coverage_report.meta.yml
+    cmd: uv run scripts/wp_report.py
+    deps: [data://witness/wikipedia/2026-11-04/codebook_v0_1, data://meadow/wikipedia/2026-11-04/ai_risk_articles]
+    outputs: [proposals/wikipedia-ai-risk/codebook-v0.1/report/hypotheses.tsv, proposals/wikipedia-ai-risk/codebook-v0.1/report/summary.tsv,
+              proposals/wikipedia-ai-risk/codebook-v0.1/report/untyped-by-article.tsv]
+
+  # ---------------------------------------------------------------- codebook v0.2 (DRAFT)
+  snapshot://ethicalcapital/v0.2-draft/codebook:
+    meta: corpus/codebooks/codebook-v0.2-draft.meta.yml
+    outputs: [corpus/codebooks/codebook-v0.2-draft.tsv]
+  data://witness/earnings_calls/2026-11-04/codebook_v0_2_draft:
+    meta: proposals/earnings-calls/codebook-v0.2-draft/codebook_v0_2_draft.meta.yml
+    cmd: uvx --with duckdb==2.0.0 --with blake3 modal run scripts/ec_classify_modal.py --model deberta --codebook corpus/codebooks/codebook-v0.2-draft.tsv --units .eccorpus/ai-windows.parquet --out proposals/earnings-calls/codebook-v0.2-draft && uvx --with duckdb==2.0.0 --with blake3 modal run scripts/ec_classify_modal.py --model modernbert --codebook corpus/codebooks/codebook-v0.2-draft.tsv --units .eccorpus/ai-windows.parquet --out proposals/earnings-calls/codebook-v0.2-draft
+    deps: [data://meadow/earnings_calls/2026-11-04/ai_windows, snapshot://ethicalcapital/v0.2-draft/codebook]
+    inputs: [scripts/ec_classify.py]
+    outputs: [proposals/earnings-calls/codebook-v0.2-draft/deberta.parquet, proposals/earnings-calls/codebook-v0.2-draft/modernbert.parquet, proposals/earnings-calls/codebook-v0.2-draft/run-deberta.json, proposals/earnings-calls/codebook-v0.2-draft/run-modernbert.json]
+  data://witness/earnings_calls/2026-11-04/codebook_questions_v0_2_draft:
+    meta: proposals/earnings-calls/codebook-v0.2-draft-questions/codebook_questions_v0_2_draft.meta.yml
+    cmd: uvx --with duckdb==2.0.0 --with blake3 modal run scripts/ec_classify_modal.py --model deberta --codebook corpus/codebooks/codebook-v0.2-draft.tsv --units .eccorpus/ai-questions.parquet --out proposals/earnings-calls/codebook-v0.2-draft-questions --id-col question_id && uvx --with duckdb==2.0.0 --with blake3 modal run scripts/ec_classify_modal.py --model modernbert --codebook corpus/codebooks/codebook-v0.2-draft.tsv --units .eccorpus/ai-questions.parquet --out proposals/earnings-calls/codebook-v0.2-draft-questions --id-col question_id
+    deps: [data://meadow/earnings_calls/2026-11-04/ai_questions, snapshot://ethicalcapital/v0.2-draft/codebook]
+    inputs: [scripts/ec_classify.py]
+    outputs: [proposals/earnings-calls/codebook-v0.2-draft-questions/deberta.parquet, proposals/earnings-calls/codebook-v0.2-draft-questions/modernbert.parquet, proposals/earnings-calls/codebook-v0.2-draft-questions/run-deberta.json, proposals/earnings-calls/codebook-v0.2-draft-questions/run-modernbert.json]
+  data://witness/hacker_news/2026-08-31/anthropic_v0_2_draft:
+    meta: proposals/hacker-news/anthropic-v0.2-draft/anthropic_v0_2_draft.meta.yml
+    cmd: uvx --with duckdb==2.0.0 --with blake3 modal run scripts/ec_classify_modal.py --model deberta --codebook corpus/codebooks/codebook-v0.2-draft.tsv --units .hncorpus/units-anthropic.parquet --out proposals/hacker-news/anthropic-v0.2-draft && uvx --with duckdb==2.0.0 --with blake3 modal run scripts/ec_classify_modal.py --model modernbert --codebook corpus/codebooks/codebook-v0.2-draft.tsv --units .hncorpus/units-anthropic.parquet --out proposals/hacker-news/anthropic-v0.2-draft
+    deps: [data://meadow/hacker_news/2026-08-31/ai_windows, snapshot://ethicalcapital/v0.2-draft/codebook]
+    inputs: [scripts/ec_classify.py]
+    outputs: [proposals/hacker-news/anthropic-v0.2-draft/deberta.parquet, proposals/hacker-news/anthropic-v0.2-draft/modernbert.parquet, proposals/hacker-news/anthropic-v0.2-draft/run-deberta.json, proposals/hacker-news/anthropic-v0.2-draft/run-modernbert.json]
+  data://witness/hacker_news/2026-08-31/ai_security_v0_2_draft:
+    meta: proposals/hacker-news/ai_security-v0.2-draft/ai_security_v0_2_draft.meta.yml
+    cmd: uvx --with duckdb==2.0.0 --with blake3 modal run scripts/ec_classify_modal.py --model deberta --codebook corpus/codebooks/codebook-v0.2-draft.tsv --units .hncorpus/units-ai_security.parquet --out proposals/hacker-news/ai_security-v0.2-draft && uvx --with duckdb==2.0.0 --with blake3 modal run scripts/ec_classify_modal.py --model modernbert --codebook corpus/codebooks/codebook-v0.2-draft.tsv --units .hncorpus/units-ai_security.parquet --out proposals/hacker-news/ai_security-v0.2-draft
+    deps: [data://meadow/hacker_news/2026-08-31/ai_windows, snapshot://ethicalcapital/v0.2-draft/codebook]
+    inputs: [scripts/ec_classify.py]
+    outputs: [proposals/hacker-news/ai_security-v0.2-draft/deberta.parquet, proposals/hacker-news/ai_security-v0.2-draft/modernbert.parquet, proposals/hacker-news/ai_security-v0.2-draft/run-deberta.json, proposals/hacker-news/ai_security-v0.2-draft/run-modernbert.json]
+  data://witness/wikipedia/2026-11-04/codebook_v0_2_draft:
+    meta: proposals/wikipedia-ai-risk/codebook-v0.2-draft/codebook_v0_2_draft.meta.yml
+    cmd: uvx --with duckdb==2.0.0 --with blake3 modal run scripts/ec_classify_modal.py --model deberta --codebook corpus/codebooks/codebook-v0.2-draft.tsv --units corpus/wikipedia-ai-risk/windows.parquet --out proposals/wikipedia-ai-risk/codebook-v0.2-draft && uvx --with duckdb==2.0.0 --with blake3 modal run scripts/ec_classify_modal.py --model modernbert --codebook corpus/codebooks/codebook-v0.2-draft.tsv --units corpus/wikipedia-ai-risk/windows.parquet --out proposals/wikipedia-ai-risk/codebook-v0.2-draft
+    deps: [data://meadow/wikipedia/2026-11-04/ai_risk_articles, snapshot://ethicalcapital/v0.2-draft/codebook]
+    inputs: [scripts/ec_classify.py]
+    outputs: [proposals/wikipedia-ai-risk/codebook-v0.2-draft/deberta.parquet, proposals/wikipedia-ai-risk/codebook-v0.2-draft/modernbert.parquet, proposals/wikipedia-ai-risk/codebook-v0.2-draft/run-deberta.json, proposals/wikipedia-ai-risk/codebook-v0.2-draft/run-modernbert.json]
+  data://witness/cross_source/2026-11-04/dialogue_space_v0_2_draft:
+    meta: proposals/cross-source/codebook-v0.2-draft/report/dialogue_space_v0_2_draft.meta.yml
+    cmd: uv run scripts/v02_map.py
+    deps: [data://witness/earnings_calls/2026-11-04/codebook_v0_2_draft, data://witness/earnings_calls/2026-11-04/codebook_questions_v0_2_draft,
+           data://witness/hacker_news/2026-08-31/anthropic_v0_2_draft, data://witness/hacker_news/2026-08-31/ai_security_v0_2_draft,
+           data://witness/wikipedia/2026-11-04/codebook_v0_2_draft]
+    outputs: [proposals/cross-source/codebook-v0.2-draft/report/dialogue-space.tsv, proposals/cross-source/codebook-v0.2-draft/report/dialogue-space.svg]
+
+  # ---------------------------------------------------------------- cve
+  data://garden/cve/2026-11-04/monthly_series:
+    cmd: uv run scripts/cve_series.py build
+    deps: [snapshot://cvelistv5/2026-11-04/baseline]
+    inputs: [scripts/ec_extract.py]   # reuses its AI term regex
+    meta: corpus/cve/monthly_series.meta.yml
+    outputs: [corpus/cve/monthly.tsv, corpus/cve/monthly-by-cna.tsv, corpus/cve/ai-related.tsv, corpus/cve/monthly-ai.tsv]
+
+  # ---------------------------------------------------------------- epoch
+  data://meadow/epoch/2026-11-04/inventory:
+    meta: corpus/epoch/inventory.meta.yml
+    cmd: uv run scripts/epoch_data.py build
+    deps: [snapshot://epoch/2026-11-04/all_datasets]
+    outputs: [corpus/epoch/inventory.tsv, "corpus/epoch/*/**/*.csv"]
+
+  # ---------------------------------------------------------------- democracy proxies
+  snapshot://gdelt_rooney/2026-11-04/responses_and_reports:
+    meta: corpus/democracy/responses_and_reports.meta.yml
+    cmd: uv run scripts/democracy_proxies.py fetch-gdelt --as-of 2026-11-04 && uv run scripts/democracy_proxies.py fetch-rooney --as-of 2026-11-04
+    outputs: [corpus/democracy/MANIFEST.tsv]
+  snapshot://ethicalcapital/2026-11-04/rooney_transcription:
+    meta: corpus/democracy/rooney_transcription.meta.yml
+    # hand-transcribed from the pinned PDFs; `build` checks each quote against its page and each value against its quote; group, wave, item and response are unchecked
+    outputs: [corpus/democracy/rooney-transcription.tsv, corpus/democracy/rooney-questionnaire.tsv]
+  data://garden/democracy/2026-11-04/proxies:
+    meta: corpus/democracy/proxies.meta.yml
+    cmd: uv run scripts/democracy_proxies.py build
+    deps: [snapshot://gdelt_rooney/2026-11-04/responses_and_reports, snapshot://ethicalcapital/2026-11-04/rooney_transcription]
+    outputs: [corpus/democracy/gdelt-timelines.tsv, corpus/democracy/gdelt-summary.tsv, corpus/democracy/rooney-reports.tsv,
+              corpus/democracy/rooney-toplines.tsv, corpus/democracy/rooney-items.tsv]
+
+  # Held audit projection; requires the retained local stores, not a full acquisition DAG.
+  data://garden/risk_factors/2026-11-04/manifest:
+    meta: corpus/risk-factors/MANIFEST.meta.yml
+    cmd: uv run scripts/rf_manifest.py write && uv run scripts/rf_manifest.py check
+    inputs: [corpus/risk-factors/metadata.source.yml, .rfcorpus/rf.duckdb, .rfcorpus/loss.duckdb]
+    outputs: [corpus/risk-factors/MANIFEST.tsv, corpus/risk-factors/MANIFEST.meta.yml]

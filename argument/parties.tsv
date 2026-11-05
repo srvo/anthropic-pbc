@@ -1,0 +1,21 @@
+# Parties: who holds a lever over Anthropic's public-benefit promise, or bears the effects of its conduct.
+# kind: enforcer (holds a lever) | affected (bears the effects) | both. standing: the lever, if any, in plain words.
+# rests_on: card or Q labels that establish the standing; a P- pending id, or "-" when nothing in the deck supports it.
+id	name	kind	standing	rests_on
+stockholders-2pct	Stockholders at the 2% threshold	both	may sue derivatively to enforce the purpose (§367)	A018
+founders	Continuing Founders (Class F)	enforcer	50.1% of the general vote through one Class F share	A021
+ltbt	Long-Term Benefit Trust	enforcer	elects four of seven directors; its Class T can be amended away	A010,A022
+board	Board of directors	enforcer	must balance stockholders, the affected and the named benefit; owes no person a duty for it	A001,A017
+courts	Delaware courts	enforcer	hear derivative suits; no precedent interprets this structure	A020
+federal-gov	US federal government	enforcer	no federal frontier-AI framework; commitments are voluntary	A057,A050
+basin-regulators	Water and grid regulators, per basin	enforcer	set seasonal withdrawal allowances (not yet pinned)	P-basin-allowance
+host-communities	Communities near data-centre sites	affected	no seat, vote or standing in governance	A054
+data-workers	Data workers	affected	no seat, vote or standing in governance	A054
+authors	Authors whose books were in the corpus	affected	sued as a class and settled (Bartz)	A042
+public	The public the charter names	affected	cannot enforce the charter	A019
+workers	Workers whose jobs AI changes	affected	none established	-
+users	Users of Claude	affected	none established	-
+low-use-countries	People in countries with low AI use	affected	none established	-
+misuse-targets	Organisations targeted through misuse	affected	none established	-
+third-party-systems	Owners of systems models reached in testing	affected	none established	-
+future-people	Future people	affected	none established	-

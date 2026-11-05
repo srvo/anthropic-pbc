@@ -1,0 +1,26 @@
+namespace: anthropic-pbc-dataset
+dataset: wikipedia-ai-risk
+title: Wikipedia AI-risk articles
+pinned_as_of: 2026-11-04
+registry: corpus/datasets.tsv
+
+By signing this record, the signer attests that, when they signed: the files listed
+had exactly these BLAKE3 hashes; the dataset's own verify step (where it has one)
+passed; and, where scripts are listed, the files are the output of those scripts
+run on the sources pinned in the dataset's MANIFEST.tsv. It does not attest that
+any finding drawn from the dataset is true, and it says nothing about model
+output in proposals/.
+
+files (BLAKE3, path):
+9872049e49b8e6eb3da8bd0205c59b50cae71f4ff60ddae8f66aee55634dee36  corpus/wikipedia-ai-risk/MANIFEST.tsv
+30fe4a895574de185ba3ad0715a80058875d05668f76ef8a20645d860613528d  corpus/wikipedia-ai-risk/README.md
+8c51c15fcfc0df35a019792bd7c86e964c6c7887e86eb9ed7758ed6c7f4fd057  corpus/wikipedia-ai-risk/ai_risk_articles.meta.yml
+1dc0fc66095467834752b2280755b778702726dcdb2e1bf7b0d9166f9faa76e1  corpus/wikipedia-ai-risk/articles.parquet
+282c647a249a6d30e6a0ddc50ccbf60dc0b54f4567b6f5a143fbed4c55c15e6c  corpus/wikipedia-ai-risk/dimensions-candidate.tsv
+b3ae691ef0bc10d5153c1902c1252a674a4b5e09442048d1332f2b69b45a6642  corpus/wikipedia-ai-risk/sections.tsv
+e2e1ca99167d58f47e71cd350f84e33873712f0e51d8bc220326d5e98d4bdf89  corpus/wikipedia-ai-risk/seeds.tsv
+e89f46397d731081c66be9cada023f4168d281c8465f16da23d384cf3efbf780  corpus/wikipedia-ai-risk/snapshot.meta.yml
+ea0b8df7ef366ac5b63f2c0376539845767c2b6d71fc7ca1efc1206ec9dd5b8c  corpus/wikipedia-ai-risk/windows.parquet
+
+scripts (BLAKE3, path):
+cf226cfdf9097509bb3ccd4d37b77f8e90d09097bed601b0ef6f523b4ae9ed90  scripts/wp_extract.py

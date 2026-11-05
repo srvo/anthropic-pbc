@@ -1,0 +1,12 @@
+# 12 months to 2026-11-04: 1645 AI questions from 654 questioners on 293 S&P 500 firms. A question can carry several intents. Witness proposals, no gold set.
+intent	questions	pct_of_ai_questions
+q_revenue	348	21.16
+q_spend	143	8.69
+q_efficiency	78	4.74
+q_security	49	2.98
+q_competition	48	2.92
+q_risk	48	2.92
+q_workforce	28	1.70
+q_controls	13	0.79
+q_regulation	5	0.30
+q_harm	3	0.18

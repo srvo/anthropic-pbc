@@ -1,0 +1,64 @@
+# Metadata for snapshot://ethicalcapital/v0.1/codebook (praxis/datasets/metadata.schema.yml)
+producer: Sloane Ortel (this repository; personal working paper)
+title: Earnings-call AI codebook v0.1
+description: >-
+  Sixteen hand-written natural-language hypotheses that the NLI witnesses score
+  against every AI window: about_ai (topic); ai_risk and ai_opportunity
+  (stance); 12 AI risk types (risk_type); and governance (mechanism), which
+  marks a described control mechanism and is the hook into the Risk-Governance
+  Index. Authored in this repository; the gold-set coder shows the same text
+  to human coders as label definitions.
+citation_full: >-
+  Sloane Ortel, earnings-call AI codebook v0.1,
+  corpus/earnings-calls/codebook-v0.1.tsv, added in commit
+  c64b7f377f1081936accddba4aaef581acb508d0 (2026-11-04) of the anthropic-pbc
+  repository.
+attribution_short: Sloane Ortel
+url_main: null
+url_main_reason: >-
+  unknown: scripts/ec_extract.py's user agent names
+  github.com/ethicalcapital/anthropic-pbc, but the git remote is
+  github.com/srvo/anthropic-pbc; which is the public home settles it.
+url_download: null
+url_download_reason: >-
+  unknown: commit c64b7f3 is on no remote branch in this checkout; a raw-file URL
+  at that commit on the public remote, once pushed, settles it.
+date_published: 2026-11-04
+date_accessed: 2026-11-04
+date_accessed_note: "Authored in the repository: the date of the commit that added it (git log)."
+version_producer: v0.1
+license:
+  name: CC0 1.0 Universal
+  url: https://creativecommons.org/publicdomain/zero/1.0/
+terms_notes: >-
+  The file sits in corpus/earnings-calls/, whose README says the folder is not
+  covered by the repository's CC0 dedication and names licences only for the
+  transcripts (ODC-BY 1.0) and constituent list (CC BY-SA 4.0). It names none
+  for the codebook; CC0 here is the repository owner's stated licence for it.
+refetch: exact
+refetch_reason: >-
+  Authored here and unchanged since the commit that added it (one commit in
+  git log). Git holds the bytes; each witness run records its BLAKE3 as
+  codebook_blake3 in proposals/earnings-calls/codebook-v0.1/run-*.json.
+personal_data: none
+files: corpus/earnings-calls/codebook-v0.1.tsv
+tables:
+  corpus/earnings-calls/codebook-v0.1.tsv:
+    title: "Codebook v0.1: NLI hypotheses for AI windows"
+    description: "One row per hypothesis, in the order the reports list them."
+    primary_key: [id]
+    columns:
+      "id":
+        type: string
+        description: "Hypothesis id; becomes hypothesis_id in the witness outputs and a column name in the reports."
+      "group":
+        type: string
+        description: "Hypothesis group."
+        values:
+          topic: "about_ai: the window is about AI at all (catches regex false positives)."
+          stance: "ai_risk, ai_opportunity."
+          risk_type: "The 12 AI risk types: regulation, cyber, privacy, accuracy, bias, labor, disruption, capex, energy, supply, ip, safety_ethics."
+          mechanism: "governance: a described control mechanism."
+      "hypothesis":
+        type: string
+        description: "The English sentence scored as the NLI hypothesis (premise = window text), and shown to human coders as the label definition."

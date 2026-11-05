@@ -1,5 +1,7 @@
 # Praxis Standard — Skeleton v0 (Draft)
 
+> **Copy.** This document comes from the Praxis/Descartes project and describes that project, not this repository. Relative links and code paths (`src/`, `claims/`, `sources/`, `Cargo.toml`, ...) point into that project and do not resolve here, except links to the other copied docs in this folder.
+
 **Status:** Skeleton extracted from [`praxis-white-paper.md`](praxis-white-paper.md)
 for editorial development. **Binds nothing.** Where a clause restates
 [`README.md`](../README.md:1), the README wins. Promote a clause to binding
@@ -104,10 +106,10 @@ status is not `held` MUST NOT be cited as a held property of any system.
 
 ## 3. Judgment conformance (L2 — designed, not built)
 
-Source: [`docs/primitives.md`](../docs/primitives.md:1),
-[`docs/epistemics.md`](../docs/epistemics.md:1),
-[`docs/circles.md`](../docs/circles.md:1),
-[`docs/strictness.md`](../docs/strictness.md:1). **No clause in §3 is held.**
+Source: [`docs/primitives.md`](primitives.md),
+[`docs/epistemics.md`](epistemics.md),
+[`docs/circles.md`](circles.md),
+[`docs/strictness.md`](strictness.md). **No clause in §3 is held.**
 
 - **PS-3.1 Circles.** Claims MUST be classifiable 0 source bytes / 1 one
   instrument / 2 independent instrument / 3 LLM-or-witness proposal / 4

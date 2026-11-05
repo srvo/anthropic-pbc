@@ -1,0 +1,16 @@
+# output	input	tool	args (word-split)
+# Descartes recipes (descartes/derived/recipes.tsv format): each source reaches text only this way (PDF: pdftotext; static HTML: html-to-text static-v1, descartes docs/html-text.md).
+# Outputs are gitignored and rebuilt from the pinned sources; the recipe is the record.
+derived/pbc-report-2026.txt	sources/pbc-report-2026.pdf	pdftotext	-enc UTF-8 -nopgbrk
+derived/rsp-v3.4.txt	sources/rsp-v3.4.pdf	pdftotext	-enc UTF-8 -nopgbrk
+derived/anthropic-gtg-1002.txt	sources/anthropic-gtg-1002.pdf	pdftotext	-enc UTF-8 -nopgbrk
+derived/constitution.txt	sources/constitution.pdf	pdftotext	-enc UTF-8 -nopgbrk
+derived/s1a1.txt	sources/s1a1.htm	html-to-text	static-v1
+derived/anthropic-exhibit-3.1.txt	sources/anthropic-exhibit-3.1.htm	html-to-text	static-v1
+derived/anthropic-exhibit-3.3-ipo-form.txt	sources/anthropic-exhibit-3.3-ipo-form.htm	html-to-text	static-v1
+derived/rockstrom-2009-pb.txt	sources/rockstrom-2009-pb.pdf	pdftotext	-enc UTF-8 -nopgbrk
+derived/ipcc-ar6-wg1-spm.txt	sources/ipcc-ar6-wg1-spm.pdf	pdftotext	-enc UTF-8 -nopgbrk
+derived/raworth-2012-doughnut.txt	sources/raworth-2012-doughnut.pdf	pdftotext	-enc UTF-8 -nopgbrk
+derived/iea-energy-ai-2025.txt	sources/iea-energy-ai-2025.pdf	pdftotext	-enc UTF-8 -nopgbrk
+derived/ecomodernist-manifesto-2015.txt	sources/ecomodernist-manifesto-2015.pdf	pdftotext	-enc UTF-8 -nopgbrk
+derived/unfccc-1992.txt	sources/unfccc-1992.pdf	pdftotext	-enc UTF-8 -nopgbrk

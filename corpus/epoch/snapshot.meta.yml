@@ -1,0 +1,127 @@
+# Metadata for snapshot://epoch/2026-11-04/all_datasets (praxis/datasets/metadata.schema.yml)
+producer: Epoch AI
+title: Epoch AI public datasets, every download listed at epoch.ai/data, pinned 2026-11-04
+description: >-
+  A byte-level copy of the public Epoch AI datasets that https://epoch.ai/data
+  listed under "Download our data" on 2026-11-04: 18 files from 15 datasets
+  (one bundle per dataset, plus three standalone files that two dataset pages
+  offer and their bundles lack). /data listed 17 datasets; Cyber
+  vulnerabilities is rebuilt from cvelistV5 in corpus/cve/ instead, and ChatGPT
+  usage is excluded (see terms_notes). The saved dataset pages, which hold each
+  citation, are kept beside the downloads in .epochcorpus/pages/.
+citation_full: >-
+  Epoch AI, 'Data on AI', 15 datasets as listed at https://epoch.ai/data,
+  accessed 4 Nov 2026. Cite each dataset by the string its page gives (listed
+  under `datasets:` below and in corpus/epoch/CITATIONS.tsv).
+attribution_short: Epoch AI
+url_main: https://epoch.ai/data
+url_download: >-
+  One URL per pinned file, in the url column of corpus/epoch/MANIFEST.tsv
+  (bundle paths as linked from https://epoch.ai/data).
+date_published: null
+date_published_reason: >-
+  Epoch gives no single publication date. Each file carries its own "Updated"
+  date (2026-03-13 to 2026-11-04), recorded per file in the updated column of
+  corpus/epoch/MANIFEST.tsv and per dataset under `datasets:`.
+date_accessed: 2026-11-04
+version_producer: null
+version_producer_reason: >-
+  Epoch does not version its download URLs or bundles. The per-file "Updated"
+  date is the closest thing to a version, and the BLAKE3 in MANIFEST.tsv
+  identifies the bytes.
+license:
+  name: CC BY 4.0
+  url: https://creativecommons.org/licenses/by/4.0/
+terms_notes: >-
+  Epoch's terms (every bundle README and dataset page): "Epoch AI's data is free
+  to use, distribute, and reproduce provided the source and authors are credited
+  under the Creative Commons Attribution license." Two limits apply. (1)
+  Third-party benchmark tables keep their own licences: the benchmarks page says
+  external data "retains its original licensing" and "Benchmark questions and
+  answers are the property of their respective creators", so the 67
+  benchmarks/*_external.csv tables stay in .epochcorpus/ and are not
+  redistributed here. (2) ChatGPT usage is excluded: its workbook reads "AI not
+  authorized by YouGov is not authorized to ingest or scrape this data", and this
+  snapshot is built with AI tooling, so that dataset is not downloaded, pinned or
+  parsed. The AI chip imports page credits national statistics and customs
+  agencies and UN Comtrade for the underlying trade records and links UN
+  Comtrade's data-use policy; those acknowledgements travel with the table.
+refetch: saved_bytes_are_pin
+refetch_reason: >-
+  Epoch's download URLs are not versioned and the bundles are regenerated on
+  request: zip member timestamps carry the generation time, and
+  benchmark_data.zip changed size between two downloads minutes apart on the pin
+  date. A fresh download will usually not match MANIFEST.tsv; only the gitignored
+  .epochcorpus/ copy verifies. Re-pinning moves the snapshot. Per-table BLAKE3
+  hashes in inventory.tsv compare tables across snapshots.
+personal_data: verbatim_public_text
+personal_data_note: >-
+  The AI models tables name paper authors (Authors column), and the polling
+  microdata holds one de-identified row per survey respondent, with
+  demographics and open-text answers (Epoch redacted two open-text responses,
+  flagged in QF1_redacted). The enum has no value for de-identified survey
+  microdata; verbatim_public_text is the nearest, and the respondent rows are
+  not public figures.
+files: corpus/epoch/MANIFEST.tsv
+citations_file: corpus/epoch/CITATIONS.tsv
+datasets:
+  - id: ai-chip-components
+    url: https://epoch.ai/data/ai-chip-components
+    updated: 2026-07-23
+    citation: "Epoch AI, 'Data on AI chip components'. Published online at epoch.ai. Retrieved from 'https://epoch.ai/data/ai-chip-components' [online resource]. Accessed 4 Nov 2026."
+  - id: ai-chip-imports
+    url: https://epoch.ai/data/ai-chip-imports
+    updated: 2026-11-03
+    citation: "Epoch AI, 'Data on AI chip imports'. Published online at epoch.ai. Retrieved from 'https://epoch.ai/data/ai-chip-imports' [online resource]. Accessed 4 Nov 2026."
+  - id: ai-chip-owners
+    url: https://epoch.ai/data/ai-chip-owners
+    updated: 2026-05-12
+    citation: "Epoch AI, 'Data on AI chip owners'. Published online at epoch.ai. Retrieved from 'https://epoch.ai/data/ai-chip-owners' [online resource]. Accessed 4 Nov 2026."
+  - id: ai-chip-sales
+    url: https://epoch.ai/data/ai-chip-sales
+    updated: 2026-10-21
+    citation: "Epoch AI, 'Data on AI chip sales'. Published online at epoch.ai. Retrieved from 'https://epoch.ai/data/ai-chip-sales' [online resource]. Accessed 4 Nov 2026."
+  - id: ai-chip-users
+    url: https://epoch.ai/data/ai-chip-users
+    updated: 2026-09-09
+    citation: "Epoch AI, 'Data on AI chip users'. Published online at epoch.ai. Retrieved from 'https://epoch.ai/data/ai-chip-users' [online resource]. Accessed 4 Nov 2026."
+  - id: ai-companies
+    url: https://epoch.ai/data/ai-companies
+    updated: 2026-10-27
+    citation: "Josh You, John Croxton, Venkat Somala, Yafah Edelman, 'Data on AI companies'. Published online at epoch.ai. Retrieved from 'https://epoch.ai/data/ai-companies' [online resource]. Accessed 4 Nov 2026."
+  - id: ai-data-centers
+    url: https://epoch.ai/data/ai-data-centers
+    updated: 2026-11-02
+    citation: "Epoch AI, 'AI data centers'. Published online at epoch.ai. Retrieved from 'https://epoch.ai/data/ai-data-centers' [online resource]. Accessed 4 Nov 2026."
+  - id: ai-models
+    url: https://epoch.ai/data/ai-models
+    updated: 2026-11-03
+    citation: "Epoch AI, 'Data on AI models'. Published online at epoch.ai. Retrieved from 'https://epoch.ai/data/ai-models' [online resource]. Accessed 4 Nov 2026."
+  - id: ai-research-use
+    url: https://epoch.ai/data/ai-research-use
+    updated: 2026-10-30
+    citation: "Epoch AI, 'AI use in research'. Published online at epoch.ai. Retrieved from 'https://epoch.ai/data/ai-research-use' [online resource]. Accessed 4 Nov 2026."
+  - id: arxiv
+    url: https://epoch.ai/data/arxiv
+    updated: 2026-10-06
+    citation: "Epoch AI, 'AI use in math research'. Published online at epoch.ai. Retrieved from 'https://epoch.ai/data/arxiv' [online resource]. Accessed 4 Nov 2026."
+  - id: benchmarks
+    url: https://epoch.ai/benchmarks/use-this-data
+    updated: 2026-11-04
+    citation: "Epoch AI, 'Capabilities & benchmarking'. Published online at epoch.ai. Retrieved from 'https://epoch.ai/benchmarks/use-this-data' [online resource]. Accessed 4 Nov 2026."
+  - id: frontier-lab-hiring
+    url: https://epoch.ai/data/frontier-lab-hiring
+    updated: 2026-11-04
+    citation: "Epoch AI, 'Data on Frontier Lab Hiring'. Published online at epoch.ai. Retrieved from 'https://epoch.ai/data/frontier-lab-hiring' [online resource]. Accessed 4 Nov 2026."
+  - id: gpu-clusters
+    url: https://epoch.ai/data/gpu-clusters
+    updated: 2026-03-13
+    citation: "Epoch AI, 'Data on GPU clusters'. Published online at epoch.ai. Retrieved from 'https://epoch.ai/data/gpu-clusters' [online resource]. Accessed 4 Nov 2026."
+  - id: machine-learning-hardware
+    url: https://epoch.ai/data/machine-learning-hardware
+    updated: 2026-10-30
+    citation: "Epoch AI, 'Data on machine learning hardware'. Published online at epoch.ai. Retrieved from 'https://epoch.ai/data/machine-learning-hardware' [online resource]. Accessed 4 Nov 2026."
+  - id: polling
+    url: https://epoch.ai/data/polling
+    updated: 2026-08-14
+    citation: "Epoch AI, 'Polling on AI usage (July 2026)'. Published online at epoch.ai. Retrieved from 'https://epoch.ai/data/polling' [online resource]. Accessed 4 Nov 2026."
