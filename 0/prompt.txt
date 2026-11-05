@@ -1,0 +1,2291 @@
+Hey, can you take a look at The stuff in this repo to see if there is a bug where a bunch of files are getting organization in like placeholders, placeholders, because one of our agents has a weird privacy thing going on
+
+---
+
+/Users/srvo/dev/anthropic-pbc/corpus/risk-factors/MAN
+ IFEST.meta.yml
+ In batch 1 (queued)
+
+
+
+ replace
+ /Users/srvo/dev/anthropic-pbc/corpus/risk-factors/MAN
+ IFEST.meta.yml
+ batch 1:
+    │  ...
+ 22 │  zkoms│  accession number only; it contains no
+ filing text. Item 1A text was
+ 23 │ -ojipp│  fetched
+
+---
+
+It was a pie agent. Can you dig around and please fix that?
+
+---
+
+I mean, actually, we should give it a different key... I think we should have independent keys that are tracked and manageable, you know
+
+---
+
+replace
+ /Users/srvo/dev/anthropic-pbc/corpus/risk-factors/MAN
+ IFEST.meta.yml All of its edits were in there, and that looks like a document that should be created as a mechanistic output. Can you look into that?
+
+---
+
+Yeah, you gotta fix that
+
+---
+
+Also, as a rule, agents need to render shit to the tray... Like, if they're trying to show me something or whatever, it goes straight in the tray
+
+---
+
+We also need a periodic end-to-end review of standards just to make sure that we have them and that they're not inconsistent in the repository. Like, we should have testing for that You know, because like the, you know, for instance, the contract for the report, you know, I want to have basically one argument per paragraph or one thing per paragraph with multiple different forms of, with multiple different representations of that..
+
+---
+
+So we have this runner that joins things and takes input. I feel like it should emit to the master plan graph, right?
+
+---
+
+It also should be recording optimization opportunities. Like, you know, I mean, I think that we want to basically be using our compute cluster relatively continuously to optimize these interconnections... Whether with database processes, you know, this, that, or the other thing, but like, you know, after each run, we want to be joining, healing, up, etc., etc., etc.
+
+---
+
+I also think you should really audit the brain in Entire and note that somewhere
+
+---
+
+We should also have an ADR field in the DarkDB that runs in That runs in the Danella Meadows hierarchy, and it's probably time to start ingesting mental models... The other thing we ought to have in there is a set of things yet to be ingested RightAnd a nice readout for me of like what the run is, what the run is, what's going on, etc.
+
+---
+
+Also, I think that this really ought to, that the DB really ought to own workflows for work in progress.... I'd like to see it locate, recheck, and integrate the Provo town center note... And we need a sense of which direction is quantitatively optimal. We have a whole bunch of URLs and a whole bunch of linked data catalogs. My sense is that before we take an unstructured catalog in, we should take in a structured catalog. In other words, we should try and align with all those linked data catalogs as much as we can to enrich downstream ingestion, yes?
+
+---
+
+Plannotator Inbox: Pi has an independent inference key (msg_01M6MQQSDKRW6APWVFVZC3J7WV)
+The person marked your message 👍 Looks good (msg_01M6MMW1C39AJYSFJKAW47FWZ5). No reply needed unless you have a question.
+
+[thread msg_01M6MMW1C39AJYSFJKAW47FWZ5]
+
+---
+
+Plannotator Inbox: standards-run-graph (msg_01M6MRNF2VFST2R8M4773B41B2)
+The person replied to you in the Plannotator Inbox. Their reply follows as they wrote it: it is their answer to you. When they need to hear back, answer in the same thread: send_message with reply_to set to the id in parentheses on the line above.
+
+# Feedback on the attached files
+
+The following feedback is on the files you attached, one section per file and version.
+
+## /Users/srvo/tray/standards-and-run-graph/index.html
+
+I've reviewed this document and have 1 piece of feedback:
+
+### 1. Feedback on: "6"
+> I'd say that's literally right below. I mean, that's the up at the paradigm level to me, it seems . Right, like what's the order that this comes in comes in? Seems to suggest a lot about its implications for our thing
+
+````html
+<td>6</td>
+````
+- **selector** `#decisions > div > table > tbody > tr > td:nth-of-type(3)`
+- **path** `body.praxis > main#main > section#decisions > div > table > tbody > tr > td:nth-of-type(3)`
+- **name** "6"
+- **text** "6"
+- **box** 252,220 101×95 (viewport 664×748)
+- **near** section#decisions · heading h2 "Architecture decisions"
+
+---
+
+[thread msg_01M6MR9D913G98PAT9WZDHN6SJ · more: read_thread · how it works: plannotator inbox --help]
+
+---
+
+No, but do you understand what I want you to do is look at each of our work items and identify whether they're like what the highest value work is, in other words
+
+---
+
+Plannotator Inbox: standards-run-graph (msg_01M6MSK6A1MR3GR6HWQQ7M0E2R)
+The person replied to you in the Plannotator Inbox. Their reply follows as they wrote it: it is their answer to you. When they need to hear back, answer in the same thread: send_message with reply_to set to the id in parentheses on the line above.
+
+# Feedback on your messages
+
+The following feedback is on the text of your messages in this thread, one section per message. Each quote is the words I selected (as shown on screen) in your message.
+
+## Feedback on your message from 7:38 PM (msg_01M6MS412EK3N35G6G23YFF53B)
+
+I've reviewed this message and have 1 piece of feedback:
+
+### 1. Feedback on:
+```
+Recommended starting order: report package; storage custody; operator authorization; planning recovery/writer trust. Deliver the bounded report in parallel with the minimum trustworthy intake path. Defer broad graph expansion, cluster automation and cleanup until tied to a demonstrated consumer benefit. This is provisional attributed judgment, not a calibrated expected-value optimum or accepted Descartes score.
+
+All 60 assessments are stored on the existing SQL records with evidence bindings. Existing priorities and states are preserved.
+
+
+```
+> I think what we need also is an estimation uncertainty thing because you really need a function where you're like, all right, what don't I know here? And how does that affect my ability to make a recommendation. Because, like, optimizing for money or for client service isn't on the radar.... Optimizing for impact is, which I like, it's item number 1A. But yeah, I really do want to get that paper out. But yeah
+
+---
+
+# Feedback on the attached files
+
+The following feedback is on the files you attached, one section per file and version.
+
+## /Users/srvo/tray/standards-and-run-graph/index.html
+
+I've reviewed this document and have 3 pieces of feedback:
+
+### 1. Feedback on: "Prove planning custody, recovery and least-privilege integration"
+> I think abstracting the governance primitives out of this is a pretty high priority
+
+````html
+<td>Prove planning custody, recovery and least-privilege integration</td>
+````
+- **selector** `#value > div > table > tbody > tr:nth-of-type(4) > td:nth-of-type(2)`
+- **path** `body.praxis > main#main > section#value > div > table > tbody > tr:nth-of-type(4) > td:nth-of-type(2)`
+- **name** "Prove planning custody, recovery and least-privilege integration"
+- **text** "Prove planning custody, recovery and least-privilege integration"
+- **box** 127,112 114×211 (viewport 664×748)
+- **near** section#value · heading h2 "Where the next work creates value"
+
+### 2. Feedback on: "Where the next work creates value"
+> I think what you're forgetting is that I don't currently have marching orders, right? So, you know, if I'm your operator, you need to think about what you need from me. Right, that could be files, access, information, context, but like at the heart of this, we really need to understand what the thing is. What I mean, like, remember what the whole point is. So, if you're not currently able to prioritize something based on the backward-looking workflow, that means you need to do a better job. That means that prioritizing other incoming streams like my email inbox and getting that ingested properly is actually a pretty high priority
+
+````html
+<h2>Where the next work creates value</h2>
+````
+- **selector** `#value > h2`
+- **path** `body.praxis > main#main > section#value > h2`
+- **role** heading · **name** "Where the next work creates value"
+- **text** "Where the next work creates value"
+- **box** 27,342 611×31 (viewport 664×748)
+- **near** section#value · heading h1 "Work, evidence and next actions"
+
+### 3. Feedback on: "Private operations · snapshot for review"
+> I think give me like a Gantt chart, maybe, and like a current bandwidth estimation, too. Like, I think that we want to understand what's delegatable to agents, what's about compute, what's about my time, and optimize across our scarce resources
+
+````html
+<header class="masthead">
+  <img class="praxis-mark"></img>
+  <p>Private operations · snapshot for review</p>
+</header>
+````
+- **selector** `header.masthead`
+- **path** `body.praxis > main#main > header.masthead`
+- **role** banner · **name** "Private operations · snapshot for review"
+- **text** "Private operations · snapshot for review"
+- **box** 27,20 611×76 (viewport 664×748)
+- **near** main#main
+
+---
+
+[thread msg_01M6MR9D913G98PAT9WZDHN6SJ · more: read_thread · how it works: plannotator inbox --help]
+
+---
+
+Plannotator Inbox: standards-run-graph (REDACTED)
+The person replied to you in the Plannotator Inbox. Their reply follows as they wrote it: it is their answer to you. When they need to hear back, answer in the same thread: send_message with reply_to set to the id in parentheses on the line above.
+
+No questions answered yet; all 2 are still open. Don't re-ask them; the person will answer in the Inbox.
+
+# Feedback on the attached files
+
+The following feedback is on the files you attached, one section per file and version.
+
+## /Users/srvo/tray/standards-and-run-graph/index.html (the version you sent)
+
+I've reviewed this document and have 6 pieces of feedback:
+
+### 1. Feedback on: "Select the mailbox and a bounded message scope for the first incoming-context pilot. I will trace the existing intake and prove freshness, deduplication and one message-to-work link."
+> This should be dynamically calculated based on real-time telemetry, right? You know where I am, you know what my calendar is, you know what my patterns are. Like, you shouldn't ask for stuff, you should for stuff that you can calculate
+
+````html
+<li>Select the mailbox and a bounded message scope for the first incoming-context…</li>
+````
+- **selector** `li:nth-of-type(1)`
+- **path** `body.praxis > main#main > section#orders > ol > li:nth-of-type(1)`
+- **role** listitem
+- **text** "Select the mailbox and a bounded message scope for the first incoming-context pilot. I will trace the existing intake and prove freshness, deduplication and one message-to-work link."
+- **box** 66,185 565×84 (viewport 658×714)
+- **near** section#orders · heading h2 "Your next actions"
+
+### 2. Feedback on: "Give a daily decision-time budget and any hard paper deadline. Until then, 15 minutes per day is only a planning assumption."
+> What's the North Star of the MonoCloud repo?
+
+````html
+<li>Give a daily decision-time budget and any hard paper deadline. Until then, 15…</li>
+````
+- **selector** `li:nth-of-type(2)`
+- **path** `body.praxis > main#main > section#orders > ol > li:nth-of-type(2)`
+- **role** listitem
+- **text** "Give a daily decision-time budget and any hard paper deadline. Until then, 15 minutes per day is only a planning assumption."
+- **box** 66,269 565×56 (viewport 658×714)
+- **near** section#orders · heading h2 "Your next actions"
+
+### 3. Feedback on: "Give a daily decision-time budget and any hard paper deadline. Until then, 15 minutes per day is only a planning assumption."
+> Just bundle things into 25 minutes, prioritize them, and ideally create context where I can tick off the same task at once
+
+````html
+<li>Give a daily decision-time budget and any hard paper deadline. Until then, 15…</li>
+````
+- **selector** `li:nth-of-type(2)`
+- **path** `body.praxis > main#main > section#orders > ol > li:nth-of-type(2)`
+- **role** listitem
+- **text** "Give a daily decision-time budget and any hard paper deadline. Until then, 15 minutes per day is only a planning assumption."
+- **box** 66,269 565×56 (viewport 658×714)
+- **near** section#orders · heading h2 "Your next actions"
+
+### 4. Feedback on: "Schedule and scarce resources"
+> I mean, we actually have You know, it's interesting. We have fixed resources in some senses in that we have Codex and Claude and both create a fixed amount of compute time and stuff. And then we have deep infra and Hermes, Plus open code go. So I think that, like, a good calculation would always be what's an extra $20 get you, right? Because when we're thinking about permacomputing, one of the key premises to me is slow is a good default, right? So I'm in theory kind of fine with you running BERT jobs and shit on the cluster, but I think we ought to be really efficient about the way that we sequence them and try and be as deterministic up front to as mechanistic later. So, like, for instance, R has Rust has a lot of really good tools where you can profile the contents of something... . Like a bunch of files or whatever Um you know the any misconfiguration oh oh you know the other thing that ought to happen is really quick temporal communications need to be kind of followed up on. So, like the like you know earlier today I got a TikTok message or the other day I was supposed to meet a journalist and I got a TikTok message that she wasn't able to chat and I was like sitting there and I wound up leaving a meeting with Kevin early because of that so being able to get those curated real-time insights is important, but also being able to To dig deep on a problem in dialogue is important. And I think the most important thing to manage, and there's some copy on this in the repo, is my ADHD ass self Right, like what tasks were started, what is still in stream... Are there a bunch of half-finished projects lying around?
+
+````html
+<h2>Schedule and scarce resources</h2>
+````
+- **selector** `#schedule > h2`
+- **path** `body.praxis > main#main > section#schedule > h2`
+- **role** heading · **name** "Schedule and scarce resources"
+- **text** "Schedule and scarce resources"
+- **box** 26,87 605×31 (viewport 658×714)
+- **near** section#schedule · heading h2 "Your next actions"
+
+### 5. Feedback on: "Recommendation: get the paper out; make incoming obligations visible; extract reusable governance primitives from existing implementations. Continue only the storage and access work needed for a trustworthy bounded slice."
+> That makes sense
+
+````html
+<p>Recommendation: get the paper out; make incoming obligations visible; extract…</p>
+````
+- **selector** `#value > p:nth-of-type(1)`
+- **path** `body.praxis > main#main > section#value > p:nth-of-type(1)`
+- **text** "Recommendation: get the paper out; make incoming obligations visible; extract reusable governance primitives from existing implementations. Continue only the storage and access work needed for a trustworthy bounded slice."
+- **box** 26,134 605×84 (viewport 658×714)
+- **near** section#value · heading h2 "Where the next work creates value"
+
+### 6. Feedback on: "This is a provisional assessment of all 14 current SQL work items and 46 intake/optimization entries. The 144 mental-model references are not 144 executable jobs. Historical obligations outside this migrated SQL subset remain outside coverage."
+> I'd also like to make our set of influences more tangible. That's why I've kind of, you know, pounding the table on the ingestion jobs, not just of URLs, but also of PDFs. Like, I want to work cited... A works cited.... Like, as a canonical page in my repository. And also, like, you know, inspectable set of primitives. Like, oh, you know, the other thing we ought to do is survey my half-ass ideas. Like, there's a syllabus in the repository somewhere for a bunch of curated and structured classes that I kind of made with JSON. Well, golly, if that's not a cool asset that we could use
+
+````html
+<p>This is a provisional assessment of all 14 current SQL work items and 46…</p>
+````
+- **selector** `#value > p:nth-of-type(2)`
+- **path** `body.praxis > main#main > section#value > p:nth-of-type(2)`
+- **text** "This is a provisional assessment of all 14 current SQL work items and 46 intake/optimization entries. The 144 mental-model references are not 144 executable jobs. Historical obligations outside this migrated SQL subset remain outside coverage."
+- **box** 26,278 605×112 (viewport 658×714)
+- **near** section#value · heading h2 "Where the next work creates value"
+
+## /Users/srvo/tray/standards-and-run-graph/index.html
+
+I've reviewed this document and have 4 pieces of feedback:
+
+### 1. Feedback on: "Select the mailbox and a bounded message scope for the first incoming-context pilot. I will trace the existing intake and prove freshness, deduplication and one message-to-work link."
+> Sloanard at fix.com, obviously, and the mailbox is in the database. So, one of the things we ought to audit is like what's the best way for it to run, but it works the way it is, so we also ought to audit what's there now that we need to get back to... 
+
+````html
+<li>Select the mailbox and a bounded message scope for the first incoming-context…</li>
+````
+- **selector** `li:nth-of-type(1)`
+- **path** `body.praxis > main#main > section#orders > ol > li:nth-of-type(1)`
+- **role** listitem
+- **text** "Select the mailbox and a bounded message scope for the first incoming-context pilot. I will trace the existing intake and prove freshness, deduplication and one message-to-work link."
+- **box** 66,106 565×84 (viewport 658×714)
+- **near** section#orders · heading h2 "Your next actions"
+
+### 2. Feedback on: "Deliver reviewed Anthropic report and derived package"
+> We got to identify the people who it matters to, though, too. Like, I'm gonna blast it, you know, but we should also be like, all right, so here are the specific people who are the most upset about AI governance and the most authoritative. And here are the biggest collectives against billionaires... 
+
+````html
+<td>Deliver reviewed Anthropic report and derived package</td>
+````
+- **selector** `#value > div > table > tbody > tr:nth-of-type(1) > td:nth-of-type(2)`
+- **path** `body.praxis > main#main > section#value > div > table > tbody > tr:nth-of-type(1) > td:nth-of-type(2)`
+- **name** "Deliver reviewed Anthropic report and derived package"
+- **text** "Deliver reviewed Anthropic report and derived package"
+- **box** 126,139 107×188 (viewport 658×714)
+- **near** section#value · heading h2 "Where the next work creates value"
+
+### 3. Feedback on: "Prove planning custody, recovery and least-privilege integration"
+> emit evidence at each step. ..... maybe update status page w it 
+
+````html
+<td>Prove planning custody, recovery and least-privilege integration</td>
+````
+- **selector** `#value > div > table > tbody > tr:nth-of-type(3) > td:nth-of-type(2)`
+- **path** `body.praxis > main#main > section#value > div > table > tbody > tr:nth-of-type(3) > td:nth-of-type(2)`
+- **name** "Prove planning custody, recovery and least-privilege integration"
+- **text** "Prove planning custody, recovery and least-privilege integration"
+- **box** 126,303 107×258 (viewport 658×714)
+- **near** section#value · heading h2 "Where the next work creates value"
+
+### 4. Feedback on: "What we do not know—and why it matters"
+> The other thing that the system ought to be able to set up is a how we can answer it for ourselves loop, right? Like the, I really, you know, especially if it's a computational loop and not an inference loop, like, you know, I feel like it would be perfectly simple to answer a question like this. What inbox is most important simply from the stuff that you have direct access to but we haven't mapped it, we haven't illustrated that, and those, you know, that wiring is not set up. So it's important to note that you have the authority to explore before asking
+
+````html
+<h2>What we do not know—and why it matters</h2>
+````
+- **selector** `#uncertainty > h2`
+- **path** `body.praxis > main#main > section#uncertainty > h2`
+- **role** heading · **name** "What we do not know—and why it matters"
+- **text** "What we do not know—and why it matters"
+- **box** 26,116 605×31 (viewport 658×714)
+- **near** section#uncertainty · heading h3 "What could change the order"
+
+---
+
+[thread msg_01M6MR9D913G98PAT9WZDHN6SJ · more: read_thread · how it works: plannotator inbox --help]
+
+---
+
+Plannotator Inbox: standards-run-graph (msg_01M6MW3ER3NKJW1QYWJXQ485CY)
+The person replied to you in the Plannotator Inbox. Their reply follows as they wrote it: it is their answer to you. When they need to hear back, answer in the same thread: send_message with reply_to set to the id in parentheses on the line above.
+
+No questions answered yet; all 2 are still open. Don't re-ask them; the person will answer in the Inbox.
+
+# Feedback on the attached files
+
+The following feedback is on the files you attached, one section per file and version.
+
+## /Users/srvo/tray/standards-and-run-graph/index.html
+
+I've reviewed this document and have 1 piece of feedback:
+
+### 1. Feedback on: "Work, evidence and next actions"
+> May want to add the it to start to clear the 4.0 backlog by checking it against this and seeing if there are any thematic outliers.... I think it would also be good to tie specific issues in the past to specific libraries. 
+
+````html
+<h1>Work, evidence and next actions</h1>
+````
+- **selector** `h1`
+- **path** `body.praxis > main#main > h1`
+- **role** heading · **name** "Work, evidence and next actions"
+- **text** "Work, evidence and next actions"
+- **box** 26,120 605×31 (viewport 658×714)
+- **near** main#main
+
+---
+
+[thread msg_01M6MR9D913G98PAT9WZDHN6SJ · more: read_thread · how it works: plannotator inbox --help]
+
+---
+
+Plannotator Inbox: standards-run-graph (msg_01M6MWHQZTJM9H6FXQP5MYX9E5)
+The person replied to you in the Plannotator Inbox. Their reply follows as they wrote it: it is their answer to you. When they need to hear back, answer in the same thread: send_message with reply_to set to the id in parentheses on the line above.
+
+No, I really didn't like their terms or whatever, so I decided not to use them. I'm not against using something like them, but I'm really, really into building out a firm foundation right now
+
+[thread msg_01M6MR9D913G98PAT9WZDHN6SJ · more: read_thread · how it works: plannotator inbox --help]
+
+---
+
+Plannotator Inbox: standards-run-graph (msg_01M6MX7TCQCA7EKT2Q2B538VT0)
+The person replied to you in the Plannotator Inbox. Their reply follows as they wrote it: it is their answer to you. When they need to hear back, answer in the same thread: send_message with reply_to set to the id in parentheses on the line above.
+
+This UI really could be a lot more elegant. Also, like you know, the and by elegant I mean typeset and played into stuff well and like but also something that could verify that I did the thing... I would also say we need a way for people to generate to like it seems important to me to have a distributed distribution mechanism that is very easy for people to control their relationship with us on. And that allows me to lay. I mean, I think, for instance, clients should be able to vote on a leaderboard of what's important, whereas I am like, you know, you know, I'm going to do what I want, but I want to be able to get that signal from that and I think I want to start doing more regular town halls, and the Tori app should be bugging me to do that
+
+[thread msg_01M6MR9D913G98PAT9WZDHN6SJ · more: read_thread · how it works: plannotator inbox --help]
+
+---
+
+Plannotator Inbox: standards-run-graph (msg_01M6MX90384F4B48ZYFXQRS1G1)
+The person replied to you in the Plannotator Inbox. Their reply follows as they wrote it: it is their answer to you. When they need to hear back, answer in the same thread: send_message with reply_to set to the id in parentheses on the line above.
+
+Ooh, also, I mean, like, my sense is that maybe what we'll do is, like, I'll live stream, which we need to figure out how to do securely. Like, I wonder, can the Hatsner cluster handle it? And how does that change how we interact there? But the question that really comes to my mind is: wouldn't it be cool if the Tori app was like, hey, that was a great quote, Sloane. We should edit this paper. Oh shit, that's only a couple, like, that's pretty connected. You know, hot dogs are sandwiches
+
+[thread msg_01M6MR9D913G98PAT9WZDHN6SJ · more: read_thread · how it works: plannotator inbox --help]
+
+---
+
+Oh, yeah, exactly. And it can be something that gets linked to other things or tied to a location or whatever
+
+---
+
+Plannotator Inbox: standards-run-graph (msg_01M6MXPEYZMQ5YBS6VZJY0QKQA)
+The person replied to you in the Plannotator Inbox. Their reply follows as they wrote it: it is their answer to you. When they need to hear back, answer in the same thread: send_message with reply_to set to the id in parentheses on the line above.
+
+Like, you know, I mean, we ought to have, like, a surprising connections set up... And also, like, interesting ways of classifying Like the behavior of the companies that we are looking at. Like, I mean, when I was reading the Anthropic report, I could not get it out of my mind
+
+[thread msg_01M6MR9D913G98PAT9WZDHN6SJ · more: read_thread · how it works: plannotator inbox --help]
+
+---
+
+Plannotator Inbox: standards-run-graph (msg_01M6MXQPNJ13ZBMPXJ3A15G2GV)
+The person replied to you in the Plannotator Inbox. Their reply follows as they wrote it: it is their answer to you. When they need to hear back, answer in the same thread: send_message with reply_to set to the id in parentheses on the line above.
+
+# Feedback on your messages
+
+The following feedback is on the text of your messages in this thread, one section per message. Each quote is the words I selected (as shown on screen) in your message.
+
+## Feedback on your message from 8:57 PM (msg_01M6MXNRRTWF14W7WNTXR9D4Q2)
+
+I've reviewed this message and have 1 piece of feedback:
+
+### 1. Feedback on: "."
+> Yeah, exactly. You know, and like the stuff that I described should be locked in, but our priorities should be discernible from a DAG as well, in addition to everything else.... Right, so if somebody's trying to diligence us, they should easily know what we are really about based on emissions from our actions
+
+---
+
+[thread msg_01M6MR9D913G98PAT9WZDHN6SJ · more: read_thread · how it works: plannotator inbox --help]
+
+---
+
+Plannotator Inbox: standards-run-graph (msg_01M6N0DZ3BNE0HRP9TJ6RDSE7N)
+The person replied to you in the Plannotator Inbox. Their reply follows as they wrote it: it is their answer to you. When they need to hear back, answer in the same thread: send_message with reply_to set to the id in parentheses on the line above.
+
+No question answered yet; it is still open. Don't re-ask it; the person will answer in the Inbox.
+
+# Feedback on your messages
+
+The following feedback is on the text of your messages in this thread, one section per message. Each quote is the words I selected (as shown on screen) in your message.
+
+## Feedback on your message from 9:19 PM (msg_01M6MYXCGN23TVMN6MQNMFV308)
+
+I've reviewed this message and have 1 piece of feedback:
+
+### 1. Feedback on:
+```
+ exposes recorded priorities, proposed ordering, work revisions and actual run/resource edges separately. Resource allocation and verified outcomes are still incompletely measured; those gaps remain explicit. An outside-facing view needs an audience-safe projection of this evidence, rather than a second hand-written account or publication of private work.
+
+
+```
+> I mean, if it's roll scoped, I don't think that's as important I don't know if we necessarily need to say here, you know, we have to, like, if you can't tell what my specific commitments are, you know, as long as you're not giving away PII in the path of it, that's fine. And we need to actually audit it pretty thoughtfully to make sure that's not happening. But, you know
+
+---
+
+# Feedback on the attached files
+
+The following feedback is on the files you attached, one section per file and version.
+
+## /Users/srvo/tray/standards-and-run-graph/index.html
+
+I've reviewed this document and have 8 pieces of feedback:
+
+### 1. Feedback on: "Private operator console · review build
+
+Your next 25 minutes
+One prepared queue. Evidence beside the decision. Room to think, without losing what is already in motion.
+
+Private operator review · observed 2026-11-05T04:17:40.934623+00:00 · snapshot, not a live activity feed
+
+Your queue
+Record progress
+Relationships
+Town hall
+Full evidence
+Keep the thread
+5 min
+Incoming exceptions
+proposed
+Verify current obligations before they interrupt a deeper task.
+
+Trace the existing Inbox/Gmail ingestion path; prove scoped freshness, deduplication and one email-to-work/decision link before any new app work.
+
+Attach evidence to this work · Inspect scope and blockers
+
+12 min
+Get the paper out
+blocked
+5 min
+A foundation that holds
+blocked
+3 min
+Influences and parked ideas
+proposed
+These minutes group related context. They do not book your calendar or imply that a release packet is ready.
+
+What needs your judgment
+Paper conclusions and audience. Authority and acceptable risk. Everything discoverable from existing sources stays with the agent.
+
+Inspect the sourced reader shortlist
+Evidence is not a checkbox
+A reported action, a matching file and a verified outcome are separate states.
+
+Prepare an evidence record
+In motion, or merely idle?
+Recent task states are leads for follow-through. They do not prove completion or abandonment.
+
+Inspect the backlog reconciliation
+Inspect priorities and emitted actions as a graph
+
+Record progress with its evidence
+Choose the work, describe the bounded outcome and attach the exact artifact. Your browser checks the file hash locally. Shared filing rechecks the current work revision; task acceptance remains a separate review.
+
+Work item
+
+Reported author
+
+What changed?
+
+Exact evidence artifact
+
+Prepare evidence record
+Inspect the verification boundary
+No evidence checked. No shared write connection is active in this review page.
+
+Existing step receipts
+live-research-prototype:c6fe2473c7b132e6dd0f
+findings
+completion-report:2bd46dd713325b480ddd6860
+findings
+backlog-reconciliation:67ed797c5b2148da80f9
+findings
+refresh:influences:5f131c4c4346bdb7e207
+succeeded
+refresh:mailbox:d9c138ab1c4d08623a5b
+succeeded
+discovery:wip-and-budget:2d9b56966cbe27f1
+findings
+A relationship people can control
+Interaction preview · participant identity and delivery are not connected
+
+Choose the signal, not the noise
+ Research and paper updates
+ Town-hall invitations
+ Invitations to share priorities
+Preferred cadence
+
+Prepare preference draft
+Pause all in draft
+No live subscription changes. Withdrawal and export need the same verified participant scope as opt-in.
+
+Client priorities inform your direction
+Draft signals stay separate from operator priority. No client totals are invented here.
+
+Deliver reviewed Anthropic report and derived package
+Add to signal draft
+Deliver a usable lightweight local Inbox
+Add to signal draft
+Prove planning custody, recovery and least-privilege integration
+Add to signal draft
+Why does this matter?
+Prepare signal draft
+No client ballot cast. Priority and decision authority remain with the operator.
+
+Make space for a town hall
+Keep the conversation on the work: what changed, what participants need, and what happens next.
+
+Prepare a 25-minute agenda
+Next event and reminder delivery are not verified. No recurring reminder is active.
+
+Reuse the existing paths
+Voter tokens, newsletter preferences and notification endpoints already exist in the repository. Their current identity, scope and delivery behavior need integration proof.
+
+Read the implementation boundary
+Draft controls stay local. Downloads are review artifacts; they do not send messages, change subscriptions, cast ballots, complete work or schedule events. Snapshot and provenance"
+> This needs a design pass, but it's really, really good. We don't necessarily need reminding of the standards in the operator checkbox. We need reminding of the standards at the standard needs to be put right next to the decision, right? And then we have to be able to evaluate it against we have to be able to know how material it is to have that guidance and how helpful it is, and whether that standard is improving or reducing decision quality
+
+````html
+<main id="main">
+  <header class="masthead">Private operator console · review build</header>
+  <h1>Your next 25 minutes</h1>
+  <p class="lead">One prepared queue. Evidence beside the…</p>
+  <p class="meta">Private operator review · observed…</p>
+  <nav class="tabs">Your queueRecord progressRelationshipsT…</nav>
+  <div class="console-grid">Keep the thread5 minIncoming…</div>
+  <!-- +5 more: section×3, p×1, footer×1 -->
+</main>
+````
+- **selector** `#main`
+- **path** `body.praxis > main#main`
+- **role** main
+- **text** "Private operator console · review build Your next 25 minutes One prepared queue. Evidence beside the decision. Room to think, without losing what is already in motion. Private operator review · observed 2026-11-05T04:17:40.934623+00:00 · snapshot, not a live activity feed Your queue Record progress…"
+- **box** 91,0 1240×3047 (viewport 1422×869)
+
+### 2. Feedback on: "Trace the existing Inbox/Gmail ingestion path; prove scoped freshness, deduplication and one email-to-work/decision link before any new app work."
+> Um, yeah, I mean, like the existing inbox thing works pretty well. It should be documented in repo. Um it would be good to get it a little bit simpler, but it should be pretty well documented in entire
+
+````html
+<p class="note">Trace the existing Inbox/Gmail ingestion path; prove scoped freshness,…</p>
+````
+- **selector** `li:nth-of-type(1) > details > div > p:nth-of-type(2)`
+- **path** `… > main#main > div.console-grid > section#queue > ol.queue > li:nth-of-type(1) > details > div.task-body > p.note`
+- **text** "Trace the existing Inbox/Gmail ingestion path; prove scoped freshness, deduplication and one email-to-work/decision link before any new app work."
+- **box** 223,518 557×40 (viewport 1422×869)
+- **near** section#queue · heading h2 "Keep the thread"
+
+### 3. Feedback on: "Make space for a town hall
+Keep the conversation on the work: what changed, what participants need, and what happens next.
+
+Prepare a 25-minute agenda
+Next event and reminder delivery are not verified. No recurring reminder is active."
+> The uh, yeah, and like, and I think the question is about basically like You know, how do we get it? I don't know about prepare a town hall. I think we should just say do a live stream... Like, a bunch of shit's changed. Here's some stuff that's changed. We can talk about it.. And then we can maybe set up like an office hours event that people can come to if they want
+
+````html
+<div>
+  <h2>Make space for a town hall</h2>
+  <p>Keep the conversation on the work: what…</p>
+  <button id="agenda">Prepare a 25-minute agenda</button>
+  <p id="town-status">Next event and reminder delivery are…</p>
+</div>
+````
+- **selector** `#town-hall > div > div`
+- **path** `body.praxis > main#main > section#town-hall > div.console-grid > div`
+- **text** "Make space for a town hall Keep the conversation on the work: what changed, what participants need, and what happens next. Prepare a 25-minute agenda Next event and reminder delivery are not verified. No recurring reminder is active."
+- **box** 143,477 699×207 (viewport 1422×869)
+- **near** section#town-hall · heading h3 "Client priorities inform your direction"
+
+### 4. Feedback on: "Reuse the existing paths
+Voter tokens, newsletter preferences and notification endpoints already exist in the repository. Their current identity, scope and delivery behavior need integration proof.
+
+Read the implementation boundary"
+> Exactly. The existing paths need to be colored as hell, and the API needs to be ergonomic as hell./.
+
+````html
+<aside class="rail">
+  <h3>Reuse the existing paths</h3>
+  <p>Voter tokens, newsletter preferences…</p>
+  <a href="governance-primitives.md">Read the implementation boundary</a>
+</aside>
+````
+- **selector** `#town-hall > div > aside`
+- **path** `body.praxis > main#main > section#town-hall > div.console-grid > aside.rail`
+- **role** complementary
+- **text** "Reuse the existing paths Voter tokens, newsletter preferences and notification endpoints already exist in the repository. Their current identity, scope and delivery behavior need integration proof. Read the implementation boundary"
+- **box** 890,637 389×207 (viewport 1422×869)
+- **near** section#town-hall · heading h2 "Make space for a town hall"
+
+### 5. Feedback on: "In motion, or merely idle?
+Recent task states are leads for follow-through. They do not prove completion or abandonment.
+
+Inspect the backlog reconciliation
+Inspect priorities and emitted actions as a graph"
+> You know, yeah, I think that the you know the look look at the existing inbox surfaces and port to see the questions that I've asked in the past about this Right, like I, you know, I think we want to, you know, again, we want to gain continuous wisdom or cumulative wisdom out of all of our past interactions
+
+````html
+<section>
+  <h3>In motion, or merely idle?</h3>
+  <p>Recent task states are leads for…</p>
+  <a href="backlog.html">Inspect the backlog reconciliation</a>
+  <p>
+    <a href="direction-graph.json">Inspect priorities and emitted actions…</a>
+  </p>
+</section>
+````
+- **selector** `aside > section:nth-of-type(3)`
+- **path** `body.praxis > main#main > div.console-grid > aside.rail > section:nth-of-type(3)`
+- **role** region
+- **text** "In motion, or merely idle? Recent task states are leads for follow-through. They do not prove completion or abandonment. Inspect the backlog reconciliation Inspect priorities and emitted actions as a graph"
+- **box** 919,618 360×164 (viewport 1422×869)
+- **near** aside.rail · heading h3 "Evidence is not a checkbox"
+
+### 6. Feedback on: "A reported action, a matching file and a verified outcome are separate states."
+> One of the things that we ought to do here is sort of to go be a human. Like, I think it would be really useful to get prompted to record a personal video and attach an update to a set of people.... Right? Like the, you know, the people that we have stalled with, etc., or that I've that I've been nuts at getting back to the basic idea here is to centralize I/O for me, and then unify output so that the corpus remains, the corpus of my activity remains scrutable, and the surfaces that I'm exposed to remain exposed to the firm and therefore 
+And therefore, to the network and to praxis
+
+````html
+<p>A reported action, a matching file and a verified outcome are separate states.</p>
+````
+- **selector** `aside > section:nth-of-type(2) > p`
+- **path** `body.praxis > main#main > div.console-grid > aside.rail > section:nth-of-type(2) > p`
+- **name** "A reported action, a matching file and a verified outcome are separate states."
+- **text** "A reported action, a matching file and a verified outcome are separate states."
+- **box** 919,498 360×50 (viewport 1422×869)
+- **near** section:nth-of-type(2) · heading h3 "Evidence is not a checkbox"
+
+### 7. Feedback on: "Verify current obligations before they interrupt a deeper task."
+> That's a really good thing.....   I think you really need to build out a working with Sloane thing that, or the Working with Sloane skill, which is already in Hermes, and aggregate up all the evidence and create a supervisor function basically that looks for incomplete work due to lack of template
+
+````html
+<p>Verify current obligations before they interrupt a deeper task.</p>
+````
+- **selector** `li:nth-of-type(1) > details > div > p:nth-of-type(1)`
+- **path** `… > main#main > div.console-grid > section#queue > ol.queue > li:nth-of-type(1) > details > div.task-body > p:nth-of-type(1)`
+- **name** "Verify current obligations before they interrupt a deeper task."
+- **text** "Verify current obligations before they interrupt a deeper task."
+- **box** 223,353 619×25 (viewport 1422×869)
+- **near** section#queue · heading h2 "Keep the thread"
+
+### 8. Feedback on: "Keep the thread"
+> I think we should prioritize as well: are we blocking others on something... 
+
+````html
+<h2>Keep the thread</h2>
+````
+- **selector** `#queue > h2`
+- **path** `body.praxis > main#main > div.console-grid > section#queue > h2`
+- **role** heading · **name** "Keep the thread"
+- **text** "Keep the thread"
+- **box** 143,412 699×34 (viewport 1422×869)
+- **near** section#queue · heading h1 "Your next 25 minutes"
+
+## /Users/srvo/tray/standards-and-run-graph/index.html (the version you sent)
+
+I've reviewed this document and have 1 piece of feedback:
+
+### 1. Feedback on: "Private operator console · review build
+
+Your next 25 minutes
+One prepared queue. Evidence beside the decision. Room to think, without losing what is already in motion.
+
+Private operator review · observed 2026-11-05T04:08:17.658318+00:00 · snapshot, not a live activity feed
+
+Your queue
+Record progress
+Relationships
+Town hall
+Full evidence
+Keep the thread
+5 min
+Incoming exceptions
+proposed
+Verify current obligations before they interrupt a deeper task.
+
+Trace the existing Inbox/Gmail ingestion path; prove scoped freshness, deduplication and one email-to-work/decision link before any new app work.
+
+Attach evidence to this work · Inspect scope and blockers
+
+12 min
+Get the paper out
+blocked
+5 min
+A foundation that holds
+blocked
+3 min
+Influences and parked ideas
+proposed
+These minutes group related context. They do not book your calendar or imply that a release packet is ready.
+
+What needs your judgment
+Paper conclusions and audience. Authority and acceptable risk. Everything discoverable from existing sources stays with the agent.
+
+Inspect the sourced reader shortlist
+Evidence is not a checkbox
+A reported action, a matching file and a verified outcome are separate states.
+
+Prepare an evidence record
+In motion, or merely idle?
+Recent task states are leads for follow-through. They do not prove completion or abandonment.
+
+Inspect the backlog reconciliation
+Inspect priorities and emitted actions as a graph
+
+Record progress with its evidence
+Choose the work, describe the bounded outcome and attach the exact artifact. Your browser checks the file hash locally. Shared filing rechecks the current work revision; task acceptance remains a separate review.
+
+Work item
+
+Reported author
+
+What changed?
+
+Exact evidence artifact
+
+Prepare evidence record
+Inspect the verification boundary
+No evidence checked. No shared write connection is active in this review page.
+
+Existing step receipts
+completion-report:2bd46dd713325b480ddd6860
+findings
+backlog-reconciliation:67ed797c5b2148da80f9
+findings
+refresh:influences:5f131c4c4346bdb7e207
+succeeded
+refresh:mailbox:d9c138ab1c4d08623a5b
+succeeded
+discovery:wip-and-budget:2d9b56966cbe27f1
+findings
+discovery:audience-research:5917bcaf7a86ed50
+findings
+A relationship people can control
+Interaction preview · participant identity and delivery are not connected
+
+Choose the signal, not the noise
+ Research and paper updates
+ Town-hall invitations
+ Invitations to share priorities
+Preferred cadence
+
+Prepare preference draft
+Pause all in draft
+No live subscription changes. Withdrawal and export need the same verified participant scope as opt-in.
+
+Client priorities inform your direction
+Draft signals stay separate from operator priority. No client totals are invented here.
+
+Deliver reviewed Anthropic report and derived package
+Add to signal draft
+Deliver a usable lightweight local Inbox
+Add to signal draft
+Prove planning custody, recovery and least-privilege integration
+Add to signal draft
+Why does this matter?
+Prepare signal draft
+No client ballot cast. Priority and decision authority remain with the operator.
+
+Make space for a town hall
+Keep the conversation on the work: what changed, what participants need, and what happens next.
+
+Prepare a 25-minute agenda
+Next event and reminder delivery are not verified. No recurring reminder is active.
+
+Reuse the existing paths
+Voter tokens, newsletter preferences and notification endpoints already exist in the repository. Their current identity, scope and delivery behavior need integration proof.
+
+Read the implementation boundary
+Draft controls stay local. Downloads are review artifacts; they do not send messages, change subscriptions, cast ballots, complete work or schedule events. Snapshot and provenance"
+> In general, here I want to see much less white space and much more telemetry and you know and task space, right? Like and And think about it: like this is a graph database. I ought to be able to indicate a bunch of shit.... 
+
+````html
+<main id="main">
+  <header class="masthead">Private operator console · review build</header>
+  <h1>Your next 25 minutes</h1>
+  <p class="lead">One prepared queue. Evidence beside the…</p>
+  <p class="meta">Private operator review · observed…</p>
+  <nav class="tabs">Your queueRecord progressRelationshipsT…</nav>
+  <div class="console-grid">Keep the thread5 minIncoming…</div>
+  <!-- +5 more: section×3, p×1, footer×1 -->
+</main>
+````
+- **selector** `#main`
+- **path** `body.praxis > main#main`
+- **role** main
+- **text** "Private operator console · review build Your next 25 minutes One prepared queue. Evidence beside the decision. Room to think, without losing what is already in motion. Private operator review · observed 2026-11-05T04:08:17.658318+00:00 · snapshot, not a live activity feed Your queue Record progress…"
+- **box** 91,0 1240×3047 (viewport 1422×869)
+
+---
+
+[thread msg_01M6MR9D913G98PAT9WZDHN6SJ · more: read_thread · how it works: plannotator inbox --help]
+
+---
+
+Plannotator Inbox: standards-run-graph (msg_01M6N0KEBMPY2K9RXBWH74RYX9)
+The person replied to you in the Plannotator Inbox. Their reply follows as they wrote it: it is their answer to you. When they need to hear back, answer in the same thread: send_message with reply_to set to the id in parentheses on the line above.
+
+Answered 1 question.
+
+## Answers to your questions
+
+1 of 1 question answered.
+
+### Q1. What comparison or category kept coming to mind while you read the Anthropic report? (line 4)
+Answer:
+> https://www.instagram.com/utvstechbillionaires/ This was the group. But we want to be mapping such groups because there are a lot of them
+
+[thread msg_01M6MR9D913G98PAT9WZDHN6SJ · more: read_thread · how it works: plannotator inbox --help]
+
+---
+
+Is there a really good set of like a I mean why don't you spend some time crawling around looking for anti-billionaire, anti-data center, anti-AI activist groups, and also for senators you know like for like basically who are the people who regulate Anthropic Right and how should we make them help them think about it... And how should we help shape the standard here?
+
+---
+
+We need to think about the best way to gather insight and whatever from there. Like, we should be able to send out notification emails, take in insight, etc.
+
+---
+
+Plannotator Inbox: standards-run-graph (msg_01M6N36CQ1T6ZQ0G0KF2ZJG5ME)
+The person replied to you in the Plannotator Inbox. Their reply follows as they wrote it: it is their answer to you. When they need to hear back, answer in the same thread: send_message with reply_to set to the id in parentheses on the line above.
+
+This is really, really good. Yeah, I think we should commit this and then get me this view so that I can get the insights
+
+[thread msg_01M6MR9D913G98PAT9WZDHN6SJ · more: read_thread · how it works: plannotator inbox --help]
+
+---
+
+Plannotator Inbox: standards-run-graph (msg_01M6N411XDWX9QP9YZ332EGN20)
+The person replied to you in the Plannotator Inbox. Their reply follows as they wrote it: it is their answer to you. When they need to hear back, answer in the same thread: send_message with reply_to set to the id in parentheses on the line above.
+
+This is really outstanding. Make sure it rolls up to the graph
+
+# Feedback on the attached files
+
+The following feedback is on the files you attached, one section per file and version.
+
+## /Users/srvo/tray/standards-and-run-graph/index.html
+
+I've reviewed this document and have 1 piece of feedback:
+
+### 1. Feedback on: "Start with the existing response candidates and their last exchange. Record one personal update when it can unblock the relationship."
+> I think that what should happen too is this view should give us a bundle that is relevant to people in general.... Right, like we ought to have like you know basically an elevator pitch bundle on what's going on that is directed at that constituency You know, and extends an ask and an offer, basically
+
+````html
+<p>Start with the existing response candidates and their last exchange. Record one…</p>
+````
+- **selector** `aside > section:nth-of-type(3) > p`
+- **path** `body.praxis > main#main > div.console-grid > aside.rail > section:nth-of-type(3) > p`
+- **text** "Start with the existing response candidates and their last exchange. Record one personal update when it can unblock the relationship."
+- **box** 913,661 401×57 (viewport 1428×869)
+- **near** section:nth-of-type(3) · heading h3 "Who needs a human update?"
+
+## /Users/srvo/tray/anthropic-oversight/index.html
+
+I've reviewed this document and have 15 pieces of feedback:
+
+### 1. Feedback on: "Start with Warren's existing Anthropic inquiry, California enforcement, EU model oversight and New York implementation."
+> This seems like an output should be a letter to the senator
+
+````html
+<li>Start with Warren's existing Anthropic inquiry, California enforcement, EU…</li>
+````
+- **selector** `ol.reasons > li:nth-of-type(2)`
+- **path** `body > div.shell > main#board > div.board > section#answer > div.panel-body > ol.reasons > li:nth-of-type(2)`
+- **role** listitem
+- **text** "Start with Warren's existing Anthropic inquiry, California enforcement, EU model oversight and New York implementation."
+- **box** 728,224 622×58 (viewport 1428×869)
+- **near** section#answer · heading h2 "Answer"
+
+### 2. Feedback on: "Build on Inbox for dialogue. Keep subscription, delivery, insight and decision records distinct."
+> Yeah, and like I think we ought to make sure that the surface that these folks get can be, you know, can be like for coordination is useful to them, useful to me, etc.
+
+````html
+<li>Build on Inbox for dialogue. Keep subscription, delivery, insight and decision…</li>
+````
+- **selector** `ol.reasons > li:nth-of-type(3)`
+- **path** `body > div.shell > main#board > div.board > section#answer > div.panel-body > ol.reasons > li:nth-of-type(3)`
+- **role** listitem
+- **text** "Build on Inbox for dialogue. Keep subscription, delivery, insight and decision records distinct."
+- **box** 728,282 622×58 (viewport 1428×869)
+- **near** section#answer · heading h2 "Answer"
+
+### 3. Feedback on: "Ask which water, power and decision-rights evidence helps a real proceeding. 1"
+> I think that the question here is: do we understand, like, you know, here's where, here's the resources we currently have. What questions do you have? How can I be helpful? You know, would you like me to XYZ? You know, etc.
+
+````html
+<span class="cell-text">
+  <sup class="cite">
+    <a href="?…">1</a>
+  </sup>
+</span>
+````
+- **selector** `#row-46dd405f692a > td:nth-of-type(2) > span`
+- **path** `… > div.panel-body > div#comparison-1ab228f01150 > div.table-scroll > table > tbody > tr#row-46dd405f692a > td:nth-of-type(2) > span.cell-text`
+- **name** "Ask which water, power and decision-rights evidence helps a real proceeding. 1"
+- **text** "Ask which water, power and decision-rights evidence helps a real proceeding. 1"
+- **box** 841,552 497×43 (viewport 1428×869)
+- **near** section#starting-order · heading h2 "Where should we start?"
+
+### 4. Feedback on: "Ask for the strongest counterargument and the people our standard excludes. 456"
+> Yeah, I think this is outstanding. Yeah, and like I think we ought to have the The public plane update through this, right? Like, we have to, I think, you know, for these issues, we should have, like, all right, so here is the, you know, here are all the artifacts, and then here's where it coordinates, and here's how you can manage your updates. And I think that's the praxis surface where we're managing all of that. But I want to make sure that's really tight. The other option is to do it through free money in terms of like a newsletter type thing... With the idea being that free money is the existing I mean it's the existing non-official conduit I have. It has like a thousand subscribers or a bunch of institutional people on it's it but I think that these specific asks as part of as part of these reports is an outstanding way of doing it and also like you know what what's what perspectives are not considered here
+
+````html
+<span class="cell-text">
+  <sup class="cite">
+    <a href="?…">4</a>
+  </sup>
+  <sup class="cite">
+    <a href="?…">5</a>
+  </sup>
+  <sup class="cite">
+    <a href="?…">6</a>
+  </sup>
+</span>
+````
+- **selector** `#row-8fe3396d1aac > td:nth-of-type(2) > span`
+- **path** `… > div.panel-body > div#comparison-1ab228f01150 > div.table-scroll > table > tbody > tr#row-8fe3396d1aac > td:nth-of-type(2) > span.cell-text`
+- **name** "Ask for the strongest counterargument and the people our standard excludes. 456"
+- **text** "Ask for the strongest counterargument and the people our standard excludes. 456"
+- **box** 841,656 497×43 (viewport 1428×869)
+- **near** section#starting-order · heading h2 "Where should we start?"
+
+### 5. Feedback on: "Offer a short source table keyed to question 8, not a generic report blast. 7"
+> We shouldn't court. I mean, honestly, as we identify these sources, they should roll up to the thing and we should add the entity to the graph, and then we should think about ways to get them all together
+
+````html
+<td>
+  <span class="cell-text">
+    <span class="term">question</span>
+    <sup class="cite">7</sup>
+  </span>
+</td>
+````
+- **selector** `#row-538192b37bbc > td:nth-of-type(2)`
+- **path** `… > section#starting-order > div.panel-body > div#comparison-1ab228f01150 > div.table-scroll > table > tbody > tr#row-538192b37bbc > td:nth-of-type(2)`
+- **name** "Offer a short source table keyed to question 8, not a generic report blast. 7"
+- **text** "Offer a short source table keyed to question 8, not a generic report blast. 7"
+- **box** 829,455 521×42 (viewport 1428×869)
+- **near** section#starting-order · heading h2 "Where should we start?"
+
+### 6. Feedback on: "Network	Discovery value	Boundary
+Stop Data Centers Coalition	
+National/local moratoria, local campaigns and a linked signatory letter
+The directory is a starting point; project facts and current roles need checking. 9
+People's AI Action Plan	
+88 names extracted from the launch list: labor, civil rights, climate, consumer and investor groups
+Launch membership is not current activity, a common platform on every issue or permission to mail. 4
+Athena	
+Amazon, worker power, subsidies, surveillance and monopoly power
+Amazon relationships matter; its conduct cannot automatically be attributed to Anthropic. 10
+Oxfam, Americans for Tax Fairness, Patriotic Millionaires	
+Inequality, taxation and democratic power
+These organizations are not interchangeable with frontier-AI pause advocates. 111213
+PauseAI US and ControlAI	
+Frontier pause and superintelligence prohibition advocacy
+Preserve their different goals and evidentiary claims. 1415"
+> Outstanding. Outstanding. This is a really, really good approach. Like, all these people need to be on the graph. All these networks need to be on the graph. Their positions, their activism, etc., But also the locus of activity, right? Are they really good at mobilizing people? Are they really good at this or that?
+
+````html
+<div class="panel-body">
+  <div id="comparison-8ae6fe7ff2a0">
+    <div class="table-scroll">NetworkDiscovery valueBoundaryStop Data…</div>
+  </div>
+</div>
+````
+- **selector** `#networks > div`
+- **path** `body > div.shell > main#board > div.board > section#networks > div.panel-body`
+- **text** "Network Discovery value Boundary Stop Data Centers Coalition National/local moratoria, local campaigns and a linked signatory letter The directory is a starting point; project facts and current roles need checking. 9 People's AI Action Plan 88 names extracted from the launch list: labor, civil…"
+- **box** 74,181 1280×354 (viewport 1428×869)
+- **near** section#networks · heading h2 "What networks already exist?"
+
+### 7. Feedback on: "Who has which power?"
+> Who is standing... I think the one that we don't have is the publishers who got stuff taken from them
+
+````html
+<h2>Who has which power?</h2>
+````
+- **selector** `#authority > header > h2`
+- **path** `body > div.shell > main#board > div.board > section#authority > header.panel-head > h2`
+- **role** heading · **name** "Who has which power?"
+- **text** "Who has which power?"
+- **box** 97,228 1202×26 (viewport 1428×869)
+- **near** header.panel-head · heading h2 "What networks already exist?"
+
+### 8. Feedback on: "Senators can investigate, legislate and oversee agencies. They do not personally license Anthropic. Agency authority is issue-specific.
+
+Authority	Relevant power or activity	What our evidence must establish
+California AG; Cal OES	
+Frontier-framework obligations and specified safety/employee reporting
+Identify the precise duty, current framework and alleged shortfall. Employee channels are for covered employees. 16
+EU AI Office	
+GPAI investigation, evaluation and enforcement
+Map evidence to applicable duties and model dates. Anthropic is a Code signatory; the Code is a voluntary compliance route. 1718
+New York DFS / DIGIT and AG	
+RAISE registration preparation; full cited duties from January 2027
+Help define useful disclosures and public incident evidence before implementation. 19
+SEC	
+IPO disclosure review and securities-law enforcement
+Show a specific material disclosure issue. SEC effectiveness is not a safety or investment endorsement. 20
+FTC	
+Competition and consumer-protection remit
+Show relevant conduct; its cloud/AI staff study is not a violation finding. 2122
+Utah PSC, water/environment agencies and local government	
+Large-load, water, air and local decisions in their scopes
+Identify facility, permit, operator and a verified Anthropic compute link before attribution. 23
+Delaware PBC governance	
+Board balancing/reporting duties and constrained enforcement standing
+Separate public interest from legal standing; the PBC form alone gives affected people no general enforcement right. 24
+The UK CMA's 2024 Amazon/Anthropic merger inquiry is closed and found not to qualify. Its old comment window is not an active opportunity. 25"
+> I think that the mapping here absolutely needs to be I mean all of these groups should go on the map as a reflex and the Anthropic report should get updated with all of these activities as an appendix....
+
+
+````html
+<div class="panel-body">
+  <div id="prose-225bcc203343">
+    <p>Senators can investigate, legislate and…</p>
+  </div>
+  <div id="comparison-4553338478c1">
+    <div class="table-scroll">AuthorityRelevant power or activityWhat…</div>
+  </div>
+  <div id="prose-01d38e25f062">
+    <p>The UK CMA's 2024 Amazon/Anthropic…</p>
+  </div>
+</div>
+````
+- **selector** `#authority > div`
+- **path** `body > div.shell > main#board > div.board > section#authority > div.panel-body`
+- **text** "Senators can investigate, legislate and oversee agencies. They do not personally license Anthropic. Agency authority is issue-specific. Authority Relevant power or activity What our evidence must establish California AG; Cal OES Frontier-framework obligations and specified safety/employee reporting…"
+- **box** 74,258 1280×562 (viewport 1428×869)
+- **near** section#authority · heading h2 "Who has which power?"
+
+### 9. Feedback on: "People	Verified public activity	Useful contribution
+Elizabeth Warren	
+October 27 Anthropic letter, including PBC duties and trust questions
+Evidence crosswalk for question 8. November 3 response date passed; response status unknown. 7
+Richard Blumenthal and Josh Hawley	
+Proposed AI Risk Evaluation Act and oversight
+Evaluator independence, audit access, overrides and release authority. The cited inquiry concerns OpenAI. 26
+Ed Markey and Chris Van Hollen	
+Environmental reporting proposal; Van Hollen also joins utility-cost inquiry
+Comparable infrastructure metrics and cost allocation. Proposed legislation is not current law. 2728
+Bernie Sanders and Alexandria Ocasio-Cortez	
+Proposed federal data-center moratorium
+Evidence-based exit conditions, community authority and remedies. Ocasio-Cortez is a House member. 29
+Scott Wiener, Andrew Gounardes and Alex Bores	
+State frontier-AI legislation and public calls for independently verified pacing
+Concrete reporting and independent-check requirements. 30"
+> Absolute lootly.... So, you know, I guess the question is: what's the right way to engage with these folks and the right way to not necessarily, like, I don't necessarily want to like center myself in this debate, but I want to make sure that the ends are talking to each other In that the strongest form of the argument that benefits our mission is being made
+
+````html
+<div class="panel-body">
+  <div id="comparison-c180e6f93cff">
+    <div class="table-scroll">PeopleVerified public activityUseful…</div>
+  </div>
+</div>
+````
+- **selector** `#legislators > div`
+- **path** `body > div.shell > main#board > div.board > section#legislators > div.panel-body`
+- **text** "People Verified public activity Useful contribution Elizabeth Warren October 27 Anthropic letter, including PBC duties and trust questions Evidence crosswalk for question 8. November 3 response date passed; response status unknown. 7 Richard Blumenthal and Josh Hawley Proposed AI Risk Evaluation…"
+- **box** 74,382 1280×378 (viewport 1428×869)
+- **near** section#legislators · heading h2 "Which legislators are already working on this?"
+
+### 10. Feedback on: "A proposed participation loop
+▶ Walk the flow
+
+Open interactive view
+Prepare question
+Review invitation
+Receive insight
+Record disposition
+Return the change
+scoped
+attributed
+person sends
+versioned
+Legend
+User UI
+Agent logic
+Tool action
+Context / trace
+External system
+People can reply in email; a form is optional. Ask what is wrong, which evidence changes it, and what enforceable requirement would help.
+
+Existing path	Preserve	Gap before claiming end-to-end operation
+Inbox	
+Scoped read/draft and human send
+Actual round-trip identity, thread and artifact linkage
+Newsletter	
+Existing subscription/provider integration
+Mailbox control, topic preferences, withdrawal and durable delivery receipts
+App notifications	
+Scoped event creation
+An app event does not prove an email was sent or delivered
+Planning and evidence	
+Versioned work and receipts
+Link insight to a decision and return its disposition
+A public contact address is not a recurring subscription. Check pause/withdrawal again at dispatch; distinguish queued, provider-accepted, delivered, replied and reviewed."
+> The people who are public as well should be on a monitor list related to this issue... And like that should be pretty straightforward
+
+````html
+<div class="panel-body">
+  <div id="participation-loop">
+    <figure class="diagram">A proposed participation loop▶ Walk the…</figure>
+    <p class="diagram-fit-status"></p>
+    <details class="diagram-semantics">Diagram structurePrepare question…</details>
+  </div>
+  <div id="prose-d758f267605b">
+    <p>People can reply in email; a form is…</p>
+  </div>
+  <div id="comparison-4d847d30f52d">
+    <div class="table-scroll">Existing pathPreserveGap before…</div>
+  </div>
+  <div id="prose-0269c64ff180">
+    <p>A public contact address is not a…</p>
+  </div>
+</div>
+````
+- **selector** `#participation > div`
+- **path** `body > div.shell > main#board > div.board > section#participation > div.panel-body`
+- **text** "A proposed participation loop ▶ Walk the flow Open interactive view Prepare question Review invitation Receive insight Record disposition Return the change scoped attributed person sends versioned Legend User UI Agent logic Tool action Context / trace External system People can reply in email; a…"
+- **box** 74,235 1280×447 (viewport 1428×869)
+- **near** section#participation · heading h2 "How do we gather insight and return value?"
+
+### 11. Feedback on: "The trust says the present report largely describes inputs and expects future outcomes. Its appendix supplies board-adopted objectives and standards. 31
+
+That gives reviewers a concrete task: specify baselines, affected populations, denominators, time horizons, independent checks and remedies for those objectives. Company self-report is evidence of what it says, not independent proof of results."
+> Yeah, like, I mean, like, how yeah, this is a great, great format
+
+````html
+<div class="panel-body">
+  <div id="prose-bc673f3fe0c6">
+    <p>The trust says the present report…</p>
+  </div>
+  <div id="prose-cfe946e2b20f">
+    <p>That gives reviewers a concrete task:…</p>
+  </div>
+</div>
+````
+- **selector** `#claim-cards > div`
+- **path** `body > div.shell > main#board > div.board > section#claim-cards > div.panel-body`
+- **text** "The trust says the present report largely describes inputs and expects future outcomes. Its appendix supplies board-adopted objectives and standards. 31 That gives reviewers a concrete task: specify baselines, affected populations, denominators, time horizons, independent checks and remedies for…"
+- **box** 74,475 632×174 (viewport 1428×869)
+- **near** section#claim-cards · heading h2 "Build on the company’s own stated test"
+
+### 12. Feedback on: "Measure	Denominator or qualification
+Usable replies and grounded corrections	
+Delivered invitations; mark unknown delivery separately
+Disagreements reviewed and resolved or preserved	
+All substantive contributions, including inconvenient ones
+Decisions changed and source gaps closed	
+Exact claim/work revision and reason; no invented causal effect
+Time to disposition and return update	
+Contributions needing response, including overdue ones
+Participant control works	
+Withdrawal races, retries, bounces and scope-denial tests
+The proposed first cycle uses six invitations across community, research, oversight and investor roles. It is a learning sample, not a representative survey.
+
+The operator gets one proposed 25-minute review batch: confirm the artifact, inspect three message families and resolve the consequential asks. Agents prepare source cards and verify routes first."
+> Yes, perfect
+
+````html
+<div class="panel-body">
+  <div id="comparison-94e87ade4b1d">
+    <div class="table-scroll">MeasureDenominator or qualificationUsab…</div>
+  </div>
+  <div id="prose-d4c930c663e5">
+    <p>The proposed first cycle uses six…</p>
+  </div>
+  <div id="prose-964368b045b9">
+    <p>The operator gets one proposed…</p>
+  </div>
+</div>
+````
+- **selector** `#learning > div`
+- **path** `body > div.shell > main#board > div.board > section#learning > div.panel-body`
+- **text** "Measure Denominator or qualification Usable replies and grounded corrections Delivered invitations; mark unknown delivery separately Disagreements reviewed and resolved or preserved All substantive contributions, including inconvenient ones Decisions changed and source gaps closed Exact claim/work…"
+- **box** 74,522 632×987 (viewport 1428×869)
+- **near** section#learning · heading h2 "How will we know this helped?"
+
+### 13. Feedback on: "These are proposals for critique, not adopted law, certification or binding Praxis conformance.
+
+Requirement	Evidence or test	What it prevents
+Public-benefit outcome ledger	
+Claim, period, affected group, comparator, denominator, outcome, source and uncertainty
+Treating inputs, anecdotes or forecasts as established outcomes
+Independent challenge	
+Evaluator access, exclusions, conflicts, publication rights and dissent
+Paying for an audit while controlling its conclusions
+Decision authority	
+Who can stop a release, who can override, reasons and revision history
+Calling advice an enforceable veto
+Incident and change history	
+Detection/reporting dates, internal use, material revisions and exceptions
+Silent relaxation and untraceable incident claims
+Affected-person voice and remedy	
+Correction route, representation, disposition and follow-up
+Extracting testimony without giving anyone a response
+Infrastructure accounts	
+Facility links, metered power/water, cost allocation, subsidies and permanent jobs
+Unsupported company attribution or community-benefit claims
+A hash establishes byte identity, not truth. Do not combine unlike harms and benefits into one net score without a defensible common measure.
+
+Crosswalk these fields to SB 53, EU GPAI, New York RAISE, Delaware reporting and NIST concepts. NIST's framework is voluntary. 32
+
+The cited NIST documentation-draft input date was September 16, 2026. Recheck the next venue before treating it as open. 33"
+> I think this is where we think meadows and we go, all right, how do we combine what we like those individual steps are great? I think that the higher order option is to go is to say, all right, so like we think that there should be a planetary boundaries budget on these things, on these, on this compute, which would mean that compute is located in places that are less sensitive, i.e., Norway, probably. Which, as a practical matter, imposes regulation that we couldn't otherwise get over AI hyperscalers Right, because, like, you know, otherwise, they can put them wherever they want. But if there is a fixed biological budget that does this, that might be an interesting thing And then, like, thinking about, you know, okay, so how do we cut fat out of compute as well... Sort of the permacomputing stuff that we've done
+
+````html
+<div class="panel-body">
+  <div id="prose-4a20f5b3dd89">
+    <p>These are proposals for critique, not…</p>
+  </div>
+  <div id="comparison-8572142f7248">
+    <div class="table-scroll">RequirementEvidence or testWhat it…</div>
+  </div>
+  <div id="prose-15767fbdbb9c">
+    <p>A hash establishes byte identity, not…</p>
+  </div>
+  <div id="prose-33f8395e119c">
+    <p>Crosswalk these fields to SB 53, EU…</p>
+  </div>
+  <div id="prose-4574e2f50f5e">
+    <p>The cited NIST documentation-draft…</p>
+  </div>
+</div>
+````
+- **selector** `#standard > div`
+- **path** `body > div.shell > main#board > div.board > section#standard > div.panel-body`
+- **text** "These are proposals for critique, not adopted law, certification or binding Praxis conformance. Requirement Evidence or test What it prevents Public-benefit outcome ledger Claim, period, affected group, comparator, denominator, outcome, source and uncertainty Treating inputs, anecdotes or forecasts…"
+- **box** 722,253 632×793 (viewport 1428×869)
+- **near** section#standard · heading h2 "What standard should we propose?"
+
+### 14. Feedback on: "The research includes 35 focused groups, 15 authority/official groupings and an 88-name launch directory. It is not an exhaustive census.
+Sources were read on 5 November 2026 UTC. Extracted-text fingerprints are not original-source byte pins or verified lake custody.
+Coalition counts conflict internally: one headline says 47 states, while its body says 48. Keep the discrepancy visible. 2
+Contact availability, current docket windows, company replies and influence probabilities remain unverified.
+The map is US/English-heavy. Coalition ties do not prove shared positions or individual affiliations.
+The email/insight contract is designed, not deployed. No mail, signup, ballot, reminder or publication occurred."
+> It's outstanding. Make sure and feed it into the corpus
+
+````html
+<div class="panel-body">
+  <div id="list-3337ce27c48c">
+    <ul class="text-list">The research includes 35 focused…</ul>
+  </div>
+</div>
+````
+- **selector** `#limits > div`
+- **path** `body > div.shell > main#board > div.board > section#limits > div.panel-body`
+- **text** "The research includes 35 focused groups, 15 authority/official groupings and an 88-name launch directory. It is not an exhaustive census. Sources were read on 5 November 2026 UTC. Extracted-text fingerprints are not original-source byte pins or verified lake custody. Coalition counts conflict…"
+- **box** 722,257 632×368 (viewport 1428×869)
+- **near** section#limits · heading h2 "What remains uncertain?"
+
+### 15. Feedback on: "Use published coalition directories to discover groups; verify each group's current position before representing it."
+> I think this is really outstanding, and I think it's in general it rolls up to a classification of entities with standing, right? You know, so we've got a locality, right? And we should add points on the node for all this, like Utah, you know, Food and Water Watch, et cetera.... I also think things like the EFF and like I like I think what we don't have that would be really helpful is authoritative technical view on the possibilities of constraints that we've suggested
+
+````html
+<li>Use published coalition directories to discover groups; verify each group's…</li>
+````
+- **selector** `ol.reasons > li:nth-of-type(1)`
+- **path** `body > div.shell > main#board > div.board > section#answer > div.panel-body > ol.reasons > li:nth-of-type(1)`
+- **role** listitem
+- **text** "Use published coalition directories to discover groups; verify each group's current position before representing it."
+- **box** 728,167 622×58 (viewport 1428×869)
+- **near** section#answer · heading h2 "Answer"
+
+---
+
+[thread msg_01M6MR9D913G98PAT9WZDHN6SJ · more: read_thread · how it works: plannotator inbox --help]
+
+---
+
+Oh, the other bundle is my friend Brandon, who runs rumor (A little app that gives you social media indications) And is also on the tech team at the New York Times. I think getting a really nicely scoped, like, hey, you want to contribute data? Here's how to do it, you know, type of thing. I feel like how do you go and say, all right, so here is the record Well, you ask friends to contribute things and then you, you know, and you fold them all in. But I asked it, he didn't really know what the fuck I was asking for So, we need to make it really specific
+
+---
+
+Like, substantiate the I mean, like, basically, there are a bunch of market events where Anthropic did a thing and the market lost a lot of money Right, like we need to understand how that works and how the harms are laid out
+
+---
+
+We should expand the shape. This is a guy who wants to help, just needs to know how .... Like, I think that what we want to do is say, okay, so here are the data sets that we understand you to have, right? And we should be mapping them to our vendor list as we do it... Alright, so the first thing we do is we go, okay, so here's this vendor list. So we should look at what we think insights there are in there. We should look at, okay, we think there are these questions, and then we should look at, okay, well, can you add info? with With the caveat that you would be basically creating a version of the database that would then go into the public domain
+
+---
+
+Yeah, and note the praxis license And the validation steps on the path to it
+
+---
+
+Page: "Build the dataset map together, then release a defined edition"
+File: /Users/srvo/tray/anthropic-market-pilot/index.html
+Where: Panel 1 "The ask is an inventory and a research partnership" (ID: ask)
+Quote: "We do the vendor/entity joins, market-data work, validation and analysis. We return the map, findings, limitations and proposed attribution for correction."
+Question: I would say I would show what we have in terms of SEC risk factors, et cetera, et cetera, and be like, here's what we're trying to, here's where we think your thing could help
+Revise only this panel with Archify panel replacement (patch explainer), keeping its ID. | Like, I think we should absolutely be going we should we should be in the habit of saying like here's what you do of basically trying to find markets like that, right? Where you go and say, we are doing this, you are doing this, aligned, we have this common problem. Would you like to work on it with us towards in this way
+
+---
+
+Yeah, like and also, you know, continued refine and also I think tech oversight advice, etc. How to architect the effort
+
+---
+
+I think we want to make it as simple as possible, like for a contributor, right? So it's got to be part of, it shouldn't sit in Trey, it should sit in Praxis and be generalized to the vendor directory, which should also be in Praxis, right? What we should do is go, okay, so, like, you know, where are you in the map? Like, if you're if you're in there already, and if so, you know, what role do we think that you have in advancing this objective of asserting collective stewardship..
+
+---
+
+Like, we should structure the vendor map in terms of the goals of the project
+
+---
+
+Plannotator Inbox: standards-run-graph (msg_01M6N8B5GB3193211VFH0ZKBNR)
+The person replied to you in the Plannotator Inbox. Their reply follows as they wrote it: it is their answer to you. When they need to hear back, answer in the same thread: send_message with reply_to set to the id in parentheses on the line above.
+
+Yeah, I think that what we ought to do is say is have the yeah, I think this is this is great. I think, yeah, see how our data overlaps, then release a defined edition is perfect. And that allows us to add, like, you know, once we do that, then his data and our data can align where possible, right? So we can do things like align him with the securities master if helpful, or whatever... And also, you know, provide ontology, etc. \
+
+# Feedback on the attached files
+
+The following feedback is on the files you attached, one section per file and version.
+
+## /Users/srvo/tray/anthropic-market-pilot/index.html
+
+I've reviewed this document and have 4 pieces of feedback:
+
+### 1. Feedback on: "OpenFIGI (Bloomberg)"
+> Yeah, I mean, like, they're an open source thing. I think we should gear towards open source unless the data needs to be paid, and we should explicitly segment which data can be part of Praxis and which part the licensure is segregated and is only for what we use at the firm... 
+
+````html
+<th>OpenFIGI (Bloomberg)</th>
+````
+- **selector** `#row-2c59457f333d > th`
+- **path** `… > section#vendors > div.panel-body > div#comparison-7956e148857a > div.table-scroll > table > tbody > tr#row-2c59457f333d > th`
+- **name** "OpenFIGI (Bloomberg)"
+- **text** "OpenFIGI (Bloomberg)"
+- **box** 78,296 150×105 (viewport 1428×869)
+- **near** section#vendors · heading h2 "Which existing vendor/source records help?"
+
+### 2. Feedback on: "You are building Rumor around social-media indications. Your dataset inventory could show the complementary layer: which claims circulated, which companies people discussed and what signals were observable when."
+> Yeah, they can also indicate other areas to jump in on network analysis
+
+````html
+<p>You are building Rumor around social-media indications. Your dataset inventory…</p>
+````
+- **selector** `#prose-86b5d57ada74 > p`
+- **path** `body > div.shell > main#board > div.board > section#ask > div.panel-body > div#prose-86b5d57ada74 > p`
+- **text** "You are building Rumor around social-media indications. Your dataset inventory could show the complementary layer: which claims circulated, which companies people discussed and what signals were observable when."
+- **box** 726,254 624×77 (viewport 1428×869)
+- **near** section#ask · heading h2 "We have the disclosure record. Could Rumor help connect it to public signals?"
+
+### 3. Feedback on: "Our common problem is understanding how a capability announcement becomes an expectation about a company—and which resulting gains, losses or harms the evidence supports."
+> Yeah, I guess the big question is contextual we're trying to root and contextualize the narrative and discern a sense of harm, not harm. Yeah, and basically just discern what's going on. Also, Anthropics, you know, competitive position, etc.
+
+````html
+<p>Our common problem is understanding how a capability announcement becomes an…</p>
+````
+- **selector** `#prose-47ac12cd6685 > p`
+- **path** `body > div.shell > main#board > div.board > section#ask > div.panel-body > div#prose-47ac12cd6685 > p`
+- **text** "Our common problem is understanding how a capability announcement becomes an expectation about a company—and which resulting gains, losses or harms the evidence supports."
+- **box** 726,233 624×77 (viewport 1428×869)
+- **near** section#ask · heading h2 "We have the disclosure record. Could Rumor help connect it to public signals?"
+
+### 4. Feedback on: "Start with one shared question and an agreed contribution. Keep the evidence, decisions and disagreements in a versioned record; review what we learn together, then choose what to refine or expand."
+> I think, you know, what we ought to do in this is just basically go pathways, right? You know, we could add brain into the repository, right? We could just sort of add them to the repository and show them the live builds as they want and let them be in on it to the extent they want to be. They can have specific asks. It's really, you know, the I think what the idea is you generate the shared map of concerns and interests between organizations, and then you know, when you're offering up an approach, you say, all right, like you can sort of go, this is what seems like us, seems to us like the most I mean, actually, this is what we do is this is what seems to the network like the most valuable contributions Right, because we have that value scoring function that can optimize things
+
+````html
+<p>Start with one shared question and an agreed contribution. Keep the evidence,…</p>
+````
+- **selector** `#prose-56d57afba014 > p`
+- **path** `body > div.shell > main#board > div.board > section#ask > div.panel-body > div#prose-56d57afba014 > p`
+- **text** "Start with one shared question and an agreed contribution. Keep the evidence, decisions and disagreements in a versioned record; review what we learn together, then choose what to refine or expand."
+- **box** 726,348 624×77 (viewport 1428×869)
+- **near** section#ask · heading h2 "We have the disclosure record. Could Rumor help connect it to public signals?"
+
+---
+
+[thread msg_01M6MR9D913G98PAT9WZDHN6SJ · more: read_thread · how it works: plannotator inbox --help]
+
+---
+
+Plannotator Inbox: standards-run-graph (REDACTED)
+The person replied to you in the Plannotator Inbox. Their reply follows as they wrote it: it is their answer to you. When they need to hear back, answer in the same thread: send_message with reply_to set to the id in parentheses on the line above.
+
+# Feedback on the attached files
+
+The following feedback is on the files you attached, one section per file and version.
+
+## /Users/srvo/tray/anthropic-market-pilot/index.html
+
+I've reviewed this document and have 7 pieces of feedback:
+
+### 1. Feedback on: "The observed database contains 18 vendor records in comms.vendors. The documented crm.vendors location was absent. The repository CSV has 22 rows and the API registry serves another purpose."
+> There are many more in the database and in the Git history of MonoCloud
+
+````html
+<p>
+  <code>comms.vendors</code>
+  <code>crm.vendors</code>
+</p>
+````
+- **selector** `#prose-9ba5b80ab3ac > p`
+- **path** `body > div.shell > main#board > div.board > section#vendors > div.panel-body > div#prose-9ba5b80ab3ac > p`
+- **text** "The observed database contains 18 vendor records in comms.vendors. The documented crm.vendors location was absent. The repository CSV has 22 rows and the API registry serves another purpose."
+- **box** 78,161 624×77 (viewport 1428×869)
+- **near** section#vendors · heading h2 "Which existing vendor/source records help?"
+
+### 2. Feedback on: "Those sources are not silently merged into a newly authoritative list. Current ownership and synchronization remain a reconciliation finding."
+> Yeah, they need to be individually mapped and linked to things
+
+````html
+<p>Those sources are not silently merged into a newly authoritative list. Current…</p>
+````
+- **selector** `#prose-355fa590ef0d > p`
+- **path** `body > div.shell > main#board > div.board > section#vendors > div.panel-body > div#prose-355fa590ef0d > p`
+- **text** "Those sources are not silently merged into a newly authoritative list. Current ownership and synchronization remain a reconciliation finding."
+- **box** 78,209 624×52 (viewport 1428×869)
+- **near** section#vendors · heading h2 "Which existing vendor/source records help?"
+
+### 3. Feedback on: "Praxis License v1, version 1.0-draft.1 dated 4 November 2026, is prepared for counsel review and adoption remains pending. It is not an operative grant."
+> Um we can yeah, I think what we could do is say um is is loop in we should wrap into the praxis license our collaborator agreement and say like, well, you know, anything that gets put out in the open right now would be just unavoidably public domain. However, we can very easily share things in a legitimate way if you sort of sign our collaborator agreement, which sort of mutualizes trust and certain contractual agreements and certain expectations and whatnot. Basically, it's a no-fault divorce clause
+
+````html
+<p>
+  <code>1.0-draft.1</code>
+</p>
+````
+- **selector** `#prose-2e8a592ac30a > p`
+- **path** `body > div.shell > main#board > div.board > section#praxis-license > div.panel-body > div#prose-2e8a592ac30a > p`
+- **text** "Praxis License v1, version 1.0-draft.1 dated 4 November 2026, is prepared for counsel review and adoption remains pending. It is not an operative grant."
+- **box** 78,193 1272×26 (viewport 1428×869)
+- **near** section#praxis-license · heading h2 "How does the Praxis license apply?"
+
+### 4. Feedback on: "Praxis License v1, version 1.0-draft.1 dated 4 November 2026, is prepared for counsel review and adoption remains pending. It is not an operative grant.
+
+The local policy snapshot is attached as praxis-license-v1-draft.txt. Its exact source SHA-256 is abd62f13e5193a90f698778aeabe2048875c4898078806b0229a06360099ac97.
+
+Draft provision	Consequence for this contribution
+Exact covered material and release notice, sections 2 and 12	
+Identify grantors, asset classes, immutable version, terms and exclusions.
+Linked provenance and no endorsement, section 4	
+Preserve supplied source/version and safe attribution for covered material.
+Return improvements, section 5	
+Applies to covered modifications only if valid terms are adopted; it is not a claim over unrelated private inputs.
+Private/restricted inputs, section 6	
+Does not require publication of data the contributor cannot lawfully disclose.
+Express contribution scope, section 7	
+Ownership and granted rights are specific; submission does not relicense unrelated work.
+Do not impose Praxis reciprocity or attribution license conditions on data already dedicated under CC0. Preserve the project’s provenance record and invite reciprocity without mislabeling it as a CC0 obligation.
+
+The data edition and any separately covered companion material need compatible, explicit notices. This page does not choose terms for a contributor or finalize the draft license."
+> The yeah, and and like the uh I think we need a link to an idea of what Praxis is here
+
+````html
+<div class="panel-body">
+  <div id="prose-2e8a592ac30a">
+    <p>Praxis License v1, version 1.0-draft.1…</p>
+  </div>
+  <div id="prose-951a759460c3">
+    <p>The local policy snapshot is attached…</p>
+  </div>
+  <div id="comparison-6090103379e3">
+    <div class="table-scroll">Draft provisionConsequence for this…</div>
+  </div>
+  <div id="prose-23ca358ea44a">
+    <p>Do not impose Praxis reciprocity or…</p>
+  </div>
+  <div id="prose-6bc415effabb">
+    <p>The data edition and any separately…</p>
+  </div>
+</div>
+````
+- **selector** `#praxis-license > div`
+- **path** `body > div.shell > main#board > div.board > section#praxis-license > div.panel-body`
+- **text** "Praxis License v1, version 1.0-draft.1 dated 4 November 2026, is prepared for counsel review and adoption remains pending. It is not an operative grant. The local policy snapshot is attached as praxis-license-v1-draft.txt. Its exact source SHA-256 is…"
+- **box** 74,-19 1280×511 (viewport 1428×869)
+- **near** section#praxis-license · heading h2 "How does the Praxis license apply?"
+
+### 5. Feedback on: "Contribution to an explicitly authorized edition
+▶ Walk the flow
+
+Open interactive view
+Confirm inventory
+Establish rights
+Receive privately
+Validate evidence
+Audit candidate
+Bind release
+Deliver and verify
+authorized
+exact bytes
+scoped
+versioned
+permitted
+reviewed
+Legend
+User UI
+Agent logic
+Policy
+Tool action
+Context / trace
+External system
+Stage	Evidence required	Current status
+Confirm provider and dataset inventory	
+Vendor/dataset IDs, actual owner, schemas, coverage, access and a record of unavailable data
+Partly observed: live registry and repository source inventory; Rumor datasets unconfirmed
+Establish field-level contribution and reuse scope	
+Rights holder/authority, upstream terms, database/compilation rights, exclusions, public-domain consent scope
+Pending; no consent or license clearance
+Receive an authorized private version	
+Exact source bytes/digest, contributor assertion, date, scope, recipe and access/readback receipt
+Pending actual contribution; prior packet corpus intake is not data receipt
+Validate the selected data	
+Schema/types, UTC clocks, metric units, coverage/missingness, stable IDs, deduplication, denominators, joins, reproducible transforms and changed-input checks
+No contributed data tested; template checks are not data validation
+Review what the data can support	
+Pinned/present/context-faithful/breadcrumbed claims; counterevidence; model/proposed labels separate from human testimony; no causal inference from timing alone
+Pending actual evidence and methods review
+Build and audit a public candidate edition	
+Explicit selected fields; exclude private contacts, account IDs, employer data, restricted text/media and secrets; record permitted identifiers and derived-data lineage
+Pending; no public candidate bytes built
+Bind asset-specific rights to that exact edition	
+Authorized CC0 dedication where intended; separately finalized/adopted Praxis terms for covered assets; third-party notices and unresolved-rights exclusions
+Held: no authorized edition notice; Praxis adoption remains pending
+Authorize and deliver the immutable edition	
+Human release authority/signature where required; hashes, dependencies, scopes, publication label, selected destination and write/readback receipts
+Not authorized or published; successful validation alone cannot release it
+Preserve corrections and prior editions	
+Versioned correction/dispute path, new manifests and safe provenance; no promise to revoke lawful copies or erase third-party archives
+Designed; no released edition to correct
+Checks, source verification, rights review, signature and publication authority remain distinct. A signature cannot prove all claims true, and a green schema check cannot grant redistribution rights."
+> I think there's also like an epistemic question that we ought to say, that we ought to make sure that we capture, which is how do we really do this right? how do we get the data we need to make a good decision? ≥ The Rawlsian path makes this kind of mechanical to go and say, right, well, what we want to do is go, how many of these groups have we identified that are affected by this? And then how many have we heard from directly? And how many, and to what extent do we understand their real value proposition, pain point? Like, what are they getting? What's being taken from them
+
+````html
+<div class="panel-body">
+  <div id="release-path">
+    <figure class="diagram">Contribution to an explicitly…</figure>
+    <p class="diagram-fit-status"></p>
+    <details class="diagram-semantics">Diagram structureConfirm inventory…</details>
+  </div>
+  <div id="comparison-051009160c49">
+    <div class="table-scroll">StageEvidence requiredCurrent…</div>
+  </div>
+  <div id="prose-b5d80a0b6070">
+    <p>Checks, source verification, rights…</p>
+  </div>
+</div>
+````
+- **selector** `#validation > div`
+- **path** `body > div.shell > main#board > div.board > section#validation > div.panel-body`
+- **name** "Contribution to an explicitly authorized edition▶ Walk the flowOpen interactive…"
+- **text** "Contribution to an explicitly authorized edition ▶ Walk the flow Open interactive view Confirm inventory Establish rights Receive privately Validate evidence Audit candidate Bind release Deliver and verify authorized exact bytes scoped versioned permitted reviewed Legend User UI Agent logic Policy…"
+- **box** 74,-30 1280×1017 (viewport 1428×869)
+- **near** section#validation · heading h2 "What are the validation steps?"
+
+### 6. Feedback on: "Where does the small event example fit?"
+> Yeah, I mean, there's like specific questions, there's specific Yeah, I think you could sort of go and say, like, you know, three different models, specific questions, one-off approvals, blanket ask, one-off, one-off publication, and like blanket availability of the data to Praxis partners with the same publication gates. It can't cross the praxis threshold publicly, but it can within the organization or within the collective travel and be used non-commercially
+
+````html
+<h2>Where does the small event example fit?</h2>
+````
+- **selector** `#pilot > header > h2`
+- **path** `body > div.shell > main#board > div.board > section#pilot > header.panel-head > h2`
+- **role** heading · **name** "Where does the small event example fit?"
+- **text** "Where does the small event example fit?"
+- **box** 98,441 1201×26 (viewport 1428×869)
+- **near** header.panel-head · heading h2 "What are the validation steps?"
+
+### 7. Feedback on: "Create a contributor page for each participating person or organization. It should collect their permitted sources and contributions, show where those inputs fit in the project, and explain how their work will be recognized. Contributor, community member, partner and vendor are distinct roles; use the agreed description."
+> I mean, and honestly, there's like a, I think there's a spectrum of involvement that we should make clear with every general, the same thing we do with risk, where it's like, I could see this going anywhere from here to here. Like, from Ash with Ashby, I could see this going anywhere from him co-authoring the thing to giving some really great advice to making some really tactical introductions.... But, like, there's you know, there's a structure to these things. I think the other thing that we ought to do is establish a real heartbeat cadence that happens on this thing where it's like where you like it just gets updated with a regular periodicity and the inside praxis group can see the pre-validated state and the outside and help validate it, and the outside practice group can seize a versioned database every week or every new moon or something.... I think for hot issues like Anthropic, it needs to have as much periodicity. Like, I think the periodicity of these things should be fluid, but like by default, it should be monthly, where it's like, you know, here's the astrology, you know, and finance group or something, and it's not front burner right now. Like, I mean, someone should be able to be like, I propose, like, here is a blind spot in your ontology of risk You know, here's a project I want to partner
+
+
+````html
+<p>Create a contributor page for each participating person or organization. It…</p>
+````
+- **selector** `#prose-738c7244e6c0 > p`
+- **path** `body > div.shell > main#board > div.board > section#reciprocity > div.panel-body > div#prose-738c7244e6c0 > p`
+- **text** "Create a contributor page for each participating person or organization. It should collect their permitted sources and contributions, show where those inputs fit in the project, and explain how their work will be recognized. Contributor, community member, partner and vendor are distinct roles; use…"
+- **box** 78,159 1272×52 (viewport 1428×869)
+- **near** section#reciprocity · heading h2 "What will be returned to the contributor?"
+
+---
+
+[thread msg_01M6MR9D913G98PAT9WZDHN6SJ · more: read_thread · how it works: plannotator inbox --help]
+
+---
+
+The other thing that would be really useful to give me is a nice little thing in the tray that I can hand off that is literally minute to minute updated with like current build status and capabilities And give someone an opportunity to kind of join the test flight pilot or get super involved or excited or whatever... But like because like you know, I think it's you know being able to show to show a collaborator like here is the infrastructure we have around this project, what I thought about, et cetera
+
+---
+
+Ooh, or maybe there's like a honestly, is that simpler or is it better to do like a mean? I don't know about refresh every minute. Maybe we should maybe what we should have it to do. I mean, first of all, it shouldn't be a separate package from the Tori app. It should b... e a everything should, you should not be building things outside of the primitive that connect us. Well, actually, I guess the Tori app and the tray. The tray is the backstop for the Tori app. So having that service is appropriate. But every 15 minutes would be fine. Having it minute to minute is not really necessary. And I think that this project needs to aggressively question those kinds of assertions that I need it every second... Like, what are the predetermined elements of this project at this point? What are the uncertain things? And what are the scenarios.. Use the standard approach
+
+---
+
+Plannotator Inbox: standards-run-graph (msg_01M6NA0ABRWPFSAD2TKMM5EXB8)
+The person replied to you in the Plannotator Inbox. Their reply follows as they wrote it: it is their answer to you. When they need to hear back, answer in the same thread: send_message with reply_to set to the id in parentheses on the line above.
+
+# Feedback on the attached files
+
+The following feedback is on the files you attached, one section per file and version.
+
+## /Users/srvo/tray/praxis-stewardship/preview/stewardship.html
+
+I've reviewed this document and have 7 pieces of feedback:
+
+### 1. Feedback on: "Where can you help?
+Assert collective stewardship by helping people understand, influence and inspect institutions that shape their lives.
+
+Find your organization or kind of work. Our suggested role is a starting point for you to correct.
+
+Understand institutional effects
+Give affected people a voice
+Make reasoning inspectable
+Sustain shared capacity
+Find yourself, an organization or a role
+
+I am not listed / I can help another way · Provider directory
+
+Understand institutional effects
+What do institutions claim, what happens, and who experiences the difference?
+
+Related work and needs
+
+SEC EDGAR
+Primary-disclosure reference for company claims and reported events.
+Social-signal data contributors
+Connect public attention and discovery to dated institutional events.
+Tiingo
+Candidate market-data source; access, coverage and reuse need checking.
+Nasdaq Data Link
+Candidate financial-data source; a product listing is not a redistribution grant.
+Researchers and technical reviewers
+Challenge definitions, measurement, selection bias and reproducibility.
+AI Now Institute
+Research reference for institutional power and AI accountability.
+Give affected people a voice
+Whose experience is missing, and how can it change a decision?
+
+Related work and needs
+
+Affected communities and workers
+Show outcomes, costs and decisions the record fails to capture.
+Food & Water Watch
+Public-interest reference for data-center impacts and community evidence.
+Creators and rights-holders
+Clarify provenance, permissions, missing perspectives and remedies.
+Electronic Frontier Foundation
+Digital-rights reference that can challenge our assumptions.
+Make reasoning inspectable
+Can someone follow the source, test the method and correct our account?
+
+Related work and needs
+
+OpenFIGI
+Candidate security-identifier source for testing issuer joins.
+Researchers and technical reviewers
+Challenge definitions, measurement, selection bias and reproducibility.
+Social-signal data contributors
+Connect public attention and discovery to dated institutional events.
+Creators and rights-holders
+Clarify provenance, permissions, missing perspectives and remedies.
+Sustain shared capacity
+What keeps useful evidence, tools and participation available within real resource limits?
+
+Related work and needs
+
+Maintainers and resource contributors
+Help design, maintain or support useful shared infrastructure.
+Researchers and technical reviewers
+Challenge definitions, measurement, selection bias and reproducibility.
+Social-signal data contributors
+Connect public attention and discovery to dated institutional events.
+Choose how to take part
+Start with shared concerns and interests. Compare what each side has, choose a useful contribution together, and return findings and corrections.
+
+Follow the research and inspect builds when available.
+Suggest a question, source or connection without contributing a dataset.
+Review methods, network analysis, architecture or ontology.
+Co-develop a bounded dataset or change through repository review; access is arranged for the agreed scope.
+Find the overlap, then define an edition
+Compare schemas and permitted sample metadata first. Where helpful, propose links to the securities master and shared ontology; retain source identifiers, ambiguous matches and unmatched records. Agree the overlap before preparing an exact versioned edition.
+
+Proposed contributions should be assessed against shared goals, expected benefit, effort, dependencies and uncertainty. No network vote, calibrated value score or optimized ordering has been computed for this map.
+
+What can be shared?
+Prefer open-source tooling and openly reusable data when they answer the question adequately. Free access does not establish an open data license.
+
+Public edition: Praxis public edition: only exact files and fields with verified rights for the intended public reuse, recorded terms, provenance and release authorization.
+
+Firm-only: Firm-only licensed data: keep restricted payloads and credentials in their authorized firm environment. Do not publish them or derived fields unless the applicable terms permit that exact reuse.
+
+Terms unverified: Unverified terms: inventory and review first; neither public admission nor firm-use entitlement is assumed.
+
+License status: Praxis License v1 remains a draft, not an incoming-data grant. A public-domain edition requires separate authority over the exact data; software, schema and documentation retain their asset-specific terms.
+
+A collaboration you can shape
+What is Praxis?
+Praxis connects affected communities, researchers and capital-market participants so they can inspect evidence, challenge interpretations and exercise collective stewardship. Participation does not make someone a client or imply endorsement.
+
+Choose your involvement
+Choose your involvement: follow updates, offer advice, make an agreed introduction, review evidence, contribute data, maintain tools, partner on a question or co-author under an explicit authorship agreement. Roles can change without requiring deeper involvement.
+
+Choose a sharing scope
+Choose a bounded question with one-off approval; a named edition with one-off release approval; or standing noncommercial access for an explicitly authorized partner group. Standing access still names datasets, purposes, recipients, term, onward-sharing limits and exit conditions. Membership alone grants no access, and internal use never authorizes public release.
+
+An easy exit
+Proposed collaborator agreement: either side can stop future participation without alleging fault. End future access and agreed uses, return or remove restricted copies as agreed, preserve required records and safe provenance, settle existing commitments and correct attribution. Already authorized public editions and third-party rights cannot simply be recalled. These are draft terms, not a signed agreement.
+
+Whose experience do we understand?
+Before deciding, identify affected groups and distinguish direct testimony from proxy evidence or agent inference. Record whose benefit, pain, loss or decision power we understand, whose account is missing, the denominator and its limits, disagreement, and the next evidence that could change the decision. A source count is not proof that affected people were heard.
+
+Keep the work current
+Proposed default: monthly review of active collaborations. Hot issues such as Anthropic can use weekly or event-triggered internal updates. Public releases remain separately validated, versioned editions; an elapsed interval does not authorize publication. Record last review, next due date, chosen cadence, owner and reason for overrides. No recurring scheduler or notification is active here.
+
+Review the draft collaborator agreement · Inspect the Rawlsian review
+
+What should we change or work on together?
+Reply to the person who shared this page. This optional worksheet prepares a response with the goal and map version attached; it does not send anything.
+
+Project goal
+
+Where you fit
+
+Your name or organization (optional)
+
+Your correction, question or contribution
+
+How may we use this response?
+
+A data offer grants no access or license. A public edition needs separate rights review and exact release authorization. This worksheet verifies no identity or authority.
+
+Prepare my response
+How this map is maintained"
+> I think the thing is to come in by asking them, is to give multiple entry points into these data, right? Not create fixed playlists, but composable experiences. So if someone decides to come through this through the question of like, I don't know, whatever, that should be fine. That should still connect and breadcrumb through the graph really nicely
+
+````html
+<article class="stewardship">
+  <h1>Where can you help?</h1>
+  <p class="intro">Assert collective stewardship by…</p>
+  <p>Find your organization or kind of work.…</p>
+  <nav class="goal-index">Understand institutional effectsGive…</nav>
+  <form id="map-search">Find yourself, an organization or a role</form>
+  <p>I am not listed / I can help another…</p>
+  <!-- +10 more: section×8, p×1, details×1 -->
+</article>
+````
+- **selector** `article.stewardship`
+- **path** `body.praxis > main#main > article.stewardship`
+- **role** article
+- **text** "Where can you help? Assert collective stewardship by helping people understand, influence and inspect institutions that shape their lives. Find your organization or kind of work. Our suggested role is a starting point for you to correct. Understand institutional effects Give affected people a voice…"
+- **box** 174,107 840×5769 (viewport 1428×869)
+- **near** main#main
+
+### 2. Feedback on: "Make reasoning inspectable
+Can someone follow the source, test the method and correct our account?
+
+Related work and needs
+
+OpenFIGI
+Candidate security-identifier source for testing issuer joins.
+Researchers and technical reviewers
+Challenge definitions, measurement, selection bias and reproducibility.
+Social-signal data contributors
+Connect public attention and discovery to dated institutional events.
+Creators and rights-holders
+Clarify provenance, permissions, missing perspectives and remedies."
+> Also, clarify the shape of their objections and under what conditions they would trust someone
+
+````html
+<section id="goal-check-reasoning" class="map-goal">
+  <h2>Make reasoning inspectable</h2>
+  <p>Can someone follow the source, test the…</p>
+  <p>Related work and needs</p>
+  <details id="role-check-reasoning-openfigi">OpenFIGICandidate security-identifier…</details>
+  <details id="role-check-reasoning-researchers">Researchers and technical…</details>
+  <details id="role-check-reasoning-signal-contributors">Social-signal data contributorsConnect…</details>
+  <!-- +1 more: details×1 -->
+</section>
+````
+- **selector** `#goal-check-reasoning`
+- **path** `body.praxis > main#main > article.stewardship > section#goal-check-reasoning`
+- **role** region
+- **text** "Make reasoning inspectable Can someone follow the source, test the method and correct our account? Related work and needs OpenFIGI Candidate security-identifier source for testing issuer joins. Researchers and technical reviewers Challenge definitions, measurement, selection bias and…"
+- **box** 174,250 840×433 (viewport 1428×869)
+- **near** article.stewardship · heading h2 "Give affected people a voice"
+
+### 3. Feedback on: "What can be shared?
+Prefer open-source tooling and openly reusable data when they answer the question adequately. Free access does not establish an open data license.
+
+Public edition: Praxis public edition: only exact files and fields with verified rights for the intended public reuse, recorded terms, provenance and release authorization.
+
+Firm-only: Firm-only licensed data: keep restricted payloads and credentials in their authorized firm environment. Do not publish them or derived fields unless the applicable terms permit that exact reuse.
+
+Terms unverified: Unverified terms: inventory and review first; neither public admission nor firm-use entitlement is assumed.
+
+License status: Praxis License v1 remains a draft, not an incoming-data grant. A public-domain edition requires separate authority over the exact data; software, schema and documentation retain their asset-specific terms."
+> I mean, like, I think that this is a little bit not perfect in terms of the language. I think that this should be flagged as an open question, a big open question about the project, actually
+
+````html
+<section id="data-scope" class="map-goal">
+  <h2>What can be shared?</h2>
+  <p>Prefer open-source tooling and openly…</p>
+  <p>
+    <strong>Public edition:</strong>
+  </p>
+  <p>
+    <strong>Firm-only:</strong>
+  </p>
+  <p>
+    <strong>Terms unverified:</strong>
+  </p>
+  <p>
+    <strong>License status:</strong>
+  </p>
+</section>
+````
+- **selector** `#data-scope`
+- **path** `body.praxis > main#main > article.stewardship > section#data-scope`
+- **role** region
+- **text** "What can be shared? Prefer open-source tooling and openly reusable data when they answer the question adequately. Free access does not establish an open data license. Public edition: Praxis public edition: only exact files and fields with verified rights for the intended public reuse, recorded…"
+- **box** 174,263 840×528 (viewport 1428×869)
+- **near** article.stewardship · heading h3 "Find the overlap, then define an edition"
+
+### 4. Feedback on: "Praxis connects affected communities, researchers and capital-market participants so they can inspect evidence, challenge interpretations and exercise collective stewardship. Participation does not make someone a client or imply endorsement."
+> I would say what we're doing is making a market. What we're trying to do is construct a market to enable constructive disagreement.... Like, we should just lay that out. And then we should talk about how the financial markets create positive externalities by doing the same thing... And scope the issues, et cetera, et cetera. But these should all be modular. Like, what is praxis should be a modular and expandable thing that can get called throughout and not necessarily arranged in a direct sequence
+
+````html
+<p>Praxis connects affected communities, researchers and capital-market…</p>
+````
+- **selector** `#collaboration > p:nth-of-type(1)`
+- **path** `body.praxis > main#main > article.stewardship > section#collaboration > p:nth-of-type(1)`
+- **text** "Praxis connects affected communities, researchers and capital-market participants so they can inspect evidence, challenge interpretations and exercise collective stewardship. Participation does not make someone a client or imply endorsement."
+- **box** 174,317 840×92 (viewport 1428×869)
+- **near** section#collaboration · heading h3 "What is Praxis?"
+
+### 5. Feedback on: "Choose a bounded question with one-off approval; a named edition with one-off release approval; or standing noncommercial access for an explicitly authorized partner group. Standing access still names datasets, purposes, recipients, term, onward-sharing limits and exit conditions. Membership alone grants no access, and internal use never authorizes public release."
+> I think the sharing scope needs to frame what we are trying to get out of praxis..... Right, like how it works for us to for like what like why the fuck would we want this? How would it benefit our end investors
+
+````html
+<p>Choose a bounded question with one-off approval; a named edition with one-off…</p>
+````
+- **selector** `#collaboration > p:nth-of-type(3)`
+- **path** `body.praxis > main#main > article.stewardship > section#collaboration > p:nth-of-type(3)`
+- **text** "Choose a bounded question with one-off approval; a named edition with one-off release approval; or standing noncommercial access for an explicitly authorized partner group. Standing access still names datasets, purposes, recipients, term, onward-sharing limits and exit conditions. Membership alone…"
+- **box** 174,313 840×122 (viewport 1428×869)
+- **near** section#collaboration · heading h3 "Choose a sharing scope"
+
+### 6. Feedback on: "Before deciding, identify affected groups and distinguish direct testimony from proxy evidence or agent inference. Record whose benefit, pain, loss or decision power we understand, whose account is missing, the denominator and its limits, disagreement, and the next evidence that could change the decision. A source count is not proof that affected people were heard."
+> This is not English
+
+````html
+<p>Before deciding, identify affected groups and distinguish direct testimony from…</p>
+````
+- **selector** `#collaboration > p:nth-of-type(5)`
+- **path** `body.praxis > main#main > article.stewardship > section#collaboration > p:nth-of-type(5)`
+- **text** "Before deciding, identify affected groups and distinguish direct testimony from proxy evidence or agent inference. Record whose benefit, pain, loss or decision power we understand, whose account is missing, the denominator and its limits, disagreement, and the next evidence that could change the…"
+- **box** 174,245 840×122 (viewport 1428×869)
+- **near** section#collaboration · heading h3 "Whose experience do we understand?"
+
+### 7. Feedback on: "Proposed default: monthly review of active collaborations. Hot issues such as Anthropic can use weekly or event-triggered internal updates. Public releases remain separately validated, versioned editions; an elapsed interval does not authorize publication. Record last review, next due date, chosen cadence, owner and reason for overrides. No recurring scheduler or notification is active here."
+> I can go with a heartbeat on the new moon... I think by default everyone gets an email update and a change log as of then and a set of questions that they want. They can engage as much or as little as they want. And ideally it will be kind of fun because it'll be just this big set of questions and it can link into other stuff and you can link it to your internal data, et cetera
+
+````html
+<p>Proposed default: monthly review of active collaborations. Hot issues such as…</p>
+````
+- **selector** `p:nth-of-type(6)`
+- **path** `body.praxis > main#main > article.stewardship > section#collaboration > p:nth-of-type(6)`
+- **text** "Proposed default: monthly review of active collaborations. Hot issues such as Anthropic can use weekly or event-triggered internal updates. Public releases remain separately validated, versioned editions; an elapsed interval does not authorize publication. Record last review, next due date, chosen…"
+- **box** 174,274 840×122 (viewport 1428×869)
+- **near** section#collaboration · heading h3 "Keep the work current"
+
+---
+
+[thread msg_01M6MR9D913G98PAT9WZDHN6SJ · more: read_thread · how it works: plannotator inbox --help]
+
+---
+
+Plannotator Inbox: standards-run-graph (msg_01M6NANF4AWA515MRCQW4GXTY2)
+The person replied to you in the Plannotator Inbox. Their reply follows as they wrote it: it is their answer to you. When they need to hear back, answer in the same thread: send_message with reply_to set to the id in parentheses on the line above.
+
+# Feedback on your messages
+
+The following feedback is on the text of your messages in this thread, one section per message. Each quote is the words I selected (as shown on screen) in your message.
+
+## Feedback on your message from 12:38 AM (msg_01M6NA9AZ152MYW47EW7XM58FS)
+
+I've reviewed this message and have 2 pieces of feedback:
+
+### 1. Feedback on: "The collaborator handoff is ready: Build Praxis with us."
+> I mean, that's good, but it better not be the homepage. Like, it should be the over, like, it should be the collaboration should be, you know, engage and, you know, or join, dialogue, et cetera. But yeah, it's very slick
+
+### 2. Feedback on:
+```
+The selected collaborator heartbeat is now the new moon, separately from the 15-minute status check. Email/change-log/question delivery and participant preferences still need the existing app owners; no recurring email was activated. Native distribution/TestFlight and the app handoff panel remain explicitly unverified.
+
+
+```
+> I think that those cadence questions should be their decision, right? Like if they want, you know, I mean, like if they want to be notified by a push notification when we have a live stream coming, that's fine. If they want to be given occasional updates on what's happened, I mean, like the nice thing about a graph is they can be like, here's what I care about... And the nice thing about our files changing and notifying things and so forth is that then we can go, all right, here's what happened. What does the system care about? And also, we can go, alright, so here's what the biggest, we can have the biggest needs be continuously assessed
+
+---
+
+[thread msg_01M6MR9D913G98PAT9WZDHN6SJ · more: read_thread · how it works: plannotator inbox --help]
+
+---
+
+Plannotator Inbox: standards-run-graph (msg_01M6NAPH20QTTSV7NEXGHQ8ZWT)
+The person replied to you in the Plannotator Inbox. Their reply follows as they wrote it: it is their answer to you. When they need to hear back, answer in the same thread: send_message with reply_to set to the id in parentheses on the line above.
+
+And I think we ought to have like a relatively straightforward language for describing that stuff or the new moon. And it should be not anything I trigger. It should happen automatically
+
+[thread msg_01M6MR9D913G98PAT9WZDHN6SJ · more: read_thread · how it works: plannotator inbox --help]
+
+---
+
+Alright, we gotta wire into we gotta make a choice on email, and I think the choice is gonna be Cloudflare email sending and email whatever because that's our general setup right now and that and it provides a nice redundancy layer with our own self-hosting, but we need to really illuminate the pathway by which it gets to the right inbox.... Like, I think agents agents having Cloudflare email inboxes is a great idea because it enables them to kind of perform their role in very flexible ways. But we also got to make sure that the inputs and outputs are normalized, that they're constrained so they can't exfiltrate data, and that we put really tight ring fences around how the agent does things
+
+---
+
+And also, like, we should probably be really we should probably have a chat about the way that these things are prioritized. The emails are prioritized because heavens to Betsy, they haven't been very well so far
+
+---
+
+Plannotator Inbox: standards-run-graph (msg_01M6NBMDWNJNR58X429PK4VKM6)
+The person replied to you in the Plannotator Inbox. Their reply follows as they wrote it: it is their answer to you. When they need to hear back, answer in the same thread: send_message with reply_to set to the id in parentheses on the line above.
+
+# Feedback on the attached files
+
+The following feedback is on the files you attached, one section per file and version.
+
+## /Users/srvo/tray/praxis-collaborator/engage.html
+
+I've reviewed this document and have 1 piece of feedback:
+
+### 1. Feedback on: "The reply stays on your device until you send it through your chosen channel. Pilot access is arranged with your inviter. There is no TestFlight enrollment link or hosted signup here. Advice does not require a data contribution or an ongoing commitment."
+> I think this is really good. I think the next step is to go and say, what's the mission Right, like I mean, or like this has to cut we this has to linearize like all of our arguments, right? So we should be nesting that graph and that logic and making sure that we're setting it up. And I think the best pitch is what we're trying to accomplish, right?
+
+---
+
+[thread msg_01M6MR9D913G98PAT9WZDHN6SJ · more: read_thread · how it works: plannotator inbox --help]
+
+---
+
+Plannotator Inbox: standards-run-graph (msg_01M6NEQAV44M2YM5PT7MD7D93D)
+The person replied to you in the Plannotator Inbox. Their reply follows as they wrote it: it is their answer to you. When they need to hear back, answer in the same thread: send_message with reply_to set to the id in parentheses on the line above.
+
+Answered 1 question.
+
+## Answers to your questions
+
+1 of 1 question answered.
+
+### Q1. Which inbox failure should we correct first? (line 6)
+Answer: Other: Yeah, and and you know, we also want contacts, mail, calendars, all this stuff to be flowing through this pace
+
+# Feedback on the attached files
+
+The following feedback is on the files you attached, one section per file and version.
+
+## /Users/srvo/tray/agent-email-boundary/index.html
+
+I've reviewed this document and have 8 pieces of feedback:
+
+### 1. Feedback on: "A new consequential message may wait for the scorer"
+> Today's path is actually that the way that the thing that the inbox serves is just a reverse chronological feed with no prioritization, The pathways that I have into input are nuts. Like they're so convoluted, And the basic, like, the architecture of the app grew to get so complicated that there wasn't like a that you know that the rational the rationalization step that we're doing now is very necessary, let's put it that way
+.... Like, I think for a while we had a priority, we had a thing where we had an integer overflow on the prioritization function and it sent all my clients to spam
+
+````html
+<td>
+  <span class="cell-text">A new consequential message may wait…</span>
+</td>
+````
+- **selector** `#row-53b2051ccc64 > td`
+- **path** `… > section#priority > div.panel-body > div#comparison-c5b6aaac914a > div.table-scroll > table > tbody > tr#row-53b2051ccc64 > td`
+- **name** "A new consequential message may wait for the scorer"
+- **text** "A new consequential message may wait for the scorer"
+- **box** 876,267 474×89 (viewport 1428×869)
+- **near** section#priority · heading h2 "What is wrong with today's priority path?"
+
+### 2. Feedback on: "Keep the existing Cloudflare Email Service path. Give agents role-scoped inbox access, not provider credentials or an unrestricted sending tool.
+
+Preserve original delivery identity through aliases and storage.
+Check recipients and header structure before any send effect.
+Treat message priority and permission to act as separate decisions."
+> Yeah, I mean, I think that there is, like, there, again, there's a hierarchy of agents, but by default, we should say, you know, I mean, we have a catch-all set up for the inbox, so like the there should be a route where, you know, such and such and so-and-so goes to this place, and you know, so on and so forth. 
+
+````html
+<div class="panel-body">
+  <p class="verdict">Keep the existing Cloudflare Email…</p>
+  <ol class="reasons">
+    <li>Preserve original delivery identity…</li>
+    <li>Check recipients and header structure…</li>
+    <li>Treat message priority and permission…</li>
+  </ol>
+</div>
+````
+- **selector** `#answer > div`
+- **path** `body > div.shell > main#board > div.board > section#answer > div.panel-body`
+- **text** "Keep the existing Cloudflare Email Service path. Give agents role-scoped inbox access, not provider credentials or an unrestricted sending tool. Preserve original delivery identity through aliases and storage. Check recipients and header structure before any send effect. Treat message priority and…"
+- **box** 71,162 632×212 (viewport 1422×869)
+- **near** section#answer · heading h2 "Answer"
+
+### 3. Feedback on: "Check	Local implementation	Remaining boundary
+Autonomous activation	
+Existing switch remains disabled
+Explicit scoped activation is still needed
+Recipient scope	
+Missing allowlist now denies autonomous or registered-agent send
+Per-agent role policies need verified enforcement
+Hidden destinations	
+To, Cc and Bcc checked; custom routing headers rejected
+Recipient permission does not approve body or attachment disclosure
+Header normalization	
+Reject line breaks, NUL, reserved routing headers and case duplicates
+Validation is structural, not semantic trust
+Send attempt	
+Existing idempotency and provider adapter retained
+Ambiguous acceptance must not trigger a duplicate fallback send
+Delivery	
+Provider result and local Sent storage are separate
+Actual recipient delivery/bounce/read needs correlated evidence
+Cloudflare supports binding restrictions on senders or destinations. The current application binding is broad; agent access must remain behind the scoped broker. Binding options3"
+> I think once we confirm scope and escalation along a constant threat and privilege profile, they can send whatever they want
+
+````html
+<div class="panel-body">
+  <div id="comparison-632979a7f125">
+    <div class="table-scroll">CheckLocal implementationRemaining…</div>
+  </div>
+  <div id="prose-37554e203354">
+    <p>Cloudflare supports binding…</p>
+  </div>
+</div>
+````
+- **selector** `#outgoing > div`
+- **path** `body > div.shell > main#board > div.board > section#outgoing > div.panel-body`
+- **text** "Check Local implementation Remaining boundary Autonomous activation Existing switch remains disabled Explicit scoped activation is still needed Recipient scope Missing allowlist now denies autonomous or registered-agent send Per-agent role policies need verified enforcement Hidden destinations To,…"
+- **box** 71,87 632×591 (viewport 1422×869)
+- **near** section#outgoing · heading h2 "What can an agent send?"
+
+### 4. Feedback on: "Proposed lane	Evidence to show	Behavior to evaluate
+Time-sensitive exception	
+Confirmed deadline, cancellation, safety/security event or someone blocked
+A bounded interruption when waiting could change the outcome
+Needs your judgment	
+Concrete ask, expected impact, uncertainty and next decision
+A prepared review batch with the relevant standard beside it
+Agent follow-through	
+Discoverable evidence, routine action and clear scope
+Agent handles preparation; shows failures and unresolved work
+Updates and reading	
+Participant interests and selected cadence
+Digest or opt-out; no automatic conversion into an urgent task
+A source can be automated and important. A human sender can be low priority. Preference matching, work priority, authorization and dispatch remain separate."
+> Again, you know, there should be a hierarchy function at the center of the thing about who it needs. What it needs. I think that the system might want to be like, hey, you know, we noticed that you're in Botswana, and we have this crazy thing going on. There's this situation where it's really important to get some on-the-ground knowledge. Or whatever, but like you know, getting some indicators of where someone is could happen at any time, could happen periodically, and could happen just as a result of fun, I think is the way to say it. Send it. Like the I mean, like, I think Praxis Needs You should be like a pretty high bar, and it should be for a specific reason that's validated and handled by the lattice optimizer
+
+````html
+<div class="panel-body">
+  <div id="comparison-847fd9db83de">
+    <div class="table-scroll">Proposed laneEvidence to showBehavior…</div>
+  </div>
+  <div id="prose-6694aa032a97">
+    <p>A source can be automated and…</p>
+  </div>
+</div>
+````
+- **selector** `#attention > div`
+- **path** `body > div.shell > main#board > div.board > section#attention > div.panel-body`
+- **text** "Proposed lane Evidence to show Behavior to evaluate Time-sensitive exception Confirmed deadline, cancellation, safety/security event or someone blocked A bounded interruption when waiting could change the outcome Needs your judgment Concrete ask, expected impact, uncertainty and next decision A…"
+- **box** 71,94 632×426 (viewport 1422×869)
+- **near** section#attention · heading h2 "How should attention work?"
+
+### 5. Feedback on: "One low or stale estimate can suppress an otherwise important item"
+> It's just a fucking soup. It's a mess. Like, it's, you know, there's no, like, there's no linearity. The whole idea here, the whole primitive is to have like one action queue that's continuously prioritized and linked together. What we have now is a whole bunch of individual LLM probabilities and a whole bunch of fucking TypeScript apps that don't function like one entity at all.
+
+````html
+<td>
+  <span class="cell-text">One low or stale estimate can suppress…</span>
+</td>
+````
+- **selector** `#row-d3333ee609f1 > td`
+- **path** `… > section#priority > div.panel-body > div#comparison-c5b6aaac914a > div.table-scroll > table > tbody > tr#row-d3333ee609f1 > td`
+- **name** "One low or stale estimate can suppress an otherwise important item"
+- **text** "One low or stale estimate can suppress an otherwise important item"
+- **box** 873,275 474×65 (viewport 1422×869)
+- **near** section#priority · heading h2 "What is wrong with today's priority path?"
+
+### 6. Feedback on: "Read-but-unfinished or older obligations can fall outside this surface"
+> Yeah, I think the last 30 days is where we should start with the thing, and those are the people I should film videos for first. But then we should go back to I think we I think I should send every single client a video over the next little bit and just sort of and like just a quick one just like say, hey, here, this is what's going on. I want to let you know what the deal is. And also I want to give you just a heads up that, like, I'm available, but the structure of my availability is going to change a little bit because we're entering this new phase of the firm, and I wanted to kind of make sure that you are aware of it... Or something. We need to make sure that we communicate it a little bit better. But like, I think that the important thing to do is address all the fires with something that is constructive and loops to a collective engagement and loops to and gathers. Like, I think loops is the idea here.. Right, like how do we in concentric circles clean this up. And how do we link the data that comes in my inbox to other stuff, right? Like, I think that's a great and valuable thing to think about, right? If we were able to get just the newsletters out of people's email inbox, wouldn't that be pretty valuable? 
+
+````html
+<td>
+  <span class="cell-text">Read-but-unfinished or older…</span>
+</td>
+````
+- **selector** `#row-e56d1e8cf38d > td`
+- **path** `… > section#priority > div.panel-body > div#comparison-c5b6aaac914a > div.table-scroll > table > tbody > tr#row-e56d1e8cf38d > td`
+- **name** "Read-but-unfinished or older obligations can fall outside this surface"
+- **text** "Read-but-unfinished or older obligations can fall outside this surface"
+- **box** 873,325 474×89 (viewport 1422×869)
+- **near** section#priority · heading h2 "What is wrong with today's priority path?"
+
+### 7. Feedback on: "Independent retained bytes, scoped processing and replay can provide recovery after a component failure. That does not prove an alternate SMTP delivery route exists.
+
+Failure	Required proof
+Cloudflare receipt unavailable	
+Verified independent intake/MX plan before claiming inbound redundancy
+Local processor unavailable	
+Durable pending record, replay and no duplicate admission
+Send outcome ambiguous	
+Provider correlation and reconciliation before retry
+Projection stale	
+Receipt-to-API/UI timing and a clear freshness state
+Agent compromised	
+Revocable role credentials; no direct provider or unrestricted data access"
+> I think that self-hosting doesn't make it like it's also what does it what what risks does it invite but we're not truly self-hosting we're using Cloudflare still and then we've got a queue there that drains to our self-hosted estate and then we have our own little IMAP server.......  I think what that enables is just a nice separation of concerns almost. If we can get the thing working flawlessly
+
+````html
+<div class="panel-body">
+  <div id="prose-637c2e222eb6">
+    <p>Independent retained bytes, scoped…</p>
+  </div>
+  <div id="comparison-bc698afb78be">
+    <div class="table-scroll">FailureRequired proofCloudflare receipt…</div>
+  </div>
+</div>
+````
+- **selector** `#recovery > div`
+- **path** `body > div.shell > main#board > div.board > section#recovery > div.panel-body`
+- **text** "Independent retained bytes, scoped processing and replay can provide recovery after a component failure. That does not prove an alternate SMTP delivery route exists. Failure Required proof Cloudflare receipt unavailable Verified independent intake/MX plan before claiming inbound redundancy Local…"
+- **box** 71,314 632×432 (viewport 1422×869)
+- **near** section#recovery · heading h2 "What does self-hosting make redundant?"
+
+### 8. Feedback on: "These are source findings, not a count of actual missed messages. Do not replace them with another unexplained universal score."
+> I think what you ought to do is Descartes the client queue and the identities and whatnot... Right, like I think we need a constant Descartes job that is in a status of where that is on these identifiers
+
+````html
+<p>These are source findings, not a count of actual missed messages. Do not…</p>
+````
+- **selector** `#prose-ec04a22443b3 > p`
+- **path** `body > div.shell > main#board > div.board > section#priority > div.panel-body > div#prose-ec04a22443b3 > p`
+- **text** "These are source findings, not a count of actual missed messages. Do not replace them with another unexplained universal score."
+- **box** 723,290 624×52 (viewport 1422×869)
+- **near** section#priority · heading h2 "What is wrong with today's priority path?"
+
+## /Users/srvo/tray/agent-email-boundary/index.html (the version you sent)
+
+I've reviewed this document and have 1 piece of feedback:
+
+### 1. Feedback on: "Keep the existing Cloudflare Email Service path. Give agents role-scoped inbox access, not provider credentials or an unrestricted sending tool."
+> Yeah, I like this idea
+
+````html
+<p class="verdict">Keep the existing Cloudflare Email Service path. Give agents role-scoped inbox…</p>
+````
+- **selector** `p.verdict`
+- **path** `body > div.shell > main#board > div.board > section#answer > div.panel-body > p.verdict`
+- **text** "Keep the existing Cloudflare Email Service path. Give agents role-scoped inbox access, not provider credentials or an unrestricted sending tool."
+- **box** 78,172 624×68 (viewport 1428×869)
+- **near** section#answer · heading h2 "Answer"
+
+---
+
+[thread msg_01M6MR9D913G98PAT9WZDHN6SJ · more: read_thread · how it works: plannotator inbox --help]
+
+---
+
+Plannotator Inbox: standards-run-graph (msg_01M6NG44FJBB4TYZBD62RK4MXY)
+The person replied to you in the Plannotator Inbox. Their reply follows as they wrote it: it is their answer to you. When they need to hear back, answer in the same thread: send_message with reply_to set to the id in parentheses on the line above.
+
+And we really want the same emission, like acceptance emission thing to govern the flow of it, right? Like, we want to have as consistent an approach regardless of protocol and just sort of gate whatever each step takes within its own thing and make sure that they're super composable and secure, first of all, but also that the agent's reasoning is not at risk of anything, right? Like, if it seems like what we've got basically is automated emails and et cetera, I would like a reasoning approach, but we have to be very careful about how we do it....
+
+[thread msg_01M6MR9D913G98PAT9WZDHN6SJ · more: read_thread · how it works: plannotator inbox --help]
+
+---
+
+In a separate execution environment, too. Right, like each step should be independent if we can if we can get it there to the maximum extent we can so that that way we're really looking at how we're using inference and we're really constraining and fitting it
+
+---
+
+Can you create generic tests to oversee that in a test suite where we kind of like are dealing with the nodes individually and like the various combinations of them and whatever
+
+---
+
+Great, write the test, get her done
+
+---
+
+Outstanding. You know, also please Please make sure that we're properly hooked in with entire and have like the the resilience of that backup CDN network for this. And also that we've got We've got like a solid plan to merge all the the stuff that's kind of gunked together Like, ideally, what we do is we launch the praxis side, it doesn't break any links to the existing website side, and it just sort of sits there and does things, and it's integrated, it's a new capability, etc.
+
+---
+
+Plannotator Inbox: standards-run-graph (msg_01M6NPEK7Q89APNP50D1E7S5R0)
+The person replied to you in the Plannotator Inbox. Their reply follows as they wrote it: it is their answer to you. When they need to hear back, answer in the same thread: send_message with reply_to set to the id in parentheses on the line above.
+
+And, like, how do we synchronize up the CIA stuff here? I know Apple's got its build minutes. We've got, you know, like, what's the plan and like, what is like what needs testing, what needs CI, like what, before we put it in the hands of somebody...
+
+[thread msg_01M6MR9D913G98PAT9WZDHN6SJ · more: read_thread · how it works: plannotator inbox --help]
+
+---
+
+All twenty-five, baby
+
+---
+
+In terms of functionality, what do you actually have enabled on the iPhone and the Mac? Are we centrally managing things? Because, for instance, the tray right now is not managed in any kind of way, it's just accumulating crap. Right? Like, there's 67 million things that are saving there. I mean, like, maybe we're just hopefully those are just mechanistic outputs we're emitting, but you know, the idea is that that gets managed, and it's the things that are important for me to look at
+
+---
+
+Yeah, I mean I mean, we want as much of the. I mean, handle, like, is that so is it is it treating that like a bucket? Because that's not where it goes. The bucket is up in the cloud
+
+---
+
+Are we not connected up with atoms properly?
+
+---
+
+Okay, what we need is a whip conduit or work in progress conduit that is not sitting on my priority queue. Like, you gotta understand, putting something there is like, here's what's most important for you to look at right now. Or here's what I want you to have when you go into meetings
+
+---
+
+I mean, maybe we use like the same forcing function that the graph has
+
+---
+
+Makes total sense
+
+---
+
+Yeah, keep it keep it keep I mean we want we want this scoped and we also want it delegatable
+
+---
+
+Awesome. Yeah, we need like a solid zero trust end-to-end kind of situation
+
+---
+
+great, commit your current setup
