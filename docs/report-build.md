@@ -1,5 +1,26 @@
 # The report as a build product
 
+**Current (2026-11-04, supersedes the edition model below).** The one source is
+the working paper, `docs/anthropic-contrapunctus.md`. `scripts/render_report.py`
+renders it on the Praxis brand (`--legacy-layout`, since the paper is ordered by
+its question) and appends **Appendix F, Verification chain**, generated at build:
+the article verifier's result on this repository (Descartes `stage1/article.sh`:
+manifest, recipe replay, `descartes check`), the steps that produced the claims,
+the audit table, and the cited Entire trails (`docs/trails.tsv`). Nothing in it
+is typed by hand, and nothing reads a clock: the document date is the paper's
+last commit date, and two renders are byte-identical.
+
+    uv run scripts/render_report.py --descartes BIN --descartes-root ../descartes -o OUT.pdf
+
+`--descartes-root` must hold `stage1/article.sh` (Descartes branch
+`witness-prompt-digest` until it is merged). Output is written outside the
+repository and attached to a release; it is never committed.
+
+---
+
+*Earlier model, retained for the record:*
+
+
 Status, 2026-11-04: the edition is one Praxis research report,
 `edition/REPORT.md`, built by `scripts/build_edition.py` from
 `edition/report.template.md` and rendered to PDF by the Praxis report writer.

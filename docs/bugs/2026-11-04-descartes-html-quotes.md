@@ -3,7 +3,7 @@
 **For:** Descartes (file in Forgejo, `EthicalCapital/monocloud` tracker, when a
 Forgejo tool is available). **Found:** 2026-11-04, quote check of
 `docs/anthropic-contrapunctus.md` (`docs/quote-check-2026-11-04.md`).
-**Reported by:** Sloane Ortel (via Claude).
+**Reported by:** Sloane Ortel (via Claude). **Tracked:** Entire trail #25 (HTML recipe; descartes c8c8fa7 fixed static HTML) and trail #26 (PDF line breaks in the recipe).
 
 ## What happens
 
