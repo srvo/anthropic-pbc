@@ -53,7 +53,7 @@ Three owners, split by authority (Sloane, 2026-11-04):
 |---|---|---|
 | Sealing | Descartes | Computing the result and sealing it into the badge: the check, the digests, the embedded reference, signing. A Rust command beside `check`. |
 | Design | Praxis | What a badge looks like and what it must carry: the visual form, the metadata schema, the rules on this page, shared by every Praxis producer. |
-| Use | still to be named (not this repository by default) | What to do with badges and the data behind them: licensing (a licensee uses it as agreed; no unlicensed commercial use) through a standard handshake; working offline on an activist's phone with a local AI; which badges to issue, hosting, how long a status lasts. Direction and design notes: Entire trail #29. |
+| Use | the dark repository | What to do with badges and the data behind them. Its decisions are privileged and are discussed only in the dark repository. |
 
 The prototype (`~/tray/argument-check-badges.html`, 2026-11-04) was a
 throwaway script and belongs to none of them. This page is the design draft

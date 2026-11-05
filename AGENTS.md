@@ -154,6 +154,12 @@ codebook, pass `--units`, `--codebook`, `--id-col` and `--out`.
   check (a quote that exists) stays circle 3; model judgment it cannot check
   (how the argument is structured, what rests on what) is a proposal until
   it is either computed or overridden (Sloane, 2026-11-04).
+- **Privileged stays dark.** Decisions and discussions that are privileged
+  (pricing, margins, compensation, licensing terms, enforcement, embargoes,
+  counsel or regulatory matters, named counterparties and asks, anything
+  touching clients) happen only in the private dark repository. This
+  repository, Praxis and shared trails carry only the shareable design and
+  a pointer (Sloane, 2026-11-04).
 - **Atomic review.** Every claim is reviewed on its own against four
   questions: pinned, present, faithful to its context, breadcrumbed. A claim
   with no source goes to research and, failing that, an open question.
