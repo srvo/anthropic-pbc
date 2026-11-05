@@ -45,13 +45,30 @@ Any channel works as long as its comments land in the ledger:
 | `built_from` | source commit of the rendering commented on |
 | `page`, `anchor` | page number, plus the text the comment sits on or near, so it can be found in the source |
 | `kind`, `author`, `comment` | annotation type, who wrote it, and the words exactly as written |
-| `status` | `open`, `applied`, `declined` or `question` |
-| `resolution` | the commit that answers the comment, or the reason it was declined, or the question sent back |
+| `status` | `open`, `applied`, `declined`, `open-question` or `discussion` |
+| `resolution` | the commit that acts on the comment, the reason it was declined, or where its open question lives |
 
-A comment is closed only by a commit or a stated reason. If a comment is
-unclear, its status is `question` and the question goes back to the reader;
-the comment is never interpreted silently. Anchors are approximate (text near
+A comment is closed only by a commit or a stated reason. A comment is never
+interpreted silently. Anchors are approximate (text near
 a note), so whoever resolves a comment confirms where it applies.
+
+## Open questions graduate into discussions
+
+A comment that raises something we can't settle by an edit becomes an
+**open question**, and that is a good outcome. An open question is published
+as an invitation; once someone takes it up, it graduates into a
+**discussion**. It isn't expected to close: the hope is that the best ones
+stay open, because the conversation is the point (Sloane, 2026-11-04).
+
+- An open question about the subject goes into the paper's §8.1, with the
+  comment's ledger id. One about the form (design, wording) stays in the
+  ledger as `open-question`.
+- When a question draws a reply, its status becomes `discussion` and the
+  resolution column points to where the discussion is (a trail, an issue, the
+  workspace).
+- These differ from the decisions in Praxis `OPENQUESTIONS.md`, which wait on
+  an owner and are answered. An open question here has no owner and no
+  answer due.
 
 ## Comments on the method versus comments on the claims
 

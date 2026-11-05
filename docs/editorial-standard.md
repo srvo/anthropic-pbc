@@ -34,6 +34,25 @@ repository: the paper, its PDF and web versions, and their figures.
 - Every figure is generated from records, never drawn from hand-typed numbers
   (AGENTS.md, "Every rendering carries its verification chain").
 
+## Primitives get their own page
+
+A primitive is an idea or case that the argument stands on and that a
+reader may meet cold, for example the **Woodcache case study** or **public
+benefit corporations** themselves. Each primitive gets its own page (and its
+own figure), written to stand alone. The argument links to it rather than
+explaining it again in passing. A primitive page is written once and used
+by every document that needs it.
+
+## Links say what they carry
+
+Links go both ways: the argument links to a primitive, and the primitive
+lists everything that links to it. Every link also tells the reader how much
+the target matters *here*, so the reader can decide whether to follow it.
+For example: *needed* (you can't follow the next step without it), *more*
+(there's substantial material that bears on this point if you want it),
+*aside* (background; safe to skip). This vocabulary is a proposal to be
+settled before the first primitive pages are built.
+
 ## The front page lays it all out
 
 - **The title is the question** the document answers.
