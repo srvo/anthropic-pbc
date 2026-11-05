@@ -1,0 +1,25 @@
+Hey, I need you to help me figure out the right way to architect a sort of delegated workflow for development that takes a similar shape to our workflow for verifying stuff, right? It's a simple feedback loop. But really, what I have trouble with right now is we don't have a central coordination plane for agents and actions, And I think that fresh would be a really good thing to set up because then we could have like you know VM, we could have better management of VMs and whatnot, but also better replicable environments, isolatable environments, etc.. My thinking is, I want to have like a Postgres key, like the like the central Oracle queue manage a set of sessions that get verified and you know kind of churned through in relatively in like their smallest possible unit, but quickly. You know what I mean? So like, in other words, you want to have you know a component, like we want to break the plan down into component pieces and have it be that, you know, that can be performed by relatively low intelligence models and then have that run
+
+---
+
+Okay, go ahead and spin it up. Throw it in whatever Kubernetes cluster we have etc.
+
+---
+
+I mean, you should also be thinking about parallelizing them, right?
+
+---
+
+Make sure we have minimal, self cotained units of coordination -- so In other words, don't put a second piece of tooling on something if it could be composable better later as its own thing
+
+---
+
+Awesome. Make sure this is tested all to hell and very much in the operator workbench. Also, see if you can get some simple feedback mechanisms on how much stuff is still out there, what sort of potential long-running jobs we could be running, like you know, to whatever Like, I don't mind a computer sitting idle, but it sucks if there's a job that should be happening in the background...
+
+---
+
+If that's the case, we want to be solving the whole thing end-to-end
+
+---
+
+Right, we want to be having a typed queue, one set of workers, etc.It's run by the boss
