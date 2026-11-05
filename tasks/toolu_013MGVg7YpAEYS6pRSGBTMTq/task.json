@@ -1,0 +1,15 @@
+{
+  "tool_use_id": "toolu_013MGVg7YpAEYS6pRSGBTMTq",
+  "agent_id": "ab3f45c35338b6d1f",
+  "subagent_type": "general-purpose",
+  "task_description": "Label instruction routing gold set",
+  "token_usage": {
+    "input_tokens": 6,
+    "cache_creation_tokens": 95764,
+    "cache_read_tokens": 153468,
+    "output_tokens": 9344,
+    "api_call_count": 3
+  },
+  "started_at": "2026-11-04T22:11:43.970408-07:00",
+  "completed_at": "2026-11-04T22:13:26.731342-07:00"
+}

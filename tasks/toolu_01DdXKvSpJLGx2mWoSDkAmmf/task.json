@@ -1,0 +1,15 @@
+{
+  "tool_use_id": "toolu_01DdXKvSpJLGx2mWoSDkAmmf",
+  "agent_id": "a634e9d688df3fb1b",
+  "subagent_type": "general-purpose",
+  "task_description": "Draft Praxis mental-models resource",
+  "token_usage": {
+    "input_tokens": 26,
+    "cache_creation_tokens": 125423,
+    "cache_read_tokens": 1327016,
+    "output_tokens": 12979,
+    "api_call_count": 13
+  },
+  "started_at": "2026-11-04T22:00:08.515202-07:00",
+  "completed_at": "2026-11-04T22:02:40.141164-07:00"
+}
