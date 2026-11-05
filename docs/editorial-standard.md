@@ -37,9 +37,16 @@ repository: the paper, its PDF and web versions, and their figures.
 ## Primitives get their own page
 
 A primitive is an idea or case that the argument stands on and that a
-reader may meet cold, for example the **Woodcache case study** or **public
-benefit corporations** themselves. Each primitive gets its own page (and its
-own figure), written to stand alone. The argument links to it rather than
+reader may meet cold, for example a **case study** or **public benefit
+corporations** themselves. Each primitive gets its own page (and its
+own figure), written to stand alone.
+
+**Cases are a class.** The Woodcache case study is one case of many
+(Sloane, 2026-11-04). Every case page has three parts: what's interesting
+about it; how it associates with other things (themes, other cases, claims);
+and the author's personal association with it, if there is one, stated as a
+disclosure. **Themes** tie cases together: technological fetishism, trying to
+buy the big shiny thing, ties carbon removal to AI and beyond. The argument links to it rather than
 explaining it again in passing. A primitive page is written once and used
 by every document that needs it.
 
