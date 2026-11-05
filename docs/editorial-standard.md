@@ -48,10 +48,35 @@ by every document that needs it.
 Links go both ways: the argument links to a primitive, and the primitive
 lists everything that links to it. Every link also tells the reader how much
 the target matters *here*, so the reader can decide whether to follow it.
-For example: *needed* (you can't follow the next step without it), *more*
-(there's substantial material that bears on this point if you want it),
-*aside* (background; safe to skip). This vocabulary is a proposal to be
-settled before the first primitive pages are built.
+
+That weight is **computed from the claim DAG, never assigned by hand**
+(Sloane, 2026-11-04). The same computation orders the argument: a
+*because-ness* score.
+
+- **The DAG.** Each claim's `rests_on` column names the claims it stands on.
+  In Descartes, `rests_on` is a conjunction: a claim fails if any claim it
+  rests on fails (`descartes/src/claims.rs`). So every ancestor of a claim is
+  load-bearing for that claim.
+- **Order.** Premises come before what rests on them (a topological order).
+  Where the order allows a choice, the claim with the higher because-ness goes
+  first.
+- **Because-ness of a claim** is how much of the argument rests on it: the
+  number of claims that transitively rest on it, with the thesis (§0's
+  conclusion) as the end point. A claim the thesis does not rest on has a
+  because-ness of zero for the main argument, whatever else it supports.
+- **Link weight** at a link from a passage making claim *c* to page *k*:
+  - **needed** if *k* is an ancestor of *c*: *c* fails without it;
+  - **more** if *k* is not an ancestor but supports something *c* also
+    supports (they share a descendant);
+  - **aside** otherwise.
+- **Where it runs.** The computation reads only the claim graph, so it
+  belongs in Descartes, in Rust, as a command beside `check` (AGENTS.md:
+  no Python around Descartes).
+
+**Gap, 2026-11-04:** in `claims/anthropic-contrapunctus.tsv`, all 97 rows
+have `rests_on` = `-`. The DAG holds the quotations but not the argument
+built on them, so there is nothing yet to compute from. The first step is to
+encode §0's chain as claims resting on the quotations that support them.
 
 ## The front page lays it all out
 
