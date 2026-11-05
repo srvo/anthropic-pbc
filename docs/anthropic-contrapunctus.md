@@ -1446,6 +1446,17 @@ disagreement is published (GOV-5, applied to ourselves).
 filings, so the join can be tested end to end before it touches messier
 ground.
 
+
+
+### Appendix F. Public oversight and affected constituencies
+
+The [dated oversight appendix](anthropic-oversight-appendix.md) maps public
+community, rights-holder, technical and regulatory activity relevant to this
+paper. It preserves competing positions and separates legal standing from
+affected-community voice and expertise. It also frames an ecological compute
+budget as an open design proposal requiring independent scientific, technical
+and distributive review, not a calculated entitlement or adopted standard.
+
 ---
 
 *Governance is not the story a company tells about its intentions. It is
