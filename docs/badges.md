@@ -44,13 +44,24 @@ A status badge says *where this stands now.* Now ends, so the badge must too.
   and the check output.
 - **Clicks through** to the claim's page: statement, quote, source, what it
   rests on and what rests on it.
-- **Belongs in Descartes.** The generator reads only the check output, so the
-  real one is a Rust command beside `check`. The prototype
-  (`~/tray/argument-check-badges.html`, 2026-11-04) was a throwaway script.
+
+## Who owns what
+
+Three owners, split by authority (Sloane, 2026-11-04):
+
+| Layer | Lives in | Owns |
+|---|---|---|
+| Sealing | Descartes | Computing the result and sealing it into the badge: the check, the digests, the embedded reference, signing. A Rust command beside `check`. |
+| Design | Praxis | What a badge looks like and what it must carry: the visual form, the metadata schema, the rules on this page, shared by every Praxis producer. |
+| Use | still to be named (not this repository by default) | What to do with badges: which to issue, where they're embedded and hosted, how long a status lasts. |
+
+The prototype (`~/tray/argument-check-badges.html`, 2026-11-04) was a
+throwaway script and belongs to none of them. This page is the design draft
+until it moves to Praxis.
 
 ## Open
 
 - The status window (the prototype used one day).
 - Hosting for status badges and claim pages.
 - Signing citation badges, once there's a key (Praxis `OPENQUESTIONS.md` Q1).
-- Whether the badge schema becomes a Praxis-wide contract.
+- Where the use layer lives.
