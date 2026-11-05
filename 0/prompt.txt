@@ -1,0 +1,64 @@
+Hey, can you take a look at The stuff in this repo to see if there is a bug where a bunch of files are getting organization in like placeholders, placeholders, because one of our agents has a weird privacy thing going on
+
+---
+
+/Users/srvo/dev/anthropic-pbc/corpus/risk-factors/MAN
+ IFEST.meta.yml
+ In batch 1 (queued)
+
+
+
+ replace
+ /Users/srvo/dev/anthropic-pbc/corpus/risk-factors/MAN
+ IFEST.meta.yml
+ batch 1:
+    │  ...
+ 22 │  zkoms│  accession number only; it contains no
+ filing text. Item 1A text was
+ 23 │ -ojipp│  fetched
+
+---
+
+It was a pie agent. Can you dig around and please fix that?
+
+---
+
+I mean, actually, we should give it a different key... I think we should have independent keys that are tracked and manageable, you know
+
+---
+
+replace
+ /Users/srvo/dev/anthropic-pbc/corpus/risk-factors/MAN
+ IFEST.meta.yml All of its edits were in there, and that looks like a document that should be created as a mechanistic output. Can you look into that?
+
+---
+
+Yeah, you gotta fix that
+
+---
+
+Also, as a rule, agents need to render shit to the tray... Like, if they're trying to show me something or whatever, it goes straight in the tray
+
+---
+
+We also need a periodic end-to-end review of standards just to make sure that we have them and that they're not inconsistent in the repository. Like, we should have testing for that You know, because like the, you know, for instance, the contract for the report, you know, I want to have basically one argument per paragraph or one thing per paragraph with multiple different forms of, with multiple different representations of that..
+
+---
+
+So we have this runner that joins things and takes input. I feel like it should emit to the master plan graph, right?
+
+---
+
+It also should be recording optimization opportunities. Like, you know, I mean, I think that we want to basically be using our compute cluster relatively continuously to optimize these interconnections... Whether with database processes, you know, this, that, or the other thing, but like, you know, after each run, we want to be joining, healing, up, etc., etc., etc.
+
+---
+
+I also think you should really audit the brain in Entire and note that somewhere
+
+---
+
+We should also have an ADR field in the DarkDB that runs in That runs in the Danella Meadows hierarchy, and it's probably time to start ingesting mental models... The other thing we ought to have in there is a set of things yet to be ingested RightAnd a nice readout for me of like what the run is, what the run is, what's going on, etc.
+
+---
+
+Also, I think that this really ought to, that the DB really ought to own workflows for work in progress.... I'd like to see it locate, recheck, and integrate the Provo town center note... And we need a sense of which direction is quantitatively optimal. We have a whole bunch of URLs and a whole bunch of linked data catalogs. My sense is that before we take an unstructured catalog in, we should take in a structured catalog. In other words, we should try and align with all those linked data catalogs as much as we can to enrich downstream ingestion, yes?
