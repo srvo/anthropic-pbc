@@ -4,6 +4,8 @@
 
 > Governance exists so that systems can survive individuals.
 
+**Now:** the argument is being rebuilt as checkable cards, live at [srvo.github.io/anthropic-pbc](https://srvo.github.io/anthropic-pbc/). See [where the argument stands](#where-the-argument-stands).
+
 I'm publishing this in a personal capacity, to show a set of composable
 governance primitives I've built over the past year as Chief Investment Officer
 at Ethical Capital, a Utah-registered investment adviser. So this is governance
@@ -69,6 +71,57 @@ return in a decade. But impact is not a single currency, and there is no
 reconciliation unless a governance forces one. What follows takes Anthropic at its
 own word — against its own filings and its own Constitution — and checks, byte by
 byte, where the words and the acts diverge.
+
+---
+
+## Where the argument stands
+
+The v0 paper below is a fixed record. I'm rebuilding its argument so anyone can check it step by step and see where it holds and where it breaks. The rebuild becomes the next edition.
+
+**Live views** (rebuilt and redeployed on every push to this branch):
+- [Workbench](https://srvo.github.io/anthropic-pbc/): the complaint sphere, every chain, the barriers, the carried-forward numbers and the survival scenarios.
+- [Chain view](https://srvo.github.io/anthropic-pbc/chain/): each argument as a sequence of *therefore*, *but* and *and then* links, with the proposed chain beside the proven one.
+- [Card deck](https://srvo.github.io/anthropic-pbc/cards/): every card by theme, with its quotes.
+
+### How it is built
+
+- **Cards.** Each step is a card holding one short claim and naming what it rests on: a quote checked byte for byte against a primary source, another card, or a source not yet pinned. Cards live in [`argument/`](argument/). The prose draft, [`argument/paper.from-cards.md`](argument/paper.from-cards.md), is generated from them and never edited by hand.
+- **Circles.** A card is proven (circle 1) only when every quote beneath it passes Descartes' byte check. A failing quote or a missing source leaves it at circle 0, and it stays in the deck, marked unproven. Circle 4 is the author's sign-off, and no card has it yet.
+- **Links.** Each step follows from the one before (*therefore*), turns against it (*but*), or sits beside it (*and then*). A run of *and then* is a list, not an argument. The links are computed from what each card rests on, never typed in.
+- **Standing and coverage.** The workbench maps who can make Anthropic keep its promise and who bears the effects, and whether the argument has heard from each of them directly, secondhand, by name only, or not at all.
+- **Quantities.** Every number is *observed* (it appears in a checked quote), *applied* (an assumption you set on the page, labelled unsourced), or *implied* (a formula over the others).
+- **Lenses.** Some questions get several answers side by side. "Can the planet tolerate this buildout?" has five:
+  - planetary boundaries, which yields a budget once you choose how to share it;
+  - the remaining carbon budget;
+  - the doughnut;
+  - the local water basin;
+  - an opposing energy-abundance view.
+
+### Snapshot at commit d2c46b7
+
+- **Cards:** 115 cards, of which 42 are proven.
+- **Links:** of 103 links, 20 are *therefore*, and only 4 of those are proven. 42 are *and then*.
+- **The conclusion is not yet proven.** "Anthropic is a public benefit corporation in law, not in the sense the category promises" waits on 15 sources.
+- **Standing:** 17 parties are mapped, and 2 have standing the cards prove.
+- **Coverage:** no affected party is heard directly.
+
+The live workbench always shows the current figures.
+
+### How to help
+
+The workbench ranks every barrier by how much of the argument fixing it would prove. The top three:
+1. **Pin Bjørn et al. 2020.** It sets out the ways to share a planetary budget. The publisher's PDF embeds the downloader's IP address, so the copy can't be reproduced.
+2. **Repair quote Q050.**
+3. **Pin the Wood Cache source.**
+
+Open an issue or a pull request against `argument/` with a pinned source or a corrected quote. To dispute a claim, use [`docs/contrapunctus-attest.md`](docs/contrapunctus-attest.md).
+
+### Rules
+
+- No invented numbers, voices or standing.
+- Anything unsupported stays in and shows as a barrier.
+- Every view depends only on the committed inputs, so building it twice gives identical files.
+- Checks: `python3 scripts/check_cards.py` and `python3 scripts/check_workbench.py`. Details are in [`argument/README.md`](argument/README.md).
 
 ---
 
