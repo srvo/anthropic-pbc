@@ -1,0 +1,15 @@
+{
+  "tool_use_id": "toolu_01Cq4TXSeEuaQnfDQNqgkiuP",
+  "agent_id": "adba6a7adaa373f35",
+  "subagent_type": "general-purpose",
+  "task_description": "Adversarial audit of quote-verification chain",
+  "token_usage": {
+    "input_tokens": 58,
+    "cache_creation_tokens": 113577,
+    "cache_read_tokens": 2698922,
+    "output_tokens": 20946,
+    "api_call_count": 29
+  },
+  "started_at": "2026-11-04T17:56:09.169847-07:00",
+  "completed_at": "2026-11-04T18:00:32.294161-07:00"
+}

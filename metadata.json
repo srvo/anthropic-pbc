@@ -3,9 +3,13 @@
   "checkpoint_id": "01M6MNTNBK7WXSS8TG3DTQ975B",
   "strategy": "manual-commit",
   "branch": "ec-ai-corpus",
-  "checkpoints_count": 5,
+  "checkpoints_count": 19,
   "files_touched": [
-    "corpus/risk-factors/MANIFEST.meta.yml"
+    "corpus/risk-factors/MANIFEST.meta.yml",
+    "corpus/risk-factors/metadata.source.yml",
+    "dag.yml",
+    "docs/risk-factor-corpus.md",
+    "scripts/rf_manifest.py"
   ],
   "sessions": [
     {
@@ -14,25 +18,38 @@
       "compact_transcript": "/0/transcript.jsonl",
       "content_hash": "/0/content_hash.txt",
       "prompt": "/0/prompt.txt"
+    },
+    {
+      "metadata": "/1/metadata.json",
+      "transcript": "/1/full.jsonl",
+      "compact_transcript": "/1/transcript.jsonl",
+      "content_hash": "/1/content_hash.txt",
+      "prompt": "/1/prompt.txt"
     }
   ],
   "token_usage": {
-    "input_tokens": 237276,
-    "cache_creation_tokens": 0,
-    "cache_read_tokens": 25585920,
-    "output_tokens": 80828,
-    "api_call_count": 156,
-    "subagent_tokens_complete": true
+    "input_tokens": 237722,
+    "cache_creation_tokens": 394142,
+    "cache_read_tokens": 81650869,
+    "output_tokens": 261041,
+    "api_call_count": 366,
+    "subagent_tokens": {
+      "input_tokens": 60,
+      "cache_creation_tokens": 114819,
+      "cache_read_tokens": 2935390,
+      "output_tokens": 24696,
+      "api_call_count": 30
+    }
   },
   "redaction": {
-    "replacements": 75,
+    "replacements": 120,
     "layers": {
       "betterleaks": 3,
       "connection_string": 0,
       "credential_key": 0,
       "credential_value": 13,
       "credentialed_uri": 0,
-      "entropy": 59,
+      "entropy": 108,
       "key_context": 0,
       "provider_token": 0,
       "shell_stdin": 0
