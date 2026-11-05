@@ -1,0 +1,15 @@
+# Slide queue: arguments worth showing, in the order they would be shown.
+# Anyone adds a row when an argument is interesting; the author accepts or drops it.
+# card: a card label, a chart (fig:<path>), or "-" for a question with no card yet.
+# state: proposed (added, not yet accepted) | accepted | drafted (a slide exists) | shown | dropped
+# The trace page shows each row with the card's proof state, so a slide never outruns its proof.
+order	card	why	added_by	state
+10	fig:edition/figures/F0001-who-gets-checked.svg	the whole case in one contrast: the small benefit is checked end to end, the large risk checks itself	claude (2026-11-05)	proposed
+20	A016	their best case fails on one inference, not on its aims	claude (2026-11-05)	proposed
+30	A028	"only we can save us" written as policy: hold back in the lead, otherwise keep pace	claude (2026-11-05)	proposed
+40	A047	harms documented and priced, benefits anecdote, at a like-for-like standard of proof	claude (2026-11-05)	proposed
+50	fig:proposals/earnings-calls/codebook-questions-v0.1/report/intent-ttm.svg	the people pricing AI ask about revenue, almost never about harm	claude (2026-11-05)	proposed
+60	A061	every planet lens is a test; none can run until Anthropic meters its sites	claude (2026-11-05)	proposed
+70	-	what would the solution be if we really cared about the environment, the world and flourishing?	Sloane (2026-11-05)	accepted
+15	-	Wall Street will not discipline alignment: analysts ask about AI revenue about 5 times as often as about any AI risk or oversight, and 17 times as often as about control, regulation and harm (two-model proposal; the sales-goal inference is untested)	Sloane (2026-11-05)	accepted
+75	-	how firms that do lethal or systemic work (RTX, Quanta Services, PG&E, Constellation...) govern it, set against Anthropic	Sloane (2026-11-05)	accepted

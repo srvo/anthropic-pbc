@@ -1,0 +1,741 @@
+# Query queue, planned from argument/points.tsv by scripts/query_queue.py plan.
+query_id	point_id	query	state	detail
+5553d94bde04	P-001	8 Del. C. § 362 public benefit corporation balance stockholders pecuniary interests materially affected	normalized	
+9e830670fda3	P-001	Delaware General Corporation Law subchapter XV public benefit corporation text delcode	normalized	
+a8e2ac77da9d	P-002	"Anthropic PBC certificate of incorporation Exhibit 3.1 S-1/A ""long term benefit of humanity"""	normalized	
+37b92c624a75	P-002	sec.gov Anthropic PBC S-1 exhibit 3.1 amended and restated certificate of incorporation specific public benefit	normalized	
+f7e246698c2c	P-003	public benefit corporation purpose as promise to public law review article	normalized	
+d0ef2ffb9602	P-003	Delaware public benefit corporation specific public benefit enforceability scholarship	normalized	
+edbb587a3555	P-004	"Anthropic 2026 Public Benefit Report five pillars ""AI has gone well"""	normalized	
+086a18c71dcd	P-004	Anthropic public benefit objectives standards board adopted 2026 report appendix	normalized	
+c3fc1263da1d	P-005	Anthropic Public Benefit Fund LLC Class N shares S-1 contributed wholly owned subsidiary	normalized	
+daf5ed629e9f	P-005	Anthropic 5% Public Benefit Fund subject to stockholder approval 2026 report	normalized	
+94b6a414581a	P-006	Anthropic Public Benefit Fund, LLC wholly owned subsidiary S-1 consolidation	normalized	
+096e053897d8	P-006	Anthropic S-1/A public benefit fund governance trustees control	normalized	
+6580de461ae1	P-007	Puro.earth terrestrial storage of biomass methodology Woodcache	normalized	
+04aee34dc8ee	P-007	Woodcache Colorado landfill permit CDPHE biomass burial carbon removal	normalized	
+aa413db3f459	P-008	public benefit corporation reporting verification independent audit need	normalized	
+9e59ead1564c	P-008	Delaware PBC benefit report third-party standard requirement	normalized	
+41431a72f5d5	P-009	Drakes Landing v. Tilden Park Delaware Court of Chancery public benefit corporation opinion 2026	normalized	
+4aa0d0540503	P-009	Delaware Chancery PBC directors Revlon not apply maximize shareholder value 2026 opinion	normalized	
+8c16b5b658e0	P-010	Anthropic S-1 Class T Long-Term Benefit Trust elects four of seven directors	normalized	
+5522f24d52bc	P-010	Anthropic Long-Term Benefit Trust director election rights S-1/A description of capital stock	normalized	
+cc757604bb41	P-011	Anthropic models gained unauthorized access third-party systems evaluation environment S-1 risk factor	normalized	
+af00f908ad3a	P-011	Anthropic 2026 Public Benefit Report four models real third-party systems testing	normalized	
+e1d377df0bf1	P-012	frontier AI developer transparency index 2026 Anthropic OpenAI Google comparison	normalized	
+0c6ee50e882b	P-012	Foundation Model Transparency Index Stanford CRFM latest Anthropic score	normalized	
+0d003a371453	P-013	Anthropic Claude constitution CC0 public domain dedication	normalized	
+5a06fb73ab5b	P-013	Anthropic publishes Claude's constitution Creative Commons CC0 announcement	normalized	
+d27cb578ad31	P-014	Long-Term Benefit Trust letter Anthropic Public Benefit Report inputs outcomes later reports	normalized	
+c59ad0115a51	P-014	Anthropic LTBT statement 2026 public benefit report	normalized	
+7c61b294f1e1	P-015	Anthropic governance strongest case Long-Term Benefit Trust analysis	normalized	
+4e4bc8d6518c	P-015	Anthropic PBC LTBT structure law review analysis	normalized	
+4912a9a438d8	P-016	Anthropic Long-Term Benefit Trust trustees removable revocable analysis	normalized	
+dead3b4e4650	P-016	Anthropic governance critique trust amendable stockholders	normalized	
+5394ab2e3374	P-017	"8 Del. C. § 365(b) ""shall not have any duty to any person on account of any interest of such person in the public benefit"""	normalized	
+f241d61eabfb	P-017	Delaware public benefit corporation directors no duty to beneficiaries section 365	normalized	
+9df520b85362	P-018	8 Del. C. § 367 derivative suit 2% outstanding shares $2,000,000 listed public benefit corporation	normalized	
+191e7c0d634f	P-018	Delaware SB 2020 amendment section 367 lesser of 2% or $2 million market value	normalized	
+9558364b93ae	P-019	public benefit corporation beneficiaries lack standing to enforce law review	normalized	
+c92ceb1e1d98	P-019	Delaware PBC enforcement gap affected public standing scholarship	normalized	
+42df8c0be906	P-020	"Anthropic S-1 ""no judicial precedent"" governance structure litigation risk factor"	normalized	
+997b7483cd53	P-020	Anthropic S-1/A risk factors Long-Term Benefit Trust unpredictability litigation	normalized	
+575f29c68309	P-021	Anthropic S-1 Class F share Founder LLC 50.1% voting power	normalized	
+54236ea170aa	P-021	Anthropic S-1/A Continuing Founders Class F common stock description	normalized	
+408e1427f69c	P-022	Anthropic Long-Term Benefit Trust agreement exhibit SEC filing amendment	normalized	
+d50291c94c65	P-022	Anthropic Class T common stock redemption termination Class A Class E Class F majority	normalized	
+73a6598e1bc5	P-023	"Anthropic S-1 ""research at the frontier"" safest AI systems"	normalized	
+427260b4b97f	P-023	Anthropic S-1 business model substantial increasing capital frontier	normalized	
+6855696ac034	P-024	"Anthropic S-1 ""pacing"" frontier industry-wide standards release timelines"	normalized	
+d62bd680fcad	P-024	Anthropic S-1/A AI accelerate AI development standards pacing	normalized	
+a54fbaeead03	P-025	Anthropic Responsible Scaling Policy v3.4 appendix significant lead delay development	normalized	
+13b265162950	P-025	"Anthropic RSP ""will not necessarily delay"" competitor better mitigation"	normalized	
+8ffecc7a27ee	P-026	"Anthropic Responsible Scaling Policy ""strongly consider pausing"""	normalized	
+9c1c4bfd1977	P-026	Anthropic RSP v3.4 commitments do not preclude cautionary action	normalized	
+601b73bd0d20	P-027	Anthropic RSP v3 conditional pause commitment analysis	normalized	
+32024701e03c	P-027	Anthropic responsible scaling policy competitive lead condition critique	normalized	
+fd80f78622f6	P-028	Anthropic race to the top frontier safety argument critique	normalized	
+133b76ebf105	P-028	"""only we can"" frontier lab safety race dynamics paper"	normalized	
+d405fefe5446	P-029	Anthropic founder control dual class governance critique	normalized	
+7fa6f5118a80	P-029	AI lab governance dependent on founders analysis	normalized	
+7ce5ea45fabd	P-030	Anthropic public benefit corporation enforceability analysis	normalized	
+f06e55f234f8	P-030	AI company governance voluntary commitments self-regulation critique	normalized	
+0aac6c48f1dc	P-031	Anthropic Public Benefit Report cannot fully verify Claude interpretability	normalized	
+deb16c9129c2	P-031	Anthropic 2026 report alignment verification limits	normalized	
+8084f02868aa	P-032	"Claude's constitution ""final authority"" Anthropic"	normalized	
+d8951ff9b698	P-032	Anthropic constitution final constitutional authority vision for Claude	normalized	
+92615994d406	P-033	Claude constitution applied to Anthropic corporate conduct	normalized	
+ce69c18a64c3	P-033	Anthropic constitution governs model not company analysis	normalized	
+4c2906185e66	P-034	Claude constitution broadly safe broadly ethical guidelines genuinely helpful priority holistic	normalized	
+0854b8ad45fc	P-034	Anthropic constitution prioritization holistic rather than strict	normalized	
+b2cc9f8497b2	P-035	"Claude constitution non-deceptive ""selective emphasis"" ""technically true statements"""	normalized	
+309300f822d3	P-035	Anthropic constitution deceptive framing false impressions	normalized	
+d62ba280b877	P-036	"Claude constitution ""concealing material information"" market advantage illegitimate power"	normalized	
+d8caec62b910	P-036	Anthropic constitution secrecy signal unfair process legitimacy	normalized	
+22aaebbe3dd0	P-037	"Claude constitution refuse illegitimate concentration of power ""even if the request comes from Anthropic"""	normalized	
+20e8968cf649	P-037	Anthropic constitution Anthropic seizing power catastrophic	normalized	
+e252ab40185e	P-038	Anthropic Public Benefit Report pneumonia 25,000 Burkina Faso IRC dashboard	normalized	
+87e4aec09a11	P-038	International Rescue Committee Burkina Faso Claude dashboard pneumonia evaluation	normalized	
+ef83d67fa201	P-039	"Anthropic ""Estimating AI productivity gains"" Claude conversations 80% task time"	normalized	
+35a0b1e15ed4	P-039	Anthropic economic research productivity Claude estimates task completion time methodology	normalized	
+f736eca177b9	P-040	Anthropic 33,000 critical high severity vulnerabilities Project Glasswing	normalized	
+d46e49776ab1	P-040	Glasswing vulnerabilities CVE list deduplicated audit Anthropic	normalized	
+54a34bc80690	P-041	Anthropic Public Benefit Report critique inputs outputs outcomes	normalized	
+3cebcbcf4baf	P-041	corporate impact report selective disclosure misleading research	normalized	
+bb0d6e1ed851	P-042	Bartz v. Anthropic final approval $1.5 billion settlement order N.D. Cal.	normalized	
+8badd8226939	P-042	Anthropic S-1 adjusted operating income excludes Bartz settlement	normalized	
+78f9d287524b	P-043	Anthropic S-1 revenue customers violating usage policy percentage	normalized	
+f569df3409fd	P-043	Anthropic S-1/A 5% 7% revenue usage policy violations	normalized	
+3661221cbd7a	P-044	Anthropic Claude models accessed third-party systems misconfigured evaluation environment	normalized	
+f8ba5735f004	P-044	Anthropic S-1 risk factor unauthorized access real systems testing	normalized	
+606c4da82029	P-045	Anthropic threat intelligence report August 2025 data extortion 17 organizations	normalized	
+51b6d1f1dac4	P-045	"Anthropic ""vibe hacking"" GTG-2002 extortion Claude Code"	normalized	
+ca79f35f1139	P-046	Claude protein binder design independent labs confirmed binding toxin	normalized	
+ab3df4a6c9b0	P-046	Anthropic protein design binders 17 of 211 confirmed neutralization	normalized	
+cbd9d1d0568c	P-047	AI company harms documented benefits anecdotal evidence standard	normalized	
+b48fd79f6abe	P-047	Anthropic benefits evidence quality outcomes evaluation	normalized	
+72da4a72752e	P-048	Bartz v. Anthropic settlement does not cover future conduct release scope	normalized	
+4308d6c64305	P-048	copyright settlement release scope past conduct only Anthropic	normalized	
+365b65ac718f	P-049	"Anthropic S-1 ""power-intensive"" industry risk factor"	normalized	
+a7f49ff236e9	P-049	Anthropic S-1 perception job displacement regardless of actual impact risk factor	normalized	
+cbcc34b53637	P-050	White House AI Accord 2026 frontier labs penalties text	normalized	
+339a857ff80f	P-050	Anthropic Public Benefit Report no mandatory independent check frontier labs	normalized	
+b95e7bb31bbd	P-051	Anthropic 20% shares public good founders pledge 80% equity	normalized	
+2bf750de5915	P-051	Anthropic founders pledge donate equity public benefit report	normalized	
+4ad871f9e916	P-052	Anthropic S-1 $895.4 billion purchase commitments leases	normalized	
+d3da46fa6498	P-052	Anthropic S-1/A contractual obligations compute commitments table	normalized	
+e04f8904527c	P-053	Meadows leverage points places to intervene in a system	normalized	
+066e1de63041	P-053	Anthropic governance structure versus disclosure leverage analysis	normalized	
+e2ddae6ecce6	P-054	data center host community governance seat AI company	normalized	
+33e9afc6d493	P-054	data labelling workers representation AI company governance	normalized	
+ec0cc7b8b70a	P-055	Anthropic Economic Index AI usage concentrated wealthier countries	normalized	
+b243697ea2c8	P-055	Anthropic data residency not able to host Claude locally	normalized	
+ffb7f2bb7bf0	P-056	"Anthropic Public Benefit Report ""alignment"" ""far from solved"""	normalized	
+b1ee750a74b7	P-056	Anthropic 2026 report interpretability after an incident flawed reasoning	normalized	
+860e51d1efc3	P-057	federal frontier AI legislation enacted 2026 Congress status	normalized	
+391eb6b5bd80	P-057	Anthropic Public Benefit Report voluntary commitments Congress no framework	normalized	
+ec7365504c9b	P-058	Anthropic Public Benefit Report handful of companies nations decide significant power imbalance	normalized	
+d6c53fc2f4ee	P-058	Anthropic 2026 report power concentration few external checks	normalized	
+cdb5a0817eae	P-059	Anthropic Public Benefit Report impacts on workers mostly unknown large businesses	normalized	
+f42f9842ed95	P-059	Anthropic Economic Futures report gains accrue large businesses	normalized	
+debdb30c328b	P-060	Anthropic benefits shared by everyone pillar Economic Index geographic concentration	normalized	
+4ad6806d772b	P-060	Anthropic Economic Index country usage per capita 2026	normalized	
+89a6e3e7b346	P-061	Anthropic five pillars critique counterpoints	normalized	
+9226d2808011	P-061	Anthropic public benefit objectives evaluation	normalized	
+9d41c24d24f7	P-062	Anthropic data center energy water emissions disclosure	normalized	
+043566c28876	P-062	Anthropic sustainability report MW water GHG sites	normalized	
+1865da74b9eb	P-063	IEA Energy and AI 2025 data centres 415 TWh 2024	normalized	
+4f063aa8f831	P-063	IEA data centre electricity emissions 180 Mt CO2 base case 2035	normalized	
+6748044efff3	P-064	"Rockström 2009 ""A safe operating space for humanity"" Nature planetary boundaries"	normalized	
+b692c7c1fc6d	P-064	planetary boundaries definition Stockholm Resilience Centre	normalized	
+13255c109d09	P-065	planetary boundaries normative judgement safe distance threshold Rockström Ecology and Society 2009	normalized	
+c1215fd37fb4	P-065	planetary boundaries precautionary zone value judgement	normalized	
+e74bcf5208f8	P-066	planetary boundary climate change 350 ppm CO2 Rockström	normalized	
+93f7703b1ea1	P-066	planetary boundary freshwater consumptive use 4000 km3 per year	normalized	
+86e14271d8cb	P-067	downscaling planetary boundaries sector company allocation Ryberg	normalized	
+4158668eca31	P-067	science-based targets planetary boundaries company share allocation principles	normalized	
+631ecee9d7e7	P-068	Bjørn 2020 review sharing principles absolute environmental sustainability Environmental Research Letters	normalized	
+a6cdc5b66995	P-068	equal per capita sharing principle planetary boundaries	normalized	
+2f30970b91d5	P-069	grandfathering sharing principle planetary boundaries allocation	normalized	
+7879c4de725d	P-069	Bjørn Environmental Research Letters 2020 10.1088/1748-9326/ab89d7	normalized	
+af7298c32061	P-070	UNFCCC Article 3 common but differentiated responsibilities respective capabilities text	normalized	
+39d354cf5b26	P-070	responsibility capability sharing principle carbon budget allocation	normalized	
+1b06b10f0428	P-071	ICT sector share carbon budget 1.5C ITU L.1470	normalized	
+881e2117688c	P-071	ITU-T L.1470 ICT sector greenhouse gas trajectories Paris	normalized	
+989fd2a8646c	P-072	company share of sector carbon budget market share allocation SBTi sectoral decarbonization approach	normalized	
+86d47b5385fd	P-072	absolute sustainability company allocation value added	normalized	
+312588d5eb1d	P-073	data centre grid carbon intensity location based gCO2/kWh	normalized	
+11a4fbc5a2ef	P-073	remaining carbon budget allocation company operator formula	normalized	
+9b5914f84ba9	P-074	basin sustainable water withdrawal allowance data centre regulator	normalized	
+894b6a74508f	P-074	water stress basin seasonal allocation WRI Aqueduct data centres	normalized	
+ff4d17d68f12	P-075	allocating planetary boundaries to companies assumptions contestable	normalized	
+1c1ee97be54b	P-075	absolute environmental sustainability assessment company review	normalized	
+4808f8f6dfac	P-076	FLOP cap compute governance energy limit	normalized	
+e5dc6f74ddca	P-076	data centre useful compute per kWh efficiency metric	normalized	
+68c166d80421	P-077	"planetary boundaries ""rough, first estimates"" uncertainties Rockström"	normalized	
+0d915d1110ab	P-077	planetary boundaries quantification uncertainty	normalized	
+b776820aabc1	P-078	Richardson 2023 Earth beyond six of nine planetary boundaries Science Advances	normalized	
+834fa623ebf5	P-078	doi 10.1126/sciadv.adh2458 PMC full text	normalized	
+f24c4ed9cd63	P-079	IPCC AR6 remaining carbon budget definition glossary	normalized	
+ec899e3e4b5c	P-079	remaining carbon budget definition WG1 SPM	normalized	
+b3177f1fadb4	P-080	IPCC AR6 WG1 SPM D.1 remaining carbon budget from beginning of 2020	normalized	
+4e1ba4b13974	P-080	IPCC AR6 remaining carbon budget net zero probability temperature limit	normalized	
+8e010f839720	P-081	IEA Energy and AI data centre emissions 180 Mt 300 Mt 2035	normalized	
+48819f94788f	P-081	IEA base case data centre CO2 emissions projection	normalized	
+c6f3595a3725	P-082	IPCC AR6 WG1 Table SPM.2 remaining carbon budget values GtCO2	normalized	
+0df234280ec0	P-082	IPCC AR6 1.5C 50% 500 GtCO2 table SPM.2	normalized	
+f6c5a652c2e8	P-083	IPCC AR6 remaining carbon budget uncertainty ±550 GtCO2 historical warming	normalized	
+fc25f26f6731	P-083	AR6 SPM D.1.2 carbon budget uncertainties	normalized	
+6afd847ef013	P-084	Raworth doughnut safe and just space social foundation ecological ceiling	normalized	
+1ff8ce020f64	P-084	Raworth 2017 Lancet Planetary Health doughnut economics	normalized	
+fad2848c2231	P-085	doughnut economics digital technology AI application	normalized	
+15140b5fb536	P-085	doughnut economics data centres	normalized	
+117de1a82021	P-086	doughnut ecological ceiling planetary boundaries Raworth	normalized	
+404d6546c39a	P-086	doughnut economics no budget of its own social foundation	normalized	
+462ad6ed890d	P-087	"Raworth doughnut ""illustrative"" depiction"	normalized	
+c1394c333f9d	P-087	Doughnut Economics Action Lab social foundation indicators	normalized	
+05d1147e92db	P-088	IEA Energy and AI local impacts data centres pronounced	normalized	
+efe810c6847d	P-088	data centre water grid constraints local basin season	normalized	
+03a0d1a306af	P-089	IEA 100 MW hyperscale data centre 2 million litres water per day	normalized	
+a078fb479d86	P-089	IEA Energy and AI water consumption data centres	normalized	
+67724266cbff	P-090	IEA nearly half US data centre capacity five regional clusters	normalized	
+fc04ce15819e	P-090	IEA data centre capacity under development existing clusters	normalized	
+ca112560b09a	P-091	Anthropic S-1 megawatts water greenhouse gas data center	normalized	
+59fd0c09bb42	P-091	Anthropic S-1/A sustainability environmental footprint disclosure	normalized	
+d72c872f9777	P-092	state water rights seasonal sustainable yield data centre permit	normalized	
+baf5d9285450	P-092	Utah Division of Water Rights data center water allocation	normalized	
+779ce7d95e43	P-093	data centre relocation shifting burden communities siting justice	normalized	
+b79a48b7269b	P-093	data centre siting environmental justice study	normalized	
+7ca6c9b61442	P-094	An Ecomodernist Manifesto 2015 absolute decoupling	normalized	
+d5057e21b62a	P-094	ecomodernist manifesto human environmental impacts peak decline	normalized	
+cee24bdc2e41	P-095	Ecomodernist Manifesto cheap clean dense abundant energy	normalized	
+d98acba5c91f	P-095	ecomodernism energy abundance supply not demand	normalized	
+9fc9b98db264	P-096	IEA Energy and AI adoption of existing AI applications emissions reductions larger than data centre emissions	normalized	
+87eed3289e4e	P-096	IEA AI could reduce emissions 1400 Mt 2035	normalized	
+3f2914eab21e	P-097	data centre 24/7 carbon-free energy matching same grid	normalized	
+2082c613f791	P-097	hourly matching clean energy procurement data centre additionality	normalized	
+fc17657f5ba1	P-098	IEA AI emissions reductions far smaller than needed climate change	normalized	
+8474dfb5ac1c	P-098	IEA Energy and AI not a silver bullet emissions	normalized	
+a776b767b10e	P-099	forecast benefits offset present harm environmental ethics	normalized	
+e16d646e577f	P-099	avoided emissions claims offset criticism	normalized	
+35513ba72b9a	P-100	is Anthropic a real public benefit corporation analysis 2026	normalized	
+12b6d948437c	P-100	Anthropic PBC IPO governance critique enforceability	normalized	
+78f2043ed406	P-101	external enforcement corporate purpose mission lock steward ownership	normalized	
+313f9825bcb4	P-101	purpose trust enforcer golden share governance	normalized	
+9d8b5c0e5f25	P-102	Patagonia Purpose Trust voting stock Holdfast Collective structure	normalized	
+27b43afd7055	P-102	golden share purpose trust enforcer steward ownership mission lock	normalized	
+0a69f55936d5	P-103	public benefit corporation charter grant beneficiaries standing enforce	normalized	
+1a73c9539511	P-103	benefit enforcement proceeding standing beneficiaries model benefit corporation legislation	normalized	
+fae28a23352a	P-104	environmental performance bond data centre forfeiture	normalized	
+e3b0c5014836	P-104	data centre water power metering disclosure requirement law	normalized	
+ccaa11ecd507	P-105	Anthropic S-1/A amendment Trust Agreement exhibit filed	normalized	
+3f0ef7f9bf5e	P-105	Anthropic IPO governance demands investors Long-Term Benefit Trust terms	normalized	
+7e159306fe89	P-106	ethicalcapital descartes github verifier	normalized	
+4668d8edf8ec	P-106	byte-exact quote verification tool reproducible claims	normalized	
+517dfa6142bc	P-107	affected community levers AI company accountability	normalized	
+4bdac9083787	P-107	community benefit agreements data centres enforcement	normalized	
+a651ccfa8eab	P-108	Anthropic CVE list vulnerabilities attributed Claude cvelistV5	normalized	
+b1aa8a1b341d	P-108	Anthropic security benefit external attestation vulnerabilities	normalized	
+597031537554	P-109	WHO Anthropic partnership outcome evaluation	normalized	
+cca48b87760e	P-109	IRC Anthropic program evaluation outcomes published	normalized	
+381f80ee1dfa	P-110	Anthropic training data provenance audit licensed percentage	normalized	
+f2aba2f4f6db	P-110	Anthropic rights holder opt-out training data	normalized	
+3239796a1b54	P-111	Anthropic misuse revenue quarterly disclosure 10-Q	normalized	
+f5025d169b31	P-111	Anthropic usage policy violations revenue victims	normalized	
+7d03fc87251d	P-112	Anthropic charter amendment Long-Term Benefit Trust irrevocable	normalized	
+fe62a280783c	P-112	Anthropic Class T permanent mission lock amendment	normalized	
+0afcecd042df	P-113	Anthropic data center footprint disclosure MW water	normalized	
+82ce5e46f9e0	P-113	Anthropic environmental report emissions 2026	normalized	
+71dc91a4da2e	P-114	Ethical Capital Sloane Anthropic analysis disclosure	normalized	
+e2730c51b848	P-114	SEC marketing rule 206(4)-1 investment adviser third party critique	normalized	
+f914b301361f	P-115	ethicalcapital descartes repository contest relation	normalized	
+50dacb13e5e0	P-115	single-machine verifier limits distributed attestation	normalized	
+34164fdbe5a9	P-116	Bartz v. Anthropic final approval order 3:24-cv-05417 courtlistener	normalized	
+f1af203d212f	P-116	AAP welcomes court's final settlement approval Bartz v. Anthropic	normalized	
+ab7c44adf8db	P-117	state engineer seasonal sustainable withdrawal basin data center	normalized	
+4753089256a0	P-117	existing water rights basin allocation data center permit regulator	normalized	
+61a54372c22c	P-118	Anthropic 2026 Public Benefit Report protein binders independent labs	normalized	
+ce299c09245d	P-118	"Anthropic ""Claude accelerates protein design"" binder confirmation"	normalized	
+d73232e26490	P-119	Bjørn Kalbar Hauschild 2020 sharing principles review preprint	normalized	
+be0951b71c29	P-119	Environmental Research Letters 15 083001 absolute sustainability sharing principles DTU orbit	normalized	
+82437b210d48	P-120	Claude's constitution CC0 license text assets.claude.com	normalized	
+f4870a69260f	P-120	Anthropic constitution released under CC0 1.0	normalized	
+1bddc2489ab7	P-121	Anthropic Glasswing vulnerabilities CVE identifiers list	normalized	
+dd38eac4326c	P-121	independent audit Anthropic 33,000 vulnerabilities claim	normalized	
+27707ede867e	P-122	github.com/ethicalcapital/descartes	normalized	
+bc634f98e9da	P-122	descartes verifier README capabilities	normalized	
+aaecdc882822	P-123	delcode.delaware.gov title8 c001 sc15 section 365	normalized	
+deabb7579e05	P-123	8 Del. C. 365 PDF official text	normalized	
+df2435778ed6	P-124	delcode.delaware.gov section 367 public benefit corporation derivative suits	normalized	
+22db4ce59fc0	P-124	8 Del. C. 367 official text PDF	normalized	
+ece544cc6288	P-125	Drakes Landing Tilden Park opinion courts.delaware.gov	normalized	
+49bb6cb6d226	P-125	Drakes Landing v. Tilden Park C.A. No. Chancery 2026	normalized	
+1ff32773e5e9	P-126	IPCC AR6 WGI SPM Table SPM.2 estimates of historical CO2 emissions and remaining carbon budgets	normalized	
+aa76aed4eb0b	P-126	IPCC AR6 remaining carbon budget table data CSV	normalized	
+c579503dd7c6	P-127	Foundation Model Transparency Index 2025 results Anthropic	normalized	
+19eddb7b7b3b	P-127	frontier AI safety framework comparison disclosure ratings labs	normalized	
+28751266ebc5	P-128	Richardson 2023 Earth beyond six of nine planetary boundaries PMC	normalized	
+61125da644ad	P-128	Science Advances adh2458 PDF	normalized	
+5f624b1d68ca	P-129	Anthropic S-1/A Class F 50.1% general voting power Founder LLC	normalized	
+70ccd45cbf4d	P-129	sec.gov anthropicpbc-sx1ax1 Class F	normalized	
+6e9755aa609b	P-130	Anthropic S-1/A full text megawatt water emissions	normalized	
+fb2e344c6260	P-130	anthropicpbc-sx1ax1.htm environmental	normalized	
+4eab8c7dc145	P-131	Anthropic S-1/A Long-Term Benefit Trust elect directors Class T	normalized	
+067aef6a75d3	P-131	sec.gov Anthropic S-1/A board composition trust directors	normalized	
+27c90c44672c	P-132	Anthropic S-1/A purchase commitments compute infrastructure due within 12 months	normalized	
+dd20fe6c85df	P-132	Anthropic S-1 contractual obligations table $447.5 billion before 2031	normalized	
+45cc85a4c359	P-133	Anthropic S-1/A revenue from customers subsequently found violating usage policies	normalized	
+31828b703f1e	P-133	Anthropic S-1 usage policy violation revenue estimate	normalized	
+a57171791a62	P-134	Ethical Capital Form ADV Part 2A conflicts	normalized	
+acd72259f348	P-134	Ethical Capital Praxis governance tool	normalized	
+5755d953b544	P-135	Stockholm Resilience Centre planetary boundaries page	normalized	
+85fe4da03099	P-135	Stockholm Resilience Centre planetary boundaries 2023 update	normalized	
+daef82cd9821	P-136	Steffen 2015 planetary boundaries guiding human development changing planet Science	normalized	
+cb5ed8c71a65	P-136	doi 10.1126/science.1259855 full text	normalized	
+256119bc49c1	P-137	Anthropic Long-Term Benefit Trust Agreement exhibit 10 S-1	normalized	
+a5c4b442d972	P-137	Anthropic Trust Agreement trustee removal 85% sunset Class T redemption	normalized	
+a54e0a1b16bc	P-138	Puro.earth terrestrial storage of biomass methodology PDF	normalized	
+0475c550ce8d	P-138	Woodcache Puro registry CORC issuance	normalized	
+49dba63a192e	P-139	"Anthropic S-1 ""at the frontier"" ""safest"""	normalized	
+496bea129156	P-139	sec.gov anthropicpbc-sx1ax1 frontier research safest AI systems	normalized	
+aeb01ca85820	P-140	"Anthropic RSP v3.4 PDF ""significantly better"" mitigation ""comparable cost"""	normalized	
+6e2fdf19ce01	P-140	Responsible Scaling Policy version 3.4 appendix A	normalized	
+e811819ac722	P-141	"Anthropic RSP ""will not necessarily delay"""	normalized	
+46b9d711cd6b	P-141	Responsible Scaling Policy v3.4 page 17	normalized	
+0bcae5376ffb	P-142	"Claude's constitution ""final constitutional authority"""	normalized	
+4053327c3d90	P-142	anthropic.com/constitution final authority	normalized	
+59f210167978	P-143	"Claude constitution ""broadly safe"" ""broadly ethical"" ""genuinely helpful"" order"	normalized	
+f41473b8e55d	P-143	Claude's constitution core values priority order	normalized	
+8e6134f2c1cd	P-144	"Claude constitution ""holistic rather than strict"""	normalized	
+1b7488567833	P-144	Anthropic constitution prioritization holistic	normalized	
+16c919c9bd49	P-145	"Claude constitution ""selective emphasis"" non-deceptive"	normalized	
+ad61e14c3276	P-145	Anthropic constitution deceptive framing misleading implicature	normalized	
+af522dfeba7e	P-146	Claude constitution concealing material information products services risks market advantage	normalized	
+b516b153ef86	P-146	Anthropic constitution illegitimate attempts to gain power examples	normalized	
+4414cfd7a303	P-147	"Claude constitution secrecy ""often (though not always)"" signal unfair process"	normalized	
+73eb306b52ce	P-147	Anthropic constitution transparency legitimacy test	normalized	
+7dcea4eba6d6	P-148	"Claude constitution refuse assist concentrate power illegitimately ""Anthropic itself"""	normalized	
+01b66f1e9191	P-148	Anthropic constitution even if request comes from Anthropic	normalized	
+9d30ab8e7d29	P-149	"Claude constitution ""Anthropic employees or Anthropic itself"" seize power"	normalized	
+80f2e3e0a0bb	P-149	Anthropic constitution global takeover catastrophic group of humans	normalized	
+2d19622857ad	P-150	"Anthropic detecting countering misuse August 2025 ""at least 17"" organizations"	normalized	
+c4396e0978f7	P-150	Anthropic threat intelligence report PDF August 2025	normalized	
+6036d8005ed3	P-151	Anthropic Public Benefit Report data residency host Claude locally	normalized	
+d29d425e559a	P-151	Anthropic 2026 public benefit report p.16	normalized	
+c2120e44bdca	P-152	"Anthropic Public Benefit Report ""after an incident"" flawed reasoning"	normalized	
+769c29dc8de2	P-152	Anthropic 2026 report interpretability investigate	normalized	
+87541a267a8f	P-153	Anthropic estimating AI productivity gains appendix 80%	normalized	
+461fe441bb1f	P-153	anthropic.com research productivity gains Claude conversations	normalized	
+4374f7bcdfd2	P-154	delcode.delaware.gov title 8 chapter 1 subchapter XV	normalized	
+75a39b2ac1b9	P-154	8 Del. C. 362 text	normalized	
+03352bf0c0f4	P-155	byte-exact quotation verification PDF line breaks text extraction	normalized	
+5df9be142b68	P-155	reproducible claim verification working paper quotes	normalized	
+9146ec6e3345	P-156	Anthropic S-1 page 49 third-party systems evaluation	normalized	
+39a148f7974f	P-156	Anthropic S-1/A risk factors unauthorized access testing	normalized	
+38335407167b	P-157	"Anthropic S-1 ""both in our models and elsewhere in the industry"""	normalized	
+e78df34817b5	P-157	Anthropic S-1 misalignment circumventing sandboxes self-granting permissions	normalized	
+3ebf2479610e	P-158	Anthropic S-1 risk factors controls disclosed mechanisms	normalized	
+abd66ee4ece4	P-158	Anthropic 2026 public benefit report risks governance mechanisms	normalized	
+39b6d2083eeb	P-159	8 Del. C. § 366 periodic statements standards objective factual information assessment	normalized	
+0212d26ed82e	P-159	Delaware public benefit corporation biennial statement stockholders not public third-party standard	normalized	
+325afd087066	P-160	Anthropic public benefit report pillars board may revise objectives	normalized	
+fcd752bbcad2	P-160	DGCL 366 objectives board adopted public benefit	normalized	
+ae4a2cefdf2a	P-161	"Anthropic Form S-1 exhibit 3.3 form of certificate post-IPO ""long-term benefit"""	normalized	
+74d2aef038c6	P-161	sec.gov 333-299633 exhibit 3.3	normalized	
+d419357b4bc2	P-162	Anthropic S-1 Class F 450 days fewer than three Continuing Founders 90 consecutive days	normalized	
+717768f9bb7a	P-162	Anthropic Founder LLC transition Class F conversion	normalized	
+26190ed105ab	P-163	Anthropic Founder LLC operating agreement successors voting	normalized	
+384b5f9a6ee3	P-163	Anthropic S-1 Founder LLC transition period voting control	normalized	
+e85804cf6838	P-164	Anthropic Long-Term Benefit Trust trustees removed 85% voting power	normalized	
+cf412a004fb9	P-164	Anthropic trust agreement amendment supermajority stockholders	normalized	
+dd639884edca	P-165	Anthropic S-1 Class E employee stock voting Class N strategic partners	normalized	
+ef92a0bb24d2	P-165	Anthropic capital structure Class A E F N T description	normalized	
+71b83886f71e	P-166	Anthropic S-1 846,840,960 Class N shares Public Benefit Fund	normalized	
+c8fba80e0f81	P-166	Anthropic Public Benefit Fund LLC 5% fully diluted June 30 2026	normalized	
+098d488431ea	P-167	Anthropic S-1 additional 2% Class N public benefit fund 50% price milestone	normalized	
+0f12f4e1eb4f	P-167	Anthropic public benefit fund milestone issuance board discretion	normalized	
+3fdd43381f30	P-168	"Anthropic Long-Term Benefit Trust ""separate entity"" public benefit report"	normalized	
+afb8ef6a91c9	P-168	Anthropic public benefit report p.17 trust independence	normalized	
+92f8f14d333b	P-169	steward ownership definition purpose trust residual economics veto	normalized	
+6b3863c40a2d	P-169	Harvard Law corporate governance foundation ownership 2025	normalized	
+edb24603d021	P-170	Patagonia Purpose Trust Holdfast Collective ownership 2022	normalized	
+bd37c377da67	P-170	Robert Bosch Stiftung share Robert Bosch GmbH 94%	normalized	
+c5fe55fecf1b	P-170	Novo Holdings Novo Nordisk Foundation 77% votes	normalized	
+15bc7f128c07	P-171	FTX Anthropic shares sale buyers Ford Foundation Omidyar Nathan Cummings 22-11068	normalized	
+438150fd2d15	P-171	In re FTX Trading Anthropic stock sale order 2024 schedule purchasers	normalized	
+f01fb560b1e7	P-172	Anthropic S-1 Spark Capital Growth Fund Holdings 2026 LLC	normalized	
+0e14369d7646	P-172	Yasmin Razavi Anthropic board Spark Capital	normalized	
+4f043a47d1a4	P-173	LACERS Spark Capital Growth Fund IV commitment	normalized	
+5ee7f2230d33	P-173	OCERS Spark Capital Growth commitment private equity report	normalized	
+9334af5191de	P-174	Anthropic S-1 principal stockholders Amazon Google more than 5%	normalized	
+e26991d8d7d8	P-174	Anthropic S-1 beneficial ownership table	normalized	
+8328cab5efdd	P-175	Anthropic investors Ontario Teachers GIC QIA Temasek MGX	normalized	
+5fe1b4e3f8d4	P-175	Anthropic S-1 ATIC Mubadala investor	normalized	
+5e31a0a7a16b	P-176	8 Del. C. § 220 stockholder books and records demand stock ledger	normalized	
+8c3246eac028	P-176	Anthropic shareholder 2% outstanding	normalized	
+af7613a092b7	P-177	Anthropic S-1 controlled company exemption Nasdaq	normalized	
+3128b1737c4a	P-177	Nasdaq Rule 5615(c) controlled company exemptions	normalized	
+943414cac620	P-178	Anthropic Long-Term Benefit Trust information rights board materials	normalized	
+2405ee888b01	P-178	LTBT access evaluation data incidents	normalized	
+ff7608dbe2c4	P-179	Anthropic Long-Term Benefit Trust sunset removal enforcer	normalized	
+18efd0e1bf4e	P-179	Anthropic trustees revocable removal	normalized	
+ae6324b19c79	P-180	Indiana Economic Development Corporation AWS data center incentive sales tax exemption 50 years	normalized	
+3dd45fbb2371	P-180	Indiana AWS New Carlisle incentives $98 million	normalized	
+5ba72959f500	P-181	CDAO Anthropic $200 million contract ceiling 2025	normalized	
+fcd89b8459db	P-181	Department of Defense frontier AI contracts Anthropic OpenAI Google xAI	normalized	
+d67d0c8f9c1a	P-182	Anthropic S-1 deferred tax assets $3.4 billion	normalized	
+c8c4bfea02be	P-182	Anthropic S-1 income taxes note valuation allowance	normalized	
+140e0dc48cd8	P-183	Anthropic S-1 $447.5 billion before 2031 $69.8 billion next 12 months	normalized	
+f66e37c87dcb	P-183	Anthropic S-1 $213.8 billion terminable contingent commitments	normalized	
+2b3bfa9cd048	P-184	Anthropic S-1 take-or-pay minimum commitments by year	normalized	
+512e13568b12	P-184	Anthropic cloud compute agreements minimum purchase obligations	normalized	
+f9db38a8ec92	P-185	Anthropic S-1 revenue 2023 2024 2025 nine months 2026	normalized	
+82759c802c63	P-185	Anthropic S-1 Q3 2026 revenue $16,956 million	normalized	
+6e0dd76492d1	P-186	Anthropic S-1 operating loss nine months 2026	normalized	
+da73a595978c	P-186	Anthropic S-1 compute infrastructure expense $18,808 million	normalized	
+5f044b11ca25	P-187	Bartz v. Anthropic settlement 500,000 works $3,000 per work destroy files	normalized	
+5be20a4f1e03	P-187	Anthropic S-1 $300 million paid 2025 settlement 33% revenue	normalized	
+58ced4e53dd1	P-188	Bartz v. Anthropic Alsup order June 23 2025 fair use pirated library	normalized	
+8c3fca52ff67	P-188	Alsup fair use training lawfully acquired books order	normalized	
+330b70e42e4f	P-189	Concord Music Group v. Anthropic 5:26-cv-00880 docket	normalized	
+475f5eebaae2	P-189	Bartz settlement opt-outs lawsuits Anthropic music publishers lyrics	normalized	
+edfbe84c074f	P-190	Anthropic S-1 legal proceedings music publishers accrual	normalized	
+43423b170d60	P-190	Anthropic litigation reserve copyright	normalized	
+070af4a79b17	P-191	Anthropic usage policy violation revenue by quarter	normalized	
+eaccedbacd9e	P-191	Anthropic S-1 policy violators revenue dollars	normalized	
+43b768ae38c5	P-192	Anthropic S-1 page 49 misconfigured internet-connected evaluation environment	normalized	
+06e1399d9e5b	P-192	Anthropic public benefit report page 6 models reached third-party systems	normalized	
+90026bac3110	P-193	Anthropic S-1 models circumvent sandboxes self-grant permissions misrepresent task completion	normalized	
+a595cd3c0812	P-193	Anthropic S-1 misalignment risk factor	normalized	
+be4a0a08e64a	P-194	Anthropic threat report ransomware North Korean IT worker fraud Claude	normalized	
+c5d2d2c82da6	P-194	Anthropic August 2025 misuse report influence operations	normalized	
+405cb922b52b	P-195	Anthropic GTG-1002 AI-orchestrated cyber espionage report 80-90%	normalized	
+afe108f8df13	P-195	GTG-1002 independent analysis skepticism Claude fabricated data	normalized	
+6da71073e9df	P-196	Anthropic banned 11.4 million accounts first half 2026	normalized	
+09f852fadd32	P-196	Anthropic platform security report account bans 2026	normalized	
+4b7f49b86db1	P-197	Commerce BIS export restrictions Anthropic model June 2026	normalized	
+57ebd0d812fd	P-197	Bureau of Industry and Security frontier model export control lifted safeguards 2026	normalized	
+cc410e8bbdb8	P-198	Anthropic public benefit report public limited visibility national security uses	normalized	
+f6d931436c70	P-198	Anthropic Claude classified networks first	normalized	
+7190951f89f2	P-199	Anthropic public benefit report antitrust constrains cooperation safety	normalized	
+9464f314c5a9	P-199	competition law AI safety collaboration labs	normalized	
+8b358875913b	P-200	Anthropic Claude performs share of safety research next generation	normalized	
+eb2c65b8690a	P-200	Anthropic automated alignment research risk report	normalized	
+7ccee2c87743	P-201	Anthropic public benefit report interventions reach thousands impacts billions	normalized	
+c714208883f5	P-201	Anthropic economic programs scale	normalized	
+22113926de5b	P-202	Anthropic S-1 job displacement actual or perceived regulation risk factor	normalized	
+7a19cf750d56	P-202	Anthropic S-1 reputational harm job displacement	normalized	
+a5b9178bdcf6	P-203	Anthropic public benefit report no evidence intended effects health education	normalized	
+b75d32608ec5	P-203	Anthropic report not active enough collecting data	normalized	
+797e22c2ec42	P-204	Fermat's Last Theorem complete formal proof Lean 2026 Claude	normalized	
+b7f75caa6233	P-204	FLT formalization Kevin Buzzard Lean project status	normalized	
+8cded5abc9cc	P-205	Anthropic Claude novel enzyme system discovery	normalized	
+30acb2f7ff68	P-205	Claude enzyme design preprint	normalized	
+d4496d2fc4e9	P-206	IRC Burkina Faso prenatal visits attended deliveries dashboard Claude	normalized	
+793982753715	P-206	International Rescue Committee Anthropic partnership health	normalized	
+bc1a9fe7f0dc	P-207	WHO AFRO Ebola DRC situation report Claude under an hour	normalized	
+7000cece34eb	P-207	WHO Anthropic partnership Ebola 2026	normalized	
+e94219d1dc13	P-208	Claude for Teachers Ghana 68,000 teachers	normalized	
+3ca79ae40099	P-208	Teach For All Anthropic 63 countries	normalized	
+7bc88ab41b2f	P-208	Claude for Science 3,000 institutions free seats	normalized	
+5d3bd91feef3	P-209	UCSF genetic diagnosis Claude time reduction	normalized	
+eb17f1b701a7	P-209	UCSF Anthropic genomic workup	normalized	
+db4d0f2f6c30	P-210	MyFriendBen Code for America 115,000 households $150 million unclaimed benefits	normalized	
+be46cf923ca4	P-210	MyFriendBen Anthropic Claude benefits screener	normalized	
+4915eb213bff	P-211	Anthropic Economic Futures Fund $200 million	normalized	
+aa1042dcbf77	P-211	Claude Corps $150 million 1,000 fellows 400 nonprofits	normalized	
+ee8ce7af1bb6	P-212	Anthropic survey 81,000 Claude users 159 countries	normalized	
+7fb2f2466de2	P-212	Anthropic what people want from AI survey	normalized	
+73d06b4d243e	P-213	CAISI UK AISI red team Anthropic cyber safeguards universal jailbreak 150 hours	normalized	
+86b14b36281d	P-213	UK AI Security Institute Anthropic safeguards evaluation 2026	normalized	
+22afab91b0a3	P-214	Anthropic supports SB 53 RAISE Act Illinois SB 315	normalized	
+f77190659184	P-214	METR Anthropic embedded evaluation partnership announcement	normalized	
+1d11d48fb93d	P-214	responsible scaling policy followers labs adopted frontier safety framework	normalized	
+a8c3b8f1268c	P-215	Anthropic election safeguards 2024 elections	normalized	
+5ebf941f1c88	P-215	Anthropic distillation campaigns disrupted influence operations September 2026	normalized	
+3ebfc889ed35	P-216	Anthropic S-1 model weights primary intellectual asset	normalized	
+dc4b45ecbab1	P-216	Anthropic S-1 model weights security risk factor	normalized	
+cc0235f9fef8	P-217	"ImpactAlpha Anthropic PBC ""legally binding"" Bietz 2026"	normalized	
+fe191885e557	P-217	Anthropic legally binding public benefit structure commentary	normalized	
+b478ebab9165	P-218	"Daniela Amodei ""take that on faith"" public benefit report foreword"	normalized	
+0f079ec8dc45	P-218	Anthropic 2026 public benefit report foreword	normalized	
+3f5f2a1614b7	P-219	Surfshark election deepfakes 4.2 billion 46 countries	normalized	
+c28df989b54e	P-219	Surfshark research election deepfakes 2026	normalized	
+51195fe71e85	P-220	AI incident database victims count 2023 2026	normalized	
+454e2d988254	P-220	OECD AI incidents monitor harms counts	normalized	
+2132ef08daf7	P-221	METR 2025 experienced open-source developers 19% slower RCT	normalized	
+3f432259d5b6	P-221	Brynjolfsson Li Raymond Generative AI at Work QJE 2025 14%	normalized	
+ce3c86dc0600	P-221	Peng 2023 GitHub Copilot RCT 55.8% faster	normalized	
+adf885f2f193	P-222	Stanford Digital Economy Lab Canaries in the Coal Mine 22-25 AI-exposed employment ADP	normalized	
+ea4fbbe9f740	P-222	Yale Budget Lab AI labor market disruption analysis	normalized	
+47127e5ceffc	P-223	non-consensual intimate imagery victimization survey 16,000 2.2%	normalized	
+e2fb622d4fbe	P-223	deepfake videos 2025 estimate 8 million	normalized	
+bc49693ca864	P-224	IEA data centres 945 TWh 2030 projection	normalized	
+b004366e41af	P-224	IEA data centres share US electricity 4% 2024	normalized	
+8413939e2742	P-225	TIME 2023 Sama Kenya workers $2 per hour OpenAI	normalized	
+d0993f99e3cb	P-225	Sama content moderation Kenya wages Meta lawsuit	normalized	
+169daccb1fe5	P-226	Anthropic data labeling vendors Surge Scale wages	normalized	
+d2c60c157245	P-226	Anthropic RLHF contractors working conditions	normalized	
+bf84409fa49b	P-227	AI hallucination cases database Charlotin court filings	normalized	
+213ae56fc521	P-227	Mata v. Avianca sanctions order 2023	normalized	
+39e2793e6f5c	P-228	Garcia v. Character Technologies settlement	normalized	
+8cf729a345ba	P-228	Raine v. OpenAI complaint	normalized	
+15d919f378d4	P-228	Claude linked death lawsuit	normalized	
+f6f5198a17b6	P-229	Dario Amodei Axios May 2025 half entry-level white-collar jobs 10-20% unemployment	normalized	
+4f467fd16e6f	P-229	Amodei white-collar bloodbath interview	normalized	
+ea0dcd827e12	P-230	Wikimedia AI crawlers bandwidth load 2025	normalized	
+eb957d1e3dd6	P-230	Data Provenance Initiative Consent in Crisis robots.txt	normalized	
+92522261206c	P-230	Cloudflare Radar crawl-to-referral ratio Anthropic ClaudeBot	normalized	
+91148bf2c0db	P-231	Anthropic internal usage compute share revenue S-1	normalized	
+eca33c552f7f	P-231	Anthropic agent consumption internal tokens	normalized	
+b1994ba3d9fa	P-232	Anthropic public benefit report numbers methodology	normalized	
+d9af35f155d9	P-232	Anthropic impact claims independent verification	normalized	
+7087f1758642	P-233	Anthropic data center sites Texas New York $50 billion	normalized	
+e96bf2b589c3	P-233	Anthropic Fluidstack data center locations power	normalized	
+778cca2c9f9b	P-234	Anthropic TPU Trainium supply chain water critical minerals	normalized	
+7ad469cc1a12	P-234	semiconductor fab water use labour critical minerals AI chips	normalized	
+01858a1623c8	P-235	Global South AI workers representation governance	normalized	
+80bba4b5efae	P-235	affected communities standing AI governance	normalized	
+8ca615d30deb	P-236	Anthropic consumer terms training on user data opt out 2025	normalized	
+8dacd95e87ac	P-236	Anthropic commercial terms no training customer data	normalized	
+431e23714956	P-237	Anthropic S-1 government customers revenue share termination for convenience	normalized	
+a9960217acf3	P-237	Anthropic national security contracts revenue	normalized	
+546b8555b0d3	P-238	Anthropic Ghana Burkina Faso DRC deployment data governance	normalized	
+3e236758cde4	P-238	Anthropic nonprofit partner data no training terms	normalized	
+d63e19518275	P-239	Anthropic launch delayed by external evaluation	normalized	
+8a00867a7c3b	P-239	independent pre-deployment evaluation thresholds frontier AI	normalized	
+615c9932086f	P-240	METR Anthropic embedded evaluator agreement terms	normalized	
+6cdfd4670424	P-240	external evaluator blocking rights AI lab	normalized	
+e8cb96887fcc	P-241	Anthropic national security use categories register	normalized	
+f41a60591366	P-241	cleared external reviewer AI national security uses	normalized	
+bb0804622843	P-242	Claude Corps fellows outcomes evaluation	normalized	
+65226cc355d8	P-242	benefits access employment earnings outcomes evaluation AI	normalized	
+0bfb50f9488b	P-243	AI claims replication registry independent	normalized	
+bfce200801ac	P-243	public claim verification registry corporate reports	normalized	
+f9554c7cefc0	P-244	AI training data provenance ledger no-training	normalized	
+36536f3f4c57	P-244	machine-readable AI policies frameworks as data	normalized	
+c6ba65068318	P-245	disgorgement misuse revenue AI company proposal	normalized	
+2cadf0846cba	P-245	incident bond AI externalities	normalized	
+6ab59661a747	P-246	Anthropic S-1/A full text risk factors	normalized	
+292618338248	P-246	sec.gov Anthropic PBC 333-299633	normalized	
+7b0393534cf9	P-247	medical AI hallucination patient harm incidents data	normalized	
+31a8fff91920	P-247	FDA MAUDE AI device adverse events	normalized	
+593e37504a4e	P-248	SEC 2019-140 Facebook $100 million misleading risk disclosures hypothetical	normalized	
+80bcf00f94c3	P-248	SEC v. Facebook complaint data misuse risk factor	normalized	
+545b528f9188	P-249	SEC accounting and auditing enforcement releases not complete compilation	normalized	
+6e1983d5796d	P-249	sec.gov AAER	normalized	
+9f9ddcc07fa0	P-250	Anthropic Project Glasswing 129,000 vulnerabilities partner reported	normalized	
+9910bfbcc0be	P-250	Glasswing extrapolation partner reports methodology	normalized	
+d001a8967aac	P-251	cvelistV5 credits Claude Anthropic count	normalized	
+4a67fc63e581	P-251	Epoch AI CVE AI-credited vulnerabilities explorer	normalized	
+7b87a0bbeee6	P-252	CVE counts measure reporting not risk CNA credit	normalized	
+14ceb36c98cf	P-252	CVE credit field AI tool self-reported CNA	normalized	
+6ac5dff951d3	P-253	Claude Mythos Preview announcement April 7 2026	normalized	
+4cc2f0cd8da7	P-253	Epoch AI CVE rise Mythos	normalized	
+d5220c5b36f2	P-254	Anthropic public benefit report greater than 33,000 critical high-severity	normalized	
+723a815c0761	P-254	Anthropic Glasswing 33,000 vulnerabilities	normalized	
+2357f1cb7c4f	P-255	earnings call AI risk mentions firms 2026 study	normalized	
+302e8396d220	P-255	S&P 500 earnings calls AI risk disclosure analysis	normalized	
+bb13e0eea6b8	P-256	earnings call AI risk mentions trend 2023 2026 study	normalized	
+37d506af8cee	P-256	corporate earnings calls generative AI risk discussion frequency	normalized	
+6bce60d487d2	P-257	analyst questions AI earnings calls revenue monetization study	normalized	
+8b1efccc45e6	P-257	earnings call analyst AI governance controls questions	normalized	
+be0d97a999e1	P-258	executives AI safety discussion earnings calls share	normalized	
+df24ff35c3df	P-258	Hacker News AI risk discussion study	normalized	
+0c1c01d81418	P-258	Wikipedia AI risk articles analysis	normalized	
+67d29e7089a4	P-259	SEC Rule 206(4)-1 marketing rule adviser commentary on company	normalized	
+04d2000ac763	P-259	Utah R164 investment adviser advertising rule	normalized	
+06580670db2f	P-260	GDELT DOC 2.0 API Anthropic democracy	normalized	
+084fe8ecc526	P-260	Anthropic democracy elections impact study	normalized	
+182bde237c9b	P-261	Rooney Center Health of Democracy report Claude Opus 4.6 data analysis	normalized	
+2a62d04b0084	P-261	Notre Dame Rooney Democracy Institute report R08	normalized	
+4c5161560be2	P-262	BCG Trust Index companies list	normalized	
+7868d08bcb0c	P-262	BCG Trust Index 2024	normalized	
+8f83ebc94cc5	P-263	public benefit outcome ledger comparator denominator	normalized	
+fd6ec86f832b	P-263	impact measurement outcomes counterfactual reporting standard	normalized	
+ea9cb67fa9d9	P-264	Anthropic public benefit objectives standards baseline metrics	normalized	
+c3fb081dbcc4	P-264	DGCL 366 statement objective factual information assessment	normalized	
+5797b185a4f5	P-265	AI evaluator independence access conflicts funding publish dissent	normalized	
+c991c434dfc2	P-265	third-party AI audit independence criteria	normalized	
+ce6a60a7c19f	P-266	Anthropic who can stop model release override RSP responsible scaling officer	normalized	
+2dec6fdff97c	P-266	Anthropic RSP noncompliance reporting LTBT	normalized	
+96d0ac744852	P-267	Anthropic Responsible Scaling Policy version history changes	normalized	
+e68cadd50ede	P-267	Anthropic RSP update changelog 2025 2026	normalized	
+df824eb576dd	P-268	AI affected persons challenge correction mechanism	normalized	
+5e04c503d501	P-268	algorithmic accountability redress route	normalized	
+ed67537c152e	P-269	data center subsidies disclosure permanent jobs cost allocation	normalized	
+937cde141c8a	P-269	data centre utility cost allocation ratepayers tariff	normalized	
+4b42febd5ee9	P-270	net benefit score incommensurable harms social impact measurement critique	normalized	
+477676be452a	P-270	impact accounting monetization harms benefits critique	normalized	
+e83e64b24711	P-271	California SB 53 frontier AI framework requirements text	normalized	
+363c2e4e0cd5	P-271	NY RAISE Act text GBS 1421	normalized	
+a04d6b3368b1	P-271	EU AI Act GPAI obligations Article 55	normalized	
+8cc4fef7e833	P-272	NIST AI Risk Management Framework voluntary	normalized	
+4459e5868f8e	P-272	NIST superintelligence standards documentation draft 2026	normalized	
+06a21ac126c6	P-273	Warren letter Anthropic IPO October 27 2026 banking.senate.gov	normalized	
+a70c830635ec	P-273	Anthropic response Senator Warren public benefit Long-Term Benefit Trust	normalized	
+d1be4871774b	P-274	NYC Comptroller Levine letter Anthropic pause IPO	normalized	
+ffbff80f5292	P-274	NYC pension funds Anthropic holdings	normalized	
+7a9d21ef3462	P-275	Anthropic S-1 SEC comment letter correspondence	normalized	
+b512d55c8a21	P-275	SEC Corporation Finance comment letters Anthropic PBC	normalized	
+e97447612495	P-276	investor.gov SEC does not pass on merits registration statement	normalized	
+f30d3127b2c0	P-276	securities fraud material misstatement standard Rule 10b-5	normalized	
+4a6fef921c37	P-277	oag.ca.gov SB 53 frontier AI reporting	normalized	
+bf887e4d7ccf	P-277	Anthropic frontier compliance framework SB 53 published	normalized	
+ec4c39d03825	P-278	New York RAISE Act DFS regulations January 2027 frontier developers	normalized	
+a73255dc3bb6	P-278	Hochul RAISE Act next steps registration November 2026	normalized	
+801995fd1783	P-279	EU GPAI Code of Practice signatories Anthropic	normalized	
+5ee63524fea9	P-279	AI Office enforcement general-purpose AI models systemic risk	normalized	
+6aae2c060358	P-280	FTC staff report AI partnerships investments 6(b) January 2025 Anthropic Amazon Google	normalized	
+8ad39df480cf	P-280	FTC deceptive AI claims crackdown 2024	normalized	
+7da5cebd5c9c	P-281	CMA Amazon Anthropic partnership merger inquiry decision 2024	normalized	
+9d4a01e8bac1	P-281	CMA Google Anthropic merger inquiry	normalized	
+df7845a808a9	P-282	AI Risk Evaluation Act Blumenthal Hawley text	normalized	
+8b7e4aef6f73	P-282	congress.gov AI Risk Evaluation Act status	normalized	
+de8934683abd	P-283	AI Environmental Impacts Act Markey Beyer reintroduced	normalized	
+816c1868d9cc	P-283	congress.gov Artificial Intelligence Environmental Impacts Act	normalized	
+3d8ddb763fd8	P-284	Warren Blumenthal Van Hollen data center companies not paying full costs NDAs tax breaks	normalized	
+f5db22ccccbe	P-284	Warren data center investigation responses 2026	normalized	
+1c115a05a312	P-285	AI Data Center Moratorium Act Sanders Ocasio-Cortez text	normalized	
+02d25b2caac0	P-285	congress.gov AI Data Center Moratorium Act	normalized	
+1fec9707886f	P-286	Wiener Gounardes Bores industry-wide AI safety pact	normalized	
+84a64dee8dde	P-286	sd11.senate.ca.gov AI safety pact lawmakers	normalized	
+baeaa3b30ca8	P-287	Utah data center 2026 legislation water energy incentives	normalized	
+e1be3e09017b	P-287	Utah Public Service Commission large load data center Anthropic	normalized	
+4dc030e57d82	P-287	Anthropic data center Utah	normalized	
+8fcb4d62a155	P-288	Anthropic data center sites announced locations	normalized	
+90358b852221	P-288	Anthropic compute partners Fluidstack Google Amazon facility list	normalized	
+11a9b1e11b90	P-289	Food & Water Watch 500 groups nationwide AI data center moratorium June 2026	normalized	
+ee5371abb95f	P-289	People's AI Action Plan signatories AI Now	normalized	
+166b8f9b2369	P-290	Good Jobs First data center subsidies	normalized	
+829817fa4e02	P-290	Good Jobs First data center shutdowns disclosure	normalized	
+e5997d189b4d	P-291	DAIR Institute community-defined AI alternatives	normalized	
+917c3c1508ec	P-291	TechEquity Collaborative AI centering impacted people	normalized	
+30320f6295e6	P-291	AI Now Public Citizen AI accountability standard	normalized	
+77daba484f5f	P-292	Authors Guild what authors need to know Anthropic settlement	normalized	
+b914b8861d24	P-292	AAP statement proposed settlement $1.5 billion Bartz	normalized	
+09f638430492	P-293	EFF two courts rule generative AI fair use June 2025	normalized	
+08dca26d55e6	P-293	Kadrey v. Meta fair use ruling 2025	normalized	
+d227033fb9aa	P-294	stakeholder standing AI governance categories affected communities	normalized	
+bac57794524a	P-294	participatory AI governance standing framework	normalized	
+f1efa23b76f8	P-295	METR better informing public loss of control risks 2026	normalized	
+ba55d5e989b7	P-295	METR internal deployment risk assurance	normalized	
+c4a730de25b9	P-296	Meadows leverage points goals of the system	normalized	
+e66a68f32e17	P-296	ecological compute budget proposal	normalized	
+e1e0d34f07d2	P-297	Green Software Foundation Software Carbon Intensity specification ISO	normalized	
+97962230e217	P-297	SCI embodied emissions operational	normalized	
+c8013d26cb89	P-298	data center efficiency rebound effect Jevons AI	normalized	
+193fe7edb659	P-298	LBNL data center energy metering facility boundary	normalized	
+f5fb79d0de5d	P-299	compute governance limits decentralized compute AI	normalized	
+2bed109c4b6c	P-299	AI capability outside data centers edge devices governance	normalized	
+0703e8fbe641	P-300	NVE energibruk i datasenter	normalized	
+5173b4bb8562	P-300	Norway data centres grid capacity constraints 2026	normalized	
+ddb1a7fe1851	P-301	allocating planetary boundaries governance who decides	normalized	
+b003d528d104	P-301	compute budget governance proposal	normalized	
+361abf356ca6	P-302	Anthropic Claude Code Security research preview February 20 2026	normalized	
+9ae554ed39c6	P-302	CNBC cybersecurity stocks fall Anthropic February 23 2026	normalized	
+c22541cecaac	P-303	Reuters IBM steepest drop since 2000 Anthropic COBOL February 2026	normalized	
+58ed58324ceb	P-303	Anthropic COBOL modernization blog	normalized	
+385f38b0175e	P-304	Anthropic Cowork plugins legal stocks fall February 3 2026 Reuters	normalized	
+34725b6b3375	P-304	Thomson Reuters RELX shares Anthropic legal plugin	normalized	
+c023ec6346b6	P-305	event study corporate announcements selection bias full sample	normalized	
+df3bba828fbd	P-305	AI announcements stock market reaction study	normalized	
+d3dc4d45b631	P-306	market capitalization loss versus social welfare	normalized	
+a96db2218f54	P-306	AI job displacement employment data attribution study	normalized	
+5352c0e1e0d4	P-307	event study capability claim verification	normalized	
+2bb80579e607	P-307	misleading AI capability claims FTC enforcement	normalized	
+a615fed3cadd	P-308	MacKinlay 1997 event studies in economics and finance Journal of Economic Literature	normalized	
+5c8ab6ec0be5	P-308	market model abnormal returns event study methodology	normalized	
+f07f7cce24f8	P-309	13F holdings affected companies Anthropic announcement	normalized	
+3d31b3c0c9fd	P-309	SEC 8-K 10-K risk factor mentions Anthropic competition	normalized	
+ddc594dd47c4	P-310	Anthropic S-1 purchase commitments compute share cloud agreements	normalized	
+801edda1741b	P-310	Anthropic S-1/A obligations by category	normalized	
+b87f95253451	P-311	AI data center capital cost per MW 2026 including GPUs	normalized	
+7e30702edbf0	P-311	hyperscale data center construction cost per megawatt study	normalized	
+692e74246fe1	P-312	AI data center average utilization IT capacity	normalized	
+fa87ae0ce1ad	P-312	GPU cluster utilization rate training inference study	normalized	
+107b9d9842ea	P-313	Google data centers PUE annual report	normalized	
+1b51452d164a	P-313	Uptime Institute global data center survey average PUE	normalized	
+47c69bce9f43	P-314	grid carbon intensity by US balancing authority EIA	normalized	
+2a638dab1c20	P-314	electricityMaps carbon intensity data centre regions	normalized	
+cbc96142b0a5	P-315	data center water usage effectiveness WUE litres per kWh study	normalized	
+772861f5064b	P-315	AI data center water consumption per MW	normalized	
+1179e87a5981	P-316	data center asset life depreciation years GPU servers	normalized	
+d295fd2c7872	P-316	hyperscaler server useful life accounting change	normalized	
+17e6ffa61c21	P-317	IPCC AR6 remaining carbon budget 1.5C 2C GtCO2 table	normalized	
+0f4a7bb3f587	P-317	Forster 2024 Indicators of Global Climate Change remaining carbon budget	normalized	
+cb193c68e176	P-318	ICT sector share global emissions carbon budget	normalized	
+40a890fa1a55	P-318	ITU-T L.1470 ICT emissions trajectory	normalized	
+381336f861c6	P-319	Anthropic share of AI compute market	normalized	
+9bb9836c40bf	P-319	frontier lab compute share Epoch AI	normalized	
+2a835678cf09	P-320	expert survey probability AI existential catastrophe per year	normalized	
+bdf69896be4f	P-320	Existential risk persuasion tournament forecasts AI	normalized	
+2fff9f5e2467	P-321	acceptable annual risk catastrophe threshold societal risk criteria	normalized	
+f3cb33f869ec	P-321	de minimis risk annual probability catastrophic	normalized	
+16f12b5a7f04	P-322	societal acceptable risk criteria catastrophic events probability	normalized	
+80a43c89dfa9	P-322	existential risk acceptable probability literature	normalized	
+8f51b9141678	P-323	long-term risk horizon existential risk planning years	normalized	
+e092a5aa3177	P-323	existential risk cumulative survival probability horizon	normalized	
+3093a173a70b	P-324	mission lock effectiveness steward ownership outcomes study	normalized	
+7565b302ab86	P-324	purpose trust governance evidence	normalized	
+c1404cdeddc6	P-325	benefit enforcement proceedings outcomes PBC litigation	normalized	
+7bb63d7b12c4	P-325	stakeholder standing corporate governance effect	normalized	
+2ae3a2434d16	P-326	environmental bonds effectiveness mining reclamation evidence	normalized	
+291d0d566389	P-326	performance bond forfeiture deterrence study	normalized	
+d5ed549298df	P-327	IPO governance disclosure effect investor pricing dual class	normalized	
+ae204eb3c5cd	P-327	pre-IPO governance commitments effect outcomes	normalized	
+a90507bc0e3d	P-328	independent verification public claims effect corporate behavior	normalized	
+a251a75706a3	P-328	third-party audit effect corporate disclosure quality study	normalized	
+22da6fe9d351	P-329	8 Del. C. 367 derivative standing public benefit corporation stockholders	normalized	
+ecd5822df5bb	P-329	Anthropic S-1 beneficial ownership 2% holders	normalized	
+9648bdda3303	P-330	Anthropic S-1 Founder LLC Class F voting control	normalized	
+94c2cf25b648	P-330	Anthropic co-founders voting power IPO	normalized	
+f01f18defa2d	P-331	Anthropic Long-Term Benefit Trust trustees 2026	normalized	
+ad464f7fb43b	P-331	Anthropic LTBT powers Class T S-1	normalized	
+695bee7ce310	P-332	Anthropic board of directors 2026 S-1	normalized	
+8857b46cf4ae	P-332	8 Del. C. 365 directors balancing duty	normalized	
+0342c63c360d	P-333	Delaware Chancery public benefit corporation litigation 2026	normalized	
+2d5b8e06a8ff	P-333	PBC derivative suit section 367 case law	normalized	
+e4bd35eaa39e	P-334	federal frontier AI legislation 2026 status congress.gov	normalized	
+44d35ed3f9d0	P-334	White House AI Accord 2026 text	normalized	
+31fd8d85283d	P-335	state water regulator data center withdrawal permits	normalized	
+42c70fba42db	P-335	public utility commission large load data center tariff	normalized	
+003fd352946a	P-336	Anthropic data center community opposition	normalized	
+0bb4f10a2877	P-336	data center host community benefit agreement	normalized	
+e0effb563ad7	P-337	Anthropic data labeling contractors	normalized	
+7a84b235dcff	P-337	AI data workers wages Global South investigation	normalized	
+2d8794ec5622	P-338	Bartz v. Anthropic class members claims	normalized	
+7ba51cacb7e9	P-338	Authors Guild Anthropic settlement	normalized	
+02edfd89f99b	P-339	public standing enforce public benefit corporation purpose	normalized	
+f93be0f3e792	P-339	Anthropic public accountability mechanism	normalized	
+d75ccb6dd6c9	P-340	AI job displacement worker voice Anthropic	normalized	
+56c51af7ac57	P-340	Anthropic Economic Index workers	normalized	
+14961105146d	P-341	Claude users rights consumer protection Anthropic terms	normalized	
+14d6fcf21630	P-341	Anthropic user data training opt out	normalized	
+8b230981f9b3	P-342	Anthropic Economic Index country usage low income	normalized	
+b3b4d4747b08	P-342	AI adoption gap low income countries	normalized	
+f4aa46ccffe8	P-343	Anthropic threat report victims organizations notified	normalized	
+fddbebe73f6f	P-343	AI-enabled cyberattack victims remedy	normalized	
+ee16a356decf	P-344	Anthropic models accessed third-party systems owners notified	normalized	
+2dd6a4352884	P-344	AI evaluation incident third party disclosure	normalized	
+b51b9c44015a	P-345	future generations representation AI governance	normalized	
+127bfce1ee88	P-345	intergenerational standing law future generations commissioner	normalized	
+3d7db68ef14e	P-346	Bartz v. Anthropic settlement per-work payment class members	normalized	
+b14d72b2792c	P-346	data labeling workers wages AI company share of revenue	normalized	
+9226d5d69804	P-346	data center host community tax breaks costs utility ratepayers	normalized	
+2d41dc911878	P-347	Anthropic S-1 Class F 50.1% Founder LLC control	normalized	
+816d0f6ee67b	P-347	Anthropic Long-Term Benefit Trust agreement Class T termination	normalized	
+d96d7c23ad29	P-347	frontier AI market concentration few companies compute	normalized	
+937c3b4485af	P-348	Anthropic models accessed third-party systems owners notified	normalized	
+48910a6551ce	P-348	data centre local impacts water grid basin IEA Energy and AI	normalized	
+d73294ca28ca	P-348	AI catastrophic risk annual probability expert survey	normalized	
+7755f24df26b	P-349	sell-side analyst questions earnings calls AI revenue versus risk study	normalized	
+4e3e40864205	P-349	analysts questions AI governance safety earnings calls 2026	normalized	
+5da95e29cf80	P-349	earnings call Q&A topics analyst attention research	normalized	
+f6f53872602b	P-350	analyst questions after revenue miss earnings call topic shift study	normalized	
+ac0f13203127	P-350	AI safety questions after guidance cut earnings call	normalized	
+c91ffc241830	P-350	stock market discipline corporate governance failures AI companies	normalized	
+1add1bb9252c	P-351	LLM inference energy per token measurement provider	normalized	
+274baf8b7b83	P-351	AI Energy Score Hugging Face per query energy	normalized	
+1a675498b4d8	P-351	data centre energy per million tokens estimate	normalized	
+ec302d9465c8	L1	Delaware Court of Chancery public benefit corporation section 365 balancing opinion	normalized	
+6191d2aa7466	L1	DGCL 362 public benefit corporation specific public benefit definition text	normalized	
+6d6b300b16f3	L1	"Anthropic ""long term benefit of humanity"" time horizon measurement"	normalized	
+b8d0993a6f68	L1	public benefit corporation lawsuit stockholders enforce public benefit Delaware	normalized	
+3372319645be	L2	Bjørn 2020 allocating planetary boundaries principles absolute environmental sustainability	normalized	
+e708e3abc60f	L2	Richardson 2023 Earth beyond six of nine planetary boundaries Science Advances	normalized	
+053939831543	L2	safe and just Earth system boundaries Rockström 2023 Nature	normalized	
+204d2d167d9e	L2	data centre water use basin allowance regulator	normalized	
+a3cf2e3da737	L3	Rio Declaration principle 15 precautionary approach text	normalized	
+a089d8fc43c2	L3	HSE reducing risks protecting people tolerability of risk framework	normalized	
+d463b0f5a6a0	L3	public attitudes AI risk survey international 2025	normalized	
+8982aea76dc8	L3	Jonas imperative of responsibility technology future generations	normalized	
+38bc60a4003b	L4	OECD AI Principles adherents list	normalized	
+bcdf277dcefc	L4	UNESCO Recommendation on the Ethics of Artificial Intelligence member states implementation	normalized	
+e06a11358afd	L4	content moderators union Africa data workers organisation	normalized	
+86a1e8c64e8b	L4	Global South AI governance civil society coalition	normalized	
+4b9f188ab63d	L5	California SB 53 Transparency in Frontier Artificial Intelligence Act civil penalty per violation text	normalized	
+436aa540673f	L5	EU AI Act Article 99 penalties percentage worldwide annual turnover	normalized	
+5e40575f994f	L5	GDPR Article 83 administrative fines 4% turnover	normalized	
+77f4390cb449	L5	frontier AI model training run cost estimate Epoch AI	normalized	
+1380e59dc735	L5	penalty deterrence fixed fine versus revenue-scaled fine economics	normalized	
