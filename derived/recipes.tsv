@@ -8,3 +8,9 @@ derived/constitution.txt	sources/constitution.pdf	pdftotext	-enc UTF-8 -nopgbrk
 derived/s1a1.txt	sources/s1a1.htm	html-to-text	static-v1
 derived/anthropic-exhibit-3.1.txt	sources/anthropic-exhibit-3.1.htm	html-to-text	static-v1
 derived/anthropic-exhibit-3.3-ipo-form.txt	sources/anthropic-exhibit-3.3-ipo-form.htm	html-to-text	static-v1
+derived/rockstrom-2009-pb.txt	sources/rockstrom-2009-pb.pdf	pdftotext	-enc UTF-8 -nopgbrk
+derived/ipcc-ar6-wg1-spm.txt	sources/ipcc-ar6-wg1-spm.pdf	pdftotext	-enc UTF-8 -nopgbrk
+derived/raworth-2012-doughnut.txt	sources/raworth-2012-doughnut.pdf	pdftotext	-enc UTF-8 -nopgbrk
+derived/iea-energy-ai-2025.txt	sources/iea-energy-ai-2025.pdf	pdftotext	-enc UTF-8 -nopgbrk
+derived/ecomodernist-manifesto-2015.txt	sources/ecomodernist-manifesto-2015.pdf	pdftotext	-enc UTF-8 -nopgbrk
+derived/unfccc-1992.txt	sources/unfccc-1992.pdf	pdftotext	-enc UTF-8 -nopgbrk
