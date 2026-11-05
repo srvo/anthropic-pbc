@@ -7,3 +7,4 @@ derived/anthropic-gtg-1002.txt	sources/anthropic-gtg-1002.pdf	pdftotext	-enc UTF
 derived/constitution.txt	sources/constitution.pdf	pdftotext	-enc UTF-8 -nopgbrk
 derived/s1a1.txt	sources/s1a1.htm	html-to-text	static-v1
 derived/anthropic-exhibit-3.1.txt	sources/anthropic-exhibit-3.1.htm	html-to-text	static-v1
+derived/anthropic-exhibit-3.3-ipo-form.txt	sources/anthropic-exhibit-3.3-ipo-form.htm	html-to-text	static-v1

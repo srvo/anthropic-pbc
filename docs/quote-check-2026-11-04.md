@@ -143,3 +143,10 @@ the two SEC web pages pinned today, for the same reason.
 `descartes check claims/anthropic-contrapunctus.tsv`: exit 1, no seal.
 Summary line: `73 claims ok	44 problems`. The 22 failing claims are those listed
 above; Q094 (the S-1's disclosure of the four-model incident) passes.
+
+## Re-run after quoting the certificates of incorporation (Q095, Q096)
+
+Exhibit 3.3 to the original Form S-1 (2026-10-26; the form of certificate effective
+on completion of the offering) is pinned and reaches text through `html-to-text static-v1`.
+`descartes check claims/anthropic-contrapunctus.tsv`: exit 1, no seal.
+Summary line: `75 claims ok	44 problems`. The failing claims are unchanged.

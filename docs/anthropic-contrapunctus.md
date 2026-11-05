@@ -146,8 +146,12 @@ Anthropic is a public benefit corporation: a company incorporated under
 Delaware's corporate statute, the Delaware General Corporation Law (DGCL),
 whose charter names a public purpose and whose directors must balance that
 purpose against stockholders' interests and those materially affected (§4.1).
-In the Report's words, Anthropic's charter *"is to responsibly develop and
-maintain advanced AI for the long-term benefit of humanity."* Its board has adopted five pillars, each describing a world
+Anthropic's certificate of incorporation, as currently in effect, says in
+Article III: "The specific public benefit that the Corporation will promote is to responsibly develop and maintain advanced AI for the long term benefit of humanity."
+([Exhibit 3.1 to Amendment No. 1 to Form S-1, filed 2026-11-02](https://www.sec.gov/Archives/edgar/data/2130357/000162828026068676/exhibit31-sx1a1.htm).)
+The form of certificate that takes effect when the offering completes has
+the same sentence, with one difference: "long-term" is hyphenated
+([Exhibit 3.3 to Form S-1, filed 2026-10-26](https://www.sec.gov/Archives/edgar/data/2130357/000162828026067168/exhibit33-sx1.htm)). Its board has adopted five pillars, each describing a world
 "where AI has gone well": the technical problems of AI safety are solved; AI
 safety is a universal practice backstopped by law; AI strengthens democracy and
 global stability; AI expands prosperity and human flourishing; AI's benefits are
