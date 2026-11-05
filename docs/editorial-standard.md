@@ -43,6 +43,14 @@ own figure), written to stand alone. The argument links to it rather than
 explaining it again in passing. A primitive page is written once and used
 by every document that needs it.
 
+**Questions point at primitives.** Before an open question goes on a trail
+or into a ledger, it names the primitives it concerns (Sloane, 2026-11-04).
+A question that fits no primitive either names a new primitive or isn't
+ready. The draft primitive set is on Entire trail #30 ("Primitive set"):
+method primitives such as pin, claim, graph, because-ness, check, circle,
+badge, grant, fork, question and embargo, and domain primitives such as
+public benefit corporations and the Woodcache case study.
+
 ## Links say what they carry
 
 Links go both ways: the argument links to a primitive, and the primitive

@@ -70,6 +70,8 @@ as an invitation; once someone takes it up, it graduates into a
 **discussion**. It isn't expected to close: the hope is that the best ones
 stay open, because the conversation is the point (Sloane, 2026-11-04).
 
+- Every open question first names the primitives it concerns
+  (`docs/editorial-standard.md`, "Questions point at primitives").
 - An open question about the subject goes into the paper's §8.1, with the
   comment's ledger id. One about the form (design, wording) stays in the
   ledger as `open-question`.
