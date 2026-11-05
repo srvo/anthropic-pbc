@@ -252,3 +252,10 @@ steps:
     deps: [snapshot://gdelt_rooney/2026-11-04/responses_and_reports, snapshot://ethicalcapital/2026-11-04/rooney_transcription]
     outputs: [corpus/democracy/gdelt-timelines.tsv, corpus/democracy/gdelt-summary.tsv, corpus/democracy/rooney-reports.tsv,
               corpus/democracy/rooney-toplines.tsv, corpus/democracy/rooney-items.tsv]
+
+  # Held audit projection; requires the retained local stores, not a full acquisition DAG.
+  data://garden/risk_factors/2026-11-04/manifest:
+    meta: corpus/risk-factors/MANIFEST.meta.yml
+    cmd: uv run scripts/rf_manifest.py write && uv run scripts/rf_manifest.py check
+    inputs: [corpus/risk-factors/metadata.source.yml, .rfcorpus/rf.duckdb, .rfcorpus/loss.duckdb]
+    outputs: [corpus/risk-factors/MANIFEST.tsv, corpus/risk-factors/MANIFEST.meta.yml]

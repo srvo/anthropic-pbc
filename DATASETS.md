@@ -26,14 +26,14 @@ Model output is a witness proposal in `proposals/`, never a finding
 
 | Dataset | Pinned as of | Source cadence | Manifest rows | Signature |
 |---|---|---|---:|---|
-| [S&P 500 earnings-call AI corpus](#earnings-calls) | 2026-11-04 | Source dataset updates as new calls post; universe is today's index (survivorship bias) | 2 | unsigned |
-| [10-K Item 1A risk-factor corpus](#risk-factors) | — | EDGAR updates continuously | — | — |
+| [S&P 500 earnings-call AI corpus](#earnings-calls) | 2026-11-04 | Source dataset updates as new calls post; universe is today's index (survivorship bias) | 2 | unsigned, record stale |
+| [10-K Item 1A risk-factor corpus](#risk-factors) | 2026-11-04 | EDGAR updates continuously | 3 | unsigned |
 | [Hacker News: Anthropic and AI-security comments](#hacker-news) | 2026-08 (archive end) | Source publishes monthly files plus 5-minute deltas; Sep 2026 onward not yet pinned | 68 | unsigned |
 | [Wikipedia AI-risk articles](#wikipedia-ai-risk) | 2026-11-04 | Articles edited continuously; category membership read on the day pin runs | 151 | unsigned |
 | [Monthly CVE series](#cve) | 2026-11-04 | Baseline published daily; GitHub keeps release assets about six weeks | 2 | unsigned |
 | [Epoch AI datasets snapshot](#epoch) | 2026-11-04 | Each dataset updates on its own schedule (see the Updated column); bundles are regenerated per request, so saved bytes are the pin | 18 | unsigned |
-| [NLI codebooks](#codebooks) | — | Changes by human review only | — | unsigned |
-| [Health-of-democracy proxies](#democracy) | 2026-11-04 | GDELT updates every 15 minutes (TV archive ends 2024-10); Rooney: 13 reports from 2024-10 to 2026-05; API responses are not reproducible, so saved bytes are the pin | 34 | unsigned |
+| [NLI codebooks](#codebooks) | — | Changes by human review only | — | unsigned, record stale |
+| [Health-of-democracy proxies](#democracy) | 2026-11-04 | GDELT updates every 15 minutes (TV archive ends 2024-10); Rooney: 13 reports from 2024-10 to 2026-05; API responses are not reproducible, so saved bytes are the pin | 34 | unsigned, record stale |
 
 ---
 
@@ -51,7 +51,7 @@ Model output is a witness proposal in `proposals/`, never a finding
 | Folder | `corpus/earnings-calls` · 16 files · 6.5 MB |
 | Manifest | 2 rows · BLAKE3 `d2ac999e14259ffa` |
 | Method | [`docs/earnings-call-ai-corpus.md`](docs/earnings-call-ai-corpus.md) |
-| Signature | unsigned (`attestations/datasets/`) |
+| Signature | unsigned, record stale (`attestations/datasets/`) |
 
 Refresh:
 
@@ -95,17 +95,21 @@ Refresh:
 |---|---|
 | Source | SEC EDGAR primary documents, addressed through the defeatbeta filing index |
 | License | Public SEC filings; ODC-BY (index) |
-| Pinned as of | — |
+| Pinned as of | 2026-11-04 |
 | Source cadence | EDGAR updates continuously |
-| Committed | Nothing committed; source unpinned; store is local only (.rfcorpus/); method doc only |
-| Folder | — |
-| Manifest | — rows · BLAKE3 `—` |
+| Committed | Held audit projection: manifest, generated metadata and authored inputs; requires retained local stores. No filing text committed; full acquisition and blob verification remain incomplete. |
+| Folder | `corpus/risk-factors` · 4 files · 0.0 MB |
+| Manifest | 3 rows · BLAKE3 `d91fb0e86c3fe80b` |
 | Method | [`docs/risk-factor-corpus.md`](docs/risk-factor-corpus.md) |
-| Signature | no corpus folder (`attestations/datasets/`) |
+| Signature | unsigned (`attestations/datasets/`) |
 
 Refresh:
 
-    # not rebuildable yet (no MANIFEST, no dag step); local runs: uv run scripts/rf_extract.py, see doc
+    uv run scripts/rf_manifest.py write && uv run scripts/rf_manifest.py check
+
+| Step (dag.yml) | Status |
+|---|---|
+| `data://garden/risk_factors/2026-11-04/manifest` | ok |
 
 ---
 
@@ -279,7 +283,7 @@ Refresh:
 | Folder | `corpus/codebooks` · 2 files · 0.0 MB |
 | Manifest | — rows · BLAKE3 `—` |
 | Method | [`docs/bert-enrichment-spec.md`](docs/bert-enrichment-spec.md) |
-| Signature | unsigned (`attestations/datasets/`) |
+| Signature | unsigned, record stale (`attestations/datasets/`) |
 
 Refresh:
 
@@ -305,7 +309,7 @@ Refresh:
 | Folder | `corpus/democracy` · 12 files · 2.3 MB |
 | Manifest | 34 rows · BLAKE3 `107c7d74e31d3aab` |
 | Method | [`docs/democracy-proxies.md`](docs/democracy-proxies.md) |
-| Signature | unsigned (`attestations/datasets/`) |
+| Signature | unsigned, record stale (`attestations/datasets/`) |
 
 Refresh:
 
@@ -341,6 +345,7 @@ hashes with `dag.lock.tsv`: `inputs` means rebuild, `rebuilt`/`upstream` mean re
 | `snapshot://ethicalcapital/v0.1/codebook` | ok | 0 |
 | `data://witness/earnings_calls/2026-11-04/codebook_v0_1` | ok | 2 |
 | `data://garden/earnings_calls/2026-11-04/gold_samples` | ok | 2 |
+| `data://garden/risk_factors/2026-11-04/manifest` | ok | 0 |
 | `snapshot://epoch/2026-11-04/all_datasets` | ok | 0 |
 | `data://meadow/epoch/2026-11-04/inventory` | ok | 1 |
 | `snapshot://open_index/2026-08-31/hacker_news` | ok | 0 |
