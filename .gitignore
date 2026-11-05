@@ -40,3 +40,6 @@ docs/figures/*.svg
 # Descartes: derived text is rebuilt from derived/recipes.tsv; the store is a projection.
 derived/*.txt
 .descartes/
+
+# Query-queue raw search responses -- pinned by hash in research/MANIFEST.tsv
+.leadscorpus/
