@@ -247,7 +247,11 @@ function drawSurvival(){const hz=V.annual_hazard,lev=D.levers;
  $('#c-avoid').setAttribute('d',path(V.hazard_avoid));
  const ty=Math.min(V.survival_years,CH.T);const tg=$('#c-tgt');tg.setAttribute('cx',px(ty));tg.setAttribute('cy',py(V.survival_target));
  $('#h-all').textContent=fmt(all,'per year');$('#h-prov').textContent=fmt(prov,'per year');
- $('#s-all').textContent=fmt(Math.pow(1-all,50),'probability');$('#s-prov').textContent=fmt(Math.pow(1-prov,50),'probability');
+ const T=V.survival_years;$$('.yrs').forEach(e=>e.textContent=sig(T,3));
+ $('#s-all').textContent=fmt(Math.pow(1-all,T),'probability');$('#s-prov').textContent=fmt(Math.pow(1-prov,T),'probability');
+ const np=lev.filter(l=>l.proven).length,zero=lev.every(l=>!V[l.id]);
+ $('#surv-note').textContent=(zero?'Every lever is at zero, so the hazard, proven-lever and all-lever curves lie on one line: give a lever some credit to separate them. ':'')+
+  (np?'':'No lever rests on a proven remedy card yet, so the proven-lever curve stays on the hazard curve whatever credit you give.');
  $('#h-gap').textContent=V.hazard_needed>0?sig(all/V.hazard_needed,3)+'×':'—'}
 /* ---------- theme + print ---------- */
 $('#theme').addEventListener('click',()=>{const r=document.documentElement;const dark=r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme: dark)').matches;
@@ -612,11 +616,12 @@ Parties sit outside, coloured by how well any theme covers them. Lines join a th
 <p class="small muted">Give each lever a share of the hazard it would remove, if adopted. {n_proven_levers} of {len(levers)} levers rest on proven cards, so the proven curve moves only with those.</p>{l_sliders}</fieldset></div>
 <div>{chart}<div class="legend"><span style="color:var(--accent)">━ hazard h</span><span style="color:var(--th)">━ h with proven levers</span>
 <span style="color:var(--imp)">╍ h with all levers (unproven)</span><span style="color:var(--avoid)">┅ outcome to avoid: 1 in 10 a year</span><span style="color:var(--but)">● your target</span></div>
+<p class="small muted" id="surv-note" aria-live="polite"></p>
 <div class="readout"><div class="box"><div class="nm">Survival over 50 years at h</div><div class="v" data-q="survival_50">…</div></div>
 <div class="box"><div class="nm">Survival over 50 years at the line to avoid</div><div class="v" data-q="survival_50_avoid">…</div></div>
 <div class="box"><div class="nm">Hazard that meets your target</div><div class="v"><span data-q="hazard_needed">…</span> a year</div></div>
-<div class="box"><div class="nm">h with all levers credited</div><div class="v"><span id="h-all">…</span></div><div class="u">survives 50 years: <span id="s-all">…</span></div></div>
-<div class="box"><div class="nm">h with proven levers only</div><div class="v"><span id="h-prov">…</span></div><div class="u">survives 50 years: <span id="s-prov">…</span></div></div>
+<div class="box"><div class="nm">h with all levers credited</div><div class="v"><span id="h-all">…</span></div><div class="u">survives <span class="yrs">…</span> years: <span id="s-all">…</span></div></div>
+<div class="box"><div class="nm">h with proven levers only</div><div class="v"><span id="h-prov">…</span></div><div class="u">survives <span class="yrs">…</span> years: <span id="s-prov">…</span></div></div>
 <div class="box"><div class="nm">All-lever hazard over the hazard needed</div><div class="v" id="h-gap">…</div></div></div>
 <div class="math">S(t)       = (1 − h)^t                 chance of no catastrophe in t years
 h needed   = 1 − S*^(1/T)              hazard that keeps survival at S* for T years

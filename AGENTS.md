@@ -10,6 +10,18 @@ Everything here is published, so proprietary Ethical Capital work belongs in
 monocloud, never here. Repo content is CC0 except `corpus/*/`, which carries
 its own attribution README.
 
+## Where the source lives
+
+Since 2026-11-05 the source of truth is Ethical Capital's private development
+repository (Dark), where this project sits under `anthropic-pbc/` beside
+Praxis. The public repository receives releases made by
+`scripts/export_public.py`: every tracked file except those in
+`EXPORT-EXCLUDE`, with `RELEASE.json` listing each file's SHA-256 and the
+source tree it came from. Public history is a sequence of releases, not the
+development history. Issues and pull requests on the public repository are
+welcome; accepted changes are applied to the source and return in the next
+release. Never edit the public clone by hand: the next export overwrites it.
+
 ## Start here
 
 - **`DATASETS.md`** is the catalog of every corpus: source, license, pin date,
@@ -159,7 +171,9 @@ codebook, pass `--units`, `--codebook`, `--id-col` and `--out`.
   counsel or regulatory matters, named counterparties and asks, anything
   touching clients) happen only in the private dark repository. This
   repository, Praxis and shared trails carry only the shareable design and
-  a pointer (Sloane, 2026-11-04).
+  a pointer (Sloane, 2026-11-04). Inside the development repository,
+  privileged material for this project goes in `private/`, which
+  `EXPORT-EXCLUDE` keeps out of every release.
 - **Atomic review.** Every claim is reviewed on its own against four
   questions: pinned, present, faithful to its context, breadcrumbed. A claim
   with no source goes to research and, failing that, an open question.
