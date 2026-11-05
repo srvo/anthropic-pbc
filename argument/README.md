@@ -15,7 +15,8 @@ The paper's argument as small cards. Each card holds one claim and names what it
 ## Views
 
 - **Workbench:** the complaint sphere, chains, barriers, carry-forward and survivorship, on one page.
-  - Live: https://claude.ai/artifact/PfL9HsyEvaHm3UpWUdeCgj (private until shared).
+  - Live, rebuilt on every push by `.github/workflows/workbench-pages.yml`: https://srvo.github.io/anthropic-pbc/ (chain view at `chain/`, card deck at `cards/`).
+  - Shareable snapshot: https://claude.ai/artifact/PfL9HsyEvaHm3UpWUdeCgj.
   - Build: `python3 scripts/render_workbench.py OUT_DIR` writes `index.html`, `artifact.html`, `MANIFEST.tsv` (SHA-256 of every input) and `inputs/`.
 - **Chain shape:** `python3 scripts/render_chain.py OUT.html`.
 - **Card deck:** `uv run scripts/render_cards.py OUT.html`.
