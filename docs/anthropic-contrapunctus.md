@@ -1235,7 +1235,32 @@ compliance-sensitive republication.
 
 ---
 
-## 9. Back matter
+## 9. Errata
+
+Corrections to earlier drafts of this paper, newest last. An entry is never
+edited or removed; a correction to a correction is a new entry. Each names
+what was wrong, what the paper says now, the claim that carries the evidence
+(`claims/anthropic-contrapunctus.tsv`), and the commit. The full record of
+quotation fixes is the atomic review
+(`claims/anthropic-contrapunctus.review.tsv`); the checks are recorded
+unedited in [`quote-check-2026-11-04.md`](quote-check-2026-11-04.md).
+The register across Praxis reports is [Praxis errata](../../praxis/ERRATA.md#anthropic-pbc-working-paper)
+(link to move to the public Praxis URL when it exists).
+
+| # | Date | Was | Now | Evidence | Commit |
+|---|---|---|---|---|---|
+| E1 | 2026-11-03 | A program total of 129,000 was attributed to the Public Benefit Report. | Flagged in place as partner-reported; the number is not in the Report. | Report text (check of 2026-11-03) | before this register |
+| E2 | 2026-11-04 | 59 quotations were compressions, paraphrases or joined fragments, and 12 lost their context (dropped hedges, conditions and scope). Among them: the S-1's risk factors were read as generalizing about the industry, when they attribute misaligned behavior to Anthropic's own models; GTG-1002 was described as AI-run espionage; the LTBT's description of the Fund as a separate entity was read as a claim about control. | Requoted from the sources' exact words, unquoted, or rewritten to what the source supports; claims the sources did not carry were weakened or cut. | atomic review, 93 rows | e36f74e |
+| E3 | 2026-11-04 | The Constitution was presented as binding Anthropic's corporate conduct. | It is a lens: how Anthropic chose to govern an agent it cannot fully verify, applied to Anthropic as an illustration, not a rule that binds it (§5.1). | Q025–Q032, Q052 | e36f74e |
+| E4 | 2026-11-04 | §6.3.1, Appendix A and GOV-10 said the S-1 is silent on the four-model unauthorized-access incident. | The S-1 discloses it in its risk factors (p. 49). | Q094 | 0655261 |
+| E5 | 2026-11-04 | §7.1 called pacing the frontier the Report's stated preference. | It is the S-1's call, scoped to industry-wide standards, which the S-1 says does not describe Anthropic's own model development. | Q015, Q016 | 0655261 |
+| E6 | 2026-11-04 | §5.3 and Figure 1 stated hand-written verification counts (51 of 60) that had gone stale. | The counts are generated from the check record, never typed; Figure 1 is withdrawn until generated. | quote-check record | 0655261 |
+| E7 | 2026-11-04 | §2 quoted the Report's rendering of the charter as the charter. | §2 quotes Article III of the certificate in effect (Exhibit 3.1 to Amendment No. 1), which reads long term without a hyphen, and the form effective at the IPO (Exhibit 3.3 to the original S-1), which hyphenates it. | Q095, Q096 | 4309137 |
+| E8 | 2026-11-04 | §4.2 quoted the RSP clause only up to the words we will not, cutting the word necessarily, on which the point rests. The cut quotation passed the check. | The whole clause is quoted. | Q022b | ceb603f |
+
+---
+
+## 10. Back matter
 
 ### Appendix A. Governance scorecard (filed vs serious)
 
