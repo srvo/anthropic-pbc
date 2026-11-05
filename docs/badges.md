@@ -64,4 +64,4 @@ until it moves to Praxis.
 - The status window (the prototype used one day).
 - Hosting for status badges and claim pages.
 - Signing citation badges, once there's a key (Praxis `OPENQUESTIONS.md` Q1).
-- Where the use layer lives.
+- Where the use layer lives. Tracked on Entire trail #29 for the central plan.
