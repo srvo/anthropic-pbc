@@ -172,6 +172,9 @@ Q096	-	llm:claude-opus-5-5 prompt=unrecorded (interactive session 2026-11-04, on
 #   A02 (the best case) is the steelman; the thesis T0 does not rest on it.
 #   rests_on is a conjunction: list only what a claim needs, not what corroborates it
 #   (Descartes has no corroboration link yet; Q001 and Q010 corroborate A01).
+#   STATUS: proposal. The choice of rows and of rests_on is model judgment the check cannot
+#   verify, so under AGENTS.md "Deterministic unless Sloane overrides" it stands only once
+#   Sloane overrides it editorially (or it is computed from labels in the paper's text).
 A01	Q095	llm:claude-opus-5-5 prompt=unrecorded (interactive session 2026-11-04, on Sloane's instruction; no prompt file)	§0: the public benefit corporation label is a promise, and the purpose it promises is written into the charter.	-	-
 A02a	-	llm:claude-opus-5-5 prompt=unrecorded (interactive session 2026-11-04, on Sloane's instruction; no prompt file)	§0: a Delaware court has held that a public benefit corporation's directors need not maximise shareholder value.	-	-
 A02b	-	llm:claude-opus-5-5 prompt=unrecorded (interactive session 2026-11-04, on Sloane's instruction; no prompt file)	§0: an independent trust elects four of Anthropic's seven directors.	-	-

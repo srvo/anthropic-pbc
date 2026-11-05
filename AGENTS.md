@@ -148,6 +148,12 @@ codebook, pass `--units`, `--codebook`, `--id-col` and `--out`.
   no support stays in and fails. Argument order and link weight are
   computed from that graph, never assigned (`docs/editorial-standard.md`)
   (Sloane, 2026-11-04).
+- **Deterministic unless Sloane overrides.** Every result comes from a
+  deterministic computation. The one exception is an editorial override by
+  Sloane, recorded as hers with its reason. Model output the machine can
+  check (a quote that exists) stays circle 3; model judgment it cannot check
+  (how the argument is structured, what rests on what) is a proposal until
+  it is either computed or overridden (Sloane, 2026-11-04).
 - **Atomic review.** Every claim is reviewed on its own against four
   questions: pinned, present, faithful to its context, breadcrumbed. A claim
   with no source goes to research and, failing that, an open question.
