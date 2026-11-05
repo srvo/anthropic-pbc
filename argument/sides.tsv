@@ -1,0 +1,15 @@
+# Sides for the effect-size bars. Cards listed here carry Anthropic's case (defence).
+# Every other card with role lens or budget is method (counted on neither side); the rest carry the complaint.
+card	side	reason
+A009	defence	court: directors need not maximise value
+A010	defence	trust-elected board majority
+A011	defence	discloses its own failures
+A012	defence	discloses more than peers
+A013	defence	Constitution is public
+A015	defence	the best case, stated
+A026	defence	the RSP allows caution
+L-planet-planetary-boundaries-04	defence	no unique compute budget can be set
+L-planet-energy-abundance-01	defence	ecomodernist case: decoupling
+L-planet-energy-abundance-02	defence	ecomodernist case: abundant supply
+L-planet-energy-abundance-03	defence	AI could save more than it emits
+L-planet-energy-abundance-04	defence	the budget is clean supply

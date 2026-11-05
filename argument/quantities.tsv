@@ -1,0 +1,56 @@
+# Quantities for the carry-forward and survivorship panels. Nothing here is an estimate of real risk or of Anthropic's footprint.
+# basis: observed = the value appears verbatim in the pinned quote it rests on ("-" while the source is pending);
+#        applied  = a reader-set assumption: no value, only a slider range [low, high] (start: mid or low). Unsourced until pinned.
+#                   An applied row may carry a value only when its note begins "normative:" (a line the author draws, not a fact);
+#        implied  = value is "=formula" over other ids; rests_on lists exactly those ids. It inherits the weakest basis of its inputs.
+id	name	value	unit	low	high	basis	rests_on	note	start
+spend_committed	Committed spend, purchase commitments and leases	895.4	USD billion	-	-	observed	Q090	S-1, as of and after 30 Sep 2026	-
+dc_elec_2024	World data-centre electricity, 2024	415	TWh	-	-	observed	Q114	IEA, Energy and AI	-
+dc_emis_today	World data-centre electricity emissions, today	180	Mt CO2/yr	-	-	observed	Q113	IEA Base Case	-
+dc_emis_2035	World data-centre electricity emissions, 2035	300	Mt CO2/yr	-	-	observed	Q113	IEA Base Case	-
+iea_site_mw	IEA reference site	100	MW	-	-	observed	Q110	a US hyperscale data centre	-
+iea_site_water	IEA reference site water use	2	million litres/day	-	-	observed	Q110	in total, for the 100 MW site	-
+fw_boundary	Freshwater boundary, world consumptive use	4000	km3/yr	-	-	observed	Q100	Rockström 2009; the cards say the basin, not this, binds	-
+co2_boundary	Climate boundary, CO2 concentration	350	ppm	-	-	observed	Q099	context only	-
+rcb_uncertainty	Carbon-budget uncertainty, historical warming	550	GtCO2	-	-	observed	Q105	plus or minus	-
+public_good_share	Shares hoped to go to the public good	20	%	-	-	observed	Q089	a forecast, not an offset (A051)	-
+security_flaws	Critical and high flaws Anthropic reports finding	33000	count	-	-	observed	Q081	more than; no public CVE-level audit (P-cve-audit)	-
+pneumonia_flags	Pneumonia cases flagged by dashboards	25000	count	-	-	observed	Q083	an input, not cases averted	-
+bartz_settlement	Bartz settlement	-	USD billion	-	-	observed	P-bartz	card A042 states it; the source is not pinned	-
+violator_revenue_share	Revenue from customers later found violating policy	-	% of revenue	-	-	observed	P-s1-violator-revenue	card A043 states it; quote not selected	-
+compute_share	Share of committed spend on compute and infrastructure	-	fraction	0.5	1	applied	P-s1-spend-schedule	the S-1 wording is not yet a pinned quote	mid
+capex_per_mw	All-in spend per MW of IT capacity	-	USD million/MW	10	80	applied	-	chips, buildings and power together	mid
+utilisation	Average load over IT capacity	-	fraction	0.3	1	applied	-	-	mid
+pue	Power usage effectiveness	-	ratio	1.05	1.6	applied	-	facility power over IT power	mid
+grid_intensity	Grid carbon intensity at the sites	-	gCO2/kWh	0	700	applied	-	-	mid
+water_vs_iea	Site water per MW, relative to the IEA site	-	times	0	2	applied	-	1 means the IEA reference site	mid
+operating_years	Years the capacity runs	-	years	5	25	applied	-	-	mid
+rcb_global	Remaining carbon budget from 2020	-	GtCO2	100	2000	applied	P-ipcc-table-spm2	values sit in IPCC Table SPM.2, not yet verifiable	mid
+s_sector	Computing's share of the allowance	-	fraction	0	0.1	applied	L-planet-planetary-boundaries-08	no boundary paper sets it	mid
+s_op	Anthropic's share of computing's allowance	-	fraction	0	0.5	applied	L-planet-planetary-boundaries-09	read through the allocation principle chosen	mid
+annual_hazard	Annual catastrophic hazard h	-	per year	0	0.25	applied	-	a reader-set scenario, not an estimate of real risk	mid
+hazard_avoid	The outcome to avoid	0.1	per year	-	-	applied	-	normative: Sloane's line, a one in ten chance of the world ending in a year; not an estimate	-
+survival_target	Survival target S*	-	probability	0.5	0.99	applied	-	-	mid
+survival_years	Years the target must hold	-	years	10	50	applied	-	-	mid
+lever_lock	Hazard share removed by an irrevocable mission lock	-	fraction	0	0.5	applied	A065	credit the reader gives; starts at none	low
+lever_standing	Hazard share removed by contest standing	-	fraction	0	0.5	applied	A066	credit the reader gives; starts at none	low
+lever_bond	Hazard share removed by a metered externality bond	-	fraction	0	0.5	applied	A067	credit the reader gives; starts at none	low
+lever_preipo	Hazard share removed by the pre-IPO asks	-	fraction	0	0.5	applied	A068	credit the reader gives; starts at none	low
+lever_praxis	Hazard share removed by a public verifier	-	fraction	0	0.5	applied	A069	credit the reader gives; starts at none	low
+capacity_mw	IT capacity the spend buys	=spend_committed*1000*compute_share/capex_per_mw	MW	-	-	implied	spend_committed,compute_share,capex_per_mw	-	-
+energy_twh	Electricity a year at that capacity	=capacity_mw*8760*utilisation*pue/1000000	TWh/yr	-	-	implied	capacity_mw,utilisation,pue	-	-
+share_dc_elec	Against world data-centre electricity, 2024	=energy_twh/dc_elec_2024	fraction	-	-	implied	energy_twh,dc_elec_2024	-	-
+emissions_mt	Emissions a year	=energy_twh*grid_intensity/1000	Mt CO2/yr	-	-	implied	energy_twh,grid_intensity	-	-
+share_dc_emis	Against world data-centre emissions today	=emissions_mt/dc_emis_today	fraction	-	-	implied	emissions_mt,dc_emis_today	-	-
+water_per_mw	IEA site water per MW	=iea_site_water*1000000/iea_site_mw	litres/MW/day	-	-	implied	iea_site_water,iea_site_mw	-	-
+water_ml_day	Water consumed	=capacity_mw*water_per_mw*water_vs_iea/1000000	million litres/day	-	-	implied	capacity_mw,water_per_mw,water_vs_iea	-	-
+water_km3_yr	Water consumed a year	=water_ml_day*365/1000000	km3/yr	-	-	implied	water_ml_day	-	-
+share_fw_boundary	Against the world freshwater boundary	=water_km3_yr/fw_boundary	fraction	-	-	implied	water_km3_yr,fw_boundary	-	-
+cum_emissions_mt	Emissions over the operating years	=emissions_mt*operating_years	Mt CO2	-	-	implied	emissions_mt,operating_years	-	-
+c_op_gt	Anthropic's allocated carbon budget	=rcb_global*s_sector*s_op	GtCO2	-	-	implied	rcb_global,s_sector,s_op	-	-
+c_op_low_gt	Allocated budget, low end	=max(rcb_global-rcb_uncertainty,0)*s_sector*s_op	GtCO2	-	-	implied	rcb_global,rcb_uncertainty,s_sector,s_op	-	-
+budget_used	Share of the allocated budget used	=cum_emissions_mt/(c_op_gt*1000)	fraction	-	-	implied	cum_emissions_mt,c_op_gt	-	-
+budget_used_high	Share used, low-end budget	=cum_emissions_mt/(c_op_low_gt*1000)	fraction	-	-	implied	cum_emissions_mt,c_op_low_gt	-	-
+survival_50	Survival over 50 years at h	=(1-annual_hazard)**50	probability	-	-	implied	annual_hazard	-	-
+survival_50_avoid	Survival over 50 years at the line to avoid	=(1-hazard_avoid)**50	probability	-	-	implied	hazard_avoid	-	-
+hazard_needed	Hazard that meets the survival target	=1-survival_target**(1/survival_years)	per year	-	-	implied	survival_target,survival_years	-	-
