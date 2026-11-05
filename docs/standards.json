@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "cadence_days": 7,
+  "standards": [
+    {"id":"atomic-review","repository":"anthropic-pbc","path":"docs/atomic-review.md","role":"binding claim-review standard"},
+    {"id":"report-build","repository":"anthropic-pbc","path":"docs/report-build.md","role":"current build entry followed by explicitly historical model"},
+    {"id":"unified-report-plan","repository":"anthropic-pbc","path":"docs/plan-unified-report.md","role":"plan and decision history; not implementation evidence"},
+    {"id":"praxis-skeleton","repository":"anthropic-pbc","path":"docs/praxis-standard.md","role":"draft skeleton; not a binding substitute for shared contracts"},
+    {"id":"producer-contract","repository":"praxis","path":"docs/producer-contract.md","role":"shared producer contract"},
+    {"id":"presentation-contract","repository":"praxis","path":"design/research-presentation.md","role":"shared composable presentation contract"},
+    {"id":"argument-units","repository":"praxis","path":"design/argument-units.md","role":"one purpose per paragraph; multiple bound representations"}
+  ]
+}

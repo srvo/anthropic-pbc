@@ -1,0 +1,26 @@
+name: standards-review
+on:
+  pull_request:
+  push:
+    branches: [main, ec-ai-corpus]
+  schedule:
+    - cron: '17 9 * * 0'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - name: Contract and failure-boundary regression tests
+        run: uv run scripts/test_standards_review.py
+      - name: Review standards and report coverage
+        run: uv run scripts/standards_review.py --output standards-run.json
+      - name: Retain findings even when conformance is incomplete
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: standards-run
+          path: standards-run.json
