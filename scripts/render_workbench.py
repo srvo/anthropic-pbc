@@ -26,7 +26,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import chain_shape as cs  # noqa: E402
 import check_cards as cc  # noqa: E402
 import workbench as wb  # noqa: E402
-from render_cards import git_head  # noqa: E402
+from render_cards import git_head, manifest_by_derived  # noqa: E402
 
 E = html.escape
 WORD = {cs.THEREFORE: "therefore", cs.BUT: "but", cs.AND: "and", cs.AND_THEN: "and then"}
@@ -155,6 +155,7 @@ svg.chart{width:100%;height:auto;display:block;background:var(--card);border:1px
 .sides .num{font-size:.7rem;color:var(--muted)}
 footer{margin-top:3em;font-size:.8rem;color:var(--muted);border-top:1px solid var(--line);padding-top:1em}
 details.index summary{cursor:pointer;font-weight:600}
+.links{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:8px 24px}.linklist{margin:.2em 0;padding-left:1.1em;font-size:.85rem}.linklist li{margin:.2em 0;overflow-wrap:anywhere}.linklist a{color:var(--accent)}
 @media (max-width:1100px){.ide{grid-template-columns:200px minmax(0,1fr)}#inspector{grid-column:1/-1;position:static;max-height:none}}
 @media (max-width:760px){.ide,.sphere-wrap,.two{grid-template-columns:minmax(0,1fr)}#outline{position:static;max-height:260px}
 .sides{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.sides .q{grid-column:1/-1;margin-top:6px}.sides .th0{display:none}.box{max-width:none}}
@@ -185,7 +186,7 @@ const INS=$('#inspector');
 function cardBtn(id){const c=D.cards[id];return h('button',{cls:'lnk',on:()=>showCard(id)},id+(c?' · '+c.title:''))}
 function ref(x){if(D.cards[x]){const c=D.cards[x];return h('li',{},cardBtn(x),' ',h('span',{cls:'tag '+(c.circle>=1?'ok':'fail')},'c'+c.circle))}
  if(D.quotes[x]){const q=D.quotes[x];return h('li',{},h('b',{},x),' ',h('span',{cls:'tag '+(q.ok?'ok':'fail')},q.ok?'quote passes':'quote fails'),
-  h('blockquote',{},'“'+q.quote+'”'),h('span',{cls:'small muted'},q.path))}
+  h('blockquote',{},'“'+q.quote+'”'),q.url?h('a',{href:q.url,target:'_blank',rel:'noopener',cls:'small'},'source: '+q.path.split('/').pop()):h('span',{cls:'small muted'},q.path))}
  if(D.pending[x]){const p=D.pending[x];return h('li',{},h('b',{},x),' ',h('span',{cls:'tag pending'},'pending: '+p.kind),h('div',{cls:'small muted'},p.note))}
  return h('li',{},x+' (unknown)')}
 function dl(pairs){const d=h('dl',{});for(const[k,v]of pairs){if(v==null)continue;d.append(h('dt',{},k),h('dd',{},v))}return d}
@@ -319,13 +320,14 @@ def render(root: Path = cc.ROOT) -> tuple[str, list[tuple[str, str, int]]]:
     levers = [{"id": q["id"], "card": wb.split(q["rests_on"])[0], "proven": circ.get(wb.split(q["rests_on"])[0], 0) >= 1}
               for q in w.quantities if q["id"].startswith("lever_")]
     order = wb.implied_order(w.quantities)
+    src_urls = manifest_by_derived(root)
     data = {
         "cards": {c: {"title": seq.get(c, {}).get("title", c), "statement": d.statements[c],
                       "role": seq.get(c, {}).get("role", "?"), "theme": seq.get(c, {}).get("theme", "?"),
                       "circle": circ.get(c, 0), "rests_on": d.cards[c], "used_by": used.get(c, []),
                       "weak": weak.get(c, []), "alts": alts.get(c, []), "run": card_run[c], "side": side_of.get(c, "?")}
                   for c in d.cards},
-        "quotes": {q: {"quote": w.quotes[q]["quote"], "path": w.quotes[q]["path"],
+        "quotes": {q: {"quote": w.quotes[q]["quote"], "path": w.quotes[q]["path"], "url": src_urls.get(w.quotes[q]["path"], ""),
                        "ok": d.descartes_ok is not None and q in d.descartes_ok} for q in used_q},
         "pending": {k: {"kind": v["kind"], "note": v["note"], "needed_for": v["needed_for"]} for k, v in pend.items()},
         "themes": [{"theme": t["theme"], "question": t["question"], **stats.get(t["theme"], {"cards": 0, "proven": 0}),
@@ -559,6 +561,14 @@ def render(root: Path = cc.ROOT) -> tuple[str, list[tuple[str, str, int]]]:
         for c in [r["card"] for r in d.sequence])
 
     js_f = "const F={" + ",".join(f'"{i}":v=>{wb.formula_js(by[i]["value"][1:])}' for i in order) + "};"
+    cited: dict[str, int] = {}
+    for q in data["quotes"].values():
+        if q["url"]:
+            cited[q["url"]] = cited.get(q["url"], 0) + 1
+    manifest = {r["url"]: r["id"] for r in cc.read_tsv(root / "sources/MANIFEST.tsv")}
+    src_items = "".join(f'<li><a href="{E(u)}" target="_blank" rel="noopener">{E(manifest.get(u, u))}</a> '
+                        f'<span class="small muted">{n} quote{"s" if n != 1 else ""}</span></li>'
+                        for u, n in sorted(cited.items(), key=lambda t: (-t[1], manifest.get(t[0], t[0]))))
     page = f"""<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1"><title>Argument Workbench</title>
 <meta name="description" content="The Anthropic public-benefit argument as it stands: chains, breakdowns, parties, carried-forward quantities.">
@@ -568,7 +578,7 @@ def render(root: Path = cc.ROOT) -> tuple[str, list[tuple[str, str, int]]]:
 <div class="noprint"><button class="tbtn" id="theme" type="button">Light / dark</button> <button class="tbtn" id="print" type="button">Print</button></div></div>
 <p class="verdict">{verdict}</p>
 <nav class="toc"><a href="#sphere">Complaint sphere</a><a href="#ide">Chains</a><a href="#barriers">Barriers</a>
-<a href="#carry">Carry-forward</a><a href="#survive">Survivorship</a><a href="#sides">Each side</a><a href="#missing">What is missing</a></nav>
+<a href="#carry">Carry-forward</a><a href="#survive">Survivorship</a><a href="#sides">Each side</a><a href="#missing">What is missing</a><a href="#links">Links</a></nav>
 
 <h2 id="sphere">Complaint sphere</h2>
 <p class="lede">The question sits at the centre. Themes ring it; the filled part of each is the share of its cards that are proven.
@@ -617,6 +627,13 @@ proven     = only levers whose remedy card is circle ≥ 1</div></div></div>
 <p class="lede">Left: cards carrying Anthropic's case (listed in <code>argument/sides.tsv</code>). Right: cards carrying the complaint. Dashed outline: cards as written, one each. Fill: weight as proven, each card counting its circle (0 to 3), so an unproven card weighs nothing. Lens and budget cards are method and sit on neither side.</p>
 <div class="sides"><div class="hd th0">theme</div><div class="hd" style="text-align:right">Anthropic's case</div><div class="hd">the complaint</div>{"".join(side_rows)}</div>
 
+<h2 id="links">Links</h2>
+<div class="links"><div><h3>The paper and its code</h3><ul class="linklist">
+<li><a href="{DOI_URL}" target="_blank" rel="noopener">The working paper</a> <span class="small muted">Zenodo, DOI {DOI}</span></li>
+<li><a href="{REPO_URL}" target="_blank" rel="noopener">Code, cards and checks</a> <span class="small muted">GitHub; this page is built by <code>scripts/render_workbench.py</code> from <code>argument/</code></span></li>
+</ul></div>
+<div><h3>Sources the cards quote</h3><ul class="linklist">{src_items}</ul></div></div>
+
 <footer id="missing"><h3>What is missing</h3><ul>{"".join(f"<li>{m}</li>" for m in missing)}</ul>
 <p>A figure of $500 billion appears in no pinned quote; the page uses the S-1's $895.4 billion (Q090).</p>
 <p>Regenerate: <code>python3 scripts/render_workbench.py OUT_DIR</code> (checks: <code>python3 scripts/check_workbench.py</code>).
@@ -630,6 +647,9 @@ Inputs and their SHA-256 are in <code>MANIFEST.tsv</code> beside this page; copi
 
 
 ARTIFACT_TITLE = "Anthropic PBC Workbench"
+REPO_URL = "https://github.com/srvo/anthropic-pbc"
+DOI = "10.5281/zenodo.23928296"
+DOI_URL = "https://doi.org/" + DOI
 
 
 def artifact_page(page: str) -> str:
