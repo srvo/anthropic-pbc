@@ -1,0 +1,15 @@
+{
+  "tool_use_id": "toolu_016XPUEQDtXTUfNzb8BQNB8q",
+  "agent_id": "a3417c97c1c0806a8",
+  "subagent_type": "general-purpose",
+  "task_description": "Research ESG data market spend",
+  "token_usage": {
+    "input_tokens": 38,
+    "cache_creation_tokens": 144695,
+    "cache_read_tokens": 2045979,
+    "output_tokens": 9910,
+    "api_call_count": 19
+  },
+  "started_at": "2026-11-04T21:11:48.920983-07:00",
+  "completed_at": "2026-11-04T21:14:53.98333-07:00"
+}
