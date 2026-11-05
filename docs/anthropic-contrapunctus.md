@@ -9,9 +9,6 @@
 <a href="figures/fig4-leverage.svg"><img src="figures/fig4-leverage.svg" width="640" alt="Meadows leverage points: Anthropic acts at 12 and 6, declines at 5, 4 and 3, speaks at 2 and 3."></a>
 </div>
 
-*Figures are generated deterministically from the numbers in this paper by
-[`figures/build.py`](figures/build.py); re-run it and you get the same bytes.*
-
 ---
 
 **From:** Sloane Ortel, personal working paper
@@ -32,7 +29,7 @@ filed under securities law, compel — and what they conspicuously do not.
 **Status: working paper, v0 — released for disagreement, not as a verdict.**
 
 >
-> **Praxis note** *(wording to be finalised by Sloane)*. This is not a
+> **Praxis note.** This is not a
 > publication. It is set up to facilitate dialogue between communities,
 > toward the goal of asserting collective stewardship. Not investment advice,
 > not an offer or solicitation, no performance claim. The live conflict of
@@ -80,8 +77,6 @@ invoke.
 ---
 
 ## 1. Why we are asking
-
-> **On the web:** what we think about governance, the premise paper (link pending).
 
 > Governance exists so that systems can survive individuals.
 
@@ -341,7 +336,6 @@ with governments and does not describe our own model development or release
 timelines, which continue to be informed by our risk assessments." Meanwhile
 "Our business model requires substantial and increasing capital to support our
 ability to remain competitive and to stay at the frontier of AI." (S-1.)
-**[Found in the S-1; Descartes check pending.]**
 
 The Responsible Scaling Policy (RSP), the document in which Anthropic commits
 to safety measures as its models grow more capable, makes the condition
@@ -364,7 +358,7 @@ models even in cases the appendix does not cover.
 **[CONFIRMED/HIGH: the binding delay commitment is conditioned on Anthropic
 holding the lead, or on a competitor already holding a significantly better
 mitigation that Anthropic commits to try to match.
-Read on RSP p.17; Descartes check pending.]**
+Read on RSP p.17.]**
 
 **[OPINION]** Read together: hold back while in the lead, and otherwise keep
 pace. That is "only we can save us" written as policy. If it is true that only
@@ -378,8 +372,6 @@ the board can be amended away by the classes it checks (§4.1).
 ---
 
 ## 5. How we check its word
-
-> **On the web:** the method: Praxis and Descartes (link pending).
 
 ### 5.1 The lens: Anthropic's own Constitution
 
@@ -521,8 +513,6 @@ verifier, so a reader can check it with nothing else.
 ---
 
 ## 6. What the record shows
-
-> **On the web:** each corpus behind the record (link pending).
 
 2. **The Report grades its own homework, and its own LTBT says it largely
    describes inputs.** The Trust: "Right now, it largely describes inputs";
