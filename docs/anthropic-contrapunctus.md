@@ -1244,8 +1244,8 @@ what was wrong, what the paper says now, the claim that carries the evidence
 quotation fixes is the atomic review
 (`claims/anthropic-contrapunctus.review.tsv`); the checks are recorded
 unedited in [`quote-check-2026-11-04.md`](quote-check-2026-11-04.md).
-The register across Praxis reports is [Praxis errata](../../praxis/ERRATA.md#anthropic-pbc-working-paper)
-(link to move to the public Praxis URL when it exists).
+This section is the paper's errata register and its only copy; any register
+across Praxis reports rolls up from here.
 
 | # | Date | Was | Now | Evidence | Commit |
 |---|---|---|---|---|---|
