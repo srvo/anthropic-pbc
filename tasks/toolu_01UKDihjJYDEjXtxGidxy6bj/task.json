@@ -1,0 +1,15 @@
+{
+  "tool_use_id": "toolu_01UKDihjJYDEjXtxGidxy6bj",
+  "agent_id": "a9ceea423d987d530",
+  "subagent_type": "general-purpose",
+  "task_description": "Audit omitted accessible metadata",
+  "token_usage": {
+    "input_tokens": 52,
+    "cache_creation_tokens": 107237,
+    "cache_read_tokens": 2301366,
+    "output_tokens": 12239,
+    "api_call_count": 26
+  },
+  "started_at": "2026-11-04T19:07:09.210264-07:00",
+  "completed_at": "2026-11-04T19:10:25.135104-07:00"
+}
