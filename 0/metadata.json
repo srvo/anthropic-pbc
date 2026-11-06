@@ -1,0 +1,48 @@
+{
+  "cli_version": "0.12.2",
+  "checkpoint_id": "01M6S1XV6TF139NTCD0KTMSV2A",
+  "session_id": "01a1abb9-fd91-7631-a138-78b3df595b5c",
+  "strategy": "manual-commit",
+  "created_at": "2026-11-06T18:28:56.667176Z",
+  "branch": "review/2026-11-06-edition-wip",
+  "checkpoints_count": 2,
+  "save_step_count": 5,
+  "files_touched": [
+    ".zenodo.json",
+    "AGENTS.md",
+    "CITATION.cff",
+    "README.md",
+    "index.html"
+  ],
+  "agent": "Codex",
+  "model": "gpt-6-astra",
+  "turn_id": "ed65197f5c20",
+  "checkpoint_transcript_start": 1182,
+  "transcript_lines_at_start": 1182,
+  "compact_transcript_start": 161,
+  "token_usage": {
+    "input_tokens": 82036,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 8219648,
+    "output_tokens": 30481,
+    "api_call_count": 62,
+    "subagent_tokens_complete": true
+  },
+  "redaction": {
+    "replacements": 7720,
+    "layers": {
+      "betterleaks": 25,
+      "connection_string": 0,
+      "credential_key": 0,
+      "credential_value": 2,
+      "credentialed_uri": 2,
+      "entropy": 7692,
+      "key_context": 0,
+      "provider_token": 0,
+      "shell_stdin": 0
+    }
+  },
+  "session_metrics": {
+    "turn_count": 5
+  }
+}
