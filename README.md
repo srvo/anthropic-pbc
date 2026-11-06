@@ -134,6 +134,18 @@ Recompute it yourself: `b3sum docs/anthropic-contrapunctus.md`. Every load-beari
 quote is verified byte-exact against the primary filings; nothing resolves that
 the verifier cannot reproduce from scratch.
 
+### Maintaining the seal
+
+`scripts/seal.py` keeps the paper, the rendered page, the figures and every hash
+pin in lockstep:
+
+    uv run scripts/seal.py sync                                   # rebuild figures, re-embed paper in index.html
+    uv run scripts/seal.py check                                  # strict; CI runs this on main
+    uv run scripts/seal.py seal --version v0.1 --date 2026-11-04  # new hash into every pin
+
+The date is an argument, never read from the clock. To block drifted commits
+locally: `git config core.hooksPath .githooks`.
+
 ## DOI
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23928296.svg)](https://doi.org/10.5281/zenodo.23928296)
@@ -153,3 +165,28 @@ list; its README carries the attribution.
 Sloane Ortel · ORCID [0009-0000-8491-1589](https://orcid.org/0009-0000-8491-1589) · Ethical Capital.
 Personal research; not published on, or by, Ethical Capital's platform, and the
 author derives no economic benefit from it.
+
+<!-- praxis-central-plan:start -->
+Cross-repository execution and roadmap planning has one canonical home:
+[`dark-monocloud/docs/coordination/praxis-master-plan.md`](../dark-monocloud/docs/coordination/praxis-master-plan.md)
+in the sibling private Dark checkout. Read it before planning or dispatch across Praxis, Anthropic PBC,
+Descartes and Dark; update shared sequencing/dependencies there instead of
+creating another master plan. The module README still governs this module's
+behavior and checks. The private plan is coordination context, not a dependency
+of public builds; do not copy its contents or private data into this repository.
+If it is unavailable, report the missing context rather than inventing decisions.
+Research-question datasets belong to the one Praxis-governed lake under its
+verified access boundaries; local indexes are staging/rebuildable projections,
+not independent authoritative private systems.
+<!-- praxis-central-plan:end -->
+
+<!-- praxis-producer-contract:start -->
+## Praxis emission and lake custody
+
+For new or revised research emitters and datasets, follow the [shared producer contract](../praxis/docs/producer-contract.md)
+and the [local integration note](docs/praxis-producer.md). Reuse central presentation/rendering and the one
+Praxis-governed semantic lake; do not fork a generator or authoritative private
+research store. Local caches can be staging/projections. Actual custody requires
+verified scoped placement and write/readback receipts; a catalog row or pointer
+is not proof. Preserve existing sealed outputs until their adapters are verified.
+<!-- praxis-producer-contract:end -->

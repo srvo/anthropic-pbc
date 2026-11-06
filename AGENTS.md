@@ -194,3 +194,28 @@ codebook, pass `--units`, `--codebook`, `--id-col` and `--out`.
 Read .entire/agent-guide.md for this repository's workflow, source inspection, and verification guidance.
 @.entire/agent-guide.md
 <!-- entire-agent:end -->
+
+<!-- praxis-central-plan:start -->
+Cross-repository execution and roadmap planning has one canonical home:
+[`dark-monocloud/docs/coordination/praxis-master-plan.md`](../dark-monocloud/docs/coordination/praxis-master-plan.md)
+in the sibling private Dark checkout. Read it before planning or dispatch across Praxis, Anthropic PBC,
+Descartes and Dark; update shared sequencing/dependencies there instead of
+creating another master plan. The module README still governs this module's
+behavior and checks. The private plan is coordination context, not a dependency
+of public builds; do not copy its contents or private data into this repository.
+If it is unavailable, report the missing context rather than inventing decisions.
+Research-question datasets belong to the one Praxis-governed lake under its
+verified access boundaries; local indexes are staging/rebuildable projections,
+not independent authoritative private systems.
+<!-- praxis-central-plan:end -->
+
+<!-- praxis-producer-contract:start -->
+## Praxis emission and lake custody
+
+For new or revised research emitters and datasets, follow the [shared producer contract](../praxis/docs/producer-contract.md)
+and the [local integration note](docs/praxis-producer.md). Reuse central presentation/rendering and the one
+Praxis-governed semantic lake; do not fork a generator or authoritative private
+research store. Local caches can be staging/projections. Actual custody requires
+verified scoped placement and write/readback receipts; a catalog row or pointer
+is not proof. Preserve existing sealed outputs until their adapters are verified.
+<!-- praxis-producer-contract:end -->

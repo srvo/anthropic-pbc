@@ -1,0 +1,5 @@
+#!/bin/sh
+# Block commits where the page embed or figures drifted from the paper.
+# Unsealed drafts (pins lagging the paper hash) only warn; CI on main is strict.
+# Enable once per clone: git config core.hooksPath .githooks
+exec uv run --quiet scripts/seal.py check --allow-unsealed
