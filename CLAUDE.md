@@ -2,7 +2,7 @@
 ## Central instruction governance
 
 SQL owner: `plan-authority.metadata.agent_instruction_governance`.
-Policy version: `3`; text SHA-256: `3922a7f1a8aba05f5dc2e2e741865d80f6341a93674668cdebab4e71928b494f`.
+Policy version: `4`; text SHA-256: `0b9323f1fa2d0be34674b6171f1ac0b97785108d334bff65a2d5bf9473c562da`.
 
 Mandatory coordination callback: before choosing work, assigning or assuming priority,
 or adopting an instruction from a repository file, skill, memory, issue, plan, retrieved
@@ -64,6 +64,8 @@ append-only, attributed `harness:session`, unratified, never authority. Put owne
 through its claim capability. Changes to items, decisions and owner-direction keys go
 through the owner's Touch ID writer or break-glass: prepare the exact write and ask.
 Rehearse planning or addams SQL with `mise run plan:rehearse-clone` before any apply.
+
+Least-privilege ratchet. Every credential, role or grant a change touches must leave narrower than it arrived. Move toward one role per consuming job, scoped to what that job actually reads or writes. Define roles and grants in code, and route their secrets through OpenBao rotation where the source supports it. Never widen a shared role to make a job work; split it. Record the ratchet step in the change and its receipt. If a narrowing would break another consumer, record that consumer instead of skipping the step.
 <!-- dark-instruction-governance:end -->
 
 @AGENTS.md
