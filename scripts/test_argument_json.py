@@ -338,24 +338,11 @@ def test_no_handwritten_data_reaches_external_surfaces() -> None:
         hits = literal_verdicts.findall(body)
         if hits:
             verdict_sources.append((script.name, len(hits)))
-    # A known, recorded finding, not an exemption from the rule. docs/figures/build.py
-    # predates this test and restates the Risk-Governance Index as literals; the fix
-    # is the global risk->mechanism mapping (recorded in the Dark plan), which does
-    # not exist yet. Until it does, the failure is reported on every run rather than
-    # silenced, and it names what will clear it.
-    known = {"build.py"}
-    unexpected = [x for x in verdict_sources if x[0] not in known]
     check(
-        "no NEW generator hardcodes a risk-governance verdict",
-        not unexpected,
-        f"{unexpected} -- these must come from the claims file, not a literal",
+        "no generator hardcodes a risk-governance verdict",
+        not verdict_sources,
+        f"{verdict_sources} -- these must come from the claims file, not a literal",
     )
-    if verdict_sources:
-        print(
-            f"  known  docs/figures/build.py hardcodes {verdict_sources[0][1]} verdict(s); "
-            "blocked on the global risk->mechanism mapping "
-            "(Dark plan ar-20261108T041244Z)"
-        )
 
     # ---- 5. Numbers a generator claims to have computed are not typed -----------
     typed_counts = []
@@ -365,17 +352,40 @@ def test_no_handwritten_data_reaches_external_surfaces() -> None:
         hits = typed_re.findall(body)
         if hits:
             typed_counts.append((script.name, hits))
-    unexpected_counts = [x for x in typed_counts if x[0] not in known]
     check(
-        "no NEW figure script types a count it should compute",
-        not unexpected_counts,
-        f"{unexpected_counts}",
+        "no figure script types a count it should compute",
+        not typed_counts,
+        f"{typed_counts}",
     )
-    if typed_counts:
-        print(
-            f"  known  docs/figures/build.py types its {', '.join(typed_counts[0][1])} count(s); "
-            "same blocker as above"
-        )
+
+    # ---- 6. The figures' printed numbers must match their source ---------------
+    # Deriving is only half of it: a derived figure that disagrees with the doc it
+    # reads from is the same defect wearing a different coat.
+    figure_builder = ROOT / "docs" / "figures" / "build.py"
+    if figure_builder.exists():
+        sys.path.insert(0, str(figure_builder.parent))
+        try:
+            import build as figure_build  # noqa: PLC0415
+
+            index_rows = figure_build._index_rows()
+            score_rows = figure_build._scorecard_rows()
+        except Exception as exc:  # noqa: BLE001
+            check("the figure builder exposes its derived inputs", False, str(exc)[:120])
+        else:
+            # Counting the doc and counting the figure is a tautology: remove a row
+            # and both drop. The expected count is stated independently so a lost row
+            # is a failure rather than a silent agreement.
+            EXPECTED_INDEX_ROWS = 8
+            check(
+                "the index figure reads all eight documented risks",
+                len(index_rows) == EXPECTED_INDEX_ROWS,
+                f"read {len(index_rows)}, expected {EXPECTED_INDEX_ROWS}",
+            )
+            check("the scorecard figure reads all ten dimensions", len(score_rows) == 10)
+            # A status the doc does not use would mean the figure drifted.
+            allowed = {"Controlled", "Partial", "Uncontrolled", "Externalized"}
+            bad = [s for _r, s, _m in index_rows if s not in allowed]
+            check("every index status is one the doc defines", not bad, f"{bad[:3]}")
 
 
 def test_embeds_are_derived_and_self_contained() -> None:
