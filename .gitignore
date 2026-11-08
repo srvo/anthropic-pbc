@@ -40,3 +40,7 @@ docs/figures/*.svg
 # Descartes: derived text is rebuilt from derived/recipes.tsv; the store is a projection.
 derived/*.txt
 .descartes/
+
+# Marimo notebook session state and bytecode -- rebuilt locally, never committed
+docs/notebooks/__pycache__/
+docs/notebooks/__marimo__/

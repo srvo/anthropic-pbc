@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 286" width="640" height="286" role="img" aria-labelledby="t d">
+<title id="t">A03: unsupported</title>
+<desc id="d">Premise A03 of the Anthropic PBC working paper. the law gives directors no duty to any person on account of the purpose, and only holders of 2% (once listed, the lesser of 2% and $2 million) may sue to enforce it; the public the charter names cannot. It unsupported; no quotation under it; because-ness 3.</desc>
+<style>
+  .bg{fill:#ffffff} .ink{fill:#181818} .mut{fill:#525252} .rule{stroke:#d6d6d6}
+  .chip{fill:#181818} .chiptx{fill:#ffffff} .wash{fill:#f3f3f3}
+  text{font-family:Georgia,'Times New Roman',serif}
+  .t{font-size:15px;font-weight:700;letter-spacing:.02em}
+  .body{font-size:16px}
+  .small{font-size:12px}
+  .tiny{font-size:10px;letter-spacing:.04em}
+  .mono{font-family:Menlo,Consolas,monospace}
+  @media (prefers-color-scheme:dark){
+    .bg{fill:#111111} .ink{fill:#eeeeee} .mut{fill:#b6b6b6}
+    .rule{stroke:#484848} .chip{fill:#eeeeee} .chiptx{fill:#111111}
+    .wash{fill:#202020}
+  }
+</style>
+<rect class="bg" width="640" height="286" rx="6"/>
+<text class="mono t" x="28" y="46">A03</text>
+<rect class="chip" x="482" y="28" width="130" height="24" rx="3"/>
+<text class="chiptx tiny mono" x="547" y="44" text-anchor="middle">UNSUPPORTED</text>
+<line class="rule" x1="28" y1="62" x2="612" y2="62"/>
+<text class="mut small" x="28" y="84">premise · because-ness 3 · §0</text>
+<text class="ink body" x="28" y="118">the law gives directors no duty to any person on account of</text>
+<text class="ink body" x="28" y="140">the purpose, and only holders of 2% (once listed, the lesser</text>
+<text class="ink body" x="28" y="162">of 2% and $2 million) may sue to enforce it; the public the</text>
+<text class="ink body" x="28" y="184">charter names cannot.</text>
+<line class="rule" x1="28" y1="212" x2="612" y2="212"/>
+<text class="mut small" x="28" y="234">rests on: nothing · no quotation under it</text>
+<text class="mut tiny mono" x="28" y="260">Anthropic PBC · premise A03 · claims blake3:e653489306190c68</text>
+</svg>

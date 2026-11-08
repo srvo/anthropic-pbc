@@ -1,0 +1,192 @@
+# Product
+
+<!-- impeccable:product-schema 1 -->
+
+## Platform
+
+web
+
+## Users
+
+**Primary, by the paper's own address:** prospective Class A investors,
+regulators, the Long-Term Benefit Trust, and anyone materially affected by
+Anthropic's conduct — "the exact constituency Delaware law names but does not
+let sue" (`docs/anthropic-contrapunctus.md`, the To: line).
+
+**The author as a user.** Sloane Ortel writes and edits the paper from this
+repository. The edit plane exists so the author can examine the argument at its
+own grain rather than reading it as a finished artefact — the paper is meant to
+be eaten as dog food, not just published (owner direction, 2026-11-07).
+
+**Readers who want to dig in.** The edit plane must let any of the audiences
+above examine a premise, follow it to its evidence, and record a disagreement,
+without the author mediating. It should not assume the author's context.
+
+## Product Purpose
+
+A working paper that takes Anthropic at its own word — its 2026 Public Benefit
+Report, its S-1, its Constitution — and checks, byte by byte, where the words
+and the acts diverge. Released for disagreement, not as a verdict.
+
+It exists because the public-benefit-corporation category will grow sharply when
+Anthropic lists, and there is currently no public way to check whether a benefit
+claim is backed by the evidence offered for it. Success is that a reader can
+rebuild every dataset, re-verify every quotation against a pinned source, and
+disagree with a specific claim in a way the record keeps.
+
+## Positioning
+
+The mechanism is **verifiability at the smallest unit**. Every quotation is
+byte-anchored to a pinned source and re-hashed on rebuild; every inference is a
+claim row naming what it rests on; every model output is a proposal, never a
+verdict. A neighbouring corporate-criticism paper could not truthfully copy this
+because it rests on Descartes (content-addressed claims) and a public claim DAG,
+and it publishes its own failure modes — including a claim it dropped after
+checking its own numbers.
+
+The paper argues from Praxis, and says so as a disclosed conflict of interest
+(§8.2).
+
+## Operating Context
+
+- **Pinned sources, never bulk transcripts.** Primary filings live in
+  `sources/MANIFEST.tsv` with URL, bytes, SHA-256 and BLAKE3; bulk bytes sit in
+  gitignored dot-directories (`.eccorpus/`, `.wpcorpus/`) that the manifest can
+  re-fetch.
+- **The compute graph is `dag.yml`** — OWID-style steps (`snapshot://`,
+  `data://`), built by Praxis's `dag.py` from a sibling checkout.
+- **Claim files** (`claims/anthropic-contrapunctus.tsv`) are the argument's
+  structure: `label  rests_on  witness  statement  path  quote`; `rests_on` is a
+  conjunction, so a premise with nothing under it fails rather than being dropped.
+- **The seal.** `scripts/seal.py` keeps the paper, the rendered page, the figures
+  and every hash pin in lockstep; the date is an argument, never the clock.
+- **Editions are immutable.** A DOI pins an edition; later repository work is not
+  part of the archived snapshot.
+- **Editorial changes append.** A finding is changed by adding to a spec's §10
+  log, never by rewriting an earlier entry.
+
+## Capabilities and Constraints
+
+**Confirmed surfaces:** the working paper (`docs/anthropic-contrapunctus.md`,
+rendered to `index.html`); the Risk–Governance Index; an attestation protocol for
+signed endorsements and disputes; nine data corpora; and the edit plane
+(`docs/notebooks/argument-edit-plane.py`), which reads `argument.json` and files
+gaps as GitHub issues.
+
+**Constraints:**
+- Deterministic builds — no clock, host or random id in any output.
+- CC0 1.0, except `corpus/earnings-calls/` which carries ODC-BY and CC BY-SA
+  attribution.
+- Privileged material (pricing, margins, compensation, licensing, enforcement,
+  named counterparties) stays in the private Dark repository; this one carries
+  only shareable design and a pointer.
+- Checks are never reshaped to pass. A failing check is a finding.
+- No LLM labels for gold-standard coding.
+
+**Explicitly undecided:** who may file a gap through the edit plane, and whether
+that stays author-only, opens to readers, or opens later (owner direction: ideally
+all audiences, author-first today).
+
+## Brand Commitments
+
+- **Name:** Anthropic PBC. Author: Sloane Ortel, ORCID 0009-0000-8491-1589,
+  Ethical Capital.
+- **Voice:** blunt but fair; "we are wrong about some of this, and we accept
+  that." Each benefit claim is paired with its evidence limit, each harm claim
+  with its attribution limit.
+- **Standing disclaimers:** personal research, not published by Ethical Capital;
+  not investment advice; no position in Anthropic; governance advice.
+- **Named-philosopher architecture:** Descartes (what is true), Rawls (what is
+  fair), Arendt (what is public). The naming is deliberate and legible.
+
+## Evidence on Hand
+
+- The paper, v0, 2026-11-03, DOI [10.5281/zenodo.23928296](https://doi.org/10.5281/zenodo.23928296).
+- Three figures generated by `docs/figures/build.py`; a fourth was withdrawn
+  because its counts were hand-coded and went stale.
+- Nine corpora under `corpus/`, each with a `MANIFEST.tsv` and a witness record.
+- `claims/anthropic-contrapunctus.tsv`: 97 quotations and the argument rows
+  A01–A09, T0, R0, of which five premises are unsupported.
+- An edit plane verified in a browser, with accessibility and determinism tests.
+
+**Absences future work must not fabricate:** no testimonials, no customer quotes,
+no benchmark superiority claims, no endorsements beyond what the ledger records.
+The attestation protocol describes how endorsements *may* be recorded; its
+existence is not evidence anyone has endorsed anything.
+
+## Product Principles
+
+1. **Checks are not beaten.** A failing check is a finding about the work, not an
+   obstacle to reshape inputs around.
+2. **Every claim carries its own limit.** A benefit claim states its evidence
+   limit; a harm claim its attribution limit. Fairness earns the right to be blunt.
+3. **Model output is testimony until a person concurs.** LLM work is circle 3
+   evidence and a proposal; it is never a verdict.
+4. **Deterministic unless the author overrides.** Every result is computed; an
+   editorial override is recorded as hers, with its reason.
+5. **Leave the work rebuildable by a stranger.** A step that only works on one
+   machine or with one person's credentials is unfinished.
+
+## Accessibility & Inclusion
+
+**WCAG 2.2 Level AAA for contrast** (owner direction, 2026-11-07). Every text
+token is measured against every surface it sits on and must clear **7:1** — the
+AAA figure for normal text, held for all text because one token set styles both.
+WCAG 1.4.6 would allow 4.5:1 for large text; this repository does not take that
+allowance.
+
+Before this decision the estate practised AA (4.5:1) and AAA had never been
+adopted anywhere. It turned out to be nearly free: three token values moved
+(`--muted` light `#5f5f5f`→`#525252`, Ethical Capital `--muted` `#64566f`→`#4d4356`
+and `--accent` `#286862`→`#1e4e4a`), all hue-preserving, at **zero added bytes** —
+3 lines changed. The dark palettes already cleared AAA.
+
+Structural requirements, enforced by `scripts/test_argument_json.py`: tables carry
+captions, headers carry `scope`, one heading chain, focus stays visible, and no
+`aria-hidden="false"`. Contrast is computed from the Praxis source as well as this
+repo's generated copy, so a stale regeneration cannot pass.
+
+The paper's own audience includes people materially affected by Anthropic's
+conduct who may meet it cold, with no context. Readability for a stranger is a
+product requirement, not a polish step.
+
+## Design System
+
+**Praxis `design/praxis.css` is authoritative**, inherited from the sibling Praxis
+checkout (`../praxis/`) rather than vendored. `scripts/praxis_tokens.py` extracts
+its custom properties into `docs/notebooks/praxis-tokens.css` so the copy is
+generated, never hand-typed, and `--check` fails when Praxis moves and the copy
+does not follow.
+
+Adaptations to a report repository's needs may be **proposed** against the Praxis
+primitive; they are not made unilaterally here (owner direction, 2026-11-07).
+
+**Open divergence, recorded not resolved:** `index.html` currently carries its own
+token system — Spectral and IBM Plex Mono, indigo `#2f4b7c`, warm paper `#f6f5f1`
+— while the edit plane uses the Praxis tokens (Georgia, `#181818`, white). Two
+design languages ship in one product. Reconciling them is a design decision for a
+later step, and this record does not decide it.
+
+### The practice behind the constraint
+
+Praxis P1 is **permacomputing**, and this repository is an instance of it. The
+reference statement is
+[*Permacomputing as a practice for digital Graphic Design*](https://permacomputingasapracticefordigitalgraphicdesign.com):
+compression, flexibility, transparency, community, obsolete hardware, and limits
+treated as a creative and ecological resource rather than a restriction to route
+around.
+
+It is a product constraint here, not a style preference. It is why the paper is
+pointed-to rather than shipped, why bulk bytes rebuild from a pinned manifest, why
+no surface depends on a network font or an analytics script, and why every surface
+must remain readable offline and with JavaScript disabled.
+
+**The standing obligation (owner words, 2026-11-07; drafted by agent, not yet
+ratified):** any surface we ship must be *able* to be offered in this form — small,
+dependency-free, offline-readable, JavaScript-optional. A surface that cannot be is
+unfinished, not something to solve with a larger budget.
+
+**It does not license austerity.** The source warns the practice must not become "a
+hobby for the privileged." A budget limits waste, never clarity, accessibility or
+evidence. A larger file that buys a reader something checkable — a pinned source, a
+legible figure, a 4.5:1 contrast floor — is the permacomputing choice.

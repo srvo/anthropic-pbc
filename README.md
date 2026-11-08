@@ -146,6 +146,24 @@ pin in lockstep:
 The date is an argument, never read from the clock. To block drifted commits
 locally: `git config core.hooksPath .githooks`.
 
+## Where the argument is weak
+
+The argument is a chain of claims in `claims/anthropic-contrapunctus.tsv`: premises
+A01–A09, the thesis T0, the remedy R0. Each claim names what it needs; a premise with
+nothing under it stays in the file and fails.
+
+`scripts/argument_json.py` emits that chain as `argument.json`, and
+[`docs/notebooks/argument-edit-plane.py`](docs/notebooks/argument-edit-plane.py) reads
+it (also on [molab](https://molab.marimo.io/notebooks/nb_uYDB2pEStjeXayzq8a4a1s)) to
+ask where the argument does not get there, which premise carries more than it can,
+which needs more examination, and which case it does not answer. Each gap you find can
+be filed as an issue on this repository.
+
+    uv run scripts/argument_json.py emit     # rebuild argument.json from the claims file
+    uv run scripts/test_argument_json.py     # finite checks, including a real notebook run
+
+See [docs/edit-plane.md](docs/edit-plane.md).
+
 ## DOI
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23928296.svg)](https://doi.org/10.5281/zenodo.23928296)
