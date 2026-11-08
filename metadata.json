@@ -1,0 +1,37 @@
+{
+  "cli_version": "0.12.2",
+  "checkpoint_id": "01M6WC80PA2AQJN5E3Y1YFKF9W",
+  "strategy": "manual-commit",
+  "branch": "ec-ai-corpus",
+  "checkpoints_count": 27,
+  "files_touched": [
+    ".zenodo.json",
+    "AGENTS.md",
+    "CITATION.cff",
+    "README.md",
+    "index.html"
+  ],
+  "sessions": [
+    {
+      "metadata": "/0/metadata.json",
+      "transcript": "/0/full.jsonl",
+      "compact_transcript": "/0/transcript.jsonl",
+      "content_hash": "/0/content_hash.txt",
+      "prompt": "/0/prompt.txt"
+    }
+  ],
+  "redaction": {
+    "replacements": 16405,
+    "layers": {
+      "betterleaks": 6,
+      "connection_string": 0,
+      "credential_key": 0,
+      "credential_value": 21,
+      "credentialed_uri": 7,
+      "entropy": 16401,
+      "key_context": 0,
+      "provider_token": 0,
+      "shell_stdin": 0
+    }
+  }
+}
