@@ -1,0 +1,57 @@
+Can you please add in a connection between this repository and this notebook https://molab.marimo.io/notebooks/nb_uYDB2pEStjeXayzq8a4a1s And also set it up so that the notebook is basically, the notebook functions as an opportunity to suggest that there are not there our argument is incomplete, that we're not weighing enough premises, that one of our individual premises needs more examination, or various other input things. I basically want this to be, this notebook to be an edit plane for me on the notebook.
+
+---
+
+Can you start up a Marimo server so I can examine it?
+
+---
+
+Go ahead and kill that and then pull down the formal logic version from the site and see if you can pull the cards, the argument cards as well, and basically make it toggleable and also align the UI with our global tokens for praxis
+
+---
+
+Yeah, the rendering is not working quite great -- Look at accessibility.audit in the tray Also, I want you to by default have it render to the friendly HTML view
+
+---
+
+/Users/srvo/Downloads/The\ argument\'s\ gaps\ —\ Anthropic\ PBC\ edit\ plane.html /Users/srvo/Downloads/The\ argument\'s\ gaps\ —\ Anthropic\ PBC\ edit\ plane.png  Okay, here is the inputs. I think what I really want is it's worth more than my eye. What I want is like, here are the premises. I want each premise laid out, and I want like the, I mean, the idea here is to enable like basically track changes style functionality, but very granular and very backed with evidence. So, like, you know, I mean, part, you know, I want to be able to say, like, I think, you know, here's the, here's the list of premises, right? And then you should be able to say, all right, I want to give feedback at this level, or, and then there's kind of a list of the premises that collapses, and I can open that up and then hit one of the premises, go to the premise, and then give and then examine that in as much detail as I want
+
+---
+
+I mean, ideally, the edit plane allows any of those audiences to examine this and dig in. But it should be, I mean, like, I want to eat my own dog food. IAnd yeah, it's a surface of the wider praxis system whose tokens and standards it inherits. Absolutely Design/slash praxis is the authoritative one going forward, but you can propose adaptations to it based on the needs of these individual report repos
+
+---
+
+Can you please file those issues to the central planning database?Also, we want the strictest standards of accessibility Look in the central planning database on that And use entire brain
+
+---
+
+Try again
+
+---
+
+https://permacomputingasapracticefordigitalgraphicdesign.com I'm really surprised that this doesn't come up anywhere in the design references. This is like, I think, the central thing Is that we always want to be able to at least provide a surface like this, at least
+
+---
+
+I mean, I think we could do AAA in terms of contrast ratios But yes, efficiency is very important. But you know, we want to make sure that we can preserve as many functions as we can and have fun with those minimal page sizes, right?
+
+---
+
+I think index.html should be governed by this We'll solve the publication gate shortly. We have some utilities building in the background that will help with this. So let's defer the publication gate for a second.... And then enumerate the various ways that people might want to consume this report, right? Like, I think that curl is an interface we ought to think about... LLM agents are interfaces we ought to think about Search engines are things we got to think about And the types of outputs that might be useful to our users are things we ought to be thinking about
+
+---
+
+That makes perfect sense. Make sure you upload it to the central planning database
+
+---
+
+I think that that risk governance generator should definitely be an output of this repor... I mean, really, like any surface that is created by it, that is referenced by the report should output a very, very clean thing. We have a library called Lee that you can call to sort of judge by those things, but But I think you have a pretty good handle on it
+
+---
+
+Write all this stuff about the risk mechanism mapping to the dark planning database and add the note that I think this is really interesting and we ought to do it soon, and then go ahead and build the premise cards
+
+---
+
+Go ahead and commit and then add, most importantly, add a test that nothing handwritten is making it into external surfaces
