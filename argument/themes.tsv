@@ -1,0 +1,11 @@
+theme	question	lenses	default_lens
+promise	What does the public benefit label promise?	-	-
+best-case	What is Anthropic's best case?	-	-
+enforce	Who can make Anthropic keep the promise?	-	-
+lens	By what standard do we check its word?	-	-
+record	What does the record show?	-	-
+pillars	Does each pillar meet its own standard?	-	-
+planet	Can the planet tolerate this buildout?	planetary-boundaries,remaining-carbon-budget,doughnut,local-basin,energy-abundance	planetary-boundaries
+answer	What is the answer?	-	-
+remedy	What would governance that binds look like?	-	-
+falsifiers	What would change our mind?	-	-

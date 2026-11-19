@@ -1,0 +1,10 @@
+# Beliefs: the premises the whole argument starts from. They are normative: lines the author
+# draws, not facts a quote can prove, so they never pass Descartes and wait on circle 4 (author sign-off).
+# Every card is read against them; a reader who rejects one can see exactly which conclusions it carries.
+# source: where the author said it. state: stated (said, not yet signed) | signed (circle 4).
+id	belief	source	state
+B1	To be any kind of company, you ought to be in effective control of your surrounding environment.	Sloane, 2026-11-05 (session)	stated
+B2	Governance exists so that systems can survive individuals.	README.md (epigraph)	stated
+B3	The question that matters, of anyone: am I in control of the systems I use to make decisions, operate, and balance competing priorities?	README.md	stated
+B4	A public benefit corporation is supposed to be a thing built, at its core, to do what it says.	README.md	stated
+B5	Impact is not a single currency: a forecast benefit does not offset a present harm unless a governance forces the reconciliation.	README.md	stated

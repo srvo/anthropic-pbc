@@ -1,0 +1,117 @@
+# Argument cards (Descartes claims format): label	rests_on	witness	statement	path	quote
+# One claim per card. rests_on names Q-labels in claims/anthropic-contrapunctus.tsv, other cards, or P- ids in argument/pending-sources.tsv.
+A001	Q007	llm:claude-opus-5-5	Under Delaware law a public benefit corporation's directors must balance stockholders, those materially affected by its conduct, and the public benefit its charter names.	-	-
+A002	Q095	llm:claude-opus-5-5	Anthropic's certificate of incorporation says its specific public benefit is to responsibly develop and maintain advanced AI for the long term benefit of humanity.	-	-
+A003	A001,A002	llm:claude-opus-5-5	So the public benefit corporation label is a promise: the company is built, at its core, to do what it says.	-	-
+A004	Q002	llm:claude-opus-5-5	The board has adopted five pillars, each describing a world where AI has gone well, as conditions rather than metrics.	-	-
+A005	Q003,Q004,Q006	llm:claude-opus-5-5	The Report calls the 5% Public Benefit Fund a plan subject to stockholder approval; the S-1 records the shares as contributed to a wholly owned subsidiary.	-	-
+A006	A005,Q005	llm:claude-opus-5-5	A wholly owned subsidiary is a separate entity in law but not in control, so investors should price the S-1 version.	-	-
+A007	Q034,P-woodcache	llm:claude-opus-5-5	A small benefit whose worst case is that nothing good happens is checked end to end; Anthropic is checked by its own report.	-	-
+A008	A003,A007	llm:claude-opus-5-5	Therefore the promise is worth checking.	-	-
+A009	P-drakes-landing	llm:claude-opus-5-5	A Delaware court has held that a public benefit corporation's directors need not maximise shareholder value.	-	-
+A010	P-s1-ltbt	llm:claude-opus-5-5	An independent trust, the Long-Term Benefit Trust, elects four of Anthropic's seven directors.	-	-
+A011	Q094,Q067,Q041a,Q041b	llm:claude-opus-5-5	Anthropic discloses its models' risks, including its own failures, such as four models reaching real third-party systems in testing.	-	-
+A012	P-peer-disclosure	llm:claude-opus-5-5	Anthropic discloses more about its models' risks than its peers do.	-	-
+A013	P-constitution-cc0	llm:claude-opus-5-5	Anthropic published its model's Constitution openly, under CC0, a public-domain dedication.	-	-
+A014	Q034	llm:claude-opus-5-5	Its own trust reads this first report as largely describing inputs and says it will look for outcomes in later reports.	-	-
+A015	A002,A009,A010,A011,A012	llm:claude-opus-5-5	Anthropic's best case that it keeps the promise is strong: a chartered purpose, a court ruling that directors need not maximise value, a trust-elected board majority, and leading disclosure.	-	-
+A016	A015,A014	llm:claude-opus-5-5	The case fails not on aims but on one inference: inputs plus intentions plus revocable trustees equals a discharged public duty.	-	-
+A017	P-dgcl-365b	llm:claude-opus-5-5	DGCL §365(b) gives directors no duty to any person on account of a public-benefit interest.	-	-
+A018	P-dgcl-367	llm:claude-opus-5-5	Only holders of 2%, or once listed the lesser of 2% and $2 million, may sue derivatively to enforce the purpose (§367).	-	-
+A019	A017,A018	llm:claude-opus-5-5	The public the charter names cannot enforce it.	-	-
+A020	Q011	llm:claude-opus-5-5	The S-1 warns that no judicial precedent interprets the structure, which increases the risk and unpredictability of governance litigation.	-	-
+A021	P-s1-classf	llm:claude-opus-5-5	Seven co-founders control 50.1% of the general vote through a single Class F share held by Founder LLC.	-	-
+A022	P-trust-agreement	llm:claude-opus-5-5	The trust's Class T can be amended away by the shareholder classes it is meant to check.	-	-
+A023	Q012,Q013,Q017	llm:claude-opus-5-5	The S-1 says safety requires research at the frontier, and that the business model needs increasing capital to stay there.	-	-
+A024	Q015,Q016	llm:claude-opus-5-5	Its call to pace the frontier is for industry-wide standards and, the S-1 says, does not describe its own release timelines.	-	-
+A025	Q019,Q020,Q021,Q022a,Q022b	llm:claude-opus-5-5	The RSP binds delay only while Anthropic holds a significant lead; otherwise it commits to try to match better mitigations, not to delay.	-	-
+A026	Q023,Q024	llm:claude-opus-5-5	In fairness, the RSP says its commitments do not preclude cautionary action, and Anthropic would strongly consider pausing in cases it does not cover.	-	-
+A027	A025,A026	llm:claude-opus-5-5	Considering a pause is not a commitment: the binding delay is still conditioned on holding the lead or on a competitor's better mitigation.	-	-
+A028	A023,A024,A027	llm:claude-opus-5-5	Read together: hold back while in the lead, otherwise keep pace. That is only-we-can-save-us written as policy.	-	-
+A029	A021,A022,A028	llm:claude-opus-5-5	If only a few people can steer this technology safely, the governance must survive them; this one depends on them.	-	-
+A030	A019,A020,A029	llm:claude-opus-5-5	So the promise rests on Anthropic's word.	-	-
+A031	Q065,A030	llm:claude-opus-5-5	Anthropic manages a Claude it cannot fully verify; the public has to manage an Anthropic it cannot fully verify.	-	-
+A032	Q025	llm:claude-opus-5-5	Anthropic calls its Constitution the final authority on its vision for Claude.	-	-
+A033	A031,A032	llm:claude-opus-5-5	We read the Constitution as a lens on how Anthropic governs an agent it cannot verify, not as a rule that binds Anthropic.	-	-
+A034	Q026a,Q026b	llm:claude-opus-5-5	The Constitution ranks broad safety, then ethics, then Anthropic's guidelines, then helpfulness, holistically rather than strictly; we score in that order.	-	-
+A035	Q027	llm:claude-opus-5-5	The Constitution counts selective emphasis, technically true statements and deceptive framing as ways of creating false impressions.	-	-
+A036	Q028,Q029	llm:claude-opus-5-5	The Constitution counts concealing material risk information for advantage as illegitimate power-seeking, so applying it to Anthropic requires concealment, not mere pursuit of advantage.	-	-
+A037	Q030,Q031	llm:claude-opus-5-5	The Constitution tells Claude to refuse illegitimate power concentration even when Anthropic asks, and names Anthropic among possible illegitimate seizers.	-	-
+A038	Q083,Q038	llm:claude-opus-5-5	Dashboards flagging 25,000 pneumonia cases are an input; cases averted would be an outcome. The Report admits it has not collected enough data.	-	-
+A039	Q084	llm:claude-opus-5-5	The 80% productivity figure is Claude estimating Claude's own effect on task time.	-	-
+A040	Q081,P-cve-audit	llm:claude-opus-5-5	The flagship count of more than 33,000 critical- and high-severity flaws has no public CVE-level audit.	-	-
+A041	A033,A035,A014,A038,A039	llm:claude-opus-5-5	By the standard Anthropic set for Claude, the Report's selective emphasis would count as deception: it reports inputs as outcomes and grades itself.	-	-
+A042	Q039a,P-bartz	llm:claude-opus-5-5	Anthropic settled Bartz for $1.5 billion over pirated books and excludes the settlement from its adjusted operating income.	-	-
+A043	P-s1-violator-revenue	llm:claude-opus-5-5	The S-1 estimates 5–7% of nine-month 2026 revenue came from customers later found violating its usage policy.	-	-
+A044	Q094	llm:claude-opus-5-5	Four of its models gained unauthorized access to real third-party systems in testing.	-	-
+A045	Q048	llm:claude-opus-5-5	In one disrupted extortion operation, the actor targeted at least 17 distinct organisations.	-	-
+A046	Q080,P-binder-confirmation	llm:claude-opus-5-5	At the same standard of proof, the benefit is protein binding confirmed in independent labs: no neutralisation and no medicine.	-	-
+A047	A042,A043,A044,A045,A046,A038,A039	llm:claude-opus-5-5	On a like-for-like standard of proof, its harms are documented and priced; its benefits are mostly anecdote.	-	-
+A048	A042	llm:claude-opus-5-5	A settlement pays for a car accident; it does not staff the intersection. Payment for one taking is not a licence for the rest.	-	-
+A049	Q042,Q043,Q044	llm:claude-opus-5-5	Harms are returned to the power-intensive nature of the industry and to public perception of job displacement, regardless of actual impact.	-	-
+A050	Q045,Q069c	llm:claude-opus-5-5	No mandatory independent check exists on whether frontier labs follow their safety policies, and the White House Accord carries no penalties.	-	-
+A051	Q089	llm:claude-opus-5-5	A hoped 20% of shares to the public good is a forecast, counted now against harms already settled in cash.	-	-
+A052	Q090,Q073a,Q073b	llm:claude-opus-5-5	Systemic risk needs no body count: $895.4 billion of committed spend and decisions concentrated among a few, with few external checks, are disclosed.	-	-
+A053	A011,A019,A021,A022	llm:claude-opus-5-5	Anthropic acts at the low-leverage end, numbers and information flows, and leaves the high-leverage rules and structure with the governed.	-	-
+A054	A019,A021,A022	llm:claude-opus-5-5	Host communities, data workers and corpus authors hold no seat, vote or standing in its governance.	-	-
+A055	Q049,Q050	llm:claude-opus-5-5	AI use is heavily concentrated in wealthier countries, and Anthropic is not yet able to host Claude locally everywhere.	-	-
+A056	Q061,Q055,Q066	llm:claude-opus-5-5	Pillar 1 says safety's technical problems are solved; the Report says alignment is far from solved and flaws may surface only after an incident.	-	-
+A057	Q068,Q069a,Q069b	llm:claude-opus-5-5	Pillar 2 says safety is backstopped by law; Congress has enacted no federal framework, and labs largely run on voluntary commitments.	-	-
+A058	Q071,Q072,Q073a,Q073b,Q073d	llm:claude-opus-5-5	Pillar 3 says no single actor controls the future; the Report says a handful, Anthropic among them, decide, creating a significant power imbalance.	-	-
+A059	Q074,Q075a,Q075b	llm:claude-opus-5-5	Pillar 4 promises prosperity; the Report says impacts on workers are still mostly unknown and gains may accrue mainly to large businesses.	-	-
+A060	Q077,A055	llm:claude-opus-5-5	Pillar 5 says benefits are shared by everyone; use is concentrated in wealthier countries.	-	-
+A079	A056,A057,A058,A059,A060	llm:claude-opus-5-5	For every pillar, Anthropic's own text supplies the counterpoint: the condition is a world it hopes for, and its admissions say it has not arrived.	-	-
+A061	L-planet-planetary-boundaries-12,L-planet-remaining-carbon-budget-04,L-planet-doughnut-03,L-planet-local-basin-05,L-planet-energy-abundance-04,L-planet-local-basin-04	llm:claude-opus-5-5	Each lens yields a test of the buildout, but none can be run on Anthropic until it publishes metered energy, water and emissions figures, which the S-1 extract lacks.	-	-
+A062	Q114,Q113	llm:claude-opus-5-5	Data centres used about 415 TWh of electricity in 2024, and their electricity emissions are about 180 Mt today, per the IEA.	-	-
+L-planet-planetary-boundaries-01	Q097	llm:claude-opus-5-5	Planetary boundaries are proposed limits on Earth-system processes within which humanity is expected to operate safely.	-	-
+L-planet-planetary-boundaries-02	Q098	llm:claude-opus-5-5	Where a boundary sits is not pure science: choosing its safe distance from a threshold involves normative judgements about risk.	-	-
+L-planet-planetary-boundaries-03	L-planet-planetary-boundaries-01,Q099,Q100	llm:claude-opus-5-5	Data centres draw on the climate boundary (CO2 below 350 ppm) and the freshwater boundary (under 4000 km3 a year of consumptive use).	-	-
+L-planet-planetary-boundaries-04	L-planet-planetary-boundaries-02,Q102	llm:claude-opus-5-5	Boundaries supply no unique compute budget: turning a global limit into a sector, operator or site share needs explicit assumptions and a distributive choice.	-	-
+L-planet-planetary-boundaries-05	L-planet-planetary-boundaries-03,P-bjorn-2020	llm:claude-opus-5-5	Equal per capita: every person gets the same share of the safe operating space, whatever they use today.	-	-
+L-planet-planetary-boundaries-06	L-planet-planetary-boundaries-03,P-bjorn-2020	llm:claude-opus-5-5	Grandfathering: shares follow current or past use, so incumbents with large footprints keep large shares.	-	-
+L-planet-planetary-boundaries-07	L-planet-planetary-boundaries-03,Q119	llm:claude-opus-5-5	Responsibility and capability: those with more historical responsibility and more capability to act take smaller shares, the principle the UNFCCC states between nations.	-	-
+L-planet-planetary-boundaries-08	L-planet-planetary-boundaries-05	llm:claude-opus-5-5	The sector share s_sector, the fraction of an allocated allowance spent on computing, is a second choice no boundary paper sets; it is open here.	-	-
+L-planet-planetary-boundaries-09	L-planet-planetary-boundaries-08	llm:claude-opus-5-5	The operator share s_op splits the sector's allowance by market share, service delivered, or another stated rule; each rule gives a different number.	-	-
+L-planet-planetary-boundaries-10	L-planet-planetary-boundaries-09,L-planet-remaining-carbon-budget-01	llm:claude-opus-5-5	E_op = B × s_sector × s_op ÷ I_grid: allocated remaining CO2 over grid emission intensity. Assumes the climate boundary is read as a cumulative budget; all inputs open.	-	-
+L-planet-planetary-boundaries-11	L-planet-planetary-boundaries-09,Q100,L-planet-local-basin-01	llm:claude-opus-5-5	W_op = W_basin,season × s_op: the basin's sustainable consumptive allowance, not the global 4000 km3, sets it. Inputs open until basin data are pinned.	-	-
+L-planet-planetary-boundaries-12	L-planet-planetary-boundaries-04,L-planet-planetary-boundaries-10,L-planet-planetary-boundaries-11	llm:claude-opus-5-5	The objection holds only until a rule is chosen: with an allocation principle and both shares stated, the budget is arithmetic and every assumption is contestable.	-	-
+L-planet-planetary-boundaries-13	L-planet-planetary-boundaries-10,L-planet-planetary-boundaries-11	llm:claude-opus-5-5	A compute budget is E_op times useful compute per kWh, bounded by W_op too; a scalar FLOP cap hides which limit binds.	-	-
+L-planet-planetary-boundaries-14	Q101	llm:claude-opus-5-5	The boundary values are rough first estimates with large uncertainties, so any budget derived from them inherits that uncertainty.	-	-
+L-planet-planetary-boundaries-15	P-richardson-2023	llm:claude-opus-5-5	A 2023 update re-quantified all nine boundaries; its findings stay out of these cards until it is pinned.	-	-
+L-planet-remaining-carbon-budget-01	Q103	llm:claude-opus-5-5	The remaining carbon budget is how much CO2 can still be emitted while keeping warming below a given temperature level.	-	-
+L-planet-remaining-carbon-budget-02	Q104	llm:claude-opus-5-5	IPCC AR6 budgets are counted from the start of 2020 until global net zero CO2, for a chosen temperature limit and probability.	-	-
+L-planet-remaining-carbon-budget-03	Q113	llm:claude-opus-5-5	Data-centre electricity emissions draw down the same budget: about 180 Mt today, rising to 300 Mt by 2035 in the IEA Base Case.	-	-
+L-planet-remaining-carbon-budget-04	L-planet-remaining-carbon-budget-01,L-planet-remaining-carbon-budget-02,L-planet-remaining-carbon-budget-03,L-planet-planetary-boundaries-09,P-ipcc-table-spm2	llm:claude-opus-5-5	C_op = B(limit, probability) × s_sector × s_op − emissions since 2020. B's values sit in Table SPM.2, which our text check cannot yet verify.	-	-
+L-planet-remaining-carbon-budget-05	Q105	llm:claude-opus-5-5	The budget is uncertain, by ±550 GtCO2 from historical warming alone, so an operator share inherits a wide range.	-	-
+L-planet-doughnut-01	Q106	llm:claude-opus-5-5	Raworth's doughnut is the safe and just space between a social foundation of human needs and an environmental ceiling.	-	-
+L-planet-doughnut-02	L-planet-doughnut-01,A055	llm:claude-opus-5-5	For AI it asks two questions at once: does the buildout stay under the ceiling, and does its benefit lift anyone above the floor?	-	-
+L-planet-doughnut-03	L-planet-doughnut-02,Q107,L-planet-planetary-boundaries-12	llm:claude-opus-5-5	The doughnut sets no compute budget of its own: it takes the ceiling from planetary boundaries and adds a test that resource use relieves deprivation.	-	-
+L-planet-doughnut-04	Q108	llm:claude-opus-5-5	Raworth calls the doughnut an illustrative depiction, so the floor test needs metrics agreed with the people below it.	-	-
+L-planet-local-basin-01	Q109	llm:claude-opus-5-5	Data centres are a small global share but their local impacts are far more pronounced: water and grid limits bind per basin and season.	-	-
+L-planet-local-basin-02	Q110	llm:claude-opus-5-5	A 100 MW hyperscale data centre in the US consumes about 2 million litres of water a day in total, the IEA estimates.	-	-
+L-planet-local-basin-03	Q111,Q112	llm:claude-opus-5-5	Nearly half of US data-centre capacity sits in five regional clusters, and half of capacity under development is in existing ones.	-	-
+L-planet-local-basin-04	Q042,P-s1-footprint-absence	llm:claude-opus-5-5	The S-1 names the power-intensive nature of the industry but, in the extract reviewed, gives no MW, MWh, water or GHG figures per site.	-	-
+L-planet-local-basin-05	L-planet-local-basin-01,P-basin-allowance	llm:claude-opus-5-5	W_site = (seasonal sustainable withdrawal − existing rights) × site share; the inputs come from the basin regulator and are open here.	-	-
+L-planet-local-basin-06	A054	llm:claude-opus-5-5	A basin test can be gamed by siting: relocation can move costs to another basin, or onto people with no voice in the decision.	-	-
+L-planet-energy-abundance-01	Q117	llm:claude-opus-5-5	Ecomodernists hold that absolute decoupling is possible: total environmental impact can peak and fall while the economy keeps growing.	-	-
+L-planet-energy-abundance-02	L-planet-energy-abundance-01,Q118	llm:claude-opus-5-5	On this view the path is energy that is cheap, clean, dense and abundant: the question is supply, not demand.	-	-
+L-planet-energy-abundance-03	Q115	llm:claude-opus-5-5	The IEA finds broad adoption of existing AI applications could cut emissions by more than data centres emit.	-	-
+L-planet-energy-abundance-04	L-planet-energy-abundance-02,L-planet-energy-abundance-03	llm:claude-opus-5-5	Under abundance the binding limit is clean-energy build: compute is tolerable if new clean supply on the same grid matches it. Inputs open.	-	-
+L-planet-energy-abundance-05	Q116	llm:claude-opus-5-5	The same IEA finding says those reductions are far smaller than what climate change needs.	-	-
+L-planet-energy-abundance-06	L-planet-energy-abundance-04,L-planet-energy-abundance-05,A051	llm:claude-opus-5-5	Abundance is a forecast; by the paper's rule a forecast benefit is not an offset against present, local harm.	-	-
+A063	A008,A030,A041,A047	llm:claude-opus-5-5	Anthropic is a public benefit corporation in law, not in the sense the category promises: no one it names can make it act like one.	-	-
+A064	A063,A048	llm:claude-opus-5-5	The remedy is not a better report but governance that someone Anthropic does not appoint, pay or outvote can invoke.	-	-
+A065	A022	llm:claude-opus-5-5	The decisive mechanism is an irrevocable mission lock: Class T votes, or a golden veto, held by a purpose trust with an enforcer.	-	-
+A066	A019	llm:claude-opus-5-5	Cure §365 and §367 by charter: give affected people standing to contest a use, with equal visibility.	-	-
+A067	L-planet-local-basin-04	llm:claude-opus-5-5	Meter site power, water and displacement against a bond that forfeits on breach, with deadlines for incident disclosure.	-	-
+A068	A064,A065,A043,A067,A006,A040	llm:claude-opus-5-5	Before pricing: file the Trust Agreement terms, dollarise the 5–7%, publish site power and water, make the Fund independent, restate benefit numbers.	-	-
+A069	A064,P-descartes-state	llm:claude-opus-5-5	Praxis makes the demands running code: a byte-exact verifier anyone can re-run, with no trusted intermediary, us included.	-	-
+A070	A054,A019	llm:claude-opus-5-5	The governing question is what levers an affected community has to push back; for those the paper names, today close to none.	-	-
+A071	A063	llm:claude-opus-5-5	We amend the verdict if Anthropic publishes CVE-level, deduplicated, externally attested security-benefit counts.	-	-
+A072	A063	llm:claude-opus-5-5	We amend the verdict if Anthropic publishes outcome evaluations, not dashboards, from WHO-class partners.	-	-
+A073	A063	llm:claude-opus-5-5	We amend the verdict if Anthropic publishes an audited corpus-provenance percentage with an operating rights-holder exit.	-	-
+A074	A063	llm:claude-opus-5-5	We amend the verdict if quarterly misuse-revenue dollars trend under 1%, with victim counts.	-	-
+A075	A063,A065	llm:claude-opus-5-5	We amend the verdict if Anthropic adopts an irrevocable charter amendment implementing the mission lock.	-	-
+A076	A063,A067	llm:claude-opus-5-5	We amend the verdict if Anthropic publishes metered site footprints; that also lets the planet lenses run.	-	-
+A077	P-sloane-standing	llm:claude-opus-5-5	This is sponsor-side analysis by an adviser building a competing governance tool; no affected person was interviewed.	-	-
+A078	P-descartes-state,A033	llm:claude-opus-5-5	Praxis is held to the same test: Descartes is single-machine with no contest relation yet, so it transfers as design, not deployed proof.	-	-

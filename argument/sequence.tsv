@@ -1,0 +1,116 @@
+order	card	theme	role	slot	title	status	circle
+10	A001	promise	premise	s-A001	PBCs must balance three interests	draft	1
+20	A002	promise	premise	s-A002	The charter names the benefit	draft	1
+30	A003	promise	inference	s-A003	The label is a promise	draft	1
+40	A004	promise	premise	s-A004	Five pillars, no metrics	draft	1
+50	A005	promise	premise	s-A005	Report and S-1 describe the Fund differently	draft	1
+60	A006	promise	inference	s-A006	Separate in law, not in control	draft	1
+70	A007	promise	premise	s-A007	Scrutiny runs backwards	draft	0
+80	A008	promise	conclusion	s-A008	The promise is worth checking	draft	0
+90	A009	best-case	premise	s-A009	Directors need not maximise value	draft	0
+100	A010	best-case	premise	s-A010	A trust elects four of seven	draft	0
+110	A011	best-case	premise	s-A011	It discloses its own failures	draft	1
+120	A012	best-case	premise	s-A012	It discloses more than peers	draft	0
+130	A013	best-case	premise	s-A013	The Constitution is public	draft	0
+140	A014	best-case	premise	s-A014	Outcomes take time	draft	1
+150	A015	best-case	inference	s-A015	The best case is strong	draft	0
+160	A016	best-case	conclusion	s-A016	The arrow is unearned	draft	0
+170	A017	enforce	premise	s-A017	No duty to any person	draft	0
+180	A018	enforce	premise	s-A018	Only 2% holders may sue	draft	0
+190	A019	enforce	inference	s-A019	The public cannot enforce it	draft	0
+200	A020	enforce	premise	s-A020	The lock is untested	draft	1
+210	A021	enforce	premise	s-A021	Founders hold 50.1%	draft	0
+220	A022	enforce	premise	s-A022	The trust is revocable	draft	0
+230	A023	enforce	premise	s-A023	Only at the frontier	draft	0
+240	A024	enforce	premise	s-A024	Restraint is industry-wide	draft	1
+250	A025	enforce	premise	s-A025	The RSP delays only in the lead	draft	0
+260	A026	enforce	objection	s-A026	The RSP allows caution	draft	1
+270	A027	enforce	reply	s-A027	Considering is not committing	draft	0
+280	A028	enforce	inference	s-A028	Only we can save us	draft	0
+290	A029	enforce	inference	s-A029	Governance depends on the few	draft	0
+300	A030	enforce	conclusion	s-A030	The promise rests on its word	draft	0
+310	A031	lens	premise	s-A031	Two unverifiable agents	draft	0
+320	A032	lens	premise	s-A032	The Constitution is the authority	draft	0
+330	A033	lens	inference	s-A033	A lens, not a rule	draft	0
+340	A034	lens	premise	s-A034	Safety and ethics first	draft	0
+350	A035	lens	premise	s-A035	Selective emphasis is deception	draft	0
+360	A036	lens	premise	s-A036	Concealment for advantage	draft	0
+370	A037	lens	premise	s-A037	No exemption for its maker	draft	0
+380	A038	record	premise	s-A038	Inputs reported as outcomes	draft	1
+390	A039	record	premise	s-A039	Claude grades Claude	draft	0
+400	A040	record	premise	s-A040	Security counts are unaudited	draft	0
+410	A041	record	conclusion	s-A041	Its emphasis would count as deception	draft	0
+420	A042	record	premise	s-A042	Bartz: a priced harm	draft	0
+430	A043	record	premise	s-A043	Revenue from policy violators	draft	0
+440	A044	record	premise	s-A044	Models escaped in testing	draft	1
+450	A045	record	premise	s-A045	Misuse disrupted after the fact	draft	0
+460	A046	record	premise	s-A046	Benefit: binding, not medicine	draft	0
+470	A047	record	conclusion	s-A047	Harms documented, benefits anecdote	draft	0
+480	A048	record	inference	s-A048	A settlement is not consent	draft	0
+490	A049	record	premise	s-A049	Gains claimed, harms returned	draft	1
+500	A050	record	premise	s-A050	Restraint is voluntary	draft	1
+510	A051	record	premise	s-A051	A forecast is not an offset	draft	1
+520	A052	record	premise	s-A052	Exposure is disclosed	draft	1
+530	A053	record	inference	s-A053	Acts where leverage is weakest	draft	0
+540	A054	record	inference	s-A054	No seat for those extracted from	draft	0
+550	A055	record	premise	s-A055	Use is concentrated	draft	0
+560	A056	pillars	premise	s-A056	Pillar 1: safety is not solved	draft	0
+570	A057	pillars	premise	s-A057	Pillar 2: no law backstops it	draft	1
+580	A058	pillars	premise	s-A058	Pillar 3: control is concentrated	draft	1
+590	A059	pillars	premise	s-A059	Pillar 4: impacts are unknown	draft	1
+600	A060	pillars	premise	s-A060	Pillar 5: benefits are not shared	draft	0
+610	A079	pillars	conclusion	s-A079	Each pillar meets its own counterpoint	draft	0
+620	A061	planet	conclusion	s-A061	Every lens is a test; none can run	draft	0
+630	A062	planet	premise	s-A062	The load is measured globally	draft	1
+640	L-planet-planetary-boundaries-01	planet	lens	s-L-planet-planetary-boundaries-01	Boundaries define a safe space	draft	1
+650	L-planet-planetary-boundaries-02	planet	lens	s-L-planet-planetary-boundaries-02	A boundary embeds a judgement	draft	1
+660	L-planet-planetary-boundaries-03	planet	lens	s-L-planet-planetary-boundaries-03	Two boundaries a data centre touches	draft	1
+670	L-planet-planetary-boundaries-04	planet	objection	s-L-planet-planetary-boundaries-04	No unique compute budget	draft	1
+680	L-planet-planetary-boundaries-05	planet	budget	planet-pb-allocation	Allocate: equal per capita	draft	0
+690	L-planet-planetary-boundaries-06	planet	budget	planet-pb-allocation	Allocate: grandfathering	draft	0
+700	L-planet-planetary-boundaries-07	planet	budget	planet-pb-allocation	Allocate: responsibility and capability	draft	1
+710	L-planet-planetary-boundaries-08	planet	budget	s-L-planet-planetary-boundaries-08	Downscale to the sector	draft	0
+720	L-planet-planetary-boundaries-09	planet	budget	s-L-planet-planetary-boundaries-09	Downscale to the operator	draft	0
+730	L-planet-planetary-boundaries-10	planet	budget	s-L-planet-planetary-boundaries-10	Energy budget formula	draft	0
+740	L-planet-planetary-boundaries-11	planet	budget	s-L-planet-planetary-boundaries-11	Water budget formula	draft	0
+750	L-planet-planetary-boundaries-12	planet	reply	s-L-planet-planetary-boundaries-12	The budget follows once a rule is chosen	draft	0
+760	L-planet-planetary-boundaries-13	planet	budget	s-L-planet-planetary-boundaries-13	Compute is downstream	draft	0
+770	L-planet-planetary-boundaries-14	planet	lens	s-L-planet-planetary-boundaries-14	The values are rough	draft	1
+780	L-planet-planetary-boundaries-15	planet	lens	s-L-planet-planetary-boundaries-15	The 2023 update is unpinned	draft	0
+790	L-planet-remaining-carbon-budget-01	planet	lens	s-L-planet-remaining-carbon-budget-01	Remaining CO2 to a limit	draft	1
+800	L-planet-remaining-carbon-budget-02	planet	lens	s-L-planet-remaining-carbon-budget-02	Budgets run from 2020 to net zero	draft	1
+810	L-planet-remaining-carbon-budget-03	planet	lens	s-L-planet-remaining-carbon-budget-03	Data centres draw it down	draft	1
+820	L-planet-remaining-carbon-budget-04	planet	budget	s-L-planet-remaining-carbon-budget-04	Operator carbon budget	draft	0
+830	L-planet-remaining-carbon-budget-05	planet	lens	s-L-planet-remaining-carbon-budget-05	The budget is uncertain	draft	1
+840	L-planet-doughnut-01	planet	lens	s-L-planet-doughnut-01	A floor and a ceiling	draft	1
+850	L-planet-doughnut-02	planet	lens	s-L-planet-doughnut-02	Two questions for the buildout	draft	0
+860	L-planet-doughnut-03	planet	budget	s-L-planet-doughnut-03	Borrowed ceiling, added floor	draft	0
+870	L-planet-doughnut-04	planet	lens	s-L-planet-doughnut-04	The depiction is illustrative	draft	1
+880	L-planet-local-basin-01	planet	lens	s-L-planet-local-basin-01	Harm is local	draft	1
+890	L-planet-local-basin-02	planet	lens	s-L-planet-local-basin-02	One site, two million litres	draft	1
+900	L-planet-local-basin-03	planet	lens	s-L-planet-local-basin-03	Load clusters	draft	1
+910	L-planet-local-basin-04	planet	lens	s-L-planet-local-basin-04	No site figures from Anthropic	draft	0
+920	L-planet-local-basin-05	planet	budget	s-L-planet-local-basin-05	Basin budget formula	draft	0
+930	L-planet-local-basin-06	planet	lens	s-L-planet-local-basin-06	Siting can move the harm	draft	0
+940	L-planet-energy-abundance-01	planet	lens	s-L-planet-energy-abundance-01	Absolute decoupling	draft	1
+950	L-planet-energy-abundance-02	planet	lens	s-L-planet-energy-abundance-02	Abundant clean energy	draft	1
+960	L-planet-energy-abundance-03	planet	lens	s-L-planet-energy-abundance-03	AI could save more than it emits	draft	1
+970	L-planet-energy-abundance-04	planet	budget	s-L-planet-energy-abundance-04	The budget is clean supply	draft	1
+980	L-planet-energy-abundance-05	planet	objection	s-L-planet-energy-abundance-05	Far smaller than needed	draft	1
+990	L-planet-energy-abundance-06	planet	reply	s-L-planet-energy-abundance-06	A forecast is not an offset	draft	1
+1000	A063	answer	conclusion	s-A063	PBC in law, not in sense	draft	0
+1010	A064	remedy	conclusion	s-A064	Governance others can invoke	draft	0
+1020	A065	remedy	inference	s-A065	Irrevocable mission lock	draft	0
+1030	A066	remedy	inference	s-A066	Contest standing	draft	0
+1040	A067	remedy	inference	s-A067	Metered externality bond	draft	0
+1050	A068	remedy	inference	s-A068	Pre-IPO asks	draft	0
+1060	A069	remedy	inference	s-A069	Praxis builds the other half	draft	0
+1070	A070	falsifiers	premise	s-A070	What levers exist?	draft	0
+1080	A071	falsifiers	premise	s-A071	Falsifier: audited security counts	draft	0
+1090	A072	falsifiers	premise	s-A072	Falsifier: outcome evaluations	draft	0
+1100	A073	falsifiers	premise	s-A073	Falsifier: corpus provenance	draft	0
+1110	A074	falsifiers	premise	s-A074	Falsifier: misuse dollars	draft	0
+1120	A075	falsifiers	premise	s-A075	Falsifier: irrevocable lock	draft	0
+1130	A076	falsifiers	premise	s-A076	Falsifier: metered sites	draft	0
+1140	A077	falsifiers	premise	s-A077	Our standing	draft	0
+1150	A078	falsifiers	conclusion	s-A078	The lens cuts both ways	draft	0

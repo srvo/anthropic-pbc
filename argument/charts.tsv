@@ -1,0 +1,30 @@
+# Chart registry: every visual made for this argument, so none goes missing from an index.
+# where: a repo path (svg drawn into the process page), a page anchor (page#id), or an outside path.
+# wired: for interactive charts, whether every control moves the drawing (docs/chart-checklist.md); "-" for static.
+# stage: pinned | witness (model output, proposal) | draft | hand-drawn | withdrawn | not-built
+id	title	where	shows	data	made_by	wired	stage	feeds
+sphere	Complaint sphere (the flower)	workbench#sphere	the question, ten dimensions filled by proven share, seventeen parties coloured by how they are heard	argument/themes.tsv, parties.tsv, coverage.tsv, cards.tsv	scripts/render_workbench.py	click opens the inspector; no sliders	pinned	the whole argument
+chains	Chains	workbench#ide	every stop as typed links in an outline, chain and inspector	argument/sequence.tsv, cards.tsv	scripts/render_workbench.py	-	pinned	the whole argument
+barriers	Barriers	workbench#barriers	every missing piece ranked by the links fixing it would prove	the deck	scripts/workbench.py barriers()	-	pinned	proof work
+carry	Carry-forward: committed spend to the planet	workbench#carry	committed spend flowing through stated assumptions to a planet number	argument/quantities.tsv	scripts/render_workbench.py	yes: sliders recompute every formula	pinned	planet, A052
+survive	Survival curves	workbench#survive	chance of no catastrophe over time at a hazard you set, with and without governance levers	argument/quantities.tsv	scripts/render_workbench.py	yes since 2026-11-05: readouts follow the years slider; a note explains why curves coincide (no lever proven, levers start at zero)	pinned	remedy, beliefs B1
+wb-sides	Each side, by theme	workbench#sides	Anthropic's case and the complaint per theme, written against proven	argument/sides.tsv	scripts/render_workbench.py	-	pinned	balance
+map	The map	process#map	every step as a dot, a line from each step to what rests on it	the deck	scripts/render_process.py	hover lights dependencies; click jumps	draft	the whole argument
+flower-walk	Walk the flower	process#flower	the complaint sphere revealed one layer at a time	argument/themes.tsv, parties.tsv, coverage.tsv	scripts/render_process.py	yes: steps reveal layers	draft	the whole argument
+heat	Who can act, and who has been heard	process#who	party by stop: named, located, secondhand or in their own words	argument/coverage.tsv	scripts/render_process.py	-	draft	standing
+street	Not Wall Street	process#street	analysts' AI questions by intent, with model agreement	proposals/earnings-calls/codebook-questions-v0.1/report/ttm.tsv	scripts/render_process.py	-	witness	A018, A007
+analysts	What analysts ask about AI	proposals/earnings-calls/codebook-questions-v0.1/report/intent-ttm.svg	share of analyst AI questions by intent, last twelve months	report/ttm.tsv	scripts/ec_question_report.py	-	witness	A007, A018
+ai-risk-year	Executives on AI risk, by year	proposals/earnings-calls/codebook-v0.1/report/ai-risk-by-year.svg	share of S&P 500 calls that discuss AI as a risk	report/ai-risk-by-year.tsv	scripts/ec_risk_series.py	-	witness	record, pillars
+risk-rank	Which AI risks executives name	proposals/earnings-calls/codebook-v0.1/report/risk-ranking-ttm.svg	AI risk types by firms naming them, last twelve months	report/risk-ranking-ttm.tsv	scripts/ec_risk_series.py	-	witness	record
+hn-rank	What the public argues about	proposals/hacker-news/report/risk-ranking-ttm.svg	risk types in Hacker News comments on Anthropic and AI security, against executives	proposals/hacker-news/report/risk-ranking-ttm.tsv	scripts/hn_report.py	-	witness	coverage of the public
+dialogue	Who talks about which risk	proposals/cross-source/codebook-v0.2-draft/report/dialogue-space.svg	one codebook across executives, analysts, Hacker News and Wikipedia	report/dialogue-space.tsv	scripts/v02_map.py	-	witness	lens
+cve-credit	AI credited in CVE discovery	edition/cve-ai-credit.svg	CVEs crediting AI-assisted discovery, monthly, and which tools are named	corpus/cve/monthly-ai.tsv	scripts/build_edition.py	-	not-built	A040, A071
+who-checked	Who gets checked	edition/figures/F0001-who-gets-checked.svg	Wood Cache verified end to end; Anthropic checked by its own report	the paper	hand-drawn	-	hand-drawn	A007, A008
+fig1	Paper figure 1	docs/figures/fig1.svg	withdrawn: its counts went stale	hard-coded in docs/figures/build.py	docs/figures/build.py	-	withdrawn	-
+fig2	Paper figure 2	docs/figures/fig2.svg	contrapunctus gallery figure; numbers hard-coded	hard-coded in docs/figures/build.py	docs/figures/build.py	-	not-built	paper v0
+fig3	Paper figure 3	docs/figures/fig3.svg	contrapunctus gallery figure; numbers hard-coded	hard-coded in docs/figures/build.py	docs/figures/build.py	-	not-built	paper v0
+fig4	Paper figure 4	docs/figures/fig4.svg	contrapunctus gallery figure; numbers hard-coded	hard-coded in docs/figures/build.py	docs/figures/build.py	-	not-built	paper v0
+loop	Participation loop	~/tray/anthropic-oversight/bundles.archify.md	how affected groups feed the argument and get something back	-	archify diagram	-	draft	coverage, remedy
+release	Release path	~/tray/anthropic-market-pilot/candidate.archify.md	how a data partner's contribution becomes a released edition	-	archify diagram	-	draft	evidence
+rf-build	Risk-factor metadata build	risk-factor metadata review (archify)	how 10-K risk factors become the Risk–Governance Index	-	archify diagram	-	draft	remedy
+circles	Circles of proof	~/tray/praxis-approach-20261105/build-circles.svg	the five circles from source bytes to author sign-off	docs/circles.md	hand-drawn	-	hand-drawn	method
