@@ -1,0 +1,732 @@
+{
+  "schema": "anthropic-pbc/argument/v1",
+  "about": "The paper's argument as a graph of claims, for the edit plane in docs/notebooks/argument-edit-plane.py. Emitted by scripts/argument_json.py; do not edit by hand.",
+  "source": {
+    "claims": "claims/anthropic-contrapunctus.tsv",
+    "review": "claims/anthropic-contrapunctus.review.tsv",
+    "paper": "docs/anthropic-contrapunctus.md",
+    "inputs_blake3": {
+      "claims/anthropic-contrapunctus.tsv": "blake3:e653489306190c68af1e734cd0a01862e02061c8cf52c123f59c7a6e4c03fc3a",
+      "claims/anthropic-contrapunctus.review.tsv": "blake3:c95edbba9d548306721e345a48d165d53e455a456a4691a67bf52459eabc80bc"
+    },
+    "format": "label rests_on witness statement path quote (docs/descartes-spec.md §8)"
+  },
+  "provenance": {
+    "because_ness": "proposal: computed here because Descartes has no `because` command yet (docs/editorial-standard.md puts it in Rust, beside check)",
+    "status": "proposal",
+    "status_note": "Every argument row is model judgment the check cannot verify, and stands only once Sloane overrides it editorially (claims file, STATUS: proposal)."
+  },
+  "counts": {
+    "premises": 15,
+    "arguments": 35,
+    "unsupported_premises": 5,
+    "open_reviews": 12,
+    "failing": 9,
+    "quotations": 97
+  },
+  "unsupported_premises": [
+    "A02a",
+    "A02b",
+    "A02d",
+    "A03",
+    "A04"
+  ],
+  "thesis": {
+    "label": "T0",
+    "statement": "§0 thesis: Anthropic is a public benefit corporation in law, and not in the sense the category promises: no one it names can make it act like one.",
+    "section": "§0 thesis",
+    "rests_on": [
+      "A01",
+      "A05",
+      "A08",
+      "A09"
+    ],
+    "rests_on_evidence": [],
+    "rests_on_premises": [
+      "A01",
+      "A05",
+      "A08",
+      "A09"
+    ],
+    "rests_on_missing": [],
+    "supported_by": [
+      "R0"
+    ],
+    "because_ness": 1,
+    "unsupported": false,
+    "fails": true,
+    "failure_reasons": [
+      "T0 ← A05 ← A03 rests on nothing: the premise is unsupported",
+      "T0 ← A05 ← A04 rests on nothing: the premise is unsupported"
+    ],
+    "open_reviews": [],
+    "role": "thesis",
+    "evidence_count": 0,
+    "evidence": []
+  },
+  "premises": [
+    {
+      "label": "A01",
+      "statement": "§0: the public benefit corporation label is a promise, and the purpose it promises is written into the charter.",
+      "section": "§0",
+      "rests_on": [
+        "Q095"
+      ],
+      "rests_on_evidence": [
+        "Q095"
+      ],
+      "rests_on_premises": [],
+      "rests_on_missing": [],
+      "supported_by": [
+        "A02",
+        "T0"
+      ],
+      "because_ness": 3,
+      "unsupported": false,
+      "fails": false,
+      "failure_reasons": [],
+      "open_reviews": [],
+      "role": "premise",
+      "evidence_count": 1,
+      "evidence": [
+        {
+          "label": "Q095",
+          "quote": "The specific public benefit that the Corporation will promote is to responsibly develop and maintain advanced AI for the long term benefit of humanity.",
+          "path": "derived/anthropic-exhibit-3.1.txt",
+          "review": null,
+          "review_applied": false
+        }
+      ]
+    },
+    {
+      "label": "A02a",
+      "statement": "§0: a Delaware court has held that a public benefit corporation's directors need not maximise shareholder value.",
+      "section": "§0",
+      "rests_on": [],
+      "rests_on_evidence": [],
+      "rests_on_premises": [],
+      "rests_on_missing": [],
+      "supported_by": [
+        "A02"
+      ],
+      "because_ness": 0,
+      "unsupported": true,
+      "fails": true,
+      "failure_reasons": [
+        "A02a rests on nothing: the premise is unsupported"
+      ],
+      "open_reviews": [],
+      "role": "premise",
+      "evidence_count": 0,
+      "evidence": []
+    },
+    {
+      "label": "A02b",
+      "statement": "§0: an independent trust elects four of Anthropic's seven directors.",
+      "section": "§0",
+      "rests_on": [],
+      "rests_on_evidence": [],
+      "rests_on_premises": [],
+      "rests_on_missing": [],
+      "supported_by": [
+        "A02"
+      ],
+      "because_ness": 0,
+      "unsupported": true,
+      "fails": true,
+      "failure_reasons": [
+        "A02b rests on nothing: the premise is unsupported"
+      ],
+      "open_reviews": [],
+      "role": "premise",
+      "evidence_count": 0,
+      "evidence": []
+    },
+    {
+      "label": "A02c",
+      "statement": "§0: Anthropic discloses its models' risks, including its own failures.",
+      "section": "§0",
+      "rests_on": [
+        "Q094",
+        "Q067",
+        "Q041a",
+        "Q041b"
+      ],
+      "rests_on_evidence": [
+        "Q094",
+        "Q067",
+        "Q041a",
+        "Q041b"
+      ],
+      "rests_on_premises": [],
+      "rests_on_missing": [],
+      "supported_by": [
+        "A02"
+      ],
+      "because_ness": 0,
+      "unsupported": false,
+      "fails": false,
+      "failure_reasons": [],
+      "open_reviews": [
+        {
+          "label": "Q067",
+          "verdict": "context",
+          "reason": "Drop the claim that the S-1 \"generalizes without attributing\"; quote \"have been observed both in our models and elsewhere in the industry\" (once) and note the S-1's own incident of four of its models gaining unauthorized access."
+        }
+      ],
+      "role": "premise",
+      "evidence_count": 4,
+      "evidence": [
+        {
+          "label": "Q094",
+          "quote": "Four of our models gained unauthorized access to real third-party systems",
+          "path": "derived/s1a1.txt",
+          "review": null,
+          "review_applied": false
+        },
+        {
+          "label": "Q067",
+          "quote": "have been observed both in our models and elsewhere in the industry",
+          "path": "derived/s1a1.txt",
+          "review": "context",
+          "review_applied": false
+        },
+        {
+          "label": "Q041a",
+          "quote": "80-90% of tactical operations independently",
+          "path": "derived/anthropic-gtg-1002.txt",
+          "review": null,
+          "review_applied": false
+        },
+        {
+          "label": "Q041b",
+          "quote": "occasionally fabricated data",
+          "path": "derived/anthropic-gtg-1002.txt",
+          "review": null,
+          "review_applied": false
+        }
+      ]
+    },
+    {
+      "label": "A02d",
+      "statement": "§0: Anthropic discloses more about its models' risks than its peers do.",
+      "section": "§0",
+      "rests_on": [],
+      "rests_on_evidence": [],
+      "rests_on_premises": [],
+      "rests_on_missing": [],
+      "supported_by": [
+        "A02"
+      ],
+      "because_ness": 0,
+      "unsupported": true,
+      "fails": true,
+      "failure_reasons": [
+        "A02d rests on nothing: the premise is unsupported"
+      ],
+      "open_reviews": [],
+      "role": "premise",
+      "evidence_count": 0,
+      "evidence": []
+    },
+    {
+      "label": "A02",
+      "statement": "§0: Anthropic's best case that it keeps the promise is strong.",
+      "section": "§0",
+      "rests_on": [
+        "A01",
+        "A02a",
+        "A02b",
+        "A02c",
+        "A02d"
+      ],
+      "rests_on_evidence": [],
+      "rests_on_premises": [
+        "A01",
+        "A02a",
+        "A02b",
+        "A02c",
+        "A02d"
+      ],
+      "rests_on_missing": [],
+      "supported_by": [],
+      "because_ness": 0,
+      "unsupported": false,
+      "fails": true,
+      "failure_reasons": [
+        "A02 ← A02a rests on nothing: the premise is unsupported",
+        "A02 ← A02b rests on nothing: the premise is unsupported",
+        "A02 ← A02d rests on nothing: the premise is unsupported"
+      ],
+      "open_reviews": [],
+      "role": "premise",
+      "evidence_count": 0,
+      "evidence": []
+    },
+    {
+      "label": "A03",
+      "statement": "§0: the law gives directors no duty to any person on account of the purpose, and only holders of 2% (once listed, the lesser of 2% and $2 million) may sue to enforce it; the public the charter names cannot.",
+      "section": "§0",
+      "rests_on": [],
+      "rests_on_evidence": [],
+      "rests_on_premises": [],
+      "rests_on_missing": [],
+      "supported_by": [
+        "A05"
+      ],
+      "because_ness": 3,
+      "unsupported": true,
+      "fails": true,
+      "failure_reasons": [
+        "A03 rests on nothing: the premise is unsupported"
+      ],
+      "open_reviews": [],
+      "role": "premise",
+      "evidence_count": 0,
+      "evidence": []
+    },
+    {
+      "label": "A04",
+      "statement": "§0: the trust can be amended away by the shareholders it is meant to check, and seven co-founders control 50.1% of the vote.",
+      "section": "§0",
+      "rests_on": [],
+      "rests_on_evidence": [],
+      "rests_on_premises": [],
+      "rests_on_missing": [],
+      "supported_by": [
+        "A05"
+      ],
+      "because_ness": 3,
+      "unsupported": true,
+      "fails": true,
+      "failure_reasons": [
+        "A04 rests on nothing: the premise is unsupported"
+      ],
+      "open_reviews": [],
+      "role": "premise",
+      "evidence_count": 0,
+      "evidence": []
+    },
+    {
+      "label": "A05",
+      "statement": "§0: the governance depends on a few people rather than surviving them, so the promise rests on Anthropic's word.",
+      "section": "§0",
+      "rests_on": [
+        "A03",
+        "A04",
+        "Q011"
+      ],
+      "rests_on_evidence": [
+        "Q011"
+      ],
+      "rests_on_premises": [
+        "A03",
+        "A04"
+      ],
+      "rests_on_missing": [],
+      "supported_by": [
+        "T0"
+      ],
+      "because_ness": 2,
+      "unsupported": false,
+      "fails": true,
+      "failure_reasons": [
+        "A05 ← A03 rests on nothing: the premise is unsupported",
+        "A05 ← A04 rests on nothing: the premise is unsupported"
+      ],
+      "open_reviews": [
+        {
+          "label": "Q011",
+          "verdict": "requote",
+          "reason": "the absence of judicial precedent interpreting this structure increases the risk and unpredictability of governance-related litigation"
+        }
+      ],
+      "role": "premise",
+      "evidence_count": 1,
+      "evidence": [
+        {
+          "label": "Q011",
+          "quote": "the absence of judicial precedent interpreting this structure increases the risk and unpredictability of governance-related litigation",
+          "path": "derived/s1a1.txt",
+          "review": "requote",
+          "review_applied": false
+        }
+      ]
+    },
+    {
+      "label": "A06",
+      "statement": "§0: the Constitution, read as a lens on how Anthropic governs an agent it cannot fully verify, counts selective emphasis as deception.",
+      "section": "§0",
+      "rests_on": [
+        "Q025",
+        "Q027"
+      ],
+      "rests_on_evidence": [
+        "Q025",
+        "Q027"
+      ],
+      "rests_on_premises": [],
+      "rests_on_missing": [],
+      "supported_by": [
+        "A08"
+      ],
+      "because_ness": 3,
+      "unsupported": false,
+      "fails": false,
+      "failure_reasons": [],
+      "open_reviews": [
+        {
+          "label": "Q025",
+          "verdict": "requote",
+          "reason": "the final authority on our vision for Claude"
+        },
+        {
+          "label": "Q027",
+          "verdict": "requote",
+          "reason": "Claude never tries to create false impressions of itself or the world in the user’s mind, whether through actions, technically true statements, deceptive framing, selective emphasis, misleading implicature, or other such methods."
+        }
+      ],
+      "role": "premise",
+      "evidence_count": 2,
+      "evidence": [
+        {
+          "label": "Q025",
+          "quote": "the final authority on our vision for Claude",
+          "path": "derived/constitution.txt",
+          "review": "requote",
+          "review_applied": false
+        },
+        {
+          "label": "Q027",
+          "quote": "Claude never tries to create false impressions of itself or the world in the user’s mind, whether through actions, technically true statements, deceptive framing, selective emphasis, misleading implicature, or other such methods.",
+          "path": "derived/constitution.txt",
+          "review": "requote",
+          "review_applied": false
+        }
+      ]
+    },
+    {
+      "label": "A07",
+      "statement": "§0: the Public Benefit Report reports inputs as outcomes and grades itself, and Anthropic's own trust says it largely describes inputs.",
+      "section": "§0",
+      "rests_on": [
+        "Q034",
+        "Q038"
+      ],
+      "rests_on_evidence": [
+        "Q034",
+        "Q038"
+      ],
+      "rests_on_premises": [],
+      "rests_on_missing": [],
+      "supported_by": [
+        "A08"
+      ],
+      "because_ness": 3,
+      "unsupported": false,
+      "fails": false,
+      "failure_reasons": [],
+      "open_reviews": [
+        {
+          "label": "Q034",
+          "verdict": "requote",
+          "reason": "Right now, it largely describes inputs"
+        },
+        {
+          "label": "Q038",
+          "verdict": "requote",
+          "reason": "we have not been active enough in collecting data"
+        }
+      ],
+      "role": "premise",
+      "evidence_count": 2,
+      "evidence": [
+        {
+          "label": "Q034",
+          "quote": "Right now, it largely describes inputs",
+          "path": "derived/pbc-report-2026.txt",
+          "review": "requote",
+          "review_applied": false
+        },
+        {
+          "label": "Q038",
+          "quote": "we have not been active enough in collecting data",
+          "path": "derived/pbc-report-2026.txt",
+          "review": "requote",
+          "review_applied": false
+        }
+      ]
+    },
+    {
+      "label": "A08",
+      "statement": "§0: by the standard Anthropic set for Claude, the Report's selective emphasis would count as deception.",
+      "section": "§0",
+      "rests_on": [
+        "A06",
+        "A07"
+      ],
+      "rests_on_evidence": [],
+      "rests_on_premises": [
+        "A06",
+        "A07"
+      ],
+      "rests_on_missing": [],
+      "supported_by": [
+        "T0"
+      ],
+      "because_ness": 2,
+      "unsupported": false,
+      "fails": false,
+      "failure_reasons": [],
+      "open_reviews": [],
+      "role": "premise",
+      "evidence_count": 0,
+      "evidence": []
+    },
+    {
+      "label": "A09",
+      "statement": "§0: on a like-for-like standard of proof, Anthropic's harms are documented and its benefits are mostly anecdote.",
+      "section": "§0",
+      "rests_on": [
+        "Q041a",
+        "Q048",
+        "Q094",
+        "Q085",
+        "Q080",
+        "Q081",
+        "Q082",
+        "Q083",
+        "Q084",
+        "Q086",
+        "Q088b"
+      ],
+      "rests_on_evidence": [
+        "Q041a",
+        "Q048",
+        "Q094",
+        "Q085",
+        "Q080",
+        "Q081",
+        "Q082",
+        "Q083",
+        "Q084",
+        "Q086",
+        "Q088b"
+      ],
+      "rests_on_premises": [],
+      "rests_on_missing": [],
+      "supported_by": [
+        "T0"
+      ],
+      "because_ness": 2,
+      "unsupported": false,
+      "fails": false,
+      "failure_reasons": [],
+      "open_reviews": [
+        {
+          "label": "Q048",
+          "verdict": "requote",
+          "reason": "The actor targeted at least 17 distinct organizations"
+        },
+        {
+          "label": "Q085",
+          "verdict": "requote",
+          "reason": "11.4 million accounts across all types of violations"
+        },
+        {
+          "label": "Q080",
+          "verdict": "requote",
+          "reason": "new protein binders at a success rate well above the industry standard"
+        },
+        {
+          "label": "Q081",
+          "verdict": "requote",
+          "reason": "more than 33,000 critical- and highseverity security flaws"
+        },
+        {
+          "label": "Q084",
+          "verdict": "requote",
+          "reason": "Claude estimates that AI reduces task completion time by 80%"
+        },
+        {
+          "label": "Q086",
+          "verdict": "requote",
+          "reason": "users in 159 countries what they wanted from AI, many described wanting to"
+        }
+      ],
+      "role": "premise",
+      "evidence_count": 11,
+      "evidence": [
+        {
+          "label": "Q041a",
+          "quote": "80-90% of tactical operations independently",
+          "path": "derived/anthropic-gtg-1002.txt",
+          "review": null,
+          "review_applied": false
+        },
+        {
+          "label": "Q048",
+          "quote": "The actor targeted at least 17 distinct organizations",
+          "path": "sources/anthropic-misuse-aug-2025.html",
+          "review": "requote",
+          "review_applied": false
+        },
+        {
+          "label": "Q094",
+          "quote": "Four of our models gained unauthorized access to real third-party systems",
+          "path": "derived/s1a1.txt",
+          "review": null,
+          "review_applied": false
+        },
+        {
+          "label": "Q085",
+          "quote": "11.4 million accounts across all types of violations",
+          "path": "derived/pbc-report-2026.txt",
+          "review": "requote",
+          "review_applied": false
+        },
+        {
+          "label": "Q080",
+          "quote": "new protein binders at a success rate well above the industry standard",
+          "path": "derived/pbc-report-2026.txt",
+          "review": "requote",
+          "review_applied": false
+        },
+        {
+          "label": "Q081",
+          "quote": "more than 33,000 critical- and",
+          "path": "derived/pbc-report-2026.txt",
+          "review": "requote",
+          "review_applied": false
+        },
+        {
+          "label": "Q082",
+          "quote": "under an hour instead of up to a full day",
+          "path": "derived/pbc-report-2026.txt",
+          "review": "verified",
+          "review_applied": false
+        },
+        {
+          "label": "Q083",
+          "quote": "flagged a spike of 25,000 pneumonia cases",
+          "path": "derived/pbc-report-2026.txt",
+          "review": "verified",
+          "review_applied": false
+        },
+        {
+          "label": "Q084",
+          "quote": "Claude estimates that AI reduces task completion time by 80%",
+          "path": "sources/anthropic-productivity-gains.html",
+          "review": "requote",
+          "review_applied": false
+        },
+        {
+          "label": "Q086",
+          "quote": "users in 159 countries what they wanted from AI, many described wanting to",
+          "path": "derived/pbc-report-2026.txt",
+          "review": "requote",
+          "review_applied": false
+        },
+        {
+          "label": "Q088b",
+          "quote": "proof of Fermat’s Last Theorem",
+          "path": "derived/pbc-report-2026.txt",
+          "review": null,
+          "review_applied": false
+        }
+      ]
+    },
+    {
+      "label": "T0",
+      "statement": "§0 thesis: Anthropic is a public benefit corporation in law, and not in the sense the category promises: no one it names can make it act like one.",
+      "section": "§0 thesis",
+      "rests_on": [
+        "A01",
+        "A05",
+        "A08",
+        "A09"
+      ],
+      "rests_on_evidence": [],
+      "rests_on_premises": [
+        "A01",
+        "A05",
+        "A08",
+        "A09"
+      ],
+      "rests_on_missing": [],
+      "supported_by": [
+        "R0"
+      ],
+      "because_ness": 1,
+      "unsupported": false,
+      "fails": true,
+      "failure_reasons": [
+        "T0 ← A05 ← A03 rests on nothing: the premise is unsupported",
+        "T0 ← A05 ← A04 rests on nothing: the premise is unsupported"
+      ],
+      "open_reviews": [],
+      "role": "thesis",
+      "evidence_count": 0,
+      "evidence": []
+    },
+    {
+      "label": "R0",
+      "statement": "§0 remedy: not a better report, but governance that someone Anthropic does not appoint, pay or outvote can invoke.",
+      "section": "§0 remedy",
+      "rests_on": [
+        "T0"
+      ],
+      "rests_on_evidence": [],
+      "rests_on_premises": [
+        "T0"
+      ],
+      "rests_on_missing": [],
+      "supported_by": [],
+      "because_ness": 0,
+      "unsupported": false,
+      "fails": true,
+      "failure_reasons": [
+        "R0 ← T0 ← A05 ← A03 rests on nothing: the premise is unsupported",
+        "R0 ← T0 ← A05 ← A04 rests on nothing: the premise is unsupported"
+      ],
+      "open_reviews": [],
+      "role": "remedy",
+      "evidence_count": 0,
+      "evidence": []
+    }
+  ],
+  "prompt_kinds": [
+    {
+      "id": "incomplete",
+      "title": "The argument does not get there",
+      "question": "Which step does the argument need that it does not have?",
+      "labels": [
+        "needs-premise"
+      ]
+    },
+    {
+      "id": "under_weighted",
+      "title": "A premise carries more than it can",
+      "question": "Which premise is doing work no evidence under it supports?",
+      "labels": [
+        "premise-weight"
+      ]
+    },
+    {
+      "id": "examination",
+      "title": "A premise needs more examination",
+      "question": "Which premise is stated too confidently for what is known?",
+      "labels": [
+        "premise-scrutiny"
+      ]
+    },
+    {
+      "id": "counter",
+      "title": "There is a case the argument does not answer",
+      "question": "What is the strongest case in which the argument fails?",
+      "labels": [
+        "counterexample"
+      ]
+    }
+  ]
+}

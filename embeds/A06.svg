@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 264" width="640" height="264" role="img" aria-labelledby="t d">
+<title id="t">A06: stands</title>
+<desc id="d">Premise A06 of the Anthropic PBC working paper. the Constitution, read as a lens on how Anthropic governs an agent it cannot fully verify, counts selective emphasis as deception. It stands; 2 quotations under it; because-ness 3.</desc>
+<style>
+  .bg{fill:#ffffff} .ink{fill:#181818} .mut{fill:#525252} .rule{stroke:#d6d6d6}
+  .chip{fill:#181818} .chiptx{fill:#ffffff} .wash{fill:#f3f3f3}
+  text{font-family:Georgia,'Times New Roman',serif}
+  .t{font-size:15px;font-weight:700;letter-spacing:.02em}
+  .body{font-size:16px}
+  .small{font-size:12px}
+  .tiny{font-size:10px;letter-spacing:.04em}
+  .mono{font-family:Menlo,Consolas,monospace}
+  @media (prefers-color-scheme:dark){
+    .bg{fill:#111111} .ink{fill:#eeeeee} .mut{fill:#b6b6b6}
+    .rule{stroke:#484848} .chip{fill:#eeeeee} .chiptx{fill:#111111}
+    .wash{fill:#202020}
+  }
+</style>
+<rect class="bg" width="640" height="264" rx="6"/>
+<text class="mono t" x="28" y="46">A06</text>
+<rect class="chip" x="482" y="28" width="130" height="24" rx="3"/>
+<text class="chiptx tiny mono" x="547" y="44" text-anchor="middle">STANDS</text>
+<line class="rule" x1="28" y1="62" x2="612" y2="62"/>
+<text class="mut small" x="28" y="84">premise · because-ness 3 · §0</text>
+<text class="ink body" x="28" y="118">the Constitution, read as a lens on how Anthropic governs an</text>
+<text class="ink body" x="28" y="140">agent it cannot fully verify, counts selective emphasis as</text>
+<text class="ink body" x="28" y="162">deception.</text>
+<line class="rule" x1="28" y1="190" x2="612" y2="190"/>
+<text class="mut small" x="28" y="212">rests on: Q025, Q027 · 2 quotations under it</text>
+<text class="mut tiny mono" x="28" y="238">Anthropic PBC · premise A06 · claims blake3:e653489306190c68</text>
+</svg>

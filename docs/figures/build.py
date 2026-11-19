@@ -8,11 +8,72 @@ byte for byte. No clock, no randomness, no network.
     python3 docs/figures/build.py
 """
 
+import re
 from pathlib import Path
 from xml.sax.saxutils import escape
 
 OUT = Path(__file__).resolve().parent
+ROOT = OUT.parent.parent
 W = 640
+
+
+# --- Derived inputs -----------------------------------------------------------
+# Every number a figure prints is read from a committed source here. None is typed.
+# A figure that cannot derive a value fails loudly rather than printing a guess.
+
+
+def _index_rows():
+    """Read the Risk-Governance Index table from docs/risk-governance-index.md."""
+    doc = (ROOT / "docs" / "risk-governance-index.md").read_text(encoding="utf-8")
+    rows = []
+    for line in doc.splitlines():
+        if not re.match(r"^\|\s*\d+\s*\|", line):
+            continue
+        cells = [c.strip() for c in line.strip("|").split("|")]
+        status = cells[4].strip("`").strip()
+        if status not in ("Controlled", "Partial", "Uncontrolled", "Externalized"):
+            raise SystemExit(f"risk-governance row {cells[0]}: unknown status {status!r}")
+        rows.append((cells[1], status, cells[2]))
+    if not rows:
+        raise SystemExit("risk-governance-index.md: no index rows found")
+    return rows
+
+
+SCORE_GLYPH = {"\u25cf": 2, "\u25d0": 1, "\u25cb": 0}
+
+
+def _scorecard_rows():
+    """Read Appendix A of the paper: dimension, and the 'filed today' level."""
+    paper = (ROOT / "docs" / "anthropic-contrapunctus.md").read_text(encoding="utf-8")
+    rows, started = [], False
+    for line in paper.splitlines():
+        if "Appendix A. Governance scorecard" in line:
+            started = True
+            continue
+        if not started or not line.startswith("|"):
+            continue
+        cells = [c.strip() for c in line.strip("|").split("|")]
+        if len(cells) < 2 or cells[0] in ("Dimension", "") or set(cells[0]) <= {"-", ":"}:
+            continue
+        glyph = cells[1][:1]
+        if glyph not in SCORE_GLYPH:
+            continue
+        rows.append((cells[0], SCORE_GLYPH[glyph]))
+        if len(rows) == 10:
+            break
+    if len(rows) != 10:
+        raise SystemExit(f"Appendix A: expected 10 scorecard rows, found {len(rows)}")
+    return rows
+
+
+def _claims_counts():
+    """Count quotation rows in the claims file."""
+    text = (ROOT / "claims" / "anthropic-contrapunctus.tsv").read_text(encoding="utf-8")
+    rows = [
+        line for line in text.splitlines()
+        if line and not line.startswith("#") and line.split("\t")[0].startswith("Q")
+    ]
+    return len(rows)
 
 # Tokens mirror index.html :root (light) and its dark override. Figures are
 # embedded as <img>, so dark mode follows the OS preference, not the page toggle.
@@ -52,7 +113,14 @@ def txt(x, y, s, cls="ink l", anchor="start"):
 
 # --- Fig 1: verification (paper: "Verification status (this draft)") ---------
 def fig_verification():
-    checked, exact = 60, 51
+    # fig1 is withdrawn from the paper (see the note in
+    # docs/anthropic-contrapunctus.md): its counts were hand-coded and went stale,
+    # and it returns only when generated from Descartes check output, which this
+    # repository does not have. It still emits so the gallery does not silently
+    # lose a file; the count it draws is the claims file's actual quotation rows,
+    # and the "exact" figure is not claimed at all (0), because nothing here
+    # verifies it.
+    checked, exact = _claims_counts(), 0
     body, size, gap = "", 22, 4
     for i in range(checked):
         r, c = divmod(i, 10)
@@ -64,14 +132,14 @@ def fig_verification():
     body += txt(x + 20, 115, f"{exact} byte-exact in the filing")
     body += f'<rect class="unv" x="{x}" y="140" width="12" height="12" rx="3"/>\n'
     body += txt(x + 20, 151, f"{checked - exact} not byte-exact, including:")
-    body += txt(x + 20, 172, "1 unsupported number (“129,000”),", "mut l")
-    body += txt(x + 20, 190, "now flagged in-line", "mut l")
-    body += txt(x + 20, 211, "5 compressions to expand or unquote", "mut l")
-    body += txt(28, 282, "One of the misses was our own error. The loop caught it.", "mut s")
+    body += txt(x + 20, 172, "This figure is a placeholder; it claims", "mut l")
+    body += txt(x + 20, 190, "no verification result. The paper says", "mut l")
+    body += txt(x + 20, 211, "it returns from Descartes check output.", "mut l")
+    body += txt(28, 282, "No count on this card is a verification claim.", "mut s")
     return svg(
         300,
-        f"{exact} of {checked} quotes verified byte-exact",
-        "Descartes loop, 2026-11-03 · fragments attributed to the PBC Report / S-1",
+        f"{checked} quotation rows in the claims file",
+        "Withdrawn from the paper: not generated from a verification run.",
         body,
         f"Waffle of {checked} checked fragments: {exact} byte-exact, "
         f"{checked - exact} not, including one unsupported number and five compressions.",
@@ -79,16 +147,37 @@ def fig_verification():
 
 
 # --- Fig 2: Risk-Governance Index v1 (docs/risk-governance-index.md) ----------
-INDEX = [
-    ("Open-source software vulnerabilities", "Externalized"),
-    ("Untested governance structure", "Uncontrolled"),
-    ("Misalignment “across the industry”", "Externalized"),
-    ("Workforce displacement", "Uncontrolled"),
-    ("Government interruption", "Externalized"),
-    ("Revenue from policy violators", "Uncontrolled"),
-    ("Decisions concentrated, few checks", "Uncontrolled"),
-    ("Models reached third-party systems", "Uncontrolled"),
-]
+# INDEX is derived from docs/risk-governance-index.md at build time (see
+# _index_rows). It is not a literal: the doc is the source, the figure restates it,
+# and a change to one without the other is caught by scripts/test_argument_json.py.
+INDEX_SHORT = {
+    "Open-source software vulnerabilities and under-maintenance, a material operational risk":
+        "Open-source software vulnerabilities",
+    "\"Absence of judicial precedent interpreting this structure\" raises governance-litigation risk":
+        "Untested governance structure",
+    "Misalignment behaviors \"have been observed across the industry\"":
+        "Misalignment “across the industry”",
+    "Workforce displacement framed as a perception/regulatory risk \"regardless of the actual impact\"":
+        "Workforce displacement",
+    "Government interruption — June 2026 export restriction on two models":
+        "Government interruption",
+    "Revenue from customers later found violating the usage policy, kept and disclosed":
+        "Revenue from policy violators",
+    "Decisions concentrated in \"a handful… Anthropic is unusual\"":
+        "Decisions concentrated, few checks",
+    "Four Claude models reached real third-party systems":
+        "Models reached third-party systems",
+}
+
+
+def _short(risk):
+    """A figure label for a risk row. Falls back to the row's own words."""
+    if risk in INDEX_SHORT:
+        return INDEX_SHORT[risk]
+    return risk.split(",")[0][:48]
+
+
+INDEX = [(_short(risk), status) for risk, status, _mech in _index_rows()]
 STATUS_CLS = {"Uncontrolled": "bad", "Externalized": "warn", "Partial": "warn", "Controlled": "ok"}
 
 
@@ -120,18 +209,9 @@ def fig_index():
 
 
 # --- Fig 3: governance scorecard (Appendix A) --------------------------------
-SCORE = [  # (dimension, filed today: 2 held, 1 partial, 0 absent)
-    ("Mission lock durability", 1),
-    ("Standing of the affected", 0),
-    ("Independent verification", 1),
-    ("Claim discipline", 0),
-    ("Framework pluralism", 0),
-    ("Corpus rights", 1),
-    ("Misuse economics", 0),
-    ("Externality metering", 0),
-    ("Benefit vehicle independence", 0),
-    ("Incident disclosure", 1),
-]
+# SCORE is the "filed today" column of the paper's Appendix A, read at build time
+# (see _scorecard_rows). Level: 2 held, 1 partial, 0 absent.
+SCORE = _scorecard_rows()
 
 
 def dot(cx, cy, level):

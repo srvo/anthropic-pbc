@@ -3,11 +3,13 @@ message: "If you cite or build on this paper, please cite it using this metadata
 title: "Anthropic PBC"   # working title — set your own
 type: report
 abstract: >-
-  A public, versioned, cryptographically verifiable counterpoint to Anthropic's
-  2026 Public Benefit Report, read against its S-1 and judged by Anthropic's own
-  (CC0) Constitution. Every load-bearing quote is checked byte-exact against the
-  primary filings with the Descartes verifier; endorsements and disputes are
-  collected as cryptographic attestations. A working paper for public contest.
+  A working paper offering a governance-focused counterpoint to Anthropic's
+  2026 Public Benefit Report, read alongside its S-1 and Constitution. It
+  describes a verifiable-claims approach and a protocol for attributed
+  endorsements and disputes, presented for public contest. Byte-exact quotation
+  checks establish textual occurrence, not by themselves the truth or semantic
+  support of every claim. This DOI identifies the archived v0 edition;
+  later repository work is not part of that published snapshot.
 authors:
   - family-names: Ortel
     given-names: Sloane

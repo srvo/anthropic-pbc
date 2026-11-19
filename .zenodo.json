@@ -2,9 +2,13 @@
   "title": "Anthropic PBC",
   "upload_type": "publication",
   "publication_type": "report",
-  "description": "A public, versioned, cryptographically verifiable counterpoint to Anthropic's 2026 Public Benefit Report, read against its S-1 and judged by Anthropic's own (CC0) Constitution. Every load-bearing quote is checked byte-exact against the primary filings with the Descartes verifier; endorsements and disputes are collected as cryptographic attestations. Paper v0 BLAKE3: 698b6c6785961b566e27dbf6306707ec530b4ba6e9f3823b6a99b3b42504dcea (provisional until the title is finalized).",
+  "description": "<p><strong>Anthropic PBC</strong> is a working paper offering a governance-focused counterpoint to Anthropic's 2026 Public Benefit Report, read alongside its S-1 and Constitution. It describes a verifiable-claims approach and a protocol for attributed endorsements and disputes, presented for public contest.</p><p>This record archives <strong>edition v0, published 3 November 2026</strong>: the paper markdown, its rendered HTML, the attestation protocol, and the risk-governance index. The associated GitHub repository may contain later work that is not part of this archived edition.</p><p><strong>Verification scope:</strong> byte-exact quotation checks establish that text occurs in a source; they do not, by themselves, establish that every claim is supported, that an interpretation is correct, or that a governance or ethical conclusion is true. The attestation protocol describes how endorsements and disputes may be recorded; its inclusion does not imply that a person has endorsed the paper.</p><p>For this exact edition, cite <a href=\"https://doi.org/10.5281/zenodo.23928296\">10.5281/zenodo.23928296</a>. The version-family DOI is <a href=\"https://doi.org/10.5281/zenodo.23928295\">10.5281/zenodo.23928295</a>. Repository and ongoing work: <a href=\"https://github.com/srvo/anthropic-pbc\">github.com/srvo/anthropic-pbc</a>.</p>",
   "creators": [
-    { "name": "Ortel, Sloane", "orcid": "0009-0000-8491-1589", "affiliation": "Ethical Capital" }
+    {
+      "name": "Ortel, Sloane",
+      "orcid": "0009-0000-8491-1589",
+      "affiliation": "Ethical Capital"
+    }
   ],
   "license": "cc-zero",
   "access_right": "open",
@@ -13,6 +17,10 @@
     "corporate governance",
     "AI governance",
     "verifiable claims",
-    "shareholder standing"
+    "shareholder standing",
+    "research provenance",
+    "reproducible research",
+    "public contest",
+    "cryptographic attestations"
   ]
 }

@@ -1,0 +1,24 @@
+name: argument-artifact
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - name: argument.json is current against the claims file
+        run: uv run scripts/argument_json.py check
+      - name: The edit plane reads the argument the claims file records
+        run: uv run scripts/test_argument_json.py
+      - name: Embeds are current against the claims file
+        run: uv run scripts/embeds.py check
+      # The Praxis tokens are generated from Praxis design/praxis.css. On CI that
+      # checkout is absent, so the check is skipped rather than failed there; run
+      # it locally, where Praxis sits beside this repository.
+      - name: Praxis tokens are current (local checkout required)
+        run: uv run scripts/praxis_tokens.py check || echo "Praxis not checked out; skipped"

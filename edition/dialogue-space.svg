@@ -1,0 +1,169 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 874 788" font-family="system-ui,-apple-system,sans-serif" role="img">
+<style>text{fill:#1b1b1b}.m{fill:#5f6368}</style>
+<rect width="874" height="788" fill="#fcfcfb"/>
+<text x="16" y="30" font-size="18" font-weight="600">Who talks about which AI risks</text>
+<text x="16" y="52" font-size="12" class="m">Share of each source's AI-risk passages naming each type. Risk codebook v0.2-draft; * = new in v0.2.</text>
+<text x="274.0" y="84" font-size="12" font-weight="600" text-anchor="middle">Executives (calls)</text>
+<text x="274.0" y="99" font-size="11" class="m" text-anchor="middle">n = 179</text>
+<text x="402.0" y="84" font-size="12" font-weight="600" text-anchor="middle">Analyst questions</text>
+<text x="402.0" y="99" font-size="11" class="m" text-anchor="middle">n = 64</text>
+<text x="530.0" y="84" font-size="12" font-weight="600" text-anchor="middle">HN: Anthropic</text>
+<text x="530.0" y="99" font-size="11" class="m" text-anchor="middle">n = 6,282</text>
+<text x="658.0" y="84" font-size="12" font-weight="600" text-anchor="middle">HN: AI security</text>
+<text x="658.0" y="99" font-size="11" class="m" text-anchor="middle">n = 3,097</text>
+<text x="786.0" y="84" font-size="12" font-weight="600" text-anchor="middle">Wikipedia</text>
+<text x="786.0" y="99" font-size="11" class="m" text-anchor="middle">n = 833</text>
+<text x="202" y="124.0" font-size="12" text-anchor="end">cyber</text>
+<g><title>Executives (calls): cyber 40.2% (72 of 179)</title><rect x="211" y="109" width="126" height="22" rx="2" fill="#3b6891"/><text x="274.0" y="124.0" font-size="11" text-anchor="middle" style="fill:#ffffff">40</text></g>
+<g><title>Analyst questions: cyber 20.3% (13 of 64)</title><rect x="339" y="109" width="126" height="22" rx="2" fill="#93adc5"/><text x="402.0" y="124.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">20</text></g>
+<g><title>HN: Anthropic: cyber 23.0% (1,444 of 6,282)</title><rect x="467" y="109" width="126" height="22" rx="2" fill="#87a3be"/><text x="530.0" y="124.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">23</text></g>
+<g><title>HN: AI security: cyber 85.2% (2,640 of 3,097)</title><rect x="595" y="109" width="126" height="22" rx="2" fill="#104678"/><text x="658.0" y="124.0" font-size="11" text-anchor="middle" style="fill:#ffffff">85</text></g>
+<g><title>Wikipedia: cyber 19.2% (160 of 833)</title><rect x="723" y="109" width="126" height="22" rx="2" fill="#97b1c7"/><text x="786.0" y="124.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">19</text></g>
+<text x="202" y="148.0" font-size="12" text-anchor="end">safety_ethics</text>
+<g><title>Executives (calls): safety_ethics 10.1% (18 of 179)</title><rect x="211" y="133" width="126" height="22" rx="2" fill="#c0d0df"/><text x="274.0" y="148.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">10</text></g>
+<g><title>Analyst questions: safety_ethics 4.7% (3 of 64)</title><rect x="339" y="133" width="126" height="22" rx="2" fill="#d7e3ed"/><text x="402.0" y="148.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">5</text></g>
+<g><title>HN: Anthropic: safety_ethics 39.3% (2,466 of 6,282)</title><rect x="467" y="133" width="126" height="22" rx="2" fill="#3f6b94"/><text x="530.0" y="148.0" font-size="11" text-anchor="middle" style="fill:#ffffff">39</text></g>
+<g><title>HN: AI security: safety_ethics 23.8% (738 of 3,097)</title><rect x="595" y="133" width="126" height="22" rx="2" fill="#83a1bc"/><text x="658.0" y="148.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">24</text></g>
+<g><title>Wikipedia: safety_ethics 60.5% (504 of 833)</title><rect x="723" y="133" width="126" height="22" rx="2" fill="#104678"/><text x="786.0" y="148.0" font-size="11" text-anchor="middle" style="fill:#ffffff">61</text></g>
+<text x="202" y="172.0" font-size="12" text-anchor="end">transparency *</text>
+<g><title>Executives (calls): transparency 3.4% (6 of 179)</title><rect x="211" y="157" width="126" height="22" rx="2" fill="#dde7f0"/><text x="274.0" y="172.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">3</text></g>
+<g><title>Analyst questions: transparency 0.0% (0 of 64)</title><rect x="339" y="157" width="126" height="22" rx="2" fill="#ecf3f9"/><text x="402.0" y="172.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">0</text></g>
+<g><title>HN: Anthropic: transparency 19.8% (1,246 of 6,282)</title><rect x="467" y="157" width="126" height="22" rx="2" fill="#95aec6"/><text x="530.0" y="172.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">20</text></g>
+<g><title>HN: AI security: transparency 12.3% (381 of 3,097)</title><rect x="595" y="157" width="126" height="22" rx="2" fill="#b6c8d9"/><text x="658.0" y="172.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">12</text></g>
+<g><title>Wikipedia: transparency 7.2% (60 of 833)</title><rect x="723" y="157" width="126" height="22" rx="2" fill="#ccdae6"/><text x="786.0" y="172.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">7</text></g>
+<text x="202" y="196.0" font-size="12" text-anchor="end">loss_of_control *</text>
+<g><title>Executives (calls): loss_of_control 5.0% (9 of 179)</title><rect x="211" y="181" width="126" height="22" rx="2" fill="#d6e2ec"/><text x="274.0" y="196.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">5</text></g>
+<g><title>Analyst questions: loss_of_control 4.7% (3 of 64)</title><rect x="339" y="181" width="126" height="22" rx="2" fill="#d7e3ed"/><text x="402.0" y="196.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">5</text></g>
+<g><title>HN: Anthropic: loss_of_control 11.9% (745 of 6,282)</title><rect x="467" y="181" width="126" height="22" rx="2" fill="#b8cada"/><text x="530.0" y="196.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">12</text></g>
+<g><title>HN: AI security: loss_of_control 14.2% (441 of 3,097)</title><rect x="595" y="181" width="126" height="22" rx="2" fill="#adc2d4"/><text x="658.0" y="196.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">14</text></g>
+<g><title>Wikipedia: loss_of_control 17.2% (143 of 833)</title><rect x="723" y="181" width="126" height="22" rx="2" fill="#a0b8cd"/><text x="786.0" y="196.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">17</text></g>
+<text x="202" y="220.0" font-size="12" text-anchor="end">regulation</text>
+<g><title>Executives (calls): regulation 2.8% (5 of 179)</title><rect x="211" y="205" width="126" height="22" rx="2" fill="#e0e9f2"/><text x="274.0" y="220.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">3</text></g>
+<g><title>Analyst questions: regulation 1.6% (1 of 64)</title><rect x="339" y="205" width="126" height="22" rx="2" fill="#e5eef5"/><text x="402.0" y="220.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">2</text></g>
+<g><title>HN: Anthropic: regulation 11.7% (735 of 6,282)</title><rect x="467" y="205" width="126" height="22" rx="2" fill="#b9cbdb"/><text x="530.0" y="220.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">12</text></g>
+<g><title>HN: AI security: regulation 4.4% (137 of 3,097)</title><rect x="595" y="205" width="126" height="22" rx="2" fill="#d9e4ee"/><text x="658.0" y="220.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">4</text></g>
+<g><title>Wikipedia: regulation 16.8% (140 of 833)</title><rect x="723" y="205" width="126" height="22" rx="2" fill="#a2b9ce"/><text x="786.0" y="220.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">17</text></g>
+<text x="202" y="244.0" font-size="12" text-anchor="end">privacy</text>
+<g><title>Executives (calls): privacy 3.4% (6 of 179)</title><rect x="211" y="229" width="126" height="22" rx="2" fill="#dde7f0"/><text x="274.0" y="244.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">3</text></g>
+<g><title>Analyst questions: privacy 1.6% (1 of 64)</title><rect x="339" y="229" width="126" height="22" rx="2" fill="#e5eef5"/><text x="402.0" y="244.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">2</text></g>
+<g><title>HN: Anthropic: privacy 6.4% (399 of 6,282)</title><rect x="467" y="229" width="126" height="22" rx="2" fill="#d0dde9"/><text x="530.0" y="244.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">6</text></g>
+<g><title>HN: AI security: privacy 12.4% (385 of 3,097)</title><rect x="595" y="229" width="126" height="22" rx="2" fill="#b5c8d9"/><text x="658.0" y="244.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">12</text></g>
+<g><title>Wikipedia: privacy 4.1% (34 of 833)</title><rect x="723" y="229" width="126" height="22" rx="2" fill="#dae5ee"/><text x="786.0" y="244.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">4</text></g>
+<text x="202" y="268.0" font-size="12" text-anchor="end">bias</text>
+<g><title>Executives (calls): bias 0.6% (1 of 179)</title><rect x="211" y="253" width="126" height="22" rx="2" fill="#eaf1f8"/><text x="274.0" y="268.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">1</text></g>
+<g><title>Analyst questions: bias 0.0% (0 of 64)</title><rect x="339" y="253" width="126" height="22" rx="2" fill="#ecf3f9"/><text x="402.0" y="268.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">0</text></g>
+<g><title>HN: Anthropic: bias 0.4% (27 of 6,282)</title><rect x="467" y="253" width="126" height="22" rx="2" fill="#eaf2f8"/><text x="530.0" y="268.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">0</text></g>
+<g><title>HN: AI security: bias 0.2% (6 of 3,097)</title><rect x="595" y="253" width="126" height="22" rx="2" fill="#ebf2f9"/><text x="658.0" y="268.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">0</text></g>
+<g><title>Wikipedia: bias 9.8% (82 of 833)</title><rect x="723" y="253" width="126" height="22" rx="2" fill="#c1d1e0"/><text x="786.0" y="268.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">10</text></g>
+<text x="202" y="292.0" font-size="12" text-anchor="end">capex</text>
+<g><title>Executives (calls): capex 7.8% (14 of 179)</title><rect x="211" y="277" width="126" height="22" rx="2" fill="#cad8e5"/><text x="274.0" y="292.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">8</text></g>
+<g><title>Analyst questions: capex 4.7% (3 of 64)</title><rect x="339" y="277" width="126" height="22" rx="2" fill="#d7e3ed"/><text x="402.0" y="292.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">5</text></g>
+<g><title>HN: Anthropic: capex 9.5% (599 of 6,282)</title><rect x="467" y="277" width="126" height="22" rx="2" fill="#c2d2e0"/><text x="530.0" y="292.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">10</text></g>
+<g><title>HN: AI security: capex 0.6% (19 of 3,097)</title><rect x="595" y="277" width="126" height="22" rx="2" fill="#e9f1f7"/><text x="658.0" y="292.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">1</text></g>
+<g><title>Wikipedia: capex 0.1% (1 of 833)</title><rect x="723" y="277" width="126" height="22" rx="2" fill="#ebf3f9"/><text x="786.0" y="292.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">0</text></g>
+<text x="202" y="316.0" font-size="12" text-anchor="end">misinformation *</text>
+<g><title>Executives (calls): misinformation 0.0% (0 of 179)</title><rect x="211" y="301" width="126" height="22" rx="2" fill="#ecf3f9"/><text x="274.0" y="316.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">0</text></g>
+<g><title>Analyst questions: misinformation 0.0% (0 of 64)</title><rect x="339" y="301" width="126" height="22" rx="2" fill="#ecf3f9"/><text x="402.0" y="316.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">0</text></g>
+<g><title>HN: Anthropic: misinformation 1.1% (71 of 6,282)</title><rect x="467" y="301" width="126" height="22" rx="2" fill="#e7eff6"/><text x="530.0" y="316.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">1</text></g>
+<g><title>HN: AI security: misinformation 1.1% (33 of 3,097)</title><rect x="595" y="301" width="126" height="22" rx="2" fill="#e7eff6"/><text x="658.0" y="316.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">1</text></g>
+<g><title>Wikipedia: misinformation 6.6% (55 of 833)</title><rect x="723" y="301" width="126" height="22" rx="2" fill="#cfdce8"/><text x="786.0" y="316.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">7</text></g>
+<text x="202" y="340.0" font-size="12" text-anchor="end">weapons *</text>
+<g><title>Executives (calls): weapons 1.1% (2 of 179)</title><rect x="211" y="325" width="126" height="22" rx="2" fill="#e7eff6"/><text x="274.0" y="340.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">1</text></g>
+<g><title>Analyst questions: weapons 0.0% (0 of 64)</title><rect x="339" y="325" width="126" height="22" rx="2" fill="#ecf3f9"/><text x="402.0" y="340.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">0</text></g>
+<g><title>HN: Anthropic: weapons 6.0% (374 of 6,282)</title><rect x="467" y="325" width="126" height="22" rx="2" fill="#d2deea"/><text x="530.0" y="340.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">6</text></g>
+<g><title>HN: AI security: weapons 1.7% (53 of 3,097)</title><rect x="595" y="325" width="126" height="22" rx="2" fill="#e4edf5"/><text x="658.0" y="340.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">2</text></g>
+<g><title>Wikipedia: weapons 4.8% (40 of 833)</title><rect x="723" y="325" width="126" height="22" rx="2" fill="#d7e2ed"/><text x="786.0" y="340.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">5</text></g>
+<text x="202" y="364.0" font-size="12" text-anchor="end">ip</text>
+<g><title>Executives (calls): ip 1.7% (3 of 179)</title><rect x="211" y="349" width="126" height="22" rx="2" fill="#e5edf5"/><text x="274.0" y="364.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">2</text></g>
+<g><title>Analyst questions: ip 0.0% (0 of 64)</title><rect x="339" y="349" width="126" height="22" rx="2" fill="#ecf3f9"/><text x="402.0" y="364.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">0</text></g>
+<g><title>HN: Anthropic: ip 5.4% (337 of 6,282)</title><rect x="467" y="349" width="126" height="22" rx="2" fill="#d4e0eb"/><text x="530.0" y="364.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">5</text></g>
+<g><title>HN: AI security: ip 2.5% (77 of 3,097)</title><rect x="595" y="349" width="126" height="22" rx="2" fill="#e1eaf3"/><text x="658.0" y="364.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">2</text></g>
+<g><title>Wikipedia: ip 3.1% (26 of 833)</title><rect x="723" y="349" width="126" height="22" rx="2" fill="#dee8f1"/><text x="786.0" y="364.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">3</text></g>
+<text x="202" y="388.0" font-size="12" text-anchor="end">disruption</text>
+<g><title>Executives (calls): disruption 3.9% (7 of 179)</title><rect x="211" y="373" width="126" height="22" rx="2" fill="#dbe5ef"/><text x="274.0" y="388.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">4</text></g>
+<g><title>Analyst questions: disruption 4.7% (3 of 64)</title><rect x="339" y="373" width="126" height="22" rx="2" fill="#d7e3ed"/><text x="402.0" y="388.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">5</text></g>
+<g><title>HN: Anthropic: disruption 3.6% (228 of 6,282)</title><rect x="467" y="373" width="126" height="22" rx="2" fill="#dce6f0"/><text x="530.0" y="388.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">4</text></g>
+<g><title>HN: AI security: disruption 0.6% (18 of 3,097)</title><rect x="595" y="373" width="126" height="22" rx="2" fill="#e9f1f8"/><text x="658.0" y="388.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">1</text></g>
+<g><title>Wikipedia: disruption 0.1% (1 of 833)</title><rect x="723" y="373" width="126" height="22" rx="2" fill="#ebf3f9"/><text x="786.0" y="388.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">0</text></g>
+<text x="202" y="412.0" font-size="12" text-anchor="end">open_web *</text>
+<g><title>Executives (calls): open_web 1.1% (2 of 179)</title><rect x="211" y="397" width="126" height="22" rx="2" fill="#e7eff6"/><text x="274.0" y="412.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">1</text></g>
+<g><title>Analyst questions: open_web 1.6% (1 of 64)</title><rect x="339" y="397" width="126" height="22" rx="2" fill="#e5eef5"/><text x="402.0" y="412.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">2</text></g>
+<g><title>HN: Anthropic: open_web 4.7% (294 of 6,282)</title><rect x="467" y="397" width="126" height="22" rx="2" fill="#d7e3ed"/><text x="530.0" y="412.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">5</text></g>
+<g><title>HN: AI security: open_web 4.2% (131 of 3,097)</title><rect x="595" y="397" width="126" height="22" rx="2" fill="#d9e4ee"/><text x="658.0" y="412.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">4</text></g>
+<g><title>Wikipedia: open_web 0.8% (7 of 833)</title><rect x="723" y="397" width="126" height="22" rx="2" fill="#e8f0f7"/><text x="786.0" y="412.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">1</text></g>
+<text x="202" y="436.0" font-size="12" text-anchor="end">surveillance *</text>
+<g><title>Executives (calls): surveillance 0.0% (0 of 179)</title><rect x="211" y="421" width="126" height="22" rx="2" fill="#ecf3f9"/><text x="274.0" y="436.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">0</text></g>
+<g><title>Analyst questions: surveillance 0.0% (0 of 64)</title><rect x="339" y="421" width="126" height="22" rx="2" fill="#ecf3f9"/><text x="402.0" y="436.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">0</text></g>
+<g><title>HN: Anthropic: surveillance 4.6% (288 of 6,282)</title><rect x="467" y="421" width="126" height="22" rx="2" fill="#d8e3ed"/><text x="530.0" y="436.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">5</text></g>
+<g><title>HN: AI security: surveillance 3.1% (95 of 3,097)</title><rect x="595" y="421" width="126" height="22" rx="2" fill="#dfe8f1"/><text x="658.0" y="436.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">3</text></g>
+<g><title>Wikipedia: surveillance 3.6% (30 of 833)</title><rect x="723" y="421" width="126" height="22" rx="2" fill="#dce7f0"/><text x="786.0" y="436.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">4</text></g>
+<text x="202" y="460.0" font-size="12" text-anchor="end">existential *</text>
+<g><title>Executives (calls): existential 0.0% (0 of 179)</title><rect x="211" y="445" width="126" height="22" rx="2" fill="#ecf3f9"/><text x="274.0" y="460.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">0</text></g>
+<g><title>Analyst questions: existential 0.0% (0 of 64)</title><rect x="339" y="445" width="126" height="22" rx="2" fill="#ecf3f9"/><text x="402.0" y="460.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">0</text></g>
+<g><title>HN: Anthropic: existential 0.1% (9 of 6,282)</title><rect x="467" y="445" width="126" height="22" rx="2" fill="#ebf3f9"/><text x="530.0" y="460.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">0</text></g>
+<g><title>HN: AI security: existential 0.0% (0 of 3,097)</title><rect x="595" y="445" width="126" height="22" rx="2" fill="#ecf3f9"/><text x="658.0" y="460.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">0</text></g>
+<g><title>Wikipedia: existential 4.1% (34 of 833)</title><rect x="723" y="445" width="126" height="22" rx="2" fill="#dae5ee"/><text x="786.0" y="460.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">4</text></g>
+<text x="202" y="484.0" font-size="12" text-anchor="end">ai_welfare *</text>
+<g><title>Executives (calls): ai_welfare 0.6% (1 of 179)</title><rect x="211" y="469" width="126" height="22" rx="2" fill="#eaf1f8"/><text x="274.0" y="484.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">1</text></g>
+<g><title>Analyst questions: ai_welfare 0.0% (0 of 64)</title><rect x="339" y="469" width="126" height="22" rx="2" fill="#ecf3f9"/><text x="402.0" y="484.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">0</text></g>
+<g><title>HN: Anthropic: ai_welfare 2.4% (153 of 6,282)</title><rect x="467" y="469" width="126" height="22" rx="2" fill="#e1ebf3"/><text x="530.0" y="484.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">2</text></g>
+<g><title>HN: AI security: ai_welfare 0.5% (16 of 3,097)</title><rect x="595" y="469" width="126" height="22" rx="2" fill="#eaf1f8"/><text x="658.0" y="484.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">1</text></g>
+<g><title>Wikipedia: ai_welfare 3.7% (31 of 833)</title><rect x="723" y="469" width="126" height="22" rx="2" fill="#dce6ef"/><text x="786.0" y="484.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">4</text></g>
+<text x="202" y="508.0" font-size="12" text-anchor="end">accuracy</text>
+<g><title>Executives (calls): accuracy 0.0% (0 of 179)</title><rect x="211" y="493" width="126" height="22" rx="2" fill="#ecf3f9"/><text x="274.0" y="508.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">0</text></g>
+<g><title>Analyst questions: accuracy 0.0% (0 of 64)</title><rect x="339" y="493" width="126" height="22" rx="2" fill="#ecf3f9"/><text x="402.0" y="508.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">0</text></g>
+<g><title>HN: Anthropic: accuracy 3.1% (193 of 6,282)</title><rect x="467" y="493" width="126" height="22" rx="2" fill="#dee8f1"/><text x="530.0" y="508.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">3</text></g>
+<g><title>HN: AI security: accuracy 2.6% (81 of 3,097)</title><rect x="595" y="493" width="126" height="22" rx="2" fill="#e0eaf2"/><text x="658.0" y="508.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">3</text></g>
+<g><title>Wikipedia: accuracy 3.6% (30 of 833)</title><rect x="723" y="493" width="126" height="22" rx="2" fill="#dce7f0"/><text x="786.0" y="508.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">4</text></g>
+<text x="202" y="532.0" font-size="12" text-anchor="end">labor</text>
+<g><title>Executives (calls): labor 0.6% (1 of 179)</title><rect x="211" y="517" width="126" height="22" rx="2" fill="#eaf1f8"/><text x="274.0" y="532.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">1</text></g>
+<g><title>Analyst questions: labor 3.1% (2 of 64)</title><rect x="339" y="517" width="126" height="22" rx="2" fill="#dee8f1"/><text x="402.0" y="532.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">3</text></g>
+<g><title>HN: Anthropic: labor 1.1% (68 of 6,282)</title><rect x="467" y="517" width="126" height="22" rx="2" fill="#e7eff6"/><text x="530.0" y="532.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">1</text></g>
+<g><title>HN: AI security: labor 0.2% (7 of 3,097)</title><rect x="595" y="517" width="126" height="22" rx="2" fill="#ebf2f8"/><text x="658.0" y="532.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">0</text></g>
+<g><title>Wikipedia: labor 2.2% (18 of 833)</title><rect x="723" y="517" width="126" height="22" rx="2" fill="#e2ecf3"/><text x="786.0" y="532.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">2</text></g>
+<text x="202" y="556.0" font-size="12" text-anchor="end">concentration *</text>
+<g><title>Executives (calls): concentration 0.0% (0 of 179)</title><rect x="211" y="541" width="126" height="22" rx="2" fill="#ecf3f9"/><text x="274.0" y="556.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">0</text></g>
+<g><title>Analyst questions: concentration 0.0% (0 of 64)</title><rect x="339" y="541" width="126" height="22" rx="2" fill="#ecf3f9"/><text x="402.0" y="556.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">0</text></g>
+<g><title>HN: Anthropic: concentration 1.7% (106 of 6,282)</title><rect x="467" y="541" width="126" height="22" rx="2" fill="#e5edf5"/><text x="530.0" y="556.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">2</text></g>
+<g><title>HN: AI security: concentration 0.1% (4 of 3,097)</title><rect x="595" y="541" width="126" height="22" rx="2" fill="#ebf3f9"/><text x="658.0" y="556.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">0</text></g>
+<g><title>Wikipedia: concentration 0.2% (2 of 833)</title><rect x="723" y="541" width="126" height="22" rx="2" fill="#ebf2f8"/><text x="786.0" y="556.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">0</text></g>
+<text x="202" y="580.0" font-size="12" text-anchor="end">supply</text>
+<g><title>Executives (calls): supply 1.7% (3 of 179)</title><rect x="211" y="565" width="126" height="22" rx="2" fill="#e5edf5"/><text x="274.0" y="580.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">2</text></g>
+<g><title>Analyst questions: supply 0.0% (0 of 64)</title><rect x="339" y="565" width="126" height="22" rx="2" fill="#ecf3f9"/><text x="402.0" y="580.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">0</text></g>
+<g><title>HN: Anthropic: supply 0.5% (31 of 6,282)</title><rect x="467" y="565" width="126" height="22" rx="2" fill="#eaf1f8"/><text x="530.0" y="580.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">0</text></g>
+<g><title>HN: AI security: supply 0.1% (2 of 3,097)</title><rect x="595" y="565" width="126" height="22" rx="2" fill="#ecf3f9"/><text x="658.0" y="580.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">0</text></g>
+<g><title>Wikipedia: supply 0.0% (0 of 833)</title><rect x="723" y="565" width="126" height="22" rx="2" fill="#ecf3f9"/><text x="786.0" y="580.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">0</text></g>
+<text x="202" y="604.0" font-size="12" text-anchor="end">energy</text>
+<g><title>Executives (calls): energy 0.6% (1 of 179)</title><rect x="211" y="589" width="126" height="22" rx="2" fill="#eaf1f8"/><text x="274.0" y="604.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">1</text></g>
+<g><title>Analyst questions: energy 1.6% (1 of 64)</title><rect x="339" y="589" width="126" height="22" rx="2" fill="#e5eef5"/><text x="402.0" y="604.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">2</text></g>
+<g><title>HN: Anthropic: energy 0.4% (28 of 6,282)</title><rect x="467" y="589" width="126" height="22" rx="2" fill="#eaf1f8"/><text x="530.0" y="604.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">0</text></g>
+<g><title>HN: AI security: energy 0.0% (1 of 3,097)</title><rect x="595" y="589" width="126" height="22" rx="2" fill="#ecf3f9"/><text x="658.0" y="604.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">0</text></g>
+<g><title>Wikipedia: energy 1.1% (9 of 833)</title><rect x="723" y="589" width="126" height="22" rx="2" fill="#e7eff6"/><text x="786.0" y="604.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">1</text></g>
+<text x="202" y="628.0" font-size="12" text-anchor="end">democracy *</text>
+<g><title>Executives (calls): democracy 0.0% (0 of 179)</title><rect x="211" y="613" width="126" height="22" rx="2" fill="#ecf3f9"/><text x="274.0" y="628.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">0</text></g>
+<g><title>Analyst questions: democracy 0.0% (0 of 64)</title><rect x="339" y="613" width="126" height="22" rx="2" fill="#ecf3f9"/><text x="402.0" y="628.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">0</text></g>
+<g><title>HN: Anthropic: democracy 0.2% (14 of 6,282)</title><rect x="467" y="613" width="126" height="22" rx="2" fill="#ebf2f8"/><text x="530.0" y="628.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">0</text></g>
+<g><title>HN: AI security: democracy 0.2% (5 of 3,097)</title><rect x="595" y="613" width="126" height="22" rx="2" fill="#ebf2f9"/><text x="658.0" y="628.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">0</text></g>
+<g><title>Wikipedia: democracy 1.6% (13 of 833)</title><rect x="723" y="613" width="126" height="22" rx="2" fill="#e5eef5"/><text x="786.0" y="628.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">2</text></g>
+<text x="202" y="652.0" font-size="12" text-anchor="end">environment *</text>
+<g><title>Executives (calls): environment 0.0% (0 of 179)</title><rect x="211" y="637" width="126" height="22" rx="2" fill="#ecf3f9"/><text x="274.0" y="652.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">0</text></g>
+<g><title>Analyst questions: environment 0.0% (0 of 64)</title><rect x="339" y="637" width="126" height="22" rx="2" fill="#ecf3f9"/><text x="402.0" y="652.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">0</text></g>
+<g><title>HN: Anthropic: environment 0.3% (20 of 6,282)</title><rect x="467" y="637" width="126" height="22" rx="2" fill="#ebf2f8"/><text x="530.0" y="652.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">0</text></g>
+<g><title>HN: AI security: environment 0.1% (3 of 3,097)</title><rect x="595" y="637" width="126" height="22" rx="2" fill="#ecf3f9"/><text x="658.0" y="652.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">0</text></g>
+<g><title>Wikipedia: environment 1.6% (13 of 833)</title><rect x="723" y="637" width="126" height="22" rx="2" fill="#e5eef5"/><text x="786.0" y="652.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">2</text></g>
+<text x="202" y="676.0" font-size="12" text-anchor="end">human_connection *</text>
+<g><title>Executives (calls): human_connection 0.0% (0 of 179)</title><rect x="211" y="661" width="126" height="22" rx="2" fill="#ecf3f9"/><text x="274.0" y="676.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">0</text></g>
+<g><title>Analyst questions: human_connection 0.0% (0 of 64)</title><rect x="339" y="661" width="126" height="22" rx="2" fill="#ecf3f9"/><text x="402.0" y="676.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">0</text></g>
+<g><title>HN: Anthropic: human_connection 0.1% (4 of 6,282)</title><rect x="467" y="661" width="126" height="22" rx="2" fill="#ecf3f9"/><text x="530.0" y="676.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">0</text></g>
+<g><title>HN: AI security: human_connection 0.1% (2 of 3,097)</title><rect x="595" y="661" width="126" height="22" rx="2" fill="#ecf3f9"/><text x="658.0" y="676.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">0</text></g>
+<g><title>Wikipedia: human_connection 1.0% (8 of 833)</title><rect x="723" y="661" width="126" height="22" rx="2" fill="#e8f0f7"/><text x="786.0" y="676.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">1</text></g>
+<text x="202" y="700.0" font-size="12" text-anchor="end">bio_chem *</text>
+<g><title>Executives (calls): bio_chem 0.0% (0 of 179)</title><rect x="211" y="685" width="126" height="22" rx="2" fill="#ecf3f9"/><text x="274.0" y="700.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">0</text></g>
+<g><title>Analyst questions: bio_chem 0.0% (0 of 64)</title><rect x="339" y="685" width="126" height="22" rx="2" fill="#ecf3f9"/><text x="402.0" y="700.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">0</text></g>
+<g><title>HN: Anthropic: bio_chem 0.1% (5 of 6,282)</title><rect x="467" y="685" width="126" height="22" rx="2" fill="#ecf3f9"/><text x="530.0" y="700.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">0</text></g>
+<g><title>HN: AI security: bio_chem 0.0% (0 of 3,097)</title><rect x="595" y="685" width="126" height="22" rx="2" fill="#ecf3f9"/><text x="658.0" y="700.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">0</text></g>
+<g><title>Wikipedia: bio_chem 0.2% (2 of 833)</title><rect x="723" y="685" width="126" height="22" rx="2" fill="#ebf2f8"/><text x="786.0" y="700.0" font-size="11" text-anchor="middle" style="fill:#1b1b1b">0</text></g>
+<text x="16" y="742" font-size="11" class="m">n = passages both NLI witnesses score ≥ 0.5 on ai_risk; a cell needs both on the type too. A passage can name several types.</text>
+<text x="16" y="758" font-size="11" class="m">Different windows: calls dated after 2025-11-04 through 2026-11-04; HN comments dated 2025-09-01 to 2026-08-31;</text>
+<text x="16" y="774" font-size="11" class="m">Wikipedia article revisions as of 2026-11-04. Levels compare across sources only in rough order. Witness proposals, no gold set.</text>
+</svg>
